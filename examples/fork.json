@@ -1,0 +1,87 @@
+{
+  "format": "history-structure-model/v1",
+  "name": "Equivocation: two incomparable echoes at p",
+  "participants": [
+    "p",
+    "a",
+    "b"
+  ],
+  "values": [
+    "red",
+    "blue"
+  ],
+  "signature": {
+    "events": [
+      "propose",
+      "echo",
+      "vote",
+      "deliver"
+    ],
+    "predicates": [
+      "live"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "redProposal",
+      "place": "a",
+      "event": {
+        "symbol": "propose",
+        "args": [
+          "red"
+        ]
+      },
+      "past": []
+    },
+    {
+      "id": "blueProposal",
+      "place": "b",
+      "event": {
+        "symbol": "propose",
+        "args": [
+          "blue"
+        ]
+      },
+      "past": []
+    },
+    {
+      "id": "redEcho",
+      "place": "p",
+      "event": {
+        "symbol": "echo",
+        "args": [
+          "red"
+        ]
+      },
+      "past": [
+        "redProposal"
+      ]
+    },
+    {
+      "id": "blueEcho",
+      "place": "p",
+      "event": {
+        "symbol": "echo",
+        "args": [
+          "blue"
+        ]
+      },
+      "past": [
+        "blueProposal"
+      ]
+    }
+  ],
+  "quorums": {
+    "red": [
+      [
+        "p"
+      ]
+    ],
+    "blue": [
+      [
+        "p"
+      ]
+    ]
+  },
+  "facts": []
+}

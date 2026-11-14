@@ -1,0 +1,38 @@
+{
+  "format": "history-structure-model/v1",
+  "name": "Minimal history: one silent tuple",
+  "participants": [
+    "p"
+  ],
+  "values": [
+    "v"
+  ],
+  "signature": {
+    "events": [],
+    "predicates": [
+      "live"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "observe",
+      "place": "p",
+      "event": null,
+      "past": []
+    }
+  ],
+  "quorums": {
+    "v": [
+      [
+        "p"
+      ]
+    ]
+  },
+  "facts": [
+    {
+      "place": "p",
+      "at": "*",
+      "atom": "live"
+    }
+  ]
+}

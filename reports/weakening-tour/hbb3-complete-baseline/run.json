@@ -1,0 +1,2033 @@
+{
+  "format": "history-structure-run/v1",
+  "version": "0.6.9",
+  "name": "ThyHBB3 — completed broadcast",
+  "mode": "synthesize",
+  "status": "holds",
+  "complete": true,
+  "reason": "The fixed history was exhausted.",
+  "consistency": {
+    "status": "model",
+    "complete": true,
+    "consistent": true,
+    "reason": "A predicate interpretation satisfying every retained assumption was found and replayed.",
+    "witness": {
+      "model": {
+        "format": "history-structure-model/v1",
+        "name": "Completed HBB3: proposal to delivery",
+        "participants": [
+          "p"
+        ],
+        "values": [
+          "v"
+        ],
+        "signature": {
+          "events": [
+            "propose",
+            "echo",
+            "vote",
+            "deliver"
+          ],
+          "predicates": [
+            "live",
+            "corr"
+          ]
+        },
+        "nodes": [
+          {
+            "id": "proposal",
+            "place": "p",
+            "event": {
+              "symbol": "propose",
+              "args": [
+                "v"
+              ]
+            },
+            "past": []
+          },
+          {
+            "id": "echoed",
+            "place": "p",
+            "event": {
+              "symbol": "echo",
+              "args": [
+                "v"
+              ]
+            },
+            "past": [
+              "proposal"
+            ]
+          },
+          {
+            "id": "voted",
+            "place": "p",
+            "event": {
+              "symbol": "vote",
+              "args": [
+                "v",
+                "v"
+              ]
+            },
+            "past": [
+              "echoed"
+            ]
+          },
+          {
+            "id": "delivered",
+            "place": "p",
+            "event": {
+              "symbol": "deliver",
+              "args": [
+                "v",
+                "v"
+              ]
+            },
+            "past": [
+              "voted"
+            ]
+          },
+          {
+            "id": "observed",
+            "place": "p",
+            "event": null,
+            "past": [
+              "delivered"
+            ]
+          }
+        ],
+        "quorums": {
+          "v": [
+            [
+              "p"
+            ]
+          ]
+        },
+        "facts": [
+          {
+            "place": "p",
+            "at": "*",
+            "atom": "live"
+          },
+          {
+            "place": "p",
+            "at": "*",
+            "atom": {
+              "symbol": "corr",
+              "args": [
+                "v",
+                "v"
+              ]
+            }
+          }
+        ]
+      },
+      "assumptions": {
+        "name": "Custom theory",
+        "holds": true,
+        "complete": true,
+        "axioms": [
+          {
+            "name": "LiveAlways",
+            "kind": "other",
+            "formula": "live <-> end live",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 44,
+              "memoHits": 9,
+              "memoEntries": 31,
+              "memoEvictions": 0,
+              "elapsedMs": 0.11882600000080856
+            }
+          },
+          {
+            "name": "LiveSeq",
+            "kind": "other",
+            "formula": "live -> seq",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 33,
+              "memoHits": 0,
+              "memoEntries": 30,
+              "memoEvictions": 0,
+              "elapsedMs": 0.13971700000001874
+            }
+          },
+          {
+            "name": "KnowledgeDia:\"propose\"(\"v\")",
+            "kind": "other",
+            "formula": "(end (dia[] past (live & \"propose\"(\"v\")))) -> live -> sometime (dia[] past \"propose\"(\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 105,
+              "memoHits": 27,
+              "memoEntries": 60,
+              "memoEvictions": 0,
+              "elapsedMs": 0.21021999999993568
+            }
+          },
+          {
+            "name": "KnowledgeBox:\"propose\"(\"v\"):0",
+            "kind": "other",
+            "formula": "(end (box[] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[] past \"propose\"(\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 105,
+              "memoHits": 27,
+              "memoEntries": 60,
+              "memoEvictions": 0,
+              "elapsedMs": 0.15984600000047067
+            }
+          },
+          {
+            "name": "KnowledgeDia:\"echo\"(\"v\")",
+            "kind": "other",
+            "formula": "(end (dia[] past (live & \"echo\"(\"v\")))) -> live -> sometime (dia[] past \"echo\"(\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 122,
+              "memoHits": 37,
+              "memoEntries": 66,
+              "memoEvictions": 0,
+              "elapsedMs": 0.18692600000031234
+            }
+          },
+          {
+            "name": "KnowledgeBox:\"echo\"(\"v\"):0",
+            "kind": "other",
+            "formula": "(end (box[] past (live & \"echo\"(\"v\")))) -> live -> sometime (box[] past \"echo\"(\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 122,
+              "memoHits": 37,
+              "memoEntries": 66,
+              "memoEvictions": 0,
+              "elapsedMs": 0.19333499999993364
+            }
+          },
+          {
+            "name": "KnowledgeDia:\"vote\"(\"v\",\"v\")",
+            "kind": "other",
+            "formula": "(end (dia[] past (live & \"vote\"(\"v\",\"v\")))) -> live -> sometime (dia[] past \"vote\"(\"v\",\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 142,
+              "memoHits": 48,
+              "memoEntries": 72,
+              "memoEvictions": 0,
+              "elapsedMs": 0.24300899999980174
+            }
+          },
+          {
+            "name": "KnowledgeBox:\"vote\"(\"v\",\"v\"):0",
+            "kind": "other",
+            "formula": "(end (box[] past (live & \"vote\"(\"v\",\"v\")))) -> live -> sometime (box[] past \"vote\"(\"v\",\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 142,
+              "memoHits": 48,
+              "memoEntries": 72,
+              "memoEvictions": 0,
+              "elapsedMs": 0.22397100000034698
+            }
+          },
+          {
+            "name": "KnowledgeDia:\"deliver\"(\"v\",\"v\")",
+            "kind": "other",
+            "formula": "(end (dia[] past (live & \"deliver\"(\"v\",\"v\")))) -> live -> sometime (dia[] past \"deliver\"(\"v\",\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 161,
+              "memoHits": 60,
+              "memoEntries": 78,
+              "memoEvictions": 0,
+              "elapsedMs": 0.2877250000001368
+            }
+          },
+          {
+            "name": "KnowledgeBox:\"deliver\"(\"v\",\"v\"):0",
+            "kind": "other",
+            "formula": "(end (box[] past (live & \"deliver\"(\"v\",\"v\")))) -> live -> sometime (box[] past \"deliver\"(\"v\",\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 161,
+              "memoHits": 60,
+              "memoEntries": 78,
+              "memoEvictions": 0,
+              "elapsedMs": 3.489082000000053
+            }
+          },
+          {
+            "name": "KnowledgeDia:\"propose\"()",
+            "kind": "other",
+            "formula": "(end (dia[] past (live & \"propose\"()))) -> live -> sometime (dia[] past \"propose\"())",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 60,
+              "memoHits": 9,
+              "memoEntries": 37,
+              "memoEvictions": 0,
+              "elapsedMs": 0.10426400000051217
+            }
+          },
+          {
+            "name": "KnowledgeBox:\"propose\"():0",
+            "kind": "other",
+            "formula": "(end (box[] past (live & \"propose\"()))) -> live -> sometime (box[] past \"propose\"())",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 60,
+              "memoHits": 9,
+              "memoEntries": 37,
+              "memoEvictions": 0,
+              "elapsedMs": 0.0888409999997748
+            }
+          },
+          {
+            "name": "Echo?",
+            "kind": "backward",
+            "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 42,
+              "memoHits": 0,
+              "memoEntries": 33,
+              "memoEvictions": 0,
+              "elapsedMs": 0.11059300000033545
+            }
+          },
+          {
+            "name": "Vote?",
+            "kind": "backward",
+            "formula": "\n  ∀ l,v. vote(l,v) ⇒ ((□[l] ↓ echo(v)) ∨ (∃ m. (corr(m,l) ∧ ♢[] ↓ vote(m,v))))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 69,
+              "memoHits": 0,
+              "memoEntries": 45,
+              "memoEvictions": 0,
+              "elapsedMs": 0.16570499999943422
+            }
+          },
+          {
+            "name": "Deliver?",
+            "kind": "backward",
+            "formula": "\n  ∀ l,v. deliver(l,v) ⇒ □[l] ↓ vote(l,v)",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 59,
+              "memoHits": 0,
+              "memoEntries": 45,
+              "memoEvictions": 0,
+              "elapsedMs": 0.1497319999998581
+            }
+          },
+          {
+            "name": "EchoNE",
+            "kind": "other",
+            "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 55,
+              "memoHits": 0,
+              "memoEntries": 43,
+              "memoEvictions": 0,
+              "elapsedMs": 0.13173400000050606
+            }
+          },
+          {
+            "name": "VoteNE",
+            "kind": "other",
+            "formula": "\n  ∀ l,m,v,w. vote(l,v) ⇒ ↓ vote(m,w) ⇒ corr(l,m) ⇒ v=w",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 84,
+              "memoHits": 0,
+              "memoEntries": 64,
+              "memoEvictions": 0,
+              "elapsedMs": 0.3273140000001149
+            }
+          },
+          {
+            "name": "3twined",
+            "kind": "other",
+            "formula": "\n  ∀ l,m,n. ♢[l,m,n] ⊤",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 71,
+              "memoHits": 4,
+              "memoEntries": 46,
+              "memoEvictions": 0,
+              "elapsedMs": 0.24161699999967823
+            }
+          },
+          {
+            "name": "CorrSeq",
+            "kind": "other",
+            "formula": "\n  ∀ l,m. corr(l,m) ⇒ ♢[l,m] seq",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 82,
+              "memoHits": 4,
+              "memoEntries": 56,
+              "memoEvictions": 0,
+              "elapsedMs": 0.20779700000002777
+            }
+          },
+          {
+            "name": "CorrPast",
+            "kind": "other",
+            "formula": "\n  ∀ l,m. corr(l,m) ⇒ ⇓ corr(l,m)",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 81,
+              "memoHits": 16,
+              "memoEntries": 55,
+              "memoEvictions": 0,
+              "elapsedMs": 0.22746600000027684
+            }
+          },
+          {
+            "name": "CorrSymm",
+            "kind": "other",
+            "formula": "\n  ∀ l,m. corr(l,m) ⇒ corr(m,l)",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 59,
+              "memoHits": 0,
+              "memoEntries": 50,
+              "memoEvictions": 0,
+              "elapsedMs": 0.2146970000003421
+            }
+          },
+          {
+            "name": "CorrTran",
+            "kind": "other",
+            "formula": "\n  ∀ l,m,n. corr(l,m) ⇒ corr(m,n) ⇒ corr(l,n)",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 94,
+              "memoHits": 0,
+              "memoEntries": 80,
+              "memoEvictions": 0,
+              "elapsedMs": 0.2598440000001574
+            }
+          },
+          {
+            "name": "Echo!",
+            "kind": "forward",
+            "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 119,
+              "memoHits": 22,
+              "memoEntries": 75,
+              "memoEvictions": 0,
+              "elapsedMs": 0.22062600000026578
+            }
+          },
+          {
+            "name": "Vote!",
+            "kind": "forward",
+            "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 135,
+              "memoHits": 26,
+              "memoEntries": 83,
+              "memoEvictions": 0,
+              "elapsedMs": 2.6060280000001512
+            }
+          },
+          {
+            "name": "Vote'!",
+            "kind": "forward",
+            "formula": "\n  ∀ l,m,v. (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 213,
+              "memoHits": 67,
+              "memoEntries": 115,
+              "memoEvictions": 0,
+              "elapsedMs": 0.5701820000003863
+            }
+          },
+          {
+            "name": "Deliver!",
+            "kind": "forward",
+            "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 10,
+            "totalRepresentatives": 10,
+            "exhaustive": true,
+            "stats": {
+              "steps": 128,
+              "memoHits": 25,
+              "memoEntries": 77,
+              "memoEvictions": 0,
+              "elapsedMs": 0.2941240000000107
+            }
+          }
+        ],
+        "counts": {
+          "total": 26,
+          "passed": 26,
+          "failed": 0,
+          "inconclusive": 0
+        }
+      },
+      "result": null,
+      "experiment": {
+        "format": "history-structure-synthesis/v1",
+        "theory": {
+          "includeLive": true,
+          "axioms": [
+            {
+              "name": "Echo?",
+              "kind": "backward",
+              "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)"
+            },
+            {
+              "name": "Vote?",
+              "kind": "backward",
+              "formula": "\n  ∀ l,v. vote(l,v) ⇒ ((□[l] ↓ echo(v)) ∨ (∃ m. (corr(m,l) ∧ ♢[] ↓ vote(m,v))))"
+            },
+            {
+              "name": "Deliver?",
+              "kind": "backward",
+              "formula": "\n  ∀ l,v. deliver(l,v) ⇒ □[l] ↓ vote(l,v)"
+            },
+            {
+              "name": "EchoNE",
+              "kind": "other",
+              "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w"
+            },
+            {
+              "name": "VoteNE",
+              "kind": "other",
+              "formula": "\n  ∀ l,m,v,w. vote(l,v) ⇒ ↓ vote(m,w) ⇒ corr(l,m) ⇒ v=w"
+            },
+            {
+              "name": "3twined",
+              "kind": "other",
+              "formula": "\n  ∀ l,m,n. ♢[l,m,n] ⊤"
+            },
+            {
+              "name": "CorrSeq",
+              "kind": "other",
+              "formula": "\n  ∀ l,m. corr(l,m) ⇒ ♢[l,m] seq"
+            },
+            {
+              "name": "CorrPast",
+              "kind": "other",
+              "formula": "\n  ∀ l,m. corr(l,m) ⇒ ⇓ corr(l,m)"
+            },
+            {
+              "name": "CorrSymm",
+              "kind": "other",
+              "formula": "\n  ∀ l,m. corr(l,m) ⇒ corr(m,l)"
+            },
+            {
+              "name": "CorrTran",
+              "kind": "other",
+              "formula": "\n  ∀ l,m,n. corr(l,m) ⇒ corr(m,n) ⇒ corr(l,n)"
+            },
+            {
+              "name": "Echo!",
+              "kind": "forward",
+              "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+            },
+            {
+              "name": "Vote!",
+              "kind": "forward",
+              "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)"
+            },
+            {
+              "name": "Vote'!",
+              "kind": "forward",
+              "formula": "\n  ∀ l,m,v. (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)"
+            },
+            {
+              "name": "Deliver!",
+              "kind": "forward",
+              "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)"
+            }
+          ]
+        },
+        "property": null,
+        "scope": "end",
+        "pinFacts": true,
+        "limits": {
+          "maxMilliseconds": 59994,
+          "maxCompilationNodes": 500000,
+          "maxKnowledgeFamilies": 256,
+          "maxDecisions": 100000,
+          "maxSteps": 2000000
+        },
+        "seedModel": {
+          "format": "history-structure-model/v1",
+          "name": "Completed HBB3: proposal to delivery",
+          "participants": [
+            "p"
+          ],
+          "values": [
+            "v"
+          ],
+          "signature": {
+            "events": [
+              "propose",
+              "echo",
+              "vote",
+              "deliver"
+            ],
+            "predicates": [
+              "live",
+              "corr"
+            ]
+          },
+          "nodes": [
+            {
+              "id": "proposal",
+              "place": "p",
+              "event": {
+                "symbol": "propose",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": []
+            },
+            {
+              "id": "echoed",
+              "place": "p",
+              "event": {
+                "symbol": "echo",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": [
+                "proposal"
+              ]
+            },
+            {
+              "id": "voted",
+              "place": "p",
+              "event": {
+                "symbol": "vote",
+                "args": [
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "echoed"
+              ]
+            },
+            {
+              "id": "delivered",
+              "place": "p",
+              "event": {
+                "symbol": "deliver",
+                "args": [
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "voted"
+              ]
+            },
+            {
+              "id": "observed",
+              "place": "p",
+              "event": null,
+              "past": [
+                "delivered"
+              ]
+            }
+          ],
+          "quorums": {
+            "v": [
+              [
+                "p"
+              ]
+            ]
+          },
+          "facts": [
+            {
+              "place": "p",
+              "at": "*",
+              "atom": "live"
+            },
+            {
+              "place": "p",
+              "at": "*",
+              "atom": {
+                "symbol": "corr",
+                "args": [
+                  "v",
+                  "v"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "verified": true
+    },
+    "stats": {
+      "compilationNodes": 5083,
+      "predicateVariables": 0,
+      "variables": 1,
+      "clauses": 1,
+      "decisions": 0,
+      "consistencyDecisions": 0,
+      "targetDecisions": 0,
+      "elapsedMilliseconds": 29
+    },
+    "coverage": "All predicate interpretations on the supplied fixed finite history, participant/value domains and quorum semifilters; supplied positive facts are pinned when pinFacts is enabled.",
+    "evidence": {
+      "format": "history-structure-evidence/v1",
+      "version": "0.6.9",
+      "name": "ThyHBB3 — completed broadcast",
+      "sourceMarkdown": "# ThyHBB3 — completed broadcast\n\nThis is a completed one-participant run of ThyHBB3, using the axioms and correctness statements from the draft of 7 November 2026. Choose **Use this history; find facts** first. The given positive facts pin liveness and correlation; the retained axioms constrain the remaining predicate interpretation.\n\nThe final silent † tuple records knowledge of delivery. It is not an extra protocol event. Removing that observation can violate the Knowledge scheme, even though delivery itself has occurred.\n\nThe correctness formulas include their stated premises. A true implication may be vacuous. For a direct non-vacuity investigation, the API supplies the corresponding scenario formulas through `correctnessProperties(\"ThyHBB3\")`. In this completed singleton example all three scenarios occur.\n\nRead the rules below, choose **Continue to claims**, review the selected properties and assumptions, then continue to the run settings and run the check. Use **Edit Markdown** to change a rule; Unicode and ASCII spellings have identical semantics. The supplied history JSON is at the end.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 6, p. 38, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 37).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires either quorum echoes of that value, or knowledge of a matching vote for a currently correlated learner.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ ((□[l] ↓ echo(v)) ∨ (∃ m. (corr(m,l) ∧ ♢[] ↓ vote(m,v))))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a quorum of matching votes for the same learner.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom Deliver? [backward]:\n  ∀ l,v. deliver(l,v) ⇒ □[l] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### VoteNE — other assumption\n\nAn actual local vote and an earlier local vote for correlated learners must carry the same value.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom VoteNE [other]:\n  ∀ l,m,v,w. vote(l,v) ⇒ ↓ vote(m,w) ⇒ corr(l,m) ⇒ v=w\n```\n\n### 3twined — other assumption\n\nEvery triple of independently chosen learner quorums must have a common participant. Repeated learner names still make independent quorum choices.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom 3twined [other]:\n  ∀ l,m,n. ♢[l,m,n] ⊤\n```\n\n### CorrSeq — other assumption\n\nFor every choice of one quorum from each correlated learner, their intersection must contain a sequential participant.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom CorrSeq [other]:\n  ∀ l,m. corr(l,m) ⇒ ♢[l,m] seq\n```\n\n### CorrPast — other assumption\n\nCorrelation persists to every actual earlier local tuple. Its temporal operator ranges over recorded local tuples, rather than every hypothetical world.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom CorrPast [other]:\n  ∀ l,m. corr(l,m) ⇒ ⇓ corr(l,m)\n```\n\n### CorrSymm — other assumption\n\nCorrelation is symmetric. Reflexivity is not an additional assumption.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom CorrSymm [other]:\n  ∀ l,m. corr(l,m) ⇒ corr(m,l)\n```\n\n### CorrTran — other assumption\n\nCorrelation is transitive.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom CorrTran [other]:\n  ∀ l,m,n. corr(l,m) ⇒ corr(m,n) ⇒ corr(l,n)\n```\n\n### Echo! — forward rule\n\nA live participant that knows a proposal must echo some value somewhere in its actual local run. The value is existentially chosen.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom Echo! [forward]:\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nA live participant with quorum echoes must vote for some value for that learner somewhere in its actual local run. The chosen value remains existential.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom Vote! [forward]:\n  ∀ l,v. (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)\n```\n\n### Vote'! — forward rule\n\nWith correlation at every actual local tuple and knowledge of a correlated learner’s vote, a live participant must vote for some value for the target learner somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom Vote'! [forward]:\n  ∀ l,m,v. (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)\n```\n\n### Deliver! — forward rule\n\nA live participant with quorum votes must deliver that learner and value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom Deliver! [forward]:\n  ∀ l,v. (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Liveness 1 — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 12, p. 56; Theorem 8.2.3, p. 57; Proposition 8.5.1, pp. 59-60.\nproperty Liveness 1 [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,v))\n```\n\n### Liveness 2 — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant.\n\n```hsm\n# Paper: Figure 12, p. 56; Theorem 8.2.3, p. 57; Proposition 8.4.5, p. 59.\nproperty Liveness 2 [end]:\n  ∀ l,m,v. ((□[] corr(l,m)) ∧ (□[m] live)) ⇒ (♢[] ↓ deliver(l,v) ⇒ live ⇒ ↕\n  deliver(m,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 12, p. 56; Theorem 8.2.3, p. 57; Proposition 8.3.1, p. 57.\nproperty Agreement [end]:\n  ∀ l,m,v,w. ((□[] corr(l,m))) ⇒ ((♢[] ↓ deliver(l,v)) ∧ (♢[] ↓ deliver(m,w)) ⇒ v=w)\n```\n\n## Paper and interpretation\n\nThe paper writes correlation as `l ≐ m`. In Figure 11, p. 56, `CorrSeq`, `CorrPast`, `CorrSymm` and `CorrTran` denote `≐seq`, `≐⇓`, `≐symm` and `≐tran`. The executable predicate is `corr(l,m)`. Correlation is distinct from value equality; both voting forward rules retain the paper’s existential value choice.\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nPaper draft: *Heterogeneous trust in reliable broadcast via modal logic and history structures*, Murdoch J. Gabbay and Isaac Sheff, **2026-11-07**. References use the draft's printed page numbers.\n\nPaper basis: **ThyHBB3**, Definition 8.2.1, p. 55; Figure 11, p. 56. Correctness: Figure 12, p. 56; Theorem 8.2.3, p. 57. Proofs: Liveness 1: Proposition 8.5.1, pp. 59-60; Liveness 2: Proposition 8.4.5, p. 59; Agreement: Proposition 8.3.1, p. 57.\n\nPedagogical completed-run scenario: the protocol axioms and conditional correctness formulas in this document are unmodified translations of the paper. The singleton history, positive facts and final observation are supplied for this example; they are not a literal paper theory or a proof over all histories.\n\nCode event order: `propose(v)`, `echo(v)`, `vote(l,v)`, and **`deliver(l,v)`**, with learner first and value second (Figure 11, p. 56). HBB1/HBB2 instead use `deliver(reportingLearner,sourceLearner,value)` (Notation 6.1.3, p. 42). Learners and values share one domain (Definition 3.1.1, p. 17).\n\n`include ThyLive` keeps Figure 6, p. 38, Definition 5.2.4 dynamic: `LiveAlways`, `LiveSeq`, and both complete Knowledge schemes, over all ground events and all finite learner lists (including empty lists and repetitions), are checked at all possible worlds (Definition 5.2.1, p. 37). The schemes regenerate when the history changes. [Full source and notation map](../../docs/PAPER_MAP.md); [paper variants and their status](../../docs/PAPER_VARIANTS.md).\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"Completed HBB3: proposal to delivery\",\n  \"participants\": [\n    \"p\"\n  ],\n  \"values\": [\n    \"v\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"corr\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"proposal\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"propose\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": []\n    },\n    {\n      \"id\": \"echoed\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"echo\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"proposal\"\n      ]\n    },\n    {\n      \"id\": \"voted\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"vote\",\n        \"args\": [\n          \"v\",\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"echoed\"\n      ]\n    },\n    {\n      \"id\": \"delivered\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"deliver\",\n        \"args\": [\n          \"v\",\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"voted\"\n      ]\n    },\n    {\n      \"id\": \"observed\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": [\n        \"delivered\"\n      ]\n    }\n  ],\n  \"quorums\": {\n    \"v\": [\n      [\n        \"p\"\n      ]\n    ]\n  },\n  \"facts\": [\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    },\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": {\n        \"symbol\": \"corr\",\n        \"args\": [\n          \"v\",\n          \"v\"\n        ]\n      }\n    }\n  ]\n}\n```\n",
+      "model": {
+        "format": "history-structure-model/v1",
+        "name": "Completed HBB3: proposal to delivery",
+        "participants": [
+          "p"
+        ],
+        "values": [
+          "v"
+        ],
+        "signature": {
+          "events": [
+            "propose",
+            "echo",
+            "vote",
+            "deliver"
+          ],
+          "predicates": [
+            "live",
+            "corr"
+          ]
+        },
+        "nodes": [
+          {
+            "id": "proposal",
+            "place": "p",
+            "event": {
+              "symbol": "propose",
+              "args": [
+                "v"
+              ]
+            },
+            "past": []
+          },
+          {
+            "id": "echoed",
+            "place": "p",
+            "event": {
+              "symbol": "echo",
+              "args": [
+                "v"
+              ]
+            },
+            "past": [
+              "proposal"
+            ]
+          },
+          {
+            "id": "voted",
+            "place": "p",
+            "event": {
+              "symbol": "vote",
+              "args": [
+                "v",
+                "v"
+              ]
+            },
+            "past": [
+              "echoed"
+            ]
+          },
+          {
+            "id": "delivered",
+            "place": "p",
+            "event": {
+              "symbol": "deliver",
+              "args": [
+                "v",
+                "v"
+              ]
+            },
+            "past": [
+              "voted"
+            ]
+          },
+          {
+            "id": "observed",
+            "place": "p",
+            "event": null,
+            "past": [
+              "delivered"
+            ]
+          }
+        ],
+        "quorums": {
+          "v": [
+            [
+              "p"
+            ]
+          ]
+        },
+        "facts": [
+          {
+            "place": "p",
+            "at": "*",
+            "atom": "live"
+          },
+          {
+            "place": "p",
+            "at": "*",
+            "atom": {
+              "symbol": "corr",
+              "args": [
+                "v",
+                "v"
+              ]
+            }
+          }
+        ]
+      },
+      "theory": {
+        "includeLive": true,
+        "axioms": [
+          {
+            "name": "Echo?",
+            "kind": "backward",
+            "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)"
+          },
+          {
+            "name": "Vote?",
+            "kind": "backward",
+            "formula": "\n  ∀ l,v. vote(l,v) ⇒ ((□[l] ↓ echo(v)) ∨ (∃ m. (corr(m,l) ∧ ♢[] ↓ vote(m,v))))"
+          },
+          {
+            "name": "Deliver?",
+            "kind": "backward",
+            "formula": "\n  ∀ l,v. deliver(l,v) ⇒ □[l] ↓ vote(l,v)"
+          },
+          {
+            "name": "EchoNE",
+            "kind": "other",
+            "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w"
+          },
+          {
+            "name": "VoteNE",
+            "kind": "other",
+            "formula": "\n  ∀ l,m,v,w. vote(l,v) ⇒ ↓ vote(m,w) ⇒ corr(l,m) ⇒ v=w"
+          },
+          {
+            "name": "3twined",
+            "kind": "other",
+            "formula": "\n  ∀ l,m,n. ♢[l,m,n] ⊤"
+          },
+          {
+            "name": "CorrSeq",
+            "kind": "other",
+            "formula": "\n  ∀ l,m. corr(l,m) ⇒ ♢[l,m] seq"
+          },
+          {
+            "name": "CorrPast",
+            "kind": "other",
+            "formula": "\n  ∀ l,m. corr(l,m) ⇒ ⇓ corr(l,m)"
+          },
+          {
+            "name": "CorrSymm",
+            "kind": "other",
+            "formula": "\n  ∀ l,m. corr(l,m) ⇒ corr(m,l)"
+          },
+          {
+            "name": "CorrTran",
+            "kind": "other",
+            "formula": "\n  ∀ l,m,n. corr(l,m) ⇒ corr(m,n) ⇒ corr(l,n)"
+          },
+          {
+            "name": "Echo!",
+            "kind": "forward",
+            "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+          },
+          {
+            "name": "Vote!",
+            "kind": "forward",
+            "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)"
+          },
+          {
+            "name": "Vote'!",
+            "kind": "forward",
+            "formula": "\n  ∀ l,m,v. (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)"
+          },
+          {
+            "name": "Deliver!",
+            "kind": "forward",
+            "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)"
+          }
+        ]
+      },
+      "retainedAxioms": [
+        "ThyLive",
+        "Echo?",
+        "Vote?",
+        "Deliver?",
+        "EchoNE",
+        "VoteNE",
+        "3twined",
+        "CorrSeq",
+        "CorrPast",
+        "CorrSymm",
+        "CorrTran",
+        "Echo!",
+        "Vote!",
+        "Vote'!",
+        "Deliver!"
+      ],
+      "droppedAxioms": [],
+      "property": null,
+      "failure": null,
+      "mode": "synthesize",
+      "bounds": {
+        "mode": "synthesize",
+        "pinFacts": true,
+        "maxMilliseconds": 60000,
+        "maxCompilationNodes": 500000,
+        "maxDecisions": 100000,
+        "maxAdditionalNodes": 2,
+        "maxModels": 1000,
+        "maxKnowledgeFamilies": 256
+      },
+      "snapshot": {
+        "format": "history-structure-run-snapshot/v1",
+        "engine": {
+          "name": "history-structure-model-checker",
+          "version": "0.6.9",
+          "semantics": "hbb-disc/2026-11-07"
+        },
+        "backend": "builtin-cdcl/tseitin",
+        "sourceSha256": "f0567cae45a656e805e4c399a1cf1bfc3997c3bf04f11c065d92dfea480b0a7c",
+        "selectedProperties": [
+          "Liveness 1",
+          "Liveness 2",
+          "Agreement"
+        ],
+        "droppedAxioms": [],
+        "bounds": {
+          "mode": "synthesize",
+          "pinFacts": true,
+          "maxMilliseconds": 60000,
+          "maxCompilationNodes": 500000,
+          "maxDecisions": 100000,
+          "maxAdditionalNodes": 2,
+          "maxModels": 1000,
+          "maxKnowledgeFamilies": 256
+        },
+        "id": "sha256:9e2d5cdb319a5545e5520778e254740069f1436f3c8c1ee1dddf454d38eb0831"
+      },
+      "expected": "model"
+    }
+  },
+  "properties": [
+    {
+      "name": "Liveness 1",
+      "formula": "\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,v))",
+      "scope": "end",
+      "status": "holds",
+      "unknownHistories": 0,
+      "stats": {
+        "compilationNodes": 5197,
+        "predicateVariables": 0,
+        "variables": 1,
+        "clauses": 2,
+        "decisions": 0,
+        "consistencyDecisions": 0,
+        "targetDecisions": 0,
+        "elapsedMilliseconds": 14
+      },
+      "reason": "No counterexample exists within the explicit history, value, trust and palette bounds."
+    },
+    {
+      "name": "Liveness 2",
+      "formula": "\n  ∀ l,m,v. ((□[] corr(l,m)) ∧ (□[m] live)) ⇒ (♢[] ↓ deliver(l,v) ⇒ live ⇒ ↕\n  deliver(m,v))",
+      "scope": "end",
+      "status": "holds",
+      "unknownHistories": 0,
+      "stats": {
+        "compilationNodes": 5151,
+        "predicateVariables": 0,
+        "variables": 1,
+        "clauses": 2,
+        "decisions": 0,
+        "consistencyDecisions": 0,
+        "targetDecisions": 0,
+        "elapsedMilliseconds": 12
+      },
+      "reason": "No counterexample exists within the explicit history, value, trust and palette bounds."
+    },
+    {
+      "name": "Agreement",
+      "formula": "\n  ∀ l,m,v,w. ((□[] corr(l,m))) ⇒ ((♢[] ↓ deliver(l,v)) ∧ (♢[] ↓ deliver(m,w)) ⇒ v=w)",
+      "scope": "end",
+      "status": "holds",
+      "unknownHistories": 0,
+      "stats": {
+        "compilationNodes": 5151,
+        "predicateVariables": 0,
+        "variables": 1,
+        "clauses": 2,
+        "decisions": 0,
+        "consistencyDecisions": 0,
+        "targetDecisions": 0,
+        "elapsedMilliseconds": 13
+      },
+      "reason": "No counterexample exists within the explicit history, value, trust and palette bounds."
+    }
+  ],
+  "witness": {
+    "model": {
+      "format": "history-structure-model/v1",
+      "name": "Completed HBB3: proposal to delivery",
+      "participants": [
+        "p"
+      ],
+      "values": [
+        "v"
+      ],
+      "signature": {
+        "events": [
+          "propose",
+          "echo",
+          "vote",
+          "deliver"
+        ],
+        "predicates": [
+          "live",
+          "corr"
+        ]
+      },
+      "nodes": [
+        {
+          "id": "proposal",
+          "place": "p",
+          "event": {
+            "symbol": "propose",
+            "args": [
+              "v"
+            ]
+          },
+          "past": []
+        },
+        {
+          "id": "echoed",
+          "place": "p",
+          "event": {
+            "symbol": "echo",
+            "args": [
+              "v"
+            ]
+          },
+          "past": [
+            "proposal"
+          ]
+        },
+        {
+          "id": "voted",
+          "place": "p",
+          "event": {
+            "symbol": "vote",
+            "args": [
+              "v",
+              "v"
+            ]
+          },
+          "past": [
+            "echoed"
+          ]
+        },
+        {
+          "id": "delivered",
+          "place": "p",
+          "event": {
+            "symbol": "deliver",
+            "args": [
+              "v",
+              "v"
+            ]
+          },
+          "past": [
+            "voted"
+          ]
+        },
+        {
+          "id": "observed",
+          "place": "p",
+          "event": null,
+          "past": [
+            "delivered"
+          ]
+        }
+      ],
+      "quorums": {
+        "v": [
+          [
+            "p"
+          ]
+        ]
+      },
+      "facts": [
+        {
+          "place": "p",
+          "at": "*",
+          "atom": "live"
+        },
+        {
+          "place": "p",
+          "at": "*",
+          "atom": {
+            "symbol": "corr",
+            "args": [
+              "v",
+              "v"
+            ]
+          }
+        }
+      ]
+    },
+    "assumptions": {
+      "name": "Custom theory",
+      "holds": true,
+      "complete": true,
+      "axioms": [
+        {
+          "name": "LiveAlways",
+          "kind": "other",
+          "formula": "live <-> end live",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 44,
+            "memoHits": 9,
+            "memoEntries": 31,
+            "memoEvictions": 0,
+            "elapsedMs": 0.11882600000080856
+          }
+        },
+        {
+          "name": "LiveSeq",
+          "kind": "other",
+          "formula": "live -> seq",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 33,
+            "memoHits": 0,
+            "memoEntries": 30,
+            "memoEvictions": 0,
+            "elapsedMs": 0.13971700000001874
+          }
+        },
+        {
+          "name": "KnowledgeDia:\"propose\"(\"v\")",
+          "kind": "other",
+          "formula": "(end (dia[] past (live & \"propose\"(\"v\")))) -> live -> sometime (dia[] past \"propose\"(\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 105,
+            "memoHits": 27,
+            "memoEntries": 60,
+            "memoEvictions": 0,
+            "elapsedMs": 0.21021999999993568
+          }
+        },
+        {
+          "name": "KnowledgeBox:\"propose\"(\"v\"):0",
+          "kind": "other",
+          "formula": "(end (box[] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[] past \"propose\"(\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 105,
+            "memoHits": 27,
+            "memoEntries": 60,
+            "memoEvictions": 0,
+            "elapsedMs": 0.15984600000047067
+          }
+        },
+        {
+          "name": "KnowledgeDia:\"echo\"(\"v\")",
+          "kind": "other",
+          "formula": "(end (dia[] past (live & \"echo\"(\"v\")))) -> live -> sometime (dia[] past \"echo\"(\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 122,
+            "memoHits": 37,
+            "memoEntries": 66,
+            "memoEvictions": 0,
+            "elapsedMs": 0.18692600000031234
+          }
+        },
+        {
+          "name": "KnowledgeBox:\"echo\"(\"v\"):0",
+          "kind": "other",
+          "formula": "(end (box[] past (live & \"echo\"(\"v\")))) -> live -> sometime (box[] past \"echo\"(\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 122,
+            "memoHits": 37,
+            "memoEntries": 66,
+            "memoEvictions": 0,
+            "elapsedMs": 0.19333499999993364
+          }
+        },
+        {
+          "name": "KnowledgeDia:\"vote\"(\"v\",\"v\")",
+          "kind": "other",
+          "formula": "(end (dia[] past (live & \"vote\"(\"v\",\"v\")))) -> live -> sometime (dia[] past \"vote\"(\"v\",\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 142,
+            "memoHits": 48,
+            "memoEntries": 72,
+            "memoEvictions": 0,
+            "elapsedMs": 0.24300899999980174
+          }
+        },
+        {
+          "name": "KnowledgeBox:\"vote\"(\"v\",\"v\"):0",
+          "kind": "other",
+          "formula": "(end (box[] past (live & \"vote\"(\"v\",\"v\")))) -> live -> sometime (box[] past \"vote\"(\"v\",\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 142,
+            "memoHits": 48,
+            "memoEntries": 72,
+            "memoEvictions": 0,
+            "elapsedMs": 0.22397100000034698
+          }
+        },
+        {
+          "name": "KnowledgeDia:\"deliver\"(\"v\",\"v\")",
+          "kind": "other",
+          "formula": "(end (dia[] past (live & \"deliver\"(\"v\",\"v\")))) -> live -> sometime (dia[] past \"deliver\"(\"v\",\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 161,
+            "memoHits": 60,
+            "memoEntries": 78,
+            "memoEvictions": 0,
+            "elapsedMs": 0.2877250000001368
+          }
+        },
+        {
+          "name": "KnowledgeBox:\"deliver\"(\"v\",\"v\"):0",
+          "kind": "other",
+          "formula": "(end (box[] past (live & \"deliver\"(\"v\",\"v\")))) -> live -> sometime (box[] past \"deliver\"(\"v\",\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 161,
+            "memoHits": 60,
+            "memoEntries": 78,
+            "memoEvictions": 0,
+            "elapsedMs": 3.489082000000053
+          }
+        },
+        {
+          "name": "KnowledgeDia:\"propose\"()",
+          "kind": "other",
+          "formula": "(end (dia[] past (live & \"propose\"()))) -> live -> sometime (dia[] past \"propose\"())",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 60,
+            "memoHits": 9,
+            "memoEntries": 37,
+            "memoEvictions": 0,
+            "elapsedMs": 0.10426400000051217
+          }
+        },
+        {
+          "name": "KnowledgeBox:\"propose\"():0",
+          "kind": "other",
+          "formula": "(end (box[] past (live & \"propose\"()))) -> live -> sometime (box[] past \"propose\"())",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 60,
+            "memoHits": 9,
+            "memoEntries": 37,
+            "memoEvictions": 0,
+            "elapsedMs": 0.0888409999997748
+          }
+        },
+        {
+          "name": "Echo?",
+          "kind": "backward",
+          "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 42,
+            "memoHits": 0,
+            "memoEntries": 33,
+            "memoEvictions": 0,
+            "elapsedMs": 0.11059300000033545
+          }
+        },
+        {
+          "name": "Vote?",
+          "kind": "backward",
+          "formula": "\n  ∀ l,v. vote(l,v) ⇒ ((□[l] ↓ echo(v)) ∨ (∃ m. (corr(m,l) ∧ ♢[] ↓ vote(m,v))))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 69,
+            "memoHits": 0,
+            "memoEntries": 45,
+            "memoEvictions": 0,
+            "elapsedMs": 0.16570499999943422
+          }
+        },
+        {
+          "name": "Deliver?",
+          "kind": "backward",
+          "formula": "\n  ∀ l,v. deliver(l,v) ⇒ □[l] ↓ vote(l,v)",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 59,
+            "memoHits": 0,
+            "memoEntries": 45,
+            "memoEvictions": 0,
+            "elapsedMs": 0.1497319999998581
+          }
+        },
+        {
+          "name": "EchoNE",
+          "kind": "other",
+          "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 55,
+            "memoHits": 0,
+            "memoEntries": 43,
+            "memoEvictions": 0,
+            "elapsedMs": 0.13173400000050606
+          }
+        },
+        {
+          "name": "VoteNE",
+          "kind": "other",
+          "formula": "\n  ∀ l,m,v,w. vote(l,v) ⇒ ↓ vote(m,w) ⇒ corr(l,m) ⇒ v=w",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 84,
+            "memoHits": 0,
+            "memoEntries": 64,
+            "memoEvictions": 0,
+            "elapsedMs": 0.3273140000001149
+          }
+        },
+        {
+          "name": "3twined",
+          "kind": "other",
+          "formula": "\n  ∀ l,m,n. ♢[l,m,n] ⊤",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 71,
+            "memoHits": 4,
+            "memoEntries": 46,
+            "memoEvictions": 0,
+            "elapsedMs": 0.24161699999967823
+          }
+        },
+        {
+          "name": "CorrSeq",
+          "kind": "other",
+          "formula": "\n  ∀ l,m. corr(l,m) ⇒ ♢[l,m] seq",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 82,
+            "memoHits": 4,
+            "memoEntries": 56,
+            "memoEvictions": 0,
+            "elapsedMs": 0.20779700000002777
+          }
+        },
+        {
+          "name": "CorrPast",
+          "kind": "other",
+          "formula": "\n  ∀ l,m. corr(l,m) ⇒ ⇓ corr(l,m)",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 81,
+            "memoHits": 16,
+            "memoEntries": 55,
+            "memoEvictions": 0,
+            "elapsedMs": 0.22746600000027684
+          }
+        },
+        {
+          "name": "CorrSymm",
+          "kind": "other",
+          "formula": "\n  ∀ l,m. corr(l,m) ⇒ corr(m,l)",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 59,
+            "memoHits": 0,
+            "memoEntries": 50,
+            "memoEvictions": 0,
+            "elapsedMs": 0.2146970000003421
+          }
+        },
+        {
+          "name": "CorrTran",
+          "kind": "other",
+          "formula": "\n  ∀ l,m,n. corr(l,m) ⇒ corr(m,n) ⇒ corr(l,n)",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 94,
+            "memoHits": 0,
+            "memoEntries": 80,
+            "memoEvictions": 0,
+            "elapsedMs": 0.2598440000001574
+          }
+        },
+        {
+          "name": "Echo!",
+          "kind": "forward",
+          "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 119,
+            "memoHits": 22,
+            "memoEntries": 75,
+            "memoEvictions": 0,
+            "elapsedMs": 0.22062600000026578
+          }
+        },
+        {
+          "name": "Vote!",
+          "kind": "forward",
+          "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 135,
+            "memoHits": 26,
+            "memoEntries": 83,
+            "memoEvictions": 0,
+            "elapsedMs": 2.6060280000001512
+          }
+        },
+        {
+          "name": "Vote'!",
+          "kind": "forward",
+          "formula": "\n  ∀ l,m,v. (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 213,
+            "memoHits": 67,
+            "memoEntries": 115,
+            "memoEvictions": 0,
+            "elapsedMs": 0.5701820000003863
+          }
+        },
+        {
+          "name": "Deliver!",
+          "kind": "forward",
+          "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 10,
+          "totalRepresentatives": 10,
+          "exhaustive": true,
+          "stats": {
+            "steps": 128,
+            "memoHits": 25,
+            "memoEntries": 77,
+            "memoEvictions": 0,
+            "elapsedMs": 0.2941240000000107
+          }
+        }
+      ],
+      "counts": {
+        "total": 26,
+        "passed": 26,
+        "failed": 0,
+        "inconclusive": 0
+      }
+    },
+    "result": null,
+    "experiment": {
+      "format": "history-structure-synthesis/v1",
+      "theory": {
+        "includeLive": true,
+        "axioms": [
+          {
+            "name": "Echo?",
+            "kind": "backward",
+            "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)"
+          },
+          {
+            "name": "Vote?",
+            "kind": "backward",
+            "formula": "\n  ∀ l,v. vote(l,v) ⇒ ((□[l] ↓ echo(v)) ∨ (∃ m. (corr(m,l) ∧ ♢[] ↓ vote(m,v))))"
+          },
+          {
+            "name": "Deliver?",
+            "kind": "backward",
+            "formula": "\n  ∀ l,v. deliver(l,v) ⇒ □[l] ↓ vote(l,v)"
+          },
+          {
+            "name": "EchoNE",
+            "kind": "other",
+            "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w"
+          },
+          {
+            "name": "VoteNE",
+            "kind": "other",
+            "formula": "\n  ∀ l,m,v,w. vote(l,v) ⇒ ↓ vote(m,w) ⇒ corr(l,m) ⇒ v=w"
+          },
+          {
+            "name": "3twined",
+            "kind": "other",
+            "formula": "\n  ∀ l,m,n. ♢[l,m,n] ⊤"
+          },
+          {
+            "name": "CorrSeq",
+            "kind": "other",
+            "formula": "\n  ∀ l,m. corr(l,m) ⇒ ♢[l,m] seq"
+          },
+          {
+            "name": "CorrPast",
+            "kind": "other",
+            "formula": "\n  ∀ l,m. corr(l,m) ⇒ ⇓ corr(l,m)"
+          },
+          {
+            "name": "CorrSymm",
+            "kind": "other",
+            "formula": "\n  ∀ l,m. corr(l,m) ⇒ corr(m,l)"
+          },
+          {
+            "name": "CorrTran",
+            "kind": "other",
+            "formula": "\n  ∀ l,m,n. corr(l,m) ⇒ corr(m,n) ⇒ corr(l,n)"
+          },
+          {
+            "name": "Echo!",
+            "kind": "forward",
+            "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+          },
+          {
+            "name": "Vote!",
+            "kind": "forward",
+            "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)"
+          },
+          {
+            "name": "Vote'!",
+            "kind": "forward",
+            "formula": "\n  ∀ l,m,v. (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)"
+          },
+          {
+            "name": "Deliver!",
+            "kind": "forward",
+            "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)"
+          }
+        ]
+      },
+      "property": null,
+      "scope": "end",
+      "pinFacts": true,
+      "limits": {
+        "maxMilliseconds": 59994,
+        "maxCompilationNodes": 500000,
+        "maxKnowledgeFamilies": 256,
+        "maxDecisions": 100000,
+        "maxSteps": 2000000
+      },
+      "seedModel": {
+        "format": "history-structure-model/v1",
+        "name": "Completed HBB3: proposal to delivery",
+        "participants": [
+          "p"
+        ],
+        "values": [
+          "v"
+        ],
+        "signature": {
+          "events": [
+            "propose",
+            "echo",
+            "vote",
+            "deliver"
+          ],
+          "predicates": [
+            "live",
+            "corr"
+          ]
+        },
+        "nodes": [
+          {
+            "id": "proposal",
+            "place": "p",
+            "event": {
+              "symbol": "propose",
+              "args": [
+                "v"
+              ]
+            },
+            "past": []
+          },
+          {
+            "id": "echoed",
+            "place": "p",
+            "event": {
+              "symbol": "echo",
+              "args": [
+                "v"
+              ]
+            },
+            "past": [
+              "proposal"
+            ]
+          },
+          {
+            "id": "voted",
+            "place": "p",
+            "event": {
+              "symbol": "vote",
+              "args": [
+                "v",
+                "v"
+              ]
+            },
+            "past": [
+              "echoed"
+            ]
+          },
+          {
+            "id": "delivered",
+            "place": "p",
+            "event": {
+              "symbol": "deliver",
+              "args": [
+                "v",
+                "v"
+              ]
+            },
+            "past": [
+              "voted"
+            ]
+          },
+          {
+            "id": "observed",
+            "place": "p",
+            "event": null,
+            "past": [
+              "delivered"
+            ]
+          }
+        ],
+        "quorums": {
+          "v": [
+            [
+              "p"
+            ]
+          ]
+        },
+        "facts": [
+          {
+            "place": "p",
+            "at": "*",
+            "atom": "live"
+          },
+          {
+            "place": "p",
+            "at": "*",
+            "atom": {
+              "symbol": "corr",
+              "args": [
+                "v",
+                "v"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "verified": true
+  },
+  "retainedAxioms": [
+    "ThyLive",
+    "Echo?",
+    "Vote?",
+    "Deliver?",
+    "EchoNE",
+    "VoteNE",
+    "3twined",
+    "CorrSeq",
+    "CorrPast",
+    "CorrSymm",
+    "CorrTran",
+    "Echo!",
+    "Vote!",
+    "Vote'!",
+    "Deliver!"
+  ],
+  "droppedAxioms": [],
+  "selectedProperties": [
+    "Liveness 1",
+    "Liveness 2",
+    "Agreement"
+  ],
+  "bounds": {
+    "mode": "synthesize",
+    "pinFacts": true,
+    "maxMilliseconds": 60000,
+    "maxCompilationNodes": 500000,
+    "maxDecisions": 100000,
+    "maxAdditionalNodes": 2,
+    "maxModels": 1000,
+    "maxKnowledgeFamilies": 256
+  },
+  "sourceMarkdown": "# ThyHBB3 — completed broadcast\n\nThis is a completed one-participant run of ThyHBB3, using the axioms and correctness statements from the draft of 7 November 2026. Choose **Use this history; find facts** first. The given positive facts pin liveness and correlation; the retained axioms constrain the remaining predicate interpretation.\n\nThe final silent † tuple records knowledge of delivery. It is not an extra protocol event. Removing that observation can violate the Knowledge scheme, even though delivery itself has occurred.\n\nThe correctness formulas include their stated premises. A true implication may be vacuous. For a direct non-vacuity investigation, the API supplies the corresponding scenario formulas through `correctnessProperties(\"ThyHBB3\")`. In this completed singleton example all three scenarios occur.\n\nRead the rules below, choose **Continue to claims**, review the selected properties and assumptions, then continue to the run settings and run the check. Use **Edit Markdown** to change a rule; Unicode and ASCII spellings have identical semantics. The supplied history JSON is at the end.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 6, p. 38, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 37).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires either quorum echoes of that value, or knowledge of a matching vote for a currently correlated learner.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ ((□[l] ↓ echo(v)) ∨ (∃ m. (corr(m,l) ∧ ♢[] ↓ vote(m,v))))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a quorum of matching votes for the same learner.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom Deliver? [backward]:\n  ∀ l,v. deliver(l,v) ⇒ □[l] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### VoteNE — other assumption\n\nAn actual local vote and an earlier local vote for correlated learners must carry the same value.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom VoteNE [other]:\n  ∀ l,m,v,w. vote(l,v) ⇒ ↓ vote(m,w) ⇒ corr(l,m) ⇒ v=w\n```\n\n### 3twined — other assumption\n\nEvery triple of independently chosen learner quorums must have a common participant. Repeated learner names still make independent quorum choices.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom 3twined [other]:\n  ∀ l,m,n. ♢[l,m,n] ⊤\n```\n\n### CorrSeq — other assumption\n\nFor every choice of one quorum from each correlated learner, their intersection must contain a sequential participant.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom CorrSeq [other]:\n  ∀ l,m. corr(l,m) ⇒ ♢[l,m] seq\n```\n\n### CorrPast — other assumption\n\nCorrelation persists to every actual earlier local tuple. Its temporal operator ranges over recorded local tuples, rather than every hypothetical world.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom CorrPast [other]:\n  ∀ l,m. corr(l,m) ⇒ ⇓ corr(l,m)\n```\n\n### CorrSymm — other assumption\n\nCorrelation is symmetric. Reflexivity is not an additional assumption.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom CorrSymm [other]:\n  ∀ l,m. corr(l,m) ⇒ corr(m,l)\n```\n\n### CorrTran — other assumption\n\nCorrelation is transitive.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom CorrTran [other]:\n  ∀ l,m,n. corr(l,m) ⇒ corr(m,n) ⇒ corr(l,n)\n```\n\n### Echo! — forward rule\n\nA live participant that knows a proposal must echo some value somewhere in its actual local run. The value is existentially chosen.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom Echo! [forward]:\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nA live participant with quorum echoes must vote for some value for that learner somewhere in its actual local run. The chosen value remains existential.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom Vote! [forward]:\n  ∀ l,v. (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)\n```\n\n### Vote'! — forward rule\n\nWith correlation at every actual local tuple and knowledge of a correlated learner’s vote, a live participant must vote for some value for the target learner somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom Vote'! [forward]:\n  ∀ l,m,v. (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)\n```\n\n### Deliver! — forward rule\n\nA live participant with quorum votes must deliver that learner and value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1.\naxiom Deliver! [forward]:\n  ∀ l,v. (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Liveness 1 — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 12, p. 56; Theorem 8.2.3, p. 57; Proposition 8.5.1, pp. 59-60.\nproperty Liveness 1 [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,v))\n```\n\n### Liveness 2 — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant.\n\n```hsm\n# Paper: Figure 12, p. 56; Theorem 8.2.3, p. 57; Proposition 8.4.5, p. 59.\nproperty Liveness 2 [end]:\n  ∀ l,m,v. ((□[] corr(l,m)) ∧ (□[m] live)) ⇒ (♢[] ↓ deliver(l,v) ⇒ live ⇒ ↕\n  deliver(m,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 12, p. 56; Theorem 8.2.3, p. 57; Proposition 8.3.1, p. 57.\nproperty Agreement [end]:\n  ∀ l,m,v,w. ((□[] corr(l,m))) ⇒ ((♢[] ↓ deliver(l,v)) ∧ (♢[] ↓ deliver(m,w)) ⇒ v=w)\n```\n\n## Paper and interpretation\n\nThe paper writes correlation as `l ≐ m`. In Figure 11, p. 56, `CorrSeq`, `CorrPast`, `CorrSymm` and `CorrTran` denote `≐seq`, `≐⇓`, `≐symm` and `≐tran`. The executable predicate is `corr(l,m)`. Correlation is distinct from value equality; both voting forward rules retain the paper’s existential value choice.\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nPaper draft: *Heterogeneous trust in reliable broadcast via modal logic and history structures*, Murdoch J. Gabbay and Isaac Sheff, **2026-11-07**. References use the draft's printed page numbers.\n\nPaper basis: **ThyHBB3**, Definition 8.2.1, p. 55; Figure 11, p. 56. Correctness: Figure 12, p. 56; Theorem 8.2.3, p. 57. Proofs: Liveness 1: Proposition 8.5.1, pp. 59-60; Liveness 2: Proposition 8.4.5, p. 59; Agreement: Proposition 8.3.1, p. 57.\n\nPedagogical completed-run scenario: the protocol axioms and conditional correctness formulas in this document are unmodified translations of the paper. The singleton history, positive facts and final observation are supplied for this example; they are not a literal paper theory or a proof over all histories.\n\nCode event order: `propose(v)`, `echo(v)`, `vote(l,v)`, and **`deliver(l,v)`**, with learner first and value second (Figure 11, p. 56). HBB1/HBB2 instead use `deliver(reportingLearner,sourceLearner,value)` (Notation 6.1.3, p. 42). Learners and values share one domain (Definition 3.1.1, p. 17).\n\n`include ThyLive` keeps Figure 6, p. 38, Definition 5.2.4 dynamic: `LiveAlways`, `LiveSeq`, and both complete Knowledge schemes, over all ground events and all finite learner lists (including empty lists and repetitions), are checked at all possible worlds (Definition 5.2.1, p. 37). The schemes regenerate when the history changes. [Full source and notation map](../../docs/PAPER_MAP.md); [paper variants and their status](../../docs/PAPER_VARIANTS.md).\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"Completed HBB3: proposal to delivery\",\n  \"participants\": [\n    \"p\"\n  ],\n  \"values\": [\n    \"v\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"corr\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"proposal\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"propose\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": []\n    },\n    {\n      \"id\": \"echoed\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"echo\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"proposal\"\n      ]\n    },\n    {\n      \"id\": \"voted\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"vote\",\n        \"args\": [\n          \"v\",\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"echoed\"\n      ]\n    },\n    {\n      \"id\": \"delivered\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"deliver\",\n        \"args\": [\n          \"v\",\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"voted\"\n      ]\n    },\n    {\n      \"id\": \"observed\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": [\n        \"delivered\"\n      ]\n    }\n  ],\n  \"quorums\": {\n    \"v\": [\n      [\n        \"p\"\n      ]\n    ]\n  },\n  \"facts\": [\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    },\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": {\n        \"symbol\": \"corr\",\n        \"args\": [\n          \"v\",\n          \"v\"\n        ]\n      }\n    }\n  ]\n}\n```\n",
+  "snapshot": {
+    "format": "history-structure-run-snapshot/v1",
+    "engine": {
+      "name": "history-structure-model-checker",
+      "version": "0.6.9",
+      "semantics": "hbb-disc/2026-11-07"
+    },
+    "backend": "builtin-cdcl/tseitin",
+    "sourceSha256": "f0567cae45a656e805e4c399a1cf1bfc3997c3bf04f11c065d92dfea480b0a7c",
+    "selectedProperties": [
+      "Liveness 1",
+      "Liveness 2",
+      "Agreement"
+    ],
+    "droppedAxioms": [],
+    "bounds": {
+      "mode": "synthesize",
+      "pinFacts": true,
+      "maxMilliseconds": 60000,
+      "maxCompilationNodes": 500000,
+      "maxDecisions": 100000,
+      "maxAdditionalNodes": 2,
+      "maxModels": 1000,
+      "maxKnowledgeFamilies": 256
+    },
+    "id": "sha256:9e2d5cdb319a5545e5520778e254740069f1436f3c8c1ee1dddf454d38eb0831"
+  },
+  "stats": {
+    "histories": 1,
+    "historiesWithModels": 1,
+    "modelsSatisfyingAssumptions": 1,
+    "synthesisQueries": 4,
+    "elapsedMs": 80
+  }
+}

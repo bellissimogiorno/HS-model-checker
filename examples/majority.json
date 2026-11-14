@@ -1,0 +1,36 @@
+{
+  "format": "history-structure-model/v1",
+  "name": "Repeated learner: pairwise is weaker than triple intersection",
+  "participants": [
+    "a",
+    "b",
+    "c"
+  ],
+  "values": [
+    "l"
+  ],
+  "signature": {
+    "events": [],
+    "predicates": [
+      "live"
+    ]
+  },
+  "nodes": [],
+  "quorums": {
+    "l": [
+      [
+        "a",
+        "b"
+      ],
+      [
+        "a",
+        "c"
+      ],
+      [
+        "b",
+        "c"
+      ]
+    ]
+  },
+  "facts": []
+}

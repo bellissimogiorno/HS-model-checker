@@ -1,0 +1,13 @@
+/_site/
+/node_modules/
+**/__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+.env
+.env.*
+*.zip
+.hsm-patches/
+.hsm-sync/
+.hsm-package-*/
+.cli-*/

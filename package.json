@@ -1,0 +1,21 @@
+{
+  "name": "history-structure-model-checker",
+  "version": "0.6.9",
+  "private": true,
+  "type": "module",
+  "description": "Finite history structure model checking for hbb-disc (2026-11-07)",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "check": "node src/cli.mjs",
+    "start": "python3 serve.py",
+    "demo": "node demo.mjs",
+    "build:reader": "node tools/build-reader.mjs",
+    "verify": "node tools/verify-package.mjs --replay"
+  },
+  "bin": {
+    "history-check": "src/cli.mjs"
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "format": "history-structure-model/v1",
+  "name": "Heterogeneous trust: compatible within each learner",
+  "participants": [
+    "p",
+    "q",
+    "r",
+    "s"
+  ],
+  "values": [
+    "red",
+    "blue"
+  ],
+  "signature": {
+    "events": [
+      "propose",
+      "echo",
+      "vote",
+      "deliver"
+    ],
+    "predicates": [
+      "live"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "redProposal",
+      "place": "p",
+      "event": {
+        "symbol": "propose",
+        "args": [
+          "red"
+        ]
+      },
+      "past": []
+    },
+    {
+      "id": "blueProposal",
+      "place": "s",
+      "event": {
+        "symbol": "propose",
+        "args": [
+          "blue"
+        ]
+      },
+      "past": []
+    },
+    {
+      "id": "redEcho",
+      "place": "q",
+      "event": {
+        "symbol": "echo",
+        "args": [
+          "red"
+        ]
+      },
+      "past": [
+        "redProposal"
+      ]
+    },
+    {
+      "id": "blueEcho",
+      "place": "r",
+      "event": {
+        "symbol": "echo",
+        "args": [
+          "blue"
+        ]
+      },
+      "past": [
+        "blueProposal"
+      ]
+    },
+    {
+      "id": "redObserved",
+      "place": "p",
+      "event": null,
+      "past": [
+        "redEcho"
+      ]
+    },
+    {
+      "id": "blueObserved",
+      "place": "s",
+      "event": null,
+      "past": [
+        "blueEcho"
+      ]
+    }
+  ],
+  "quorums": {
+    "red": [
+      [
+        "p",
+        "q"
+      ],
+      [
+        "p",
+        "r"
+      ]
+    ],
+    "blue": [
+      [
+        "q",
+        "s"
+      ],
+      [
+        "r",
+        "s"
+      ]
+    ]
+  },
+  "facts": []
+}

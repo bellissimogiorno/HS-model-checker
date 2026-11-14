@@ -1,0 +1,392 @@
+{
+  "format": "history-structure-weakening-cases/v1",
+  "theory": "ThyHBB3",
+  "properties": [
+    "Liveness 1",
+    "Liveness 2",
+    "Agreement"
+  ],
+  "cases": [
+    {
+      "id": "hbb3-complete-baseline",
+      "label": "HBB3 completed full theory",
+      "theory": "ThyHBB3",
+      "file": "hbb3.md",
+      "droppedAxioms": [],
+      "expectedStatus": "holds",
+      "expectedProperties": [
+        "holds",
+        "holds",
+        "holds"
+      ],
+      "expectedScenarios": [
+        true,
+        true,
+        true
+      ],
+      "expectedOriginalFailures": [],
+      "category": "control",
+      "paperReferences": [
+        "Definition 8.2.1, p. 55; Figure 11, p. 56",
+        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "hbb3-corr-seq-removed",
+      "label": "Remove CorrSeq: correlated fork",
+      "theory": "ThyHBB3",
+      "file": "hbb3-corr-seq.md",
+      "droppedAxioms": [
+        "CorrSeq"
+      ],
+      "expectedStatus": "counterexample",
+      "expectedProperties": [
+        "holds",
+        "holds",
+        "counterexample"
+      ],
+      "expectedScenarios": [
+        false,
+        false,
+        true
+      ],
+      "expectedOriginalFailures": [
+        "CorrSeq"
+      ],
+      "category": "weakening",
+      "paperReferences": [
+        "Definition 8.2.1, p. 55; Figure 11, p. 56",
+        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "hbb3-corr-past-removed",
+      "label": "Remove CorrPast: correlation arrives late",
+      "theory": "ThyHBB3",
+      "file": "hbb3-corr-past.md",
+      "droppedAxioms": [
+        "CorrPast"
+      ],
+      "expectedStatus": "counterexample",
+      "expectedProperties": [
+        "holds",
+        "holds",
+        "counterexample"
+      ],
+      "expectedScenarios": [
+        false,
+        false,
+        true
+      ],
+      "expectedOriginalFailures": [
+        "CorrPast"
+      ],
+      "category": "weakening",
+      "paperReferences": [
+        "Definition 8.2.1, p. 55; Figure 11, p. 56",
+        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "hbb3-vote-ne-removed",
+      "label": "Remove VoteNE: sequential conflicting votes",
+      "theory": "ThyHBB3",
+      "file": "hbb3-vote-ne.md",
+      "droppedAxioms": [
+        "VoteNE"
+      ],
+      "expectedStatus": "counterexample",
+      "expectedProperties": [
+        "holds",
+        "holds",
+        "counterexample"
+      ],
+      "expectedScenarios": [
+        false,
+        false,
+        true
+      ],
+      "expectedOriginalFailures": [
+        "VoteNE"
+      ],
+      "category": "weakening",
+      "paperReferences": [
+        "Definition 8.2.1, p. 55; Figure 11, p. 56",
+        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "hbb3-three-twined-removed",
+      "label": "Remove 3twined: pairwise overlap only",
+      "theory": "ThyHBB3",
+      "file": "hbb3-three-twined.md",
+      "droppedAxioms": [
+        "3twined"
+      ],
+      "maxCompilationNodes": 1000000,
+      "expectedStatus": "counterexample",
+      "expectedProperties": [
+        "holds",
+        "counterexample",
+        "holds"
+      ],
+      "expectedScenarios": [
+        false,
+        true,
+        true
+      ],
+      "expectedOriginalFailures": [
+        "3twined"
+      ],
+      "category": "weakening",
+      "paperReferences": [
+        "Definition 8.2.1, p. 55; Figure 11, p. 56",
+        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
+        "Definition 5.2.4 and Figure 6, p. 38",
+        "Remark 8.6.2, pp. 60-61; Lemma 8.4.3, p. 58"
+      ]
+    },
+    {
+      "id": "hbb3-echo-progress-full",
+      "label": "HBB3 missing echo, full theory",
+      "theory": "ThyHBB3",
+      "file": "hbb3-echo-progress.md",
+      "droppedAxioms": [],
+      "expectedStatus": "no-model",
+      "expectedProperties": [
+        "not-tested",
+        "not-tested",
+        "not-tested"
+      ],
+      "expectedOriginalFailures": [
+        "Echo!"
+      ],
+      "category": "control",
+      "paperReferences": [
+        "Definition 8.2.1, p. 55; Figure 11, p. 56",
+        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "hbb3-echo-progress-removed",
+      "label": "Remove HBB3 Echo!",
+      "theory": "ThyHBB3",
+      "file": "hbb3-echo-progress.md",
+      "droppedAxioms": [
+        "Echo!"
+      ],
+      "expectedStatus": "counterexample",
+      "expectedProperties": [
+        "counterexample",
+        "holds",
+        "holds"
+      ],
+      "expectedScenarios": [
+        true,
+        false,
+        false
+      ],
+      "expectedOriginalFailures": [
+        "Echo!"
+      ],
+      "category": "weakening",
+      "paperReferences": [
+        "Definition 8.2.1, p. 55; Figure 11, p. 56",
+        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "hbb3-vote-progress-full",
+      "label": "HBB3 missing vote, full theory",
+      "theory": "ThyHBB3",
+      "file": "hbb3-vote-progress.md",
+      "droppedAxioms": [],
+      "expectedStatus": "no-model",
+      "expectedProperties": [
+        "not-tested",
+        "not-tested",
+        "not-tested"
+      ],
+      "expectedOriginalFailures": [
+        "Vote!"
+      ],
+      "category": "control",
+      "paperReferences": [
+        "Definition 8.2.1, p. 55; Figure 11, p. 56",
+        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "hbb3-vote-progress-removed",
+      "label": "Remove HBB3 Vote!",
+      "theory": "ThyHBB3",
+      "file": "hbb3-vote-progress.md",
+      "droppedAxioms": [
+        "Vote!"
+      ],
+      "expectedStatus": "counterexample",
+      "expectedProperties": [
+        "counterexample",
+        "holds",
+        "holds"
+      ],
+      "expectedScenarios": [
+        true,
+        false,
+        false
+      ],
+      "expectedOriginalFailures": [
+        "Vote!"
+      ],
+      "category": "weakening",
+      "paperReferences": [
+        "Definition 8.2.1, p. 55; Figure 11, p. 56",
+        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "hbb3-deliver-progress-full",
+      "label": "HBB3 missing delivery, full theory",
+      "theory": "ThyHBB3",
+      "file": "hbb3-deliver-progress.md",
+      "droppedAxioms": [],
+      "expectedStatus": "no-model",
+      "expectedProperties": [
+        "not-tested",
+        "not-tested",
+        "not-tested"
+      ],
+      "expectedOriginalFailures": [
+        "Deliver!"
+      ],
+      "category": "control",
+      "paperReferences": [
+        "Definition 8.2.1, p. 55; Figure 11, p. 56",
+        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "hbb3-deliver-progress-removed",
+      "label": "Remove HBB3 Deliver!",
+      "theory": "ThyHBB3",
+      "file": "hbb3-deliver-progress.md",
+      "droppedAxioms": [
+        "Deliver!"
+      ],
+      "expectedStatus": "counterexample",
+      "expectedProperties": [
+        "counterexample",
+        "holds",
+        "holds"
+      ],
+      "expectedScenarios": [
+        true,
+        false,
+        false
+      ],
+      "expectedOriginalFailures": [
+        "Deliver!"
+      ],
+      "category": "weakening",
+      "paperReferences": [
+        "Definition 8.2.1, p. 55; Figure 11, p. 56",
+        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "hbb3-vote-prime-progress-removed",
+      "label": "Remove Vote'!: correlated target stalls",
+      "theory": "ThyHBB3",
+      "file": "hbb3-vote-prime-progress.md",
+      "droppedAxioms": [
+        "Vote'!"
+      ],
+      "expectedStatus": "counterexample",
+      "expectedProperties": [
+        "holds",
+        "counterexample",
+        "holds"
+      ],
+      "expectedScenarios": [
+        false,
+        true,
+        true
+      ],
+      "expectedOriginalFailures": [
+        "Vote'!"
+      ],
+      "category": "weakening",
+      "paperReferences": [
+        "Definition 8.2.1, p. 55; Figure 11, p. 56",
+        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
+        "Definition 5.2.4 and Figure 6, p. 38",
+        "Remark 8.2.2(4) and footnote 54, p. 57"
+      ]
+    },
+    {
+      "id": "hbb3-corr-definition-valid",
+      "label": "Correct correlation allows this history",
+      "theory": "ThyHBB3",
+      "file": "hbb3-corr-definition.md",
+      "droppedAxioms": [],
+      "expectedStatus": "holds",
+      "expectedProperties": [
+        "holds",
+        "holds",
+        "holds"
+      ],
+      "expectedScenarios": [
+        false,
+        false,
+        false
+      ],
+      "expectedOriginalFailures": [],
+      "diagnosticProbes": [
+        {
+          "name": "Incorrect correlation equivalence",
+          "expectedStatus": "counterexample"
+        }
+      ],
+      "category": "paper-diagnostic",
+      "paperReferences": [
+        "Definition 8.2.1, p. 55; Figure 11, p. 56",
+        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
+        "Definition 5.2.4 and Figure 6, p. 38",
+        "Remark 8.6.4, p. 61; Remark 8.1.1(2), pp. 54-55"
+      ]
+    },
+    {
+      "id": "hbb3-corr-definition-wrong",
+      "label": "Incorrect correlation equivalence rejects it",
+      "theory": "ThyHBB3",
+      "file": "hbb3-corr-definition-wrong.md",
+      "droppedAxioms": [],
+      "expectedStatus": "no-model",
+      "expectedProperties": [
+        "not-tested",
+        "not-tested",
+        "not-tested"
+      ],
+      "expectedOriginalFailures": [
+        "CorrWrong"
+      ],
+      "category": "paper-incorrect",
+      "paperReferences": [
+        "Definition 8.2.1, p. 55; Figure 11, p. 56",
+        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
+        "Definition 5.2.4 and Figure 6, p. 38",
+        "Remark 8.6.4, p. 61; Remark 8.1.1(2), pp. 54-55"
+      ]
+    }
+  ]
+}

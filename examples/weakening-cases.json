@@ -1,0 +1,266 @@
+{
+  "format": "history-structure-weakening-cases/v1",
+  "theory": "ThyHBB2",
+  "properties": [
+    "Liveness 1",
+    "Liveness 2",
+    "Agreement"
+  ],
+  "cases": [
+    {
+      "id": "complete-baseline",
+      "label": "Completed full theory",
+      "file": "hbb2.md",
+      "droppedAxioms": [],
+      "expectedStatus": "holds",
+      "expectedProperties": [
+        "holds",
+        "holds",
+        "holds"
+      ],
+      "expectedScenarios": [
+        true,
+        true,
+        true
+      ],
+      "expectedOriginalFailures": [],
+      "theory": "ThyHBB2",
+      "category": "control",
+      "paperReferences": [
+        "Definition 7.1.1, p. 49; Figure 9, p. 50",
+        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "echo-ne-full",
+      "label": "Two values, full EchoNE",
+      "file": "echo-ne.md",
+      "droppedAxioms": [],
+      "expectedStatus": "no-model",
+      "expectedProperties": [
+        "not-tested",
+        "not-tested",
+        "not-tested"
+      ],
+      "expectedOriginalFailures": [
+        "EchoNE"
+      ],
+      "theory": "ThyHBB2",
+      "category": "control",
+      "paperReferences": [
+        "Definition 7.1.1, p. 49; Figure 9, p. 50",
+        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "echo-ne-removed",
+      "label": "Remove EchoNE",
+      "file": "echo-ne.md",
+      "droppedAxioms": [
+        "EchoNE"
+      ],
+      "expectedStatus": "counterexample",
+      "expectedProperties": [
+        "holds",
+        "holds",
+        "counterexample"
+      ],
+      "expectedScenarios": [
+        false,
+        false,
+        true
+      ],
+      "expectedOriginalFailures": [
+        "EchoNE"
+      ],
+      "theory": "ThyHBB2",
+      "category": "weakening",
+      "paperReferences": [
+        "Definition 7.1.1, p. 49; Figure 9, p. 50",
+        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "echo-ne-live-only",
+      "label": "Restrict EchoNE to live participants",
+      "file": "echo-ne-live-only.md",
+      "droppedAxioms": [],
+      "expectedStatus": "counterexample",
+      "expectedProperties": [
+        "holds",
+        "holds",
+        "counterexample"
+      ],
+      "expectedScenarios": [
+        false,
+        false,
+        true
+      ],
+      "expectedOriginalFailures": [],
+      "theory": "ThyHBB2",
+      "category": "control",
+      "paperReferences": [
+        "Definition 7.1.1, p. 49; Figure 9, p. 50",
+        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "echo-progress-full",
+      "label": "Missing echo, full theory",
+      "file": "echo-progress.md",
+      "droppedAxioms": [],
+      "expectedStatus": "no-model",
+      "expectedProperties": [
+        "not-tested",
+        "not-tested",
+        "not-tested"
+      ],
+      "expectedOriginalFailures": [
+        "Echo!"
+      ],
+      "theory": "ThyHBB2",
+      "category": "control",
+      "paperReferences": [
+        "Definition 7.1.1, p. 49; Figure 9, p. 50",
+        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "echo-progress-removed",
+      "label": "Remove Echo!",
+      "file": "echo-progress.md",
+      "droppedAxioms": [
+        "Echo!"
+      ],
+      "expectedStatus": "counterexample",
+      "expectedProperties": [
+        "counterexample",
+        "holds",
+        "holds"
+      ],
+      "expectedScenarios": [
+        true,
+        false,
+        false
+      ],
+      "expectedOriginalFailures": [
+        "Echo!"
+      ],
+      "theory": "ThyHBB2",
+      "category": "weakening",
+      "paperReferences": [
+        "Definition 7.1.1, p. 49; Figure 9, p. 50",
+        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "vote-progress-full",
+      "label": "Missing vote, full theory",
+      "file": "vote-progress.md",
+      "droppedAxioms": [],
+      "expectedStatus": "no-model",
+      "expectedProperties": [
+        "not-tested",
+        "not-tested",
+        "not-tested"
+      ],
+      "expectedOriginalFailures": [
+        "Vote!"
+      ],
+      "theory": "ThyHBB2",
+      "category": "control",
+      "paperReferences": [
+        "Definition 7.1.1, p. 49; Figure 9, p. 50",
+        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "vote-progress-removed",
+      "label": "Remove Vote!",
+      "file": "vote-progress.md",
+      "droppedAxioms": [
+        "Vote!"
+      ],
+      "expectedStatus": "counterexample",
+      "expectedProperties": [
+        "counterexample",
+        "holds",
+        "holds"
+      ],
+      "expectedScenarios": [
+        true,
+        false,
+        false
+      ],
+      "expectedOriginalFailures": [
+        "Vote!"
+      ],
+      "theory": "ThyHBB2",
+      "category": "weakening",
+      "paperReferences": [
+        "Definition 7.1.1, p. 49; Figure 9, p. 50",
+        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "deliver-progress-full",
+      "label": "Missing delivery, full theory",
+      "file": "deliver-progress.md",
+      "droppedAxioms": [],
+      "expectedStatus": "no-model",
+      "expectedProperties": [
+        "not-tested",
+        "not-tested",
+        "not-tested"
+      ],
+      "expectedOriginalFailures": [
+        "Deliver!"
+      ],
+      "theory": "ThyHBB2",
+      "category": "control",
+      "paperReferences": [
+        "Definition 7.1.1, p. 49; Figure 9, p. 50",
+        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    },
+    {
+      "id": "deliver-progress-removed",
+      "label": "Remove Deliver!",
+      "file": "deliver-progress.md",
+      "droppedAxioms": [
+        "Deliver!"
+      ],
+      "expectedStatus": "counterexample",
+      "expectedProperties": [
+        "counterexample",
+        "counterexample",
+        "holds"
+      ],
+      "expectedScenarios": [
+        true,
+        true,
+        true
+      ],
+      "expectedOriginalFailures": [
+        "Deliver!"
+      ],
+      "expectedFailurePlace": "q",
+      "theory": "ThyHBB2",
+      "category": "weakening",
+      "paperReferences": [
+        "Definition 7.1.1, p. 49; Figure 9, p. 50",
+        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
+        "Definition 5.2.4 and Figure 6, p. 38"
+      ]
+    }
+  ]
+}

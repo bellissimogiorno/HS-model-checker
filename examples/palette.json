@@ -1,0 +1,30 @@
+[
+  null,
+  {
+    "symbol": "propose",
+    "args": [
+      "v"
+    ]
+  },
+  {
+    "symbol": "echo",
+    "args": [
+      "v"
+    ]
+  },
+  {
+    "symbol": "vote",
+    "args": [
+      "v",
+      "v"
+    ]
+  },
+  {
+    "symbol": "deliver",
+    "args": [
+      "v",
+      "v",
+      "v"
+    ]
+  }
+]

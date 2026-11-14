@@ -1,0 +1,98 @@
+{
+  "format": "history-structure-model/v1",
+  "name": "Completed HBB2: proposal to delivery",
+  "participants": [
+    "p"
+  ],
+  "values": [
+    "v"
+  ],
+  "signature": {
+    "events": [
+      "propose",
+      "echo",
+      "vote",
+      "deliver"
+    ],
+    "predicates": [
+      "live"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "proposal",
+      "place": "p",
+      "event": {
+        "symbol": "propose",
+        "args": [
+          "v"
+        ]
+      },
+      "past": []
+    },
+    {
+      "id": "echoed",
+      "place": "p",
+      "event": {
+        "symbol": "echo",
+        "args": [
+          "v"
+        ]
+      },
+      "past": [
+        "proposal"
+      ]
+    },
+    {
+      "id": "voted",
+      "place": "p",
+      "event": {
+        "symbol": "vote",
+        "args": [
+          "v",
+          "v"
+        ]
+      },
+      "past": [
+        "echoed"
+      ]
+    },
+    {
+      "id": "delivered",
+      "place": "p",
+      "event": {
+        "symbol": "deliver",
+        "args": [
+          "v",
+          "v",
+          "v"
+        ]
+      },
+      "past": [
+        "voted"
+      ]
+    },
+    {
+      "id": "observed",
+      "place": "p",
+      "event": null,
+      "past": [
+        "delivered"
+      ]
+    }
+  ],
+  "quorums": {
+    "v": [
+      [
+        "p"
+      ]
+    ]
+  },
+  "facts": [
+    {
+      "place": "p",
+      "at": "*",
+      "atom": "live"
+    }
+  ]
+}

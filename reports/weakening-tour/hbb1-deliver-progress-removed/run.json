@@ -1,0 +1,4456 @@
+{
+  "format": "history-structure-run/v1",
+  "version": "0.6.9",
+  "name": "HBB1: remove Deliver!",
+  "mode": "synthesize",
+  "status": "counterexample",
+  "complete": true,
+  "reason": "The fixed history was exhausted.",
+  "consistency": {
+    "status": "model",
+    "complete": true,
+    "consistent": true,
+    "reason": "A predicate interpretation satisfying every retained assumption was found and replayed.",
+    "witness": {
+      "model": {
+        "format": "history-structure-model/v1",
+        "name": "A live participant observes delivery but never delivers",
+        "participants": [
+          "p",
+          "q"
+        ],
+        "values": [
+          "v"
+        ],
+        "signature": {
+          "events": [
+            "propose",
+            "echo",
+            "vote",
+            "deliver"
+          ],
+          "predicates": [
+            "live",
+            "safe"
+          ]
+        },
+        "nodes": [
+          {
+            "id": "e0",
+            "place": "p",
+            "event": {
+              "symbol": "propose",
+              "args": [
+                "v"
+              ]
+            },
+            "past": []
+          },
+          {
+            "id": "e1",
+            "place": "p",
+            "event": {
+              "symbol": "echo",
+              "args": [
+                "v"
+              ]
+            },
+            "past": [
+              "e0"
+            ]
+          },
+          {
+            "id": "e2",
+            "place": "q",
+            "event": {
+              "symbol": "echo",
+              "args": [
+                "v"
+              ]
+            },
+            "past": [
+              "e1"
+            ]
+          },
+          {
+            "id": "e3",
+            "place": "p",
+            "event": {
+              "symbol": "vote",
+              "args": [
+                "v",
+                "v"
+              ]
+            },
+            "past": [
+              "e2"
+            ]
+          },
+          {
+            "id": "e4",
+            "place": "q",
+            "event": {
+              "symbol": "vote",
+              "args": [
+                "v",
+                "v"
+              ]
+            },
+            "past": [
+              "e3"
+            ]
+          },
+          {
+            "id": "e5",
+            "place": "p",
+            "event": {
+              "symbol": "deliver",
+              "args": [
+                "v",
+                "v",
+                "v"
+              ]
+            },
+            "past": [
+              "e4"
+            ]
+          },
+          {
+            "id": "e6",
+            "place": "p",
+            "event": null,
+            "past": [
+              "e5"
+            ]
+          },
+          {
+            "id": "e7",
+            "place": "q",
+            "event": null,
+            "past": [
+              "e6"
+            ]
+          }
+        ],
+        "quorums": {
+          "v": [
+            [
+              "p"
+            ]
+          ]
+        },
+        "facts": [
+          {
+            "place": "p",
+            "at": "*",
+            "atom": "live"
+          },
+          {
+            "place": "q",
+            "at": "*",
+            "atom": "live"
+          },
+          {
+            "place": "p",
+            "at": "*",
+            "atom": {
+              "symbol": "safe",
+              "args": [
+                "v"
+              ]
+            }
+          },
+          {
+            "place": "q",
+            "at": "*",
+            "atom": {
+              "symbol": "safe",
+              "args": [
+                "v"
+              ]
+            }
+          }
+        ]
+      },
+      "assumptions": {
+        "name": "Custom theory",
+        "holds": true,
+        "complete": true,
+        "axioms": [
+          {
+            "name": "LiveAlways",
+            "kind": "other",
+            "formula": "live <-> end live",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 100,
+              "memoHits": 22,
+              "memoEntries": 74,
+              "memoEvictions": 0,
+              "elapsedMs": 0.21861300000000483
+            }
+          },
+          {
+            "name": "LiveSeq",
+            "kind": "other",
+            "formula": "live -> seq",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 75,
+              "memoHits": 0,
+              "memoEntries": 72,
+              "memoEvictions": 0,
+              "elapsedMs": 0.15112300000009782
+            }
+          },
+          {
+            "name": "KnowledgeDia:\"propose\"(\"v\")",
+            "kind": "other",
+            "formula": "(end (dia[] past (live & \"propose\"(\"v\")))) -> live -> sometime (dia[] past \"propose\"(\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 230,
+              "memoHits": 59,
+              "memoEntries": 146,
+              "memoEvictions": 0,
+              "elapsedMs": 0.487480000000005
+            }
+          },
+          {
+            "name": "KnowledgeBox:\"propose\"(\"v\"):0",
+            "kind": "other",
+            "formula": "(end (box[] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[] past \"propose\"(\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 107,
+              "memoHits": 24,
+              "memoEntries": 64,
+              "memoEvictions": 0,
+              "elapsedMs": 0.12362200000006851
+            }
+          },
+          {
+            "name": "KnowledgeBox:\"propose\"(\"v\"):1",
+            "kind": "other",
+            "formula": "(end (box[\"v\"] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[\"v\"] past \"propose\"(\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 214,
+              "memoHits": 58,
+              "memoEntries": 133,
+              "memoEvictions": 0,
+              "elapsedMs": 0.26757500000007894
+            }
+          },
+          {
+            "name": "KnowledgeDia:\"echo\"(\"v\")",
+            "kind": "other",
+            "formula": "(end (dia[] past (live & \"echo\"(\"v\")))) -> live -> sometime (dia[] past \"echo\"(\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 248,
+              "memoHits": 73,
+              "memoEntries": 148,
+              "memoEvictions": 0,
+              "elapsedMs": 0.2981710000001385
+            }
+          },
+          {
+            "name": "KnowledgeBox:\"echo\"(\"v\"):0",
+            "kind": "other",
+            "formula": "(end (box[] past (live & \"echo\"(\"v\")))) -> live -> sometime (box[] past \"echo\"(\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 266,
+              "memoHits": 86,
+              "memoEntries": 151,
+              "memoEvictions": 0,
+              "elapsedMs": 0.34083300000020245
+            }
+          },
+          {
+            "name": "KnowledgeBox:\"echo\"(\"v\"):1",
+            "kind": "other",
+            "formula": "(end (box[\"v\"] past (live & \"echo\"(\"v\")))) -> live -> sometime (box[\"v\"] past \"echo\"(\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 235,
+              "memoHits": 72,
+              "memoEntries": 139,
+              "memoEvictions": 0,
+              "elapsedMs": 0.2847600000000057
+            }
+          },
+          {
+            "name": "KnowledgeDia:\"vote\"(\"v\",\"v\")",
+            "kind": "other",
+            "formula": "(end (dia[] past (live & \"vote\"(\"v\",\"v\")))) -> live -> sometime (dia[] past \"vote\"(\"v\",\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 297,
+              "memoHits": 102,
+              "memoEntries": 162,
+              "memoEvictions": 0,
+              "elapsedMs": 0.3528310000001511
+            }
+          },
+          {
+            "name": "KnowledgeBox:\"vote\"(\"v\",\"v\"):0",
+            "kind": "other",
+            "formula": "(end (box[] past (live & \"vote\"(\"v\",\"v\")))) -> live -> sometime (box[] past \"vote\"(\"v\",\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 317,
+              "memoHits": 117,
+              "memoEntries": 165,
+              "memoEvictions": 0,
+              "elapsedMs": 0.43029500000011467
+            }
+          },
+          {
+            "name": "KnowledgeBox:\"vote\"(\"v\",\"v\"):1",
+            "kind": "other",
+            "formula": "(end (box[\"v\"] past (live & \"vote\"(\"v\",\"v\")))) -> live -> sometime (box[\"v\"] past \"vote\"(\"v\",\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 274,
+              "memoHits": 99,
+              "memoEntries": 147,
+              "memoEvictions": 0,
+              "elapsedMs": 0.3672220000000834
+            }
+          },
+          {
+            "name": "KnowledgeDia:\"deliver\"(\"v\",\"v\",\"v\")",
+            "kind": "other",
+            "formula": "(end (dia[] past (live & \"deliver\"(\"v\",\"v\",\"v\")))) -> live -> sometime (dia[] past \"deliver\"(\"v\",\"v\",\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 349,
+              "memoHits": 135,
+              "memoEntries": 175,
+              "memoEvictions": 0,
+              "elapsedMs": 0.470986000000039
+            }
+          },
+          {
+            "name": "KnowledgeBox:\"deliver\"(\"v\",\"v\",\"v\"):0",
+            "kind": "other",
+            "formula": "(end (box[] past (live & \"deliver\"(\"v\",\"v\",\"v\")))) -> live -> sometime (box[] past \"deliver\"(\"v\",\"v\",\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 120,
+              "memoHits": 24,
+              "memoEntries": 73,
+              "memoEvictions": 0,
+              "elapsedMs": 0.14782799999989038
+            }
+          },
+          {
+            "name": "KnowledgeBox:\"deliver\"(\"v\",\"v\",\"v\"):1",
+            "kind": "other",
+            "formula": "(end (box[\"v\"] past (live & \"deliver\"(\"v\",\"v\",\"v\")))) -> live -> sometime (box[\"v\"] past \"deliver\"(\"v\",\"v\",\"v\"))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 315,
+              "memoHits": 128,
+              "memoEntries": 155,
+              "memoEvictions": 0,
+              "elapsedMs": 0.46883200000002034
+            }
+          },
+          {
+            "name": "KnowledgeDia:\"propose\"()",
+            "kind": "other",
+            "formula": "(end (dia[] past (live & \"propose\"()))) -> live -> sometime (dia[] past \"propose\"())",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 117,
+              "memoHits": 24,
+              "memoEntries": 76,
+              "memoEvictions": 0,
+              "elapsedMs": 0.15051200000016252
+            }
+          },
+          {
+            "name": "KnowledgeBox:\"propose\"():0",
+            "kind": "other",
+            "formula": "(end (box[] past (live & \"propose\"()))) -> live -> sometime (box[] past \"propose\"())",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 117,
+              "memoHits": 24,
+              "memoEntries": 76,
+              "memoEvictions": 0,
+              "elapsedMs": 0.17636100000004262
+            }
+          },
+          {
+            "name": "KnowledgeBox:\"propose\"():1",
+            "kind": "other",
+            "formula": "(end (box[\"v\"] past (live & \"propose\"()))) -> live -> sometime (box[\"v\"] past \"propose\"())",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 107,
+              "memoHits": 23,
+              "memoEntries": 66,
+              "memoEvictions": 0,
+              "elapsedMs": 0.1318050000002131
+            }
+          },
+          {
+            "name": "Echo?",
+            "kind": "backward",
+            "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 92,
+              "memoHits": 1,
+              "memoEntries": 79,
+              "memoEvictions": 0,
+              "elapsedMs": 0.15964600000006612
+            }
+          },
+          {
+            "name": "Vote?",
+            "kind": "backward",
+            "formula": "\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 125,
+              "memoHits": 2,
+              "memoEntries": 106,
+              "memoEvictions": 0,
+              "elapsedMs": 0.32132400000000416
+            }
+          },
+          {
+            "name": "Deliver?",
+            "kind": "backward",
+            "formula": "\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 141,
+              "memoHits": 0,
+              "memoEntries": 125,
+              "memoEvictions": 0,
+              "elapsedMs": 0.3448789999999917
+            }
+          },
+          {
+            "name": "EchoNE",
+            "kind": "other",
+            "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 113,
+              "memoHits": 0,
+              "memoEntries": 101,
+              "memoEvictions": 0,
+              "elapsedMs": 2.211315999999897
+            }
+          },
+          {
+            "name": "Safe",
+            "kind": "other",
+            "formula": "\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 274,
+              "memoHits": 45,
+              "memoEntries": 166,
+              "memoEvictions": 0,
+              "elapsedMs": 0.444486999999981
+            }
+          },
+          {
+            "name": "Echo!",
+            "kind": "forward",
+            "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 321,
+              "memoHits": 74,
+              "memoEntries": 187,
+              "memoEvictions": 0,
+              "elapsedMs": 0.5740969999999379
+            }
+          },
+          {
+            "name": "Vote!",
+            "kind": "forward",
+            "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)",
+            "holds": true,
+            "complete": true,
+            "scope": "all",
+            "failures": [],
+            "checked": 24,
+            "totalRepresentatives": 24,
+            "exhaustive": true,
+            "stats": {
+              "steps": 435,
+              "memoHits": 158,
+              "memoEntries": 234,
+              "memoEvictions": 0,
+              "elapsedMs": 1.1154070000000047
+            }
+          }
+        ],
+        "counts": {
+          "total": 24,
+          "passed": 24,
+          "failed": 0,
+          "inconclusive": 0
+        }
+      },
+      "result": null,
+      "experiment": {
+        "format": "history-structure-synthesis/v1",
+        "theory": {
+          "includeLive": true,
+          "axioms": [
+            {
+              "name": "Echo?",
+              "kind": "backward",
+              "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)"
+            },
+            {
+              "name": "Vote?",
+              "kind": "backward",
+              "formula": "\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))"
+            },
+            {
+              "name": "Deliver?",
+              "kind": "backward",
+              "formula": "\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)"
+            },
+            {
+              "name": "EchoNE",
+              "kind": "other",
+              "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w"
+            },
+            {
+              "name": "Safe",
+              "kind": "other",
+              "formula": "\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))"
+            },
+            {
+              "name": "Echo!",
+              "kind": "forward",
+              "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+            },
+            {
+              "name": "Vote!",
+              "kind": "forward",
+              "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
+            }
+          ]
+        },
+        "property": null,
+        "scope": "end",
+        "pinFacts": true,
+        "limits": {
+          "maxMilliseconds": 59995,
+          "maxCompilationNodes": 500000,
+          "maxKnowledgeFamilies": 256,
+          "maxDecisions": 100000,
+          "maxSteps": 2000000
+        },
+        "seedModel": {
+          "format": "history-structure-model/v1",
+          "name": "A live participant observes delivery but never delivers",
+          "participants": [
+            "p",
+            "q"
+          ],
+          "values": [
+            "v"
+          ],
+          "signature": {
+            "events": [
+              "propose",
+              "echo",
+              "vote",
+              "deliver"
+            ],
+            "predicates": [
+              "live",
+              "safe"
+            ]
+          },
+          "nodes": [
+            {
+              "id": "e0",
+              "place": "p",
+              "event": {
+                "symbol": "propose",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": []
+            },
+            {
+              "id": "e1",
+              "place": "p",
+              "event": {
+                "symbol": "echo",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": [
+                "e0"
+              ]
+            },
+            {
+              "id": "e2",
+              "place": "q",
+              "event": {
+                "symbol": "echo",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": [
+                "e1"
+              ]
+            },
+            {
+              "id": "e3",
+              "place": "p",
+              "event": {
+                "symbol": "vote",
+                "args": [
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "e2"
+              ]
+            },
+            {
+              "id": "e4",
+              "place": "q",
+              "event": {
+                "symbol": "vote",
+                "args": [
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "e3"
+              ]
+            },
+            {
+              "id": "e5",
+              "place": "p",
+              "event": {
+                "symbol": "deliver",
+                "args": [
+                  "v",
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "e4"
+              ]
+            },
+            {
+              "id": "e6",
+              "place": "p",
+              "event": null,
+              "past": [
+                "e5"
+              ]
+            },
+            {
+              "id": "e7",
+              "place": "q",
+              "event": null,
+              "past": [
+                "e6"
+              ]
+            }
+          ],
+          "quorums": {
+            "v": [
+              [
+                "p"
+              ]
+            ]
+          },
+          "facts": [
+            {
+              "place": "p",
+              "at": "*",
+              "atom": "live"
+            },
+            {
+              "place": "q",
+              "at": "*",
+              "atom": "live"
+            },
+            {
+              "place": "p",
+              "at": "*",
+              "atom": {
+                "symbol": "safe",
+                "args": [
+                  "v"
+                ]
+              }
+            },
+            {
+              "place": "q",
+              "at": "*",
+              "atom": {
+                "symbol": "safe",
+                "args": [
+                  "v"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "verified": true
+    },
+    "stats": {
+      "compilationNodes": 10515,
+      "predicateVariables": 0,
+      "variables": 1,
+      "clauses": 1,
+      "decisions": 0,
+      "consistencyDecisions": 0,
+      "targetDecisions": 0,
+      "elapsedMilliseconds": 28
+    },
+    "coverage": "All predicate interpretations on the supplied fixed finite history, participant/value domains and quorum semifilters; supplied positive facts are pinned when pinFacts is enabled.",
+    "evidence": {
+      "format": "history-structure-evidence/v1",
+      "version": "0.6.9",
+      "name": "HBB1: remove Deliver!",
+      "sourceMarkdown": "# HBB1: remove Deliver!\n\nBoth live participants echo and vote; p delivers, while q observes delivery and never delivers. Safety is pinned true everywhere, including the exact global safety premise of Liveness 2. The curated browser preset omits **Deliver!**, admitting a model in which **Liveness 1 and Liveness 2 fail at q** with their complete premises and triggers true. Agreement holds with its scenario present. Restoring Deliver! makes the full theory incompatible with this fixed history, leaving the claims **Not tested**. Final silent observations preserve the complete Knowledge schemes.\n\n**Browser preset:** only **Deliver!** is omitted. **Keep all axioms** selects the full-theory comparison; **Use example defaults** restores the omission. Neither action starts a run. The source declares every rule: plain Markdown imports and CLI runs retain them unless you specify `--drop \"Deliver!\"`.\n\nRead the rules below, choose **Continue to claims**, review the selected properties and assumptions, then continue to the run settings and run the check. Use **Edit Markdown** to change a rule; Unicode and ASCII spellings have identical semantics. The supplied history JSON is at the end.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 6, p. 38, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 37).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires both current `safe(l)` and knowledge of a quorum of prior matching echoes.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a reporting quorum of matching source-learner votes.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Deliver? [backward]:\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### Safe — other assumption\n\nSafety is a biconditional: at most one proposal value is known, or every learner has a sequential witness in every relevant quorum intersection.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2; Remark 6.2.2, p. 44.\naxiom Safe [other]:\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))\n```\n\n### Echo! — forward rule\n\nA live participant that knows a proposal must echo some value somewhere in its actual local run. The value is existentially chosen.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Echo! [forward]:\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nIf safety holds at every actual local tuple, a live participant with quorum echoes must vote for that value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Vote! [forward]:\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)\n```\n\n### Deliver! — forward rule\n\nA live participant with a reporting quorum of votes must deliver the indicated reporting learner, source learner and value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Deliver! [forward]:\n  ∀ m,l,v. (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Liveness 1 — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.5.3, p. 48.\nproperty Liveness 1 [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))\n```\n\n### Liveness 2 — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant. The source learner must also be safe at every participant at the end of time.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.4.5, p. 47.\nproperty Liveness 2 [end]:\n  ∀ a,b,l,v. ((♢[a,b] ⊤) ∧ (□[b] live) ∧ (□[] safe(l))) ⇒ (♢[] ↓ deliver(a,l,v) ⇒ live ⇒\n  ↕ deliver(b,l,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.3.1, p. 45.\nproperty Agreement [end]:\n  ∀ a,b,l,m,v,w. ((♢[a,b] seq)) ⇒ ((♢[] ↓ deliver(a,l,v)) ∧ (♢[] ↓ deliver(b,m,w)) ⇒\n  v=w)\n```\n\n## Paper and interpretation\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nAll rules and complete conditional correctness properties in this document are sourced to Murdoch J. Gabbay and Isaac Sheff, *Heterogeneous trust in reliable broadcast via modal logic and history structures*, draft dated 7 November 2026 (**2026-11-07**). Figure 7, p. 41 and Definition 6.1.2 give ThyHBB1; Figure 8, p. 41 and Theorem 6.1.6, p. 43 give its correctness statements.\n\nThis is a pedagogical finite model, not a literal history from the paper. Delivery arguments are ordered deliver(m,l,v): m is the reporting learner, l is the source/vote learner and v is the value.\n\nThe model, value domain, quorum basis, facts and any scenario-only axiom are choices of this finite experiment. Every experiment retains the complete dynamic ThyLive include: LiveAlways, LiveSeq and both Knowledge schemes are checked at all possible worlds, covering all ground events and all finite learner lists, including repeated learners and the empty list. See the [paper map](../../docs/PAPER_MAP.md) and [paper variants](../../docs/PAPER_VARIANTS.md) for the exact source mapping and classification.\n\nResults concern this fixed finite history and all predicate interpretations extending its positive facts. They are not unbounded correctness or axiom-independence proofs.\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"A live participant observes delivery but never delivers\",\n  \"participants\": [\n    \"p\",\n    \"q\"\n  ],\n  \"values\": [\n    \"v\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"safe\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"e0\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"propose\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": []\n    },\n    {\n      \"id\": \"e1\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"echo\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e0\"\n      ]\n    },\n    {\n      \"id\": \"e2\",\n      \"place\": \"q\",\n      \"event\": {\n        \"symbol\": \"echo\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e1\"\n      ]\n    },\n    {\n      \"id\": \"e3\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"vote\",\n        \"args\": [\n          \"v\",\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e2\"\n      ]\n    },\n    {\n      \"id\": \"e4\",\n      \"place\": \"q\",\n      \"event\": {\n        \"symbol\": \"vote\",\n        \"args\": [\n          \"v\",\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e3\"\n      ]\n    },\n    {\n      \"id\": \"e5\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"deliver\",\n        \"args\": [\n          \"v\",\n          \"v\",\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e4\"\n      ]\n    },\n    {\n      \"id\": \"e6\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": [\n        \"e5\"\n      ]\n    },\n    {\n      \"id\": \"e7\",\n      \"place\": \"q\",\n      \"event\": null,\n      \"past\": [\n        \"e6\"\n      ]\n    }\n  ],\n  \"quorums\": {\n    \"v\": [\n      [\n        \"p\"\n      ]\n    ]\n  },\n  \"facts\": [\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    },\n    {\n      \"place\": \"q\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    },\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": {\n        \"symbol\": \"safe\",\n        \"args\": [\n          \"v\"\n        ]\n      }\n    },\n    {\n      \"place\": \"q\",\n      \"at\": \"*\",\n      \"atom\": {\n        \"symbol\": \"safe\",\n        \"args\": [\n          \"v\"\n        ]\n      }\n    }\n  ]\n}\n```\n",
+      "model": {
+        "format": "history-structure-model/v1",
+        "name": "A live participant observes delivery but never delivers",
+        "participants": [
+          "p",
+          "q"
+        ],
+        "values": [
+          "v"
+        ],
+        "signature": {
+          "events": [
+            "propose",
+            "echo",
+            "vote",
+            "deliver"
+          ],
+          "predicates": [
+            "live",
+            "safe"
+          ]
+        },
+        "nodes": [
+          {
+            "id": "e0",
+            "place": "p",
+            "event": {
+              "symbol": "propose",
+              "args": [
+                "v"
+              ]
+            },
+            "past": []
+          },
+          {
+            "id": "e1",
+            "place": "p",
+            "event": {
+              "symbol": "echo",
+              "args": [
+                "v"
+              ]
+            },
+            "past": [
+              "e0"
+            ]
+          },
+          {
+            "id": "e2",
+            "place": "q",
+            "event": {
+              "symbol": "echo",
+              "args": [
+                "v"
+              ]
+            },
+            "past": [
+              "e1"
+            ]
+          },
+          {
+            "id": "e3",
+            "place": "p",
+            "event": {
+              "symbol": "vote",
+              "args": [
+                "v",
+                "v"
+              ]
+            },
+            "past": [
+              "e2"
+            ]
+          },
+          {
+            "id": "e4",
+            "place": "q",
+            "event": {
+              "symbol": "vote",
+              "args": [
+                "v",
+                "v"
+              ]
+            },
+            "past": [
+              "e3"
+            ]
+          },
+          {
+            "id": "e5",
+            "place": "p",
+            "event": {
+              "symbol": "deliver",
+              "args": [
+                "v",
+                "v",
+                "v"
+              ]
+            },
+            "past": [
+              "e4"
+            ]
+          },
+          {
+            "id": "e6",
+            "place": "p",
+            "event": null,
+            "past": [
+              "e5"
+            ]
+          },
+          {
+            "id": "e7",
+            "place": "q",
+            "event": null,
+            "past": [
+              "e6"
+            ]
+          }
+        ],
+        "quorums": {
+          "v": [
+            [
+              "p"
+            ]
+          ]
+        },
+        "facts": [
+          {
+            "place": "p",
+            "at": "*",
+            "atom": "live"
+          },
+          {
+            "place": "q",
+            "at": "*",
+            "atom": "live"
+          },
+          {
+            "place": "p",
+            "at": "*",
+            "atom": {
+              "symbol": "safe",
+              "args": [
+                "v"
+              ]
+            }
+          },
+          {
+            "place": "q",
+            "at": "*",
+            "atom": {
+              "symbol": "safe",
+              "args": [
+                "v"
+              ]
+            }
+          }
+        ]
+      },
+      "theory": {
+        "includeLive": true,
+        "axioms": [
+          {
+            "name": "Echo?",
+            "kind": "backward",
+            "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)"
+          },
+          {
+            "name": "Vote?",
+            "kind": "backward",
+            "formula": "\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))"
+          },
+          {
+            "name": "Deliver?",
+            "kind": "backward",
+            "formula": "\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)"
+          },
+          {
+            "name": "EchoNE",
+            "kind": "other",
+            "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w"
+          },
+          {
+            "name": "Safe",
+            "kind": "other",
+            "formula": "\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))"
+          },
+          {
+            "name": "Echo!",
+            "kind": "forward",
+            "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+          },
+          {
+            "name": "Vote!",
+            "kind": "forward",
+            "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
+          }
+        ]
+      },
+      "retainedAxioms": [
+        "ThyLive",
+        "Echo?",
+        "Vote?",
+        "Deliver?",
+        "EchoNE",
+        "Safe",
+        "Echo!",
+        "Vote!"
+      ],
+      "droppedAxioms": [
+        "Deliver!"
+      ],
+      "property": null,
+      "failure": null,
+      "mode": "synthesize",
+      "bounds": {
+        "mode": "synthesize",
+        "pinFacts": true,
+        "maxMilliseconds": 60000,
+        "maxCompilationNodes": 500000,
+        "maxDecisions": 100000,
+        "maxAdditionalNodes": 2,
+        "maxModels": 1000,
+        "maxKnowledgeFamilies": 256
+      },
+      "snapshot": {
+        "format": "history-structure-run-snapshot/v1",
+        "engine": {
+          "name": "history-structure-model-checker",
+          "version": "0.6.9",
+          "semantics": "hbb-disc/2026-11-07"
+        },
+        "backend": "builtin-cdcl/tseitin",
+        "sourceSha256": "7dd48d9f31510bbe0b837ec55c43a1ca7bca8f4bac62709119e04ccb757fe89e",
+        "selectedProperties": [
+          "Liveness 1",
+          "Liveness 2",
+          "Agreement"
+        ],
+        "droppedAxioms": [
+          "Deliver!"
+        ],
+        "bounds": {
+          "mode": "synthesize",
+          "pinFacts": true,
+          "maxMilliseconds": 60000,
+          "maxCompilationNodes": 500000,
+          "maxDecisions": 100000,
+          "maxAdditionalNodes": 2,
+          "maxModels": 1000,
+          "maxKnowledgeFamilies": 256
+        },
+        "id": "sha256:dc05cc50575656717bd7bcb64c5d953fab112c9ebd049550599cc760e206c547"
+      },
+      "expected": "model"
+    }
+  },
+  "properties": [
+    {
+      "name": "Liveness 1",
+      "formula": "\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))",
+      "scope": "end",
+      "status": "counterexample",
+      "unknownHistories": 0,
+      "stats": {
+        "compilationNodes": 10728,
+        "predicateVariables": 0,
+        "variables": 1,
+        "clauses": 1,
+        "decisions": 0,
+        "consistencyDecisions": 0,
+        "targetDecisions": 0,
+        "elapsedMilliseconds": 37
+      },
+      "reason": "A predicate interpretation satisfies the retained assumptions and falsifies the property; both judgements were independently replayed.",
+      "witness": {
+        "model": {
+          "format": "history-structure-model/v1",
+          "name": "A live participant observes delivery but never delivers",
+          "participants": [
+            "p",
+            "q"
+          ],
+          "values": [
+            "v"
+          ],
+          "signature": {
+            "events": [
+              "propose",
+              "echo",
+              "vote",
+              "deliver"
+            ],
+            "predicates": [
+              "live",
+              "safe"
+            ]
+          },
+          "nodes": [
+            {
+              "id": "e0",
+              "place": "p",
+              "event": {
+                "symbol": "propose",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": []
+            },
+            {
+              "id": "e1",
+              "place": "p",
+              "event": {
+                "symbol": "echo",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": [
+                "e0"
+              ]
+            },
+            {
+              "id": "e2",
+              "place": "q",
+              "event": {
+                "symbol": "echo",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": [
+                "e1"
+              ]
+            },
+            {
+              "id": "e3",
+              "place": "p",
+              "event": {
+                "symbol": "vote",
+                "args": [
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "e2"
+              ]
+            },
+            {
+              "id": "e4",
+              "place": "q",
+              "event": {
+                "symbol": "vote",
+                "args": [
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "e3"
+              ]
+            },
+            {
+              "id": "e5",
+              "place": "p",
+              "event": {
+                "symbol": "deliver",
+                "args": [
+                  "v",
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "e4"
+              ]
+            },
+            {
+              "id": "e6",
+              "place": "p",
+              "event": null,
+              "past": [
+                "e5"
+              ]
+            },
+            {
+              "id": "e7",
+              "place": "q",
+              "event": null,
+              "past": [
+                "e6"
+              ]
+            }
+          ],
+          "quorums": {
+            "v": [
+              [
+                "p"
+              ]
+            ]
+          },
+          "facts": [
+            {
+              "place": "p",
+              "at": "*",
+              "atom": "live"
+            },
+            {
+              "place": "q",
+              "at": "*",
+              "atom": "live"
+            },
+            {
+              "place": "p",
+              "at": "*",
+              "atom": {
+                "symbol": "safe",
+                "args": [
+                  "v"
+                ]
+              }
+            },
+            {
+              "place": "q",
+              "at": "*",
+              "atom": {
+                "symbol": "safe",
+                "args": [
+                  "v"
+                ]
+              }
+            }
+          ]
+        },
+        "assumptions": {
+          "name": "Custom theory",
+          "holds": true,
+          "complete": true,
+          "axioms": [
+            {
+              "name": "LiveAlways",
+              "kind": "other",
+              "formula": "live <-> end live",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 100,
+                "memoHits": 22,
+                "memoEntries": 74,
+                "memoEvictions": 0,
+                "elapsedMs": 0.12912099999994098
+              }
+            },
+            {
+              "name": "LiveSeq",
+              "kind": "other",
+              "formula": "live -> seq",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 75,
+                "memoHits": 0,
+                "memoEntries": 72,
+                "memoEvictions": 0,
+                "elapsedMs": 0.19057200000020202
+              }
+            },
+            {
+              "name": "KnowledgeDia:\"propose\"(\"v\")",
+              "kind": "other",
+              "formula": "(end (dia[] past (live & \"propose\"(\"v\")))) -> live -> sometime (dia[] past \"propose\"(\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 230,
+                "memoHits": 59,
+                "memoEntries": 146,
+                "memoEvictions": 0,
+                "elapsedMs": 0.27891199999999117
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"propose\"(\"v\"):0",
+              "kind": "other",
+              "formula": "(end (box[] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[] past \"propose\"(\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 107,
+                "memoHits": 24,
+                "memoEntries": 64,
+                "memoEvictions": 0,
+                "elapsedMs": 0.15151399999990645
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"propose\"(\"v\"):1",
+              "kind": "other",
+              "formula": "(end (box[\"v\"] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[\"v\"] past \"propose\"(\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 214,
+                "memoHits": 58,
+                "memoEntries": 133,
+                "memoEvictions": 0,
+                "elapsedMs": 0.2900379999998677
+              }
+            },
+            {
+              "name": "KnowledgeDia:\"echo\"(\"v\")",
+              "kind": "other",
+              "formula": "(end (dia[] past (live & \"echo\"(\"v\")))) -> live -> sometime (dia[] past \"echo\"(\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 248,
+                "memoHits": 73,
+                "memoEntries": 148,
+                "memoEvictions": 0,
+                "elapsedMs": 0.35790899999983594
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"echo\"(\"v\"):0",
+              "kind": "other",
+              "formula": "(end (box[] past (live & \"echo\"(\"v\")))) -> live -> sometime (box[] past \"echo\"(\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 266,
+                "memoHits": 86,
+                "memoEntries": 151,
+                "memoEvictions": 0,
+                "elapsedMs": 0.37237999999979365
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"echo\"(\"v\"):1",
+              "kind": "other",
+              "formula": "(end (box[\"v\"] past (live & \"echo\"(\"v\")))) -> live -> sometime (box[\"v\"] past \"echo\"(\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 235,
+                "memoHits": 72,
+                "memoEntries": 139,
+                "memoEvictions": 0,
+                "elapsedMs": 0.3132230000001073
+              }
+            },
+            {
+              "name": "KnowledgeDia:\"vote\"(\"v\",\"v\")",
+              "kind": "other",
+              "formula": "(end (dia[] past (live & \"vote\"(\"v\",\"v\")))) -> live -> sometime (dia[] past \"vote\"(\"v\",\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 297,
+                "memoHits": 102,
+                "memoEntries": 162,
+                "memoEvictions": 0,
+                "elapsedMs": 0.33676699999978155
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"vote\"(\"v\",\"v\"):0",
+              "kind": "other",
+              "formula": "(end (box[] past (live & \"vote\"(\"v\",\"v\")))) -> live -> sometime (box[] past \"vote\"(\"v\",\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 317,
+                "memoHits": 117,
+                "memoEntries": 165,
+                "memoEvictions": 0,
+                "elapsedMs": 0.47264800000016294
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"vote\"(\"v\",\"v\"):1",
+              "kind": "other",
+              "formula": "(end (box[\"v\"] past (live & \"vote\"(\"v\",\"v\")))) -> live -> sometime (box[\"v\"] past \"vote\"(\"v\",\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 274,
+                "memoHits": 99,
+                "memoEntries": 147,
+                "memoEvictions": 0,
+                "elapsedMs": 0.3654500000000098
+              }
+            },
+            {
+              "name": "KnowledgeDia:\"deliver\"(\"v\",\"v\",\"v\")",
+              "kind": "other",
+              "formula": "(end (dia[] past (live & \"deliver\"(\"v\",\"v\",\"v\")))) -> live -> sometime (dia[] past \"deliver\"(\"v\",\"v\",\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 349,
+                "memoHits": 135,
+                "memoEntries": 175,
+                "memoEvictions": 0,
+                "elapsedMs": 0.4059190000000399
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"deliver\"(\"v\",\"v\",\"v\"):0",
+              "kind": "other",
+              "formula": "(end (box[] past (live & \"deliver\"(\"v\",\"v\",\"v\")))) -> live -> sometime (box[] past \"deliver\"(\"v\",\"v\",\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 120,
+                "memoHits": 24,
+                "memoEntries": 73,
+                "memoEvictions": 0,
+                "elapsedMs": 0.11552100000017163
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"deliver\"(\"v\",\"v\",\"v\"):1",
+              "kind": "other",
+              "formula": "(end (box[\"v\"] past (live & \"deliver\"(\"v\",\"v\",\"v\")))) -> live -> sometime (box[\"v\"] past \"deliver\"(\"v\",\"v\",\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 315,
+                "memoHits": 128,
+                "memoEntries": 155,
+                "memoEvictions": 0,
+                "elapsedMs": 0.3920389999998406
+              }
+            },
+            {
+              "name": "KnowledgeDia:\"propose\"()",
+              "kind": "other",
+              "formula": "(end (dia[] past (live & \"propose\"()))) -> live -> sometime (dia[] past \"propose\"())",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 117,
+                "memoHits": 24,
+                "memoEntries": 76,
+                "memoEvictions": 0,
+                "elapsedMs": 0.1270079999999325
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"propose\"():0",
+              "kind": "other",
+              "formula": "(end (box[] past (live & \"propose\"()))) -> live -> sometime (box[] past \"propose\"())",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 117,
+                "memoHits": 24,
+                "memoEntries": 76,
+                "memoEvictions": 0,
+                "elapsedMs": 0.11857499999996435
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"propose\"():1",
+              "kind": "other",
+              "formula": "(end (box[\"v\"] past (live & \"propose\"()))) -> live -> sometime (box[\"v\"] past \"propose\"())",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 107,
+                "memoHits": 23,
+                "memoEntries": 66,
+                "memoEvictions": 0,
+                "elapsedMs": 0.11022300000013274
+              }
+            },
+            {
+              "name": "Echo?",
+              "kind": "backward",
+              "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 92,
+                "memoHits": 1,
+                "memoEntries": 79,
+                "memoEvictions": 0,
+                "elapsedMs": 0.16515400000002955
+              }
+            },
+            {
+              "name": "Vote?",
+              "kind": "backward",
+              "formula": "\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 125,
+                "memoHits": 2,
+                "memoEntries": 106,
+                "memoEvictions": 0,
+                "elapsedMs": 0.22654400000010355
+              }
+            },
+            {
+              "name": "Deliver?",
+              "kind": "backward",
+              "formula": "\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 141,
+                "memoHits": 0,
+                "memoEntries": 125,
+                "memoEvictions": 0,
+                "elapsedMs": 0.2735640000000785
+              }
+            },
+            {
+              "name": "EchoNE",
+              "kind": "other",
+              "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 113,
+                "memoHits": 0,
+                "memoEntries": 101,
+                "memoEvictions": 0,
+                "elapsedMs": 0.20319100000006074
+              }
+            },
+            {
+              "name": "Safe",
+              "kind": "other",
+              "formula": "\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 274,
+                "memoHits": 45,
+                "memoEntries": 166,
+                "memoEvictions": 0,
+                "elapsedMs": 0.42719099999999344
+              }
+            },
+            {
+              "name": "Echo!",
+              "kind": "forward",
+              "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 321,
+                "memoHits": 74,
+                "memoEntries": 187,
+                "memoEvictions": 0,
+                "elapsedMs": 0.42360499999995227
+              }
+            },
+            {
+              "name": "Vote!",
+              "kind": "forward",
+              "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 435,
+                "memoHits": 158,
+                "memoEntries": 234,
+                "memoEvictions": 0,
+                "elapsedMs": 1.478994000000057
+              }
+            }
+          ],
+          "counts": {
+            "total": 24,
+            "passed": 24,
+            "failed": 0,
+            "inconclusive": 0
+          }
+        },
+        "result": {
+          "holds": false,
+          "complete": true,
+          "scope": "end",
+          "failures": [
+            {
+              "place": "q",
+              "time": "@t8",
+              "timeLabel": "end",
+              "event": null,
+              "node": null,
+              "history": [
+                "e0",
+                "e1",
+                "e2",
+                "e3",
+                "e4",
+                "e5",
+                "e6",
+                "e7"
+              ]
+            }
+          ],
+          "checked": 2,
+          "totalRepresentatives": 2,
+          "exhaustive": true,
+          "stats": {
+            "steps": 107,
+            "memoHits": 6,
+            "memoEntries": 56,
+            "memoEvictions": 0,
+            "elapsedMs": 0.2181230000001051
+          }
+        },
+        "experiment": {
+          "format": "history-structure-synthesis/v1",
+          "theory": {
+            "includeLive": true,
+            "axioms": [
+              {
+                "name": "Echo?",
+                "kind": "backward",
+                "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)"
+              },
+              {
+                "name": "Vote?",
+                "kind": "backward",
+                "formula": "\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))"
+              },
+              {
+                "name": "Deliver?",
+                "kind": "backward",
+                "formula": "\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)"
+              },
+              {
+                "name": "EchoNE",
+                "kind": "other",
+                "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w"
+              },
+              {
+                "name": "Safe",
+                "kind": "other",
+                "formula": "\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))"
+              },
+              {
+                "name": "Echo!",
+                "kind": "forward",
+                "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+              },
+              {
+                "name": "Vote!",
+                "kind": "forward",
+                "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
+              }
+            ]
+          },
+          "property": "\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))",
+          "scope": "end",
+          "pinFacts": true,
+          "limits": {
+            "maxMilliseconds": 59965,
+            "maxCompilationNodes": 500000,
+            "maxKnowledgeFamilies": 256,
+            "maxDecisions": 100000,
+            "maxSteps": 2000000
+          },
+          "seedModel": {
+            "format": "history-structure-model/v1",
+            "name": "A live participant observes delivery but never delivers",
+            "participants": [
+              "p",
+              "q"
+            ],
+            "values": [
+              "v"
+            ],
+            "signature": {
+              "events": [
+                "propose",
+                "echo",
+                "vote",
+                "deliver"
+              ],
+              "predicates": [
+                "live",
+                "safe"
+              ]
+            },
+            "nodes": [
+              {
+                "id": "e0",
+                "place": "p",
+                "event": {
+                  "symbol": "propose",
+                  "args": [
+                    "v"
+                  ]
+                },
+                "past": []
+              },
+              {
+                "id": "e1",
+                "place": "p",
+                "event": {
+                  "symbol": "echo",
+                  "args": [
+                    "v"
+                  ]
+                },
+                "past": [
+                  "e0"
+                ]
+              },
+              {
+                "id": "e2",
+                "place": "q",
+                "event": {
+                  "symbol": "echo",
+                  "args": [
+                    "v"
+                  ]
+                },
+                "past": [
+                  "e1"
+                ]
+              },
+              {
+                "id": "e3",
+                "place": "p",
+                "event": {
+                  "symbol": "vote",
+                  "args": [
+                    "v",
+                    "v"
+                  ]
+                },
+                "past": [
+                  "e2"
+                ]
+              },
+              {
+                "id": "e4",
+                "place": "q",
+                "event": {
+                  "symbol": "vote",
+                  "args": [
+                    "v",
+                    "v"
+                  ]
+                },
+                "past": [
+                  "e3"
+                ]
+              },
+              {
+                "id": "e5",
+                "place": "p",
+                "event": {
+                  "symbol": "deliver",
+                  "args": [
+                    "v",
+                    "v",
+                    "v"
+                  ]
+                },
+                "past": [
+                  "e4"
+                ]
+              },
+              {
+                "id": "e6",
+                "place": "p",
+                "event": null,
+                "past": [
+                  "e5"
+                ]
+              },
+              {
+                "id": "e7",
+                "place": "q",
+                "event": null,
+                "past": [
+                  "e6"
+                ]
+              }
+            ],
+            "quorums": {
+              "v": [
+                [
+                  "p"
+                ]
+              ]
+            },
+            "facts": [
+              {
+                "place": "p",
+                "at": "*",
+                "atom": "live"
+              },
+              {
+                "place": "q",
+                "at": "*",
+                "atom": "live"
+              },
+              {
+                "place": "p",
+                "at": "*",
+                "atom": {
+                  "symbol": "safe",
+                  "args": [
+                    "v"
+                  ]
+                }
+              },
+              {
+                "place": "q",
+                "at": "*",
+                "atom": {
+                  "symbol": "safe",
+                  "args": [
+                    "v"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "verified": true
+      },
+      "evidence": {
+        "format": "history-structure-evidence/v1",
+        "version": "0.6.9",
+        "name": "HBB1: remove Deliver!",
+        "sourceMarkdown": "# HBB1: remove Deliver!\n\nBoth live participants echo and vote; p delivers, while q observes delivery and never delivers. Safety is pinned true everywhere, including the exact global safety premise of Liveness 2. The curated browser preset omits **Deliver!**, admitting a model in which **Liveness 1 and Liveness 2 fail at q** with their complete premises and triggers true. Agreement holds with its scenario present. Restoring Deliver! makes the full theory incompatible with this fixed history, leaving the claims **Not tested**. Final silent observations preserve the complete Knowledge schemes.\n\n**Browser preset:** only **Deliver!** is omitted. **Keep all axioms** selects the full-theory comparison; **Use example defaults** restores the omission. Neither action starts a run. The source declares every rule: plain Markdown imports and CLI runs retain them unless you specify `--drop \"Deliver!\"`.\n\nRead the rules below, choose **Continue to claims**, review the selected properties and assumptions, then continue to the run settings and run the check. Use **Edit Markdown** to change a rule; Unicode and ASCII spellings have identical semantics. The supplied history JSON is at the end.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 6, p. 38, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 37).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires both current `safe(l)` and knowledge of a quorum of prior matching echoes.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a reporting quorum of matching source-learner votes.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Deliver? [backward]:\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### Safe — other assumption\n\nSafety is a biconditional: at most one proposal value is known, or every learner has a sequential witness in every relevant quorum intersection.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2; Remark 6.2.2, p. 44.\naxiom Safe [other]:\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))\n```\n\n### Echo! — forward rule\n\nA live participant that knows a proposal must echo some value somewhere in its actual local run. The value is existentially chosen.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Echo! [forward]:\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nIf safety holds at every actual local tuple, a live participant with quorum echoes must vote for that value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Vote! [forward]:\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)\n```\n\n### Deliver! — forward rule\n\nA live participant with a reporting quorum of votes must deliver the indicated reporting learner, source learner and value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Deliver! [forward]:\n  ∀ m,l,v. (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Liveness 1 — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.5.3, p. 48.\nproperty Liveness 1 [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))\n```\n\n### Liveness 2 — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant. The source learner must also be safe at every participant at the end of time.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.4.5, p. 47.\nproperty Liveness 2 [end]:\n  ∀ a,b,l,v. ((♢[a,b] ⊤) ∧ (□[b] live) ∧ (□[] safe(l))) ⇒ (♢[] ↓ deliver(a,l,v) ⇒ live ⇒\n  ↕ deliver(b,l,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.3.1, p. 45.\nproperty Agreement [end]:\n  ∀ a,b,l,m,v,w. ((♢[a,b] seq)) ⇒ ((♢[] ↓ deliver(a,l,v)) ∧ (♢[] ↓ deliver(b,m,w)) ⇒\n  v=w)\n```\n\n## Paper and interpretation\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nAll rules and complete conditional correctness properties in this document are sourced to Murdoch J. Gabbay and Isaac Sheff, *Heterogeneous trust in reliable broadcast via modal logic and history structures*, draft dated 7 November 2026 (**2026-11-07**). Figure 7, p. 41 and Definition 6.1.2 give ThyHBB1; Figure 8, p. 41 and Theorem 6.1.6, p. 43 give its correctness statements.\n\nThis is a pedagogical finite model, not a literal history from the paper. Delivery arguments are ordered deliver(m,l,v): m is the reporting learner, l is the source/vote learner and v is the value.\n\nThe model, value domain, quorum basis, facts and any scenario-only axiom are choices of this finite experiment. Every experiment retains the complete dynamic ThyLive include: LiveAlways, LiveSeq and both Knowledge schemes are checked at all possible worlds, covering all ground events and all finite learner lists, including repeated learners and the empty list. See the [paper map](../../docs/PAPER_MAP.md) and [paper variants](../../docs/PAPER_VARIANTS.md) for the exact source mapping and classification.\n\nResults concern this fixed finite history and all predicate interpretations extending its positive facts. They are not unbounded correctness or axiom-independence proofs.\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"A live participant observes delivery but never delivers\",\n  \"participants\": [\n    \"p\",\n    \"q\"\n  ],\n  \"values\": [\n    \"v\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"safe\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"e0\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"propose\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": []\n    },\n    {\n      \"id\": \"e1\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"echo\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e0\"\n      ]\n    },\n    {\n      \"id\": \"e2\",\n      \"place\": \"q\",\n      \"event\": {\n        \"symbol\": \"echo\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e1\"\n      ]\n    },\n    {\n      \"id\": \"e3\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"vote\",\n        \"args\": [\n          \"v\",\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e2\"\n      ]\n    },\n    {\n      \"id\": \"e4\",\n      \"place\": \"q\",\n      \"event\": {\n        \"symbol\": \"vote\",\n        \"args\": [\n          \"v\",\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e3\"\n      ]\n    },\n    {\n      \"id\": \"e5\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"deliver\",\n        \"args\": [\n          \"v\",\n          \"v\",\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e4\"\n      ]\n    },\n    {\n      \"id\": \"e6\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": [\n        \"e5\"\n      ]\n    },\n    {\n      \"id\": \"e7\",\n      \"place\": \"q\",\n      \"event\": null,\n      \"past\": [\n        \"e6\"\n      ]\n    }\n  ],\n  \"quorums\": {\n    \"v\": [\n      [\n        \"p\"\n      ]\n    ]\n  },\n  \"facts\": [\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    },\n    {\n      \"place\": \"q\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    },\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": {\n        \"symbol\": \"safe\",\n        \"args\": [\n          \"v\"\n        ]\n      }\n    },\n    {\n      \"place\": \"q\",\n      \"at\": \"*\",\n      \"atom\": {\n        \"symbol\": \"safe\",\n        \"args\": [\n          \"v\"\n        ]\n      }\n    }\n  ]\n}\n```\n",
+        "model": {
+          "format": "history-structure-model/v1",
+          "name": "A live participant observes delivery but never delivers",
+          "participants": [
+            "p",
+            "q"
+          ],
+          "values": [
+            "v"
+          ],
+          "signature": {
+            "events": [
+              "propose",
+              "echo",
+              "vote",
+              "deliver"
+            ],
+            "predicates": [
+              "live",
+              "safe"
+            ]
+          },
+          "nodes": [
+            {
+              "id": "e0",
+              "place": "p",
+              "event": {
+                "symbol": "propose",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": []
+            },
+            {
+              "id": "e1",
+              "place": "p",
+              "event": {
+                "symbol": "echo",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": [
+                "e0"
+              ]
+            },
+            {
+              "id": "e2",
+              "place": "q",
+              "event": {
+                "symbol": "echo",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": [
+                "e1"
+              ]
+            },
+            {
+              "id": "e3",
+              "place": "p",
+              "event": {
+                "symbol": "vote",
+                "args": [
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "e2"
+              ]
+            },
+            {
+              "id": "e4",
+              "place": "q",
+              "event": {
+                "symbol": "vote",
+                "args": [
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "e3"
+              ]
+            },
+            {
+              "id": "e5",
+              "place": "p",
+              "event": {
+                "symbol": "deliver",
+                "args": [
+                  "v",
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "e4"
+              ]
+            },
+            {
+              "id": "e6",
+              "place": "p",
+              "event": null,
+              "past": [
+                "e5"
+              ]
+            },
+            {
+              "id": "e7",
+              "place": "q",
+              "event": null,
+              "past": [
+                "e6"
+              ]
+            }
+          ],
+          "quorums": {
+            "v": [
+              [
+                "p"
+              ]
+            ]
+          },
+          "facts": [
+            {
+              "place": "p",
+              "at": "*",
+              "atom": "live"
+            },
+            {
+              "place": "q",
+              "at": "*",
+              "atom": "live"
+            },
+            {
+              "place": "p",
+              "at": "*",
+              "atom": {
+                "symbol": "safe",
+                "args": [
+                  "v"
+                ]
+              }
+            },
+            {
+              "place": "q",
+              "at": "*",
+              "atom": {
+                "symbol": "safe",
+                "args": [
+                  "v"
+                ]
+              }
+            }
+          ]
+        },
+        "theory": {
+          "includeLive": true,
+          "axioms": [
+            {
+              "name": "Echo?",
+              "kind": "backward",
+              "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)"
+            },
+            {
+              "name": "Vote?",
+              "kind": "backward",
+              "formula": "\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))"
+            },
+            {
+              "name": "Deliver?",
+              "kind": "backward",
+              "formula": "\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)"
+            },
+            {
+              "name": "EchoNE",
+              "kind": "other",
+              "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w"
+            },
+            {
+              "name": "Safe",
+              "kind": "other",
+              "formula": "\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))"
+            },
+            {
+              "name": "Echo!",
+              "kind": "forward",
+              "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+            },
+            {
+              "name": "Vote!",
+              "kind": "forward",
+              "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
+            }
+          ]
+        },
+        "retainedAxioms": [
+          "ThyLive",
+          "Echo?",
+          "Vote?",
+          "Deliver?",
+          "EchoNE",
+          "Safe",
+          "Echo!",
+          "Vote!"
+        ],
+        "droppedAxioms": [
+          "Deliver!"
+        ],
+        "property": {
+          "name": "Liveness 1",
+          "formula": "\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))",
+          "scope": "end"
+        },
+        "failure": {
+          "place": "q",
+          "time": "end",
+          "timeLabel": "end",
+          "event": null,
+          "node": null,
+          "history": [
+            "e0",
+            "e1",
+            "e2",
+            "e3",
+            "e4",
+            "e5",
+            "e6",
+            "e7"
+          ]
+        },
+        "mode": "synthesize",
+        "bounds": {
+          "mode": "synthesize",
+          "pinFacts": true,
+          "maxMilliseconds": 60000,
+          "maxCompilationNodes": 500000,
+          "maxDecisions": 100000,
+          "maxAdditionalNodes": 2,
+          "maxModels": 1000,
+          "maxKnowledgeFamilies": 256
+        },
+        "snapshot": {
+          "format": "history-structure-run-snapshot/v1",
+          "engine": {
+            "name": "history-structure-model-checker",
+            "version": "0.6.9",
+            "semantics": "hbb-disc/2026-11-07"
+          },
+          "backend": "builtin-cdcl/tseitin",
+          "sourceSha256": "7dd48d9f31510bbe0b837ec55c43a1ca7bca8f4bac62709119e04ccb757fe89e",
+          "selectedProperties": [
+            "Liveness 1",
+            "Liveness 2",
+            "Agreement"
+          ],
+          "droppedAxioms": [
+            "Deliver!"
+          ],
+          "bounds": {
+            "mode": "synthesize",
+            "pinFacts": true,
+            "maxMilliseconds": 60000,
+            "maxCompilationNodes": 500000,
+            "maxDecisions": 100000,
+            "maxAdditionalNodes": 2,
+            "maxModels": 1000,
+            "maxKnowledgeFamilies": 256
+          },
+          "id": "sha256:dc05cc50575656717bd7bcb64c5d953fab112c9ebd049550599cc760e206c547"
+        },
+        "expected": "counterexample"
+      }
+    },
+    {
+      "name": "Liveness 2",
+      "formula": "\n  ∀ a,b,l,v. ((♢[a,b] ⊤) ∧ (□[b] live) ∧ (□[] safe(l))) ⇒ (♢[] ↓ deliver(a,l,v) ⇒ live ⇒\n  ↕ deliver(b,l,v))",
+      "scope": "end",
+      "status": "counterexample",
+      "unknownHistories": 0,
+      "stats": {
+        "compilationNodes": 10647,
+        "predicateVariables": 0,
+        "variables": 1,
+        "clauses": 1,
+        "decisions": 0,
+        "consistencyDecisions": 0,
+        "targetDecisions": 0,
+        "elapsedMilliseconds": 47
+      },
+      "reason": "A predicate interpretation satisfies the retained assumptions and falsifies the property; both judgements were independently replayed.",
+      "witness": {
+        "model": {
+          "format": "history-structure-model/v1",
+          "name": "A live participant observes delivery but never delivers",
+          "participants": [
+            "p",
+            "q"
+          ],
+          "values": [
+            "v"
+          ],
+          "signature": {
+            "events": [
+              "propose",
+              "echo",
+              "vote",
+              "deliver"
+            ],
+            "predicates": [
+              "live",
+              "safe"
+            ]
+          },
+          "nodes": [
+            {
+              "id": "e0",
+              "place": "p",
+              "event": {
+                "symbol": "propose",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": []
+            },
+            {
+              "id": "e1",
+              "place": "p",
+              "event": {
+                "symbol": "echo",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": [
+                "e0"
+              ]
+            },
+            {
+              "id": "e2",
+              "place": "q",
+              "event": {
+                "symbol": "echo",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": [
+                "e1"
+              ]
+            },
+            {
+              "id": "e3",
+              "place": "p",
+              "event": {
+                "symbol": "vote",
+                "args": [
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "e2"
+              ]
+            },
+            {
+              "id": "e4",
+              "place": "q",
+              "event": {
+                "symbol": "vote",
+                "args": [
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "e3"
+              ]
+            },
+            {
+              "id": "e5",
+              "place": "p",
+              "event": {
+                "symbol": "deliver",
+                "args": [
+                  "v",
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "e4"
+              ]
+            },
+            {
+              "id": "e6",
+              "place": "p",
+              "event": null,
+              "past": [
+                "e5"
+              ]
+            },
+            {
+              "id": "e7",
+              "place": "q",
+              "event": null,
+              "past": [
+                "e6"
+              ]
+            }
+          ],
+          "quorums": {
+            "v": [
+              [
+                "p"
+              ]
+            ]
+          },
+          "facts": [
+            {
+              "place": "p",
+              "at": "*",
+              "atom": "live"
+            },
+            {
+              "place": "q",
+              "at": "*",
+              "atom": "live"
+            },
+            {
+              "place": "p",
+              "at": "*",
+              "atom": {
+                "symbol": "safe",
+                "args": [
+                  "v"
+                ]
+              }
+            },
+            {
+              "place": "q",
+              "at": "*",
+              "atom": {
+                "symbol": "safe",
+                "args": [
+                  "v"
+                ]
+              }
+            }
+          ]
+        },
+        "assumptions": {
+          "name": "Custom theory",
+          "holds": true,
+          "complete": true,
+          "axioms": [
+            {
+              "name": "LiveAlways",
+              "kind": "other",
+              "formula": "live <-> end live",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 100,
+                "memoHits": 22,
+                "memoEntries": 74,
+                "memoEvictions": 0,
+                "elapsedMs": 0.39033599999993385
+              }
+            },
+            {
+              "name": "LiveSeq",
+              "kind": "other",
+              "formula": "live -> seq",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 75,
+                "memoHits": 0,
+                "memoEntries": 72,
+                "memoEvictions": 0,
+                "elapsedMs": 0.1399669999998423
+              }
+            },
+            {
+              "name": "KnowledgeDia:\"propose\"(\"v\")",
+              "kind": "other",
+              "formula": "(end (dia[] past (live & \"propose\"(\"v\")))) -> live -> sometime (dia[] past \"propose\"(\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 230,
+                "memoHits": 59,
+                "memoEntries": 146,
+                "memoEvictions": 0,
+                "elapsedMs": 0.2722920000001068
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"propose\"(\"v\"):0",
+              "kind": "other",
+              "formula": "(end (box[] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[] past \"propose\"(\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 107,
+                "memoHits": 24,
+                "memoEntries": 64,
+                "memoEvictions": 0,
+                "elapsedMs": 0.13970599999993283
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"propose\"(\"v\"):1",
+              "kind": "other",
+              "formula": "(end (box[\"v\"] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[\"v\"] past \"propose\"(\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 214,
+                "memoHits": 58,
+                "memoEntries": 133,
+                "memoEvictions": 0,
+                "elapsedMs": 0.3043990000001031
+              }
+            },
+            {
+              "name": "KnowledgeDia:\"echo\"(\"v\")",
+              "kind": "other",
+              "formula": "(end (dia[] past (live & \"echo\"(\"v\")))) -> live -> sometime (dia[] past \"echo\"(\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 248,
+                "memoHits": 73,
+                "memoEntries": 148,
+                "memoEvictions": 0,
+                "elapsedMs": 0.32039400000007845
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"echo\"(\"v\"):0",
+              "kind": "other",
+              "formula": "(end (box[] past (live & \"echo\"(\"v\")))) -> live -> sometime (box[] past \"echo\"(\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 266,
+                "memoHits": 86,
+                "memoEntries": 151,
+                "memoEvictions": 0,
+                "elapsedMs": 0.3018360000000939
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"echo\"(\"v\"):1",
+              "kind": "other",
+              "formula": "(end (box[\"v\"] past (live & \"echo\"(\"v\")))) -> live -> sometime (box[\"v\"] past \"echo\"(\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 235,
+                "memoHits": 72,
+                "memoEntries": 139,
+                "memoEvictions": 0,
+                "elapsedMs": 0.31462499999997817
+              }
+            },
+            {
+              "name": "KnowledgeDia:\"vote\"(\"v\",\"v\")",
+              "kind": "other",
+              "formula": "(end (dia[] past (live & \"vote\"(\"v\",\"v\")))) -> live -> sometime (dia[] past \"vote\"(\"v\",\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 297,
+                "memoHits": 102,
+                "memoEntries": 162,
+                "memoEvictions": 0,
+                "elapsedMs": 0.3678540000000794
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"vote\"(\"v\",\"v\"):0",
+              "kind": "other",
+              "formula": "(end (box[] past (live & \"vote\"(\"v\",\"v\")))) -> live -> sometime (box[] past \"vote\"(\"v\",\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 317,
+                "memoHits": 117,
+                "memoEntries": 165,
+                "memoEvictions": 0,
+                "elapsedMs": 0.379359999999906
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"vote\"(\"v\",\"v\"):1",
+              "kind": "other",
+              "formula": "(end (box[\"v\"] past (live & \"vote\"(\"v\",\"v\")))) -> live -> sometime (box[\"v\"] past \"vote\"(\"v\",\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 274,
+                "memoHits": 99,
+                "memoEntries": 147,
+                "memoEvictions": 0,
+                "elapsedMs": 0.34001199999988785
+              }
+            },
+            {
+              "name": "KnowledgeDia:\"deliver\"(\"v\",\"v\",\"v\")",
+              "kind": "other",
+              "formula": "(end (dia[] past (live & \"deliver\"(\"v\",\"v\",\"v\")))) -> live -> sometime (dia[] past \"deliver\"(\"v\",\"v\",\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 349,
+                "memoHits": 135,
+                "memoEntries": 175,
+                "memoEvictions": 0,
+                "elapsedMs": 0.3933309999999892
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"deliver\"(\"v\",\"v\",\"v\"):0",
+              "kind": "other",
+              "formula": "(end (box[] past (live & \"deliver\"(\"v\",\"v\",\"v\")))) -> live -> sometime (box[] past \"deliver\"(\"v\",\"v\",\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 120,
+                "memoHits": 24,
+                "memoEntries": 73,
+                "memoEvictions": 0,
+                "elapsedMs": 0.12839900000017224
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"deliver\"(\"v\",\"v\",\"v\"):1",
+              "kind": "other",
+              "formula": "(end (box[\"v\"] past (live & \"deliver\"(\"v\",\"v\",\"v\")))) -> live -> sometime (box[\"v\"] past \"deliver\"(\"v\",\"v\",\"v\"))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 315,
+                "memoHits": 128,
+                "memoEntries": 155,
+                "memoEvictions": 0,
+                "elapsedMs": 0.397467000000006
+              }
+            },
+            {
+              "name": "KnowledgeDia:\"propose\"()",
+              "kind": "other",
+              "formula": "(end (dia[] past (live & \"propose\"()))) -> live -> sometime (dia[] past \"propose\"())",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 117,
+                "memoHits": 24,
+                "memoEntries": 76,
+                "memoEvictions": 0,
+                "elapsedMs": 0.13726299999984803
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"propose\"():0",
+              "kind": "other",
+              "formula": "(end (box[] past (live & \"propose\"()))) -> live -> sometime (box[] past \"propose\"())",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 117,
+                "memoHits": 24,
+                "memoEntries": 76,
+                "memoEvictions": 0,
+                "elapsedMs": 0.12847999999985404
+              }
+            },
+            {
+              "name": "KnowledgeBox:\"propose\"():1",
+              "kind": "other",
+              "formula": "(end (box[\"v\"] past (live & \"propose\"()))) -> live -> sometime (box[\"v\"] past \"propose\"())",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 107,
+                "memoHits": 23,
+                "memoEntries": 66,
+                "memoEvictions": 0,
+                "elapsedMs": 0.11812499999996362
+              }
+            },
+            {
+              "name": "Echo?",
+              "kind": "backward",
+              "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 92,
+                "memoHits": 1,
+                "memoEntries": 79,
+                "memoEvictions": 0,
+                "elapsedMs": 0.14799900000002708
+              }
+            },
+            {
+              "name": "Vote?",
+              "kind": "backward",
+              "formula": "\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 125,
+                "memoHits": 2,
+                "memoEntries": 106,
+                "memoEvictions": 0,
+                "elapsedMs": 0.2389429999998356
+              }
+            },
+            {
+              "name": "Deliver?",
+              "kind": "backward",
+              "formula": "\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 141,
+                "memoHits": 0,
+                "memoEntries": 125,
+                "memoEvictions": 0,
+                "elapsedMs": 0.3145449999999528
+              }
+            },
+            {
+              "name": "EchoNE",
+              "kind": "other",
+              "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 113,
+                "memoHits": 0,
+                "memoEntries": 101,
+                "memoEvictions": 0,
+                "elapsedMs": 0.2684269999999742
+              }
+            },
+            {
+              "name": "Safe",
+              "kind": "other",
+              "formula": "\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 274,
+                "memoHits": 45,
+                "memoEntries": 166,
+                "memoEvictions": 0,
+                "elapsedMs": 0.40041100000007646
+              }
+            },
+            {
+              "name": "Echo!",
+              "kind": "forward",
+              "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 321,
+                "memoHits": 74,
+                "memoEntries": 187,
+                "memoEvictions": 0,
+                "elapsedMs": 0.5015410000000884
+              }
+            },
+            {
+              "name": "Vote!",
+              "kind": "forward",
+              "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)",
+              "holds": true,
+              "complete": true,
+              "scope": "all",
+              "failures": [],
+              "checked": 24,
+              "totalRepresentatives": 24,
+              "exhaustive": true,
+              "stats": {
+                "steps": 435,
+                "memoHits": 158,
+                "memoEntries": 234,
+                "memoEvictions": 0,
+                "elapsedMs": 0.9378249999999753
+              }
+            }
+          ],
+          "counts": {
+            "total": 24,
+            "passed": 24,
+            "failed": 0,
+            "inconclusive": 0
+          }
+        },
+        "result": {
+          "holds": false,
+          "complete": true,
+          "scope": "end",
+          "failures": [
+            {
+              "place": "q",
+              "time": "@t8",
+              "timeLabel": "end",
+              "event": null,
+              "node": null,
+              "history": [
+                "e0",
+                "e1",
+                "e2",
+                "e3",
+                "e4",
+                "e5",
+                "e6",
+                "e7"
+              ]
+            }
+          ],
+          "checked": 2,
+          "totalRepresentatives": 2,
+          "exhaustive": true,
+          "stats": {
+            "steps": 102,
+            "memoHits": 6,
+            "memoEntries": 50,
+            "memoEvictions": 0,
+            "elapsedMs": 0.20823700000005374
+          }
+        },
+        "experiment": {
+          "format": "history-structure-synthesis/v1",
+          "theory": {
+            "includeLive": true,
+            "axioms": [
+              {
+                "name": "Echo?",
+                "kind": "backward",
+                "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)"
+              },
+              {
+                "name": "Vote?",
+                "kind": "backward",
+                "formula": "\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))"
+              },
+              {
+                "name": "Deliver?",
+                "kind": "backward",
+                "formula": "\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)"
+              },
+              {
+                "name": "EchoNE",
+                "kind": "other",
+                "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w"
+              },
+              {
+                "name": "Safe",
+                "kind": "other",
+                "formula": "\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))"
+              },
+              {
+                "name": "Echo!",
+                "kind": "forward",
+                "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+              },
+              {
+                "name": "Vote!",
+                "kind": "forward",
+                "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
+              }
+            ]
+          },
+          "property": "\n  ∀ a,b,l,v. ((♢[a,b] ⊤) ∧ (□[b] live) ∧ (□[] safe(l))) ⇒ (♢[] ↓ deliver(a,l,v) ⇒ live ⇒\n  ↕ deliver(b,l,v))",
+          "scope": "end",
+          "pinFacts": true,
+          "limits": {
+            "maxMilliseconds": 59926,
+            "maxCompilationNodes": 500000,
+            "maxKnowledgeFamilies": 256,
+            "maxDecisions": 100000,
+            "maxSteps": 2000000
+          },
+          "seedModel": {
+            "format": "history-structure-model/v1",
+            "name": "A live participant observes delivery but never delivers",
+            "participants": [
+              "p",
+              "q"
+            ],
+            "values": [
+              "v"
+            ],
+            "signature": {
+              "events": [
+                "propose",
+                "echo",
+                "vote",
+                "deliver"
+              ],
+              "predicates": [
+                "live",
+                "safe"
+              ]
+            },
+            "nodes": [
+              {
+                "id": "e0",
+                "place": "p",
+                "event": {
+                  "symbol": "propose",
+                  "args": [
+                    "v"
+                  ]
+                },
+                "past": []
+              },
+              {
+                "id": "e1",
+                "place": "p",
+                "event": {
+                  "symbol": "echo",
+                  "args": [
+                    "v"
+                  ]
+                },
+                "past": [
+                  "e0"
+                ]
+              },
+              {
+                "id": "e2",
+                "place": "q",
+                "event": {
+                  "symbol": "echo",
+                  "args": [
+                    "v"
+                  ]
+                },
+                "past": [
+                  "e1"
+                ]
+              },
+              {
+                "id": "e3",
+                "place": "p",
+                "event": {
+                  "symbol": "vote",
+                  "args": [
+                    "v",
+                    "v"
+                  ]
+                },
+                "past": [
+                  "e2"
+                ]
+              },
+              {
+                "id": "e4",
+                "place": "q",
+                "event": {
+                  "symbol": "vote",
+                  "args": [
+                    "v",
+                    "v"
+                  ]
+                },
+                "past": [
+                  "e3"
+                ]
+              },
+              {
+                "id": "e5",
+                "place": "p",
+                "event": {
+                  "symbol": "deliver",
+                  "args": [
+                    "v",
+                    "v",
+                    "v"
+                  ]
+                },
+                "past": [
+                  "e4"
+                ]
+              },
+              {
+                "id": "e6",
+                "place": "p",
+                "event": null,
+                "past": [
+                  "e5"
+                ]
+              },
+              {
+                "id": "e7",
+                "place": "q",
+                "event": null,
+                "past": [
+                  "e6"
+                ]
+              }
+            ],
+            "quorums": {
+              "v": [
+                [
+                  "p"
+                ]
+              ]
+            },
+            "facts": [
+              {
+                "place": "p",
+                "at": "*",
+                "atom": "live"
+              },
+              {
+                "place": "q",
+                "at": "*",
+                "atom": "live"
+              },
+              {
+                "place": "p",
+                "at": "*",
+                "atom": {
+                  "symbol": "safe",
+                  "args": [
+                    "v"
+                  ]
+                }
+              },
+              {
+                "place": "q",
+                "at": "*",
+                "atom": {
+                  "symbol": "safe",
+                  "args": [
+                    "v"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "verified": true
+      },
+      "evidence": {
+        "format": "history-structure-evidence/v1",
+        "version": "0.6.9",
+        "name": "HBB1: remove Deliver!",
+        "sourceMarkdown": "# HBB1: remove Deliver!\n\nBoth live participants echo and vote; p delivers, while q observes delivery and never delivers. Safety is pinned true everywhere, including the exact global safety premise of Liveness 2. The curated browser preset omits **Deliver!**, admitting a model in which **Liveness 1 and Liveness 2 fail at q** with their complete premises and triggers true. Agreement holds with its scenario present. Restoring Deliver! makes the full theory incompatible with this fixed history, leaving the claims **Not tested**. Final silent observations preserve the complete Knowledge schemes.\n\n**Browser preset:** only **Deliver!** is omitted. **Keep all axioms** selects the full-theory comparison; **Use example defaults** restores the omission. Neither action starts a run. The source declares every rule: plain Markdown imports and CLI runs retain them unless you specify `--drop \"Deliver!\"`.\n\nRead the rules below, choose **Continue to claims**, review the selected properties and assumptions, then continue to the run settings and run the check. Use **Edit Markdown** to change a rule; Unicode and ASCII spellings have identical semantics. The supplied history JSON is at the end.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 6, p. 38, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 37).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires both current `safe(l)` and knowledge of a quorum of prior matching echoes.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a reporting quorum of matching source-learner votes.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Deliver? [backward]:\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### Safe — other assumption\n\nSafety is a biconditional: at most one proposal value is known, or every learner has a sequential witness in every relevant quorum intersection.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2; Remark 6.2.2, p. 44.\naxiom Safe [other]:\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))\n```\n\n### Echo! — forward rule\n\nA live participant that knows a proposal must echo some value somewhere in its actual local run. The value is existentially chosen.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Echo! [forward]:\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nIf safety holds at every actual local tuple, a live participant with quorum echoes must vote for that value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Vote! [forward]:\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)\n```\n\n### Deliver! — forward rule\n\nA live participant with a reporting quorum of votes must deliver the indicated reporting learner, source learner and value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Deliver! [forward]:\n  ∀ m,l,v. (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Liveness 1 — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.5.3, p. 48.\nproperty Liveness 1 [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))\n```\n\n### Liveness 2 — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant. The source learner must also be safe at every participant at the end of time.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.4.5, p. 47.\nproperty Liveness 2 [end]:\n  ∀ a,b,l,v. ((♢[a,b] ⊤) ∧ (□[b] live) ∧ (□[] safe(l))) ⇒ (♢[] ↓ deliver(a,l,v) ⇒ live ⇒\n  ↕ deliver(b,l,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.3.1, p. 45.\nproperty Agreement [end]:\n  ∀ a,b,l,m,v,w. ((♢[a,b] seq)) ⇒ ((♢[] ↓ deliver(a,l,v)) ∧ (♢[] ↓ deliver(b,m,w)) ⇒\n  v=w)\n```\n\n## Paper and interpretation\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nAll rules and complete conditional correctness properties in this document are sourced to Murdoch J. Gabbay and Isaac Sheff, *Heterogeneous trust in reliable broadcast via modal logic and history structures*, draft dated 7 November 2026 (**2026-11-07**). Figure 7, p. 41 and Definition 6.1.2 give ThyHBB1; Figure 8, p. 41 and Theorem 6.1.6, p. 43 give its correctness statements.\n\nThis is a pedagogical finite model, not a literal history from the paper. Delivery arguments are ordered deliver(m,l,v): m is the reporting learner, l is the source/vote learner and v is the value.\n\nThe model, value domain, quorum basis, facts and any scenario-only axiom are choices of this finite experiment. Every experiment retains the complete dynamic ThyLive include: LiveAlways, LiveSeq and both Knowledge schemes are checked at all possible worlds, covering all ground events and all finite learner lists, including repeated learners and the empty list. See the [paper map](../../docs/PAPER_MAP.md) and [paper variants](../../docs/PAPER_VARIANTS.md) for the exact source mapping and classification.\n\nResults concern this fixed finite history and all predicate interpretations extending its positive facts. They are not unbounded correctness or axiom-independence proofs.\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"A live participant observes delivery but never delivers\",\n  \"participants\": [\n    \"p\",\n    \"q\"\n  ],\n  \"values\": [\n    \"v\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"safe\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"e0\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"propose\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": []\n    },\n    {\n      \"id\": \"e1\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"echo\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e0\"\n      ]\n    },\n    {\n      \"id\": \"e2\",\n      \"place\": \"q\",\n      \"event\": {\n        \"symbol\": \"echo\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e1\"\n      ]\n    },\n    {\n      \"id\": \"e3\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"vote\",\n        \"args\": [\n          \"v\",\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e2\"\n      ]\n    },\n    {\n      \"id\": \"e4\",\n      \"place\": \"q\",\n      \"event\": {\n        \"symbol\": \"vote\",\n        \"args\": [\n          \"v\",\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e3\"\n      ]\n    },\n    {\n      \"id\": \"e5\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"deliver\",\n        \"args\": [\n          \"v\",\n          \"v\",\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e4\"\n      ]\n    },\n    {\n      \"id\": \"e6\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": [\n        \"e5\"\n      ]\n    },\n    {\n      \"id\": \"e7\",\n      \"place\": \"q\",\n      \"event\": null,\n      \"past\": [\n        \"e6\"\n      ]\n    }\n  ],\n  \"quorums\": {\n    \"v\": [\n      [\n        \"p\"\n      ]\n    ]\n  },\n  \"facts\": [\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    },\n    {\n      \"place\": \"q\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    },\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": {\n        \"symbol\": \"safe\",\n        \"args\": [\n          \"v\"\n        ]\n      }\n    },\n    {\n      \"place\": \"q\",\n      \"at\": \"*\",\n      \"atom\": {\n        \"symbol\": \"safe\",\n        \"args\": [\n          \"v\"\n        ]\n      }\n    }\n  ]\n}\n```\n",
+        "model": {
+          "format": "history-structure-model/v1",
+          "name": "A live participant observes delivery but never delivers",
+          "participants": [
+            "p",
+            "q"
+          ],
+          "values": [
+            "v"
+          ],
+          "signature": {
+            "events": [
+              "propose",
+              "echo",
+              "vote",
+              "deliver"
+            ],
+            "predicates": [
+              "live",
+              "safe"
+            ]
+          },
+          "nodes": [
+            {
+              "id": "e0",
+              "place": "p",
+              "event": {
+                "symbol": "propose",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": []
+            },
+            {
+              "id": "e1",
+              "place": "p",
+              "event": {
+                "symbol": "echo",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": [
+                "e0"
+              ]
+            },
+            {
+              "id": "e2",
+              "place": "q",
+              "event": {
+                "symbol": "echo",
+                "args": [
+                  "v"
+                ]
+              },
+              "past": [
+                "e1"
+              ]
+            },
+            {
+              "id": "e3",
+              "place": "p",
+              "event": {
+                "symbol": "vote",
+                "args": [
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "e2"
+              ]
+            },
+            {
+              "id": "e4",
+              "place": "q",
+              "event": {
+                "symbol": "vote",
+                "args": [
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "e3"
+              ]
+            },
+            {
+              "id": "e5",
+              "place": "p",
+              "event": {
+                "symbol": "deliver",
+                "args": [
+                  "v",
+                  "v",
+                  "v"
+                ]
+              },
+              "past": [
+                "e4"
+              ]
+            },
+            {
+              "id": "e6",
+              "place": "p",
+              "event": null,
+              "past": [
+                "e5"
+              ]
+            },
+            {
+              "id": "e7",
+              "place": "q",
+              "event": null,
+              "past": [
+                "e6"
+              ]
+            }
+          ],
+          "quorums": {
+            "v": [
+              [
+                "p"
+              ]
+            ]
+          },
+          "facts": [
+            {
+              "place": "p",
+              "at": "*",
+              "atom": "live"
+            },
+            {
+              "place": "q",
+              "at": "*",
+              "atom": "live"
+            },
+            {
+              "place": "p",
+              "at": "*",
+              "atom": {
+                "symbol": "safe",
+                "args": [
+                  "v"
+                ]
+              }
+            },
+            {
+              "place": "q",
+              "at": "*",
+              "atom": {
+                "symbol": "safe",
+                "args": [
+                  "v"
+                ]
+              }
+            }
+          ]
+        },
+        "theory": {
+          "includeLive": true,
+          "axioms": [
+            {
+              "name": "Echo?",
+              "kind": "backward",
+              "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)"
+            },
+            {
+              "name": "Vote?",
+              "kind": "backward",
+              "formula": "\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))"
+            },
+            {
+              "name": "Deliver?",
+              "kind": "backward",
+              "formula": "\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)"
+            },
+            {
+              "name": "EchoNE",
+              "kind": "other",
+              "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w"
+            },
+            {
+              "name": "Safe",
+              "kind": "other",
+              "formula": "\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))"
+            },
+            {
+              "name": "Echo!",
+              "kind": "forward",
+              "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+            },
+            {
+              "name": "Vote!",
+              "kind": "forward",
+              "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
+            }
+          ]
+        },
+        "retainedAxioms": [
+          "ThyLive",
+          "Echo?",
+          "Vote?",
+          "Deliver?",
+          "EchoNE",
+          "Safe",
+          "Echo!",
+          "Vote!"
+        ],
+        "droppedAxioms": [
+          "Deliver!"
+        ],
+        "property": {
+          "name": "Liveness 2",
+          "formula": "\n  ∀ a,b,l,v. ((♢[a,b] ⊤) ∧ (□[b] live) ∧ (□[] safe(l))) ⇒ (♢[] ↓ deliver(a,l,v) ⇒ live ⇒\n  ↕ deliver(b,l,v))",
+          "scope": "end"
+        },
+        "failure": {
+          "place": "q",
+          "time": "end",
+          "timeLabel": "end",
+          "event": null,
+          "node": null,
+          "history": [
+            "e0",
+            "e1",
+            "e2",
+            "e3",
+            "e4",
+            "e5",
+            "e6",
+            "e7"
+          ]
+        },
+        "mode": "synthesize",
+        "bounds": {
+          "mode": "synthesize",
+          "pinFacts": true,
+          "maxMilliseconds": 60000,
+          "maxCompilationNodes": 500000,
+          "maxDecisions": 100000,
+          "maxAdditionalNodes": 2,
+          "maxModels": 1000,
+          "maxKnowledgeFamilies": 256
+        },
+        "snapshot": {
+          "format": "history-structure-run-snapshot/v1",
+          "engine": {
+            "name": "history-structure-model-checker",
+            "version": "0.6.9",
+            "semantics": "hbb-disc/2026-11-07"
+          },
+          "backend": "builtin-cdcl/tseitin",
+          "sourceSha256": "7dd48d9f31510bbe0b837ec55c43a1ca7bca8f4bac62709119e04ccb757fe89e",
+          "selectedProperties": [
+            "Liveness 1",
+            "Liveness 2",
+            "Agreement"
+          ],
+          "droppedAxioms": [
+            "Deliver!"
+          ],
+          "bounds": {
+            "mode": "synthesize",
+            "pinFacts": true,
+            "maxMilliseconds": 60000,
+            "maxCompilationNodes": 500000,
+            "maxDecisions": 100000,
+            "maxAdditionalNodes": 2,
+            "maxModels": 1000,
+            "maxKnowledgeFamilies": 256
+          },
+          "id": "sha256:dc05cc50575656717bd7bcb64c5d953fab112c9ebd049550599cc760e206c547"
+        },
+        "expected": "counterexample"
+      }
+    },
+    {
+      "name": "Agreement",
+      "formula": "\n  ∀ a,b,l,m,v,w. ((♢[a,b] seq)) ⇒ ((♢[] ↓ deliver(a,l,v)) ∧ (♢[] ↓ deliver(b,m,w)) ⇒\n  v=w)",
+      "scope": "end",
+      "status": "holds",
+      "unknownHistories": 0,
+      "stats": {
+        "compilationNodes": 10636,
+        "predicateVariables": 0,
+        "variables": 1,
+        "clauses": 2,
+        "decisions": 0,
+        "consistencyDecisions": 0,
+        "targetDecisions": 0,
+        "elapsedMilliseconds": 16
+      },
+      "reason": "No counterexample exists within the explicit history, value, trust and palette bounds."
+    }
+  ],
+  "witness": {
+    "model": {
+      "format": "history-structure-model/v1",
+      "name": "A live participant observes delivery but never delivers",
+      "participants": [
+        "p",
+        "q"
+      ],
+      "values": [
+        "v"
+      ],
+      "signature": {
+        "events": [
+          "propose",
+          "echo",
+          "vote",
+          "deliver"
+        ],
+        "predicates": [
+          "live",
+          "safe"
+        ]
+      },
+      "nodes": [
+        {
+          "id": "e0",
+          "place": "p",
+          "event": {
+            "symbol": "propose",
+            "args": [
+              "v"
+            ]
+          },
+          "past": []
+        },
+        {
+          "id": "e1",
+          "place": "p",
+          "event": {
+            "symbol": "echo",
+            "args": [
+              "v"
+            ]
+          },
+          "past": [
+            "e0"
+          ]
+        },
+        {
+          "id": "e2",
+          "place": "q",
+          "event": {
+            "symbol": "echo",
+            "args": [
+              "v"
+            ]
+          },
+          "past": [
+            "e1"
+          ]
+        },
+        {
+          "id": "e3",
+          "place": "p",
+          "event": {
+            "symbol": "vote",
+            "args": [
+              "v",
+              "v"
+            ]
+          },
+          "past": [
+            "e2"
+          ]
+        },
+        {
+          "id": "e4",
+          "place": "q",
+          "event": {
+            "symbol": "vote",
+            "args": [
+              "v",
+              "v"
+            ]
+          },
+          "past": [
+            "e3"
+          ]
+        },
+        {
+          "id": "e5",
+          "place": "p",
+          "event": {
+            "symbol": "deliver",
+            "args": [
+              "v",
+              "v",
+              "v"
+            ]
+          },
+          "past": [
+            "e4"
+          ]
+        },
+        {
+          "id": "e6",
+          "place": "p",
+          "event": null,
+          "past": [
+            "e5"
+          ]
+        },
+        {
+          "id": "e7",
+          "place": "q",
+          "event": null,
+          "past": [
+            "e6"
+          ]
+        }
+      ],
+      "quorums": {
+        "v": [
+          [
+            "p"
+          ]
+        ]
+      },
+      "facts": [
+        {
+          "place": "p",
+          "at": "*",
+          "atom": "live"
+        },
+        {
+          "place": "q",
+          "at": "*",
+          "atom": "live"
+        },
+        {
+          "place": "p",
+          "at": "*",
+          "atom": {
+            "symbol": "safe",
+            "args": [
+              "v"
+            ]
+          }
+        },
+        {
+          "place": "q",
+          "at": "*",
+          "atom": {
+            "symbol": "safe",
+            "args": [
+              "v"
+            ]
+          }
+        }
+      ]
+    },
+    "assumptions": {
+      "name": "Custom theory",
+      "holds": true,
+      "complete": true,
+      "axioms": [
+        {
+          "name": "LiveAlways",
+          "kind": "other",
+          "formula": "live <-> end live",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 100,
+            "memoHits": 22,
+            "memoEntries": 74,
+            "memoEvictions": 0,
+            "elapsedMs": 0.12912099999994098
+          }
+        },
+        {
+          "name": "LiveSeq",
+          "kind": "other",
+          "formula": "live -> seq",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 75,
+            "memoHits": 0,
+            "memoEntries": 72,
+            "memoEvictions": 0,
+            "elapsedMs": 0.19057200000020202
+          }
+        },
+        {
+          "name": "KnowledgeDia:\"propose\"(\"v\")",
+          "kind": "other",
+          "formula": "(end (dia[] past (live & \"propose\"(\"v\")))) -> live -> sometime (dia[] past \"propose\"(\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 230,
+            "memoHits": 59,
+            "memoEntries": 146,
+            "memoEvictions": 0,
+            "elapsedMs": 0.27891199999999117
+          }
+        },
+        {
+          "name": "KnowledgeBox:\"propose\"(\"v\"):0",
+          "kind": "other",
+          "formula": "(end (box[] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[] past \"propose\"(\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 107,
+            "memoHits": 24,
+            "memoEntries": 64,
+            "memoEvictions": 0,
+            "elapsedMs": 0.15151399999990645
+          }
+        },
+        {
+          "name": "KnowledgeBox:\"propose\"(\"v\"):1",
+          "kind": "other",
+          "formula": "(end (box[\"v\"] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[\"v\"] past \"propose\"(\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 214,
+            "memoHits": 58,
+            "memoEntries": 133,
+            "memoEvictions": 0,
+            "elapsedMs": 0.2900379999998677
+          }
+        },
+        {
+          "name": "KnowledgeDia:\"echo\"(\"v\")",
+          "kind": "other",
+          "formula": "(end (dia[] past (live & \"echo\"(\"v\")))) -> live -> sometime (dia[] past \"echo\"(\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 248,
+            "memoHits": 73,
+            "memoEntries": 148,
+            "memoEvictions": 0,
+            "elapsedMs": 0.35790899999983594
+          }
+        },
+        {
+          "name": "KnowledgeBox:\"echo\"(\"v\"):0",
+          "kind": "other",
+          "formula": "(end (box[] past (live & \"echo\"(\"v\")))) -> live -> sometime (box[] past \"echo\"(\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 266,
+            "memoHits": 86,
+            "memoEntries": 151,
+            "memoEvictions": 0,
+            "elapsedMs": 0.37237999999979365
+          }
+        },
+        {
+          "name": "KnowledgeBox:\"echo\"(\"v\"):1",
+          "kind": "other",
+          "formula": "(end (box[\"v\"] past (live & \"echo\"(\"v\")))) -> live -> sometime (box[\"v\"] past \"echo\"(\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 235,
+            "memoHits": 72,
+            "memoEntries": 139,
+            "memoEvictions": 0,
+            "elapsedMs": 0.3132230000001073
+          }
+        },
+        {
+          "name": "KnowledgeDia:\"vote\"(\"v\",\"v\")",
+          "kind": "other",
+          "formula": "(end (dia[] past (live & \"vote\"(\"v\",\"v\")))) -> live -> sometime (dia[] past \"vote\"(\"v\",\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 297,
+            "memoHits": 102,
+            "memoEntries": 162,
+            "memoEvictions": 0,
+            "elapsedMs": 0.33676699999978155
+          }
+        },
+        {
+          "name": "KnowledgeBox:\"vote\"(\"v\",\"v\"):0",
+          "kind": "other",
+          "formula": "(end (box[] past (live & \"vote\"(\"v\",\"v\")))) -> live -> sometime (box[] past \"vote\"(\"v\",\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 317,
+            "memoHits": 117,
+            "memoEntries": 165,
+            "memoEvictions": 0,
+            "elapsedMs": 0.47264800000016294
+          }
+        },
+        {
+          "name": "KnowledgeBox:\"vote\"(\"v\",\"v\"):1",
+          "kind": "other",
+          "formula": "(end (box[\"v\"] past (live & \"vote\"(\"v\",\"v\")))) -> live -> sometime (box[\"v\"] past \"vote\"(\"v\",\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 274,
+            "memoHits": 99,
+            "memoEntries": 147,
+            "memoEvictions": 0,
+            "elapsedMs": 0.3654500000000098
+          }
+        },
+        {
+          "name": "KnowledgeDia:\"deliver\"(\"v\",\"v\",\"v\")",
+          "kind": "other",
+          "formula": "(end (dia[] past (live & \"deliver\"(\"v\",\"v\",\"v\")))) -> live -> sometime (dia[] past \"deliver\"(\"v\",\"v\",\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 349,
+            "memoHits": 135,
+            "memoEntries": 175,
+            "memoEvictions": 0,
+            "elapsedMs": 0.4059190000000399
+          }
+        },
+        {
+          "name": "KnowledgeBox:\"deliver\"(\"v\",\"v\",\"v\"):0",
+          "kind": "other",
+          "formula": "(end (box[] past (live & \"deliver\"(\"v\",\"v\",\"v\")))) -> live -> sometime (box[] past \"deliver\"(\"v\",\"v\",\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 120,
+            "memoHits": 24,
+            "memoEntries": 73,
+            "memoEvictions": 0,
+            "elapsedMs": 0.11552100000017163
+          }
+        },
+        {
+          "name": "KnowledgeBox:\"deliver\"(\"v\",\"v\",\"v\"):1",
+          "kind": "other",
+          "formula": "(end (box[\"v\"] past (live & \"deliver\"(\"v\",\"v\",\"v\")))) -> live -> sometime (box[\"v\"] past \"deliver\"(\"v\",\"v\",\"v\"))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 315,
+            "memoHits": 128,
+            "memoEntries": 155,
+            "memoEvictions": 0,
+            "elapsedMs": 0.3920389999998406
+          }
+        },
+        {
+          "name": "KnowledgeDia:\"propose\"()",
+          "kind": "other",
+          "formula": "(end (dia[] past (live & \"propose\"()))) -> live -> sometime (dia[] past \"propose\"())",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 117,
+            "memoHits": 24,
+            "memoEntries": 76,
+            "memoEvictions": 0,
+            "elapsedMs": 0.1270079999999325
+          }
+        },
+        {
+          "name": "KnowledgeBox:\"propose\"():0",
+          "kind": "other",
+          "formula": "(end (box[] past (live & \"propose\"()))) -> live -> sometime (box[] past \"propose\"())",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 117,
+            "memoHits": 24,
+            "memoEntries": 76,
+            "memoEvictions": 0,
+            "elapsedMs": 0.11857499999996435
+          }
+        },
+        {
+          "name": "KnowledgeBox:\"propose\"():1",
+          "kind": "other",
+          "formula": "(end (box[\"v\"] past (live & \"propose\"()))) -> live -> sometime (box[\"v\"] past \"propose\"())",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 107,
+            "memoHits": 23,
+            "memoEntries": 66,
+            "memoEvictions": 0,
+            "elapsedMs": 0.11022300000013274
+          }
+        },
+        {
+          "name": "Echo?",
+          "kind": "backward",
+          "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 92,
+            "memoHits": 1,
+            "memoEntries": 79,
+            "memoEvictions": 0,
+            "elapsedMs": 0.16515400000002955
+          }
+        },
+        {
+          "name": "Vote?",
+          "kind": "backward",
+          "formula": "\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 125,
+            "memoHits": 2,
+            "memoEntries": 106,
+            "memoEvictions": 0,
+            "elapsedMs": 0.22654400000010355
+          }
+        },
+        {
+          "name": "Deliver?",
+          "kind": "backward",
+          "formula": "\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 141,
+            "memoHits": 0,
+            "memoEntries": 125,
+            "memoEvictions": 0,
+            "elapsedMs": 0.2735640000000785
+          }
+        },
+        {
+          "name": "EchoNE",
+          "kind": "other",
+          "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 113,
+            "memoHits": 0,
+            "memoEntries": 101,
+            "memoEvictions": 0,
+            "elapsedMs": 0.20319100000006074
+          }
+        },
+        {
+          "name": "Safe",
+          "kind": "other",
+          "formula": "\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 274,
+            "memoHits": 45,
+            "memoEntries": 166,
+            "memoEvictions": 0,
+            "elapsedMs": 0.42719099999999344
+          }
+        },
+        {
+          "name": "Echo!",
+          "kind": "forward",
+          "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 321,
+            "memoHits": 74,
+            "memoEntries": 187,
+            "memoEvictions": 0,
+            "elapsedMs": 0.42360499999995227
+          }
+        },
+        {
+          "name": "Vote!",
+          "kind": "forward",
+          "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)",
+          "holds": true,
+          "complete": true,
+          "scope": "all",
+          "failures": [],
+          "checked": 24,
+          "totalRepresentatives": 24,
+          "exhaustive": true,
+          "stats": {
+            "steps": 435,
+            "memoHits": 158,
+            "memoEntries": 234,
+            "memoEvictions": 0,
+            "elapsedMs": 1.478994000000057
+          }
+        }
+      ],
+      "counts": {
+        "total": 24,
+        "passed": 24,
+        "failed": 0,
+        "inconclusive": 0
+      }
+    },
+    "result": {
+      "holds": false,
+      "complete": true,
+      "scope": "end",
+      "failures": [
+        {
+          "place": "q",
+          "time": "@t8",
+          "timeLabel": "end",
+          "event": null,
+          "node": null,
+          "history": [
+            "e0",
+            "e1",
+            "e2",
+            "e3",
+            "e4",
+            "e5",
+            "e6",
+            "e7"
+          ]
+        }
+      ],
+      "checked": 2,
+      "totalRepresentatives": 2,
+      "exhaustive": true,
+      "stats": {
+        "steps": 107,
+        "memoHits": 6,
+        "memoEntries": 56,
+        "memoEvictions": 0,
+        "elapsedMs": 0.2181230000001051
+      }
+    },
+    "experiment": {
+      "format": "history-structure-synthesis/v1",
+      "theory": {
+        "includeLive": true,
+        "axioms": [
+          {
+            "name": "Echo?",
+            "kind": "backward",
+            "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)"
+          },
+          {
+            "name": "Vote?",
+            "kind": "backward",
+            "formula": "\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))"
+          },
+          {
+            "name": "Deliver?",
+            "kind": "backward",
+            "formula": "\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)"
+          },
+          {
+            "name": "EchoNE",
+            "kind": "other",
+            "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w"
+          },
+          {
+            "name": "Safe",
+            "kind": "other",
+            "formula": "\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))"
+          },
+          {
+            "name": "Echo!",
+            "kind": "forward",
+            "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+          },
+          {
+            "name": "Vote!",
+            "kind": "forward",
+            "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
+          }
+        ]
+      },
+      "property": "\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))",
+      "scope": "end",
+      "pinFacts": true,
+      "limits": {
+        "maxMilliseconds": 59965,
+        "maxCompilationNodes": 500000,
+        "maxKnowledgeFamilies": 256,
+        "maxDecisions": 100000,
+        "maxSteps": 2000000
+      },
+      "seedModel": {
+        "format": "history-structure-model/v1",
+        "name": "A live participant observes delivery but never delivers",
+        "participants": [
+          "p",
+          "q"
+        ],
+        "values": [
+          "v"
+        ],
+        "signature": {
+          "events": [
+            "propose",
+            "echo",
+            "vote",
+            "deliver"
+          ],
+          "predicates": [
+            "live",
+            "safe"
+          ]
+        },
+        "nodes": [
+          {
+            "id": "e0",
+            "place": "p",
+            "event": {
+              "symbol": "propose",
+              "args": [
+                "v"
+              ]
+            },
+            "past": []
+          },
+          {
+            "id": "e1",
+            "place": "p",
+            "event": {
+              "symbol": "echo",
+              "args": [
+                "v"
+              ]
+            },
+            "past": [
+              "e0"
+            ]
+          },
+          {
+            "id": "e2",
+            "place": "q",
+            "event": {
+              "symbol": "echo",
+              "args": [
+                "v"
+              ]
+            },
+            "past": [
+              "e1"
+            ]
+          },
+          {
+            "id": "e3",
+            "place": "p",
+            "event": {
+              "symbol": "vote",
+              "args": [
+                "v",
+                "v"
+              ]
+            },
+            "past": [
+              "e2"
+            ]
+          },
+          {
+            "id": "e4",
+            "place": "q",
+            "event": {
+              "symbol": "vote",
+              "args": [
+                "v",
+                "v"
+              ]
+            },
+            "past": [
+              "e3"
+            ]
+          },
+          {
+            "id": "e5",
+            "place": "p",
+            "event": {
+              "symbol": "deliver",
+              "args": [
+                "v",
+                "v",
+                "v"
+              ]
+            },
+            "past": [
+              "e4"
+            ]
+          },
+          {
+            "id": "e6",
+            "place": "p",
+            "event": null,
+            "past": [
+              "e5"
+            ]
+          },
+          {
+            "id": "e7",
+            "place": "q",
+            "event": null,
+            "past": [
+              "e6"
+            ]
+          }
+        ],
+        "quorums": {
+          "v": [
+            [
+              "p"
+            ]
+          ]
+        },
+        "facts": [
+          {
+            "place": "p",
+            "at": "*",
+            "atom": "live"
+          },
+          {
+            "place": "q",
+            "at": "*",
+            "atom": "live"
+          },
+          {
+            "place": "p",
+            "at": "*",
+            "atom": {
+              "symbol": "safe",
+              "args": [
+                "v"
+              ]
+            }
+          },
+          {
+            "place": "q",
+            "at": "*",
+            "atom": {
+              "symbol": "safe",
+              "args": [
+                "v"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "verified": true
+  },
+  "retainedAxioms": [
+    "ThyLive",
+    "Echo?",
+    "Vote?",
+    "Deliver?",
+    "EchoNE",
+    "Safe",
+    "Echo!",
+    "Vote!"
+  ],
+  "droppedAxioms": [
+    "Deliver!"
+  ],
+  "selectedProperties": [
+    "Liveness 1",
+    "Liveness 2",
+    "Agreement"
+  ],
+  "bounds": {
+    "mode": "synthesize",
+    "pinFacts": true,
+    "maxMilliseconds": 60000,
+    "maxCompilationNodes": 500000,
+    "maxDecisions": 100000,
+    "maxAdditionalNodes": 2,
+    "maxModels": 1000,
+    "maxKnowledgeFamilies": 256
+  },
+  "sourceMarkdown": "# HBB1: remove Deliver!\n\nBoth live participants echo and vote; p delivers, while q observes delivery and never delivers. Safety is pinned true everywhere, including the exact global safety premise of Liveness 2. The curated browser preset omits **Deliver!**, admitting a model in which **Liveness 1 and Liveness 2 fail at q** with their complete premises and triggers true. Agreement holds with its scenario present. Restoring Deliver! makes the full theory incompatible with this fixed history, leaving the claims **Not tested**. Final silent observations preserve the complete Knowledge schemes.\n\n**Browser preset:** only **Deliver!** is omitted. **Keep all axioms** selects the full-theory comparison; **Use example defaults** restores the omission. Neither action starts a run. The source declares every rule: plain Markdown imports and CLI runs retain them unless you specify `--drop \"Deliver!\"`.\n\nRead the rules below, choose **Continue to claims**, review the selected properties and assumptions, then continue to the run settings and run the check. Use **Edit Markdown** to change a rule; Unicode and ASCII spellings have identical semantics. The supplied history JSON is at the end.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 6, p. 38, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 37).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires both current `safe(l)` and knowledge of a quorum of prior matching echoes.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a reporting quorum of matching source-learner votes.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Deliver? [backward]:\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### Safe — other assumption\n\nSafety is a biconditional: at most one proposal value is known, or every learner has a sequential witness in every relevant quorum intersection.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2; Remark 6.2.2, p. 44.\naxiom Safe [other]:\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))\n```\n\n### Echo! — forward rule\n\nA live participant that knows a proposal must echo some value somewhere in its actual local run. The value is existentially chosen.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Echo! [forward]:\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nIf safety holds at every actual local tuple, a live participant with quorum echoes must vote for that value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Vote! [forward]:\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)\n```\n\n### Deliver! — forward rule\n\nA live participant with a reporting quorum of votes must deliver the indicated reporting learner, source learner and value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Deliver! [forward]:\n  ∀ m,l,v. (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Liveness 1 — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.5.3, p. 48.\nproperty Liveness 1 [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))\n```\n\n### Liveness 2 — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant. The source learner must also be safe at every participant at the end of time.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.4.5, p. 47.\nproperty Liveness 2 [end]:\n  ∀ a,b,l,v. ((♢[a,b] ⊤) ∧ (□[b] live) ∧ (□[] safe(l))) ⇒ (♢[] ↓ deliver(a,l,v) ⇒ live ⇒\n  ↕ deliver(b,l,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.3.1, p. 45.\nproperty Agreement [end]:\n  ∀ a,b,l,m,v,w. ((♢[a,b] seq)) ⇒ ((♢[] ↓ deliver(a,l,v)) ∧ (♢[] ↓ deliver(b,m,w)) ⇒\n  v=w)\n```\n\n## Paper and interpretation\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nAll rules and complete conditional correctness properties in this document are sourced to Murdoch J. Gabbay and Isaac Sheff, *Heterogeneous trust in reliable broadcast via modal logic and history structures*, draft dated 7 November 2026 (**2026-11-07**). Figure 7, p. 41 and Definition 6.1.2 give ThyHBB1; Figure 8, p. 41 and Theorem 6.1.6, p. 43 give its correctness statements.\n\nThis is a pedagogical finite model, not a literal history from the paper. Delivery arguments are ordered deliver(m,l,v): m is the reporting learner, l is the source/vote learner and v is the value.\n\nThe model, value domain, quorum basis, facts and any scenario-only axiom are choices of this finite experiment. Every experiment retains the complete dynamic ThyLive include: LiveAlways, LiveSeq and both Knowledge schemes are checked at all possible worlds, covering all ground events and all finite learner lists, including repeated learners and the empty list. See the [paper map](../../docs/PAPER_MAP.md) and [paper variants](../../docs/PAPER_VARIANTS.md) for the exact source mapping and classification.\n\nResults concern this fixed finite history and all predicate interpretations extending its positive facts. They are not unbounded correctness or axiom-independence proofs.\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"A live participant observes delivery but never delivers\",\n  \"participants\": [\n    \"p\",\n    \"q\"\n  ],\n  \"values\": [\n    \"v\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"safe\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"e0\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"propose\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": []\n    },\n    {\n      \"id\": \"e1\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"echo\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e0\"\n      ]\n    },\n    {\n      \"id\": \"e2\",\n      \"place\": \"q\",\n      \"event\": {\n        \"symbol\": \"echo\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e1\"\n      ]\n    },\n    {\n      \"id\": \"e3\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"vote\",\n        \"args\": [\n          \"v\",\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e2\"\n      ]\n    },\n    {\n      \"id\": \"e4\",\n      \"place\": \"q\",\n      \"event\": {\n        \"symbol\": \"vote\",\n        \"args\": [\n          \"v\",\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e3\"\n      ]\n    },\n    {\n      \"id\": \"e5\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"deliver\",\n        \"args\": [\n          \"v\",\n          \"v\",\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e4\"\n      ]\n    },\n    {\n      \"id\": \"e6\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": [\n        \"e5\"\n      ]\n    },\n    {\n      \"id\": \"e7\",\n      \"place\": \"q\",\n      \"event\": null,\n      \"past\": [\n        \"e6\"\n      ]\n    }\n  ],\n  \"quorums\": {\n    \"v\": [\n      [\n        \"p\"\n      ]\n    ]\n  },\n  \"facts\": [\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    },\n    {\n      \"place\": \"q\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    },\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": {\n        \"symbol\": \"safe\",\n        \"args\": [\n          \"v\"\n        ]\n      }\n    },\n    {\n      \"place\": \"q\",\n      \"at\": \"*\",\n      \"atom\": {\n        \"symbol\": \"safe\",\n        \"args\": [\n          \"v\"\n        ]\n      }\n    }\n  ]\n}\n```\n",
+  "snapshot": {
+    "format": "history-structure-run-snapshot/v1",
+    "engine": {
+      "name": "history-structure-model-checker",
+      "version": "0.6.9",
+      "semantics": "hbb-disc/2026-11-07"
+    },
+    "backend": "builtin-cdcl/tseitin",
+    "sourceSha256": "7dd48d9f31510bbe0b837ec55c43a1ca7bca8f4bac62709119e04ccb757fe89e",
+    "selectedProperties": [
+      "Liveness 1",
+      "Liveness 2",
+      "Agreement"
+    ],
+    "droppedAxioms": [
+      "Deliver!"
+    ],
+    "bounds": {
+      "mode": "synthesize",
+      "pinFacts": true,
+      "maxMilliseconds": 60000,
+      "maxCompilationNodes": 500000,
+      "maxDecisions": 100000,
+      "maxAdditionalNodes": 2,
+      "maxModels": 1000,
+      "maxKnowledgeFamilies": 256
+    },
+    "id": "sha256:dc05cc50575656717bd7bcb64c5d953fab112c9ebd049550599cc760e206c547"
+  },
+  "stats": {
+    "histories": 1,
+    "historiesWithModels": 1,
+    "modelsSatisfyingAssumptions": 1,
+    "synthesisQueries": 4,
+    "elapsedMs": 140
+  }
+}
