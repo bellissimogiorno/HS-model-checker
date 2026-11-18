@@ -12,3 +12,5 @@ The [3μQL model-checker](https://github.com/bellissimogiorno/3muQL-model-checke
 Copyright (c) 2026 MuQL contributors. Modification and redistribution are permitted subject to the retained MIT notice. The language, history DAG representation, evaluator, theories and finite-history search implement the paper's two-valued semantics. There is no dependency on a running upstream service, Pyodide or a runtime CDN.
 
 This package was vibe-coded following prompts by Murdoch J. Gabbay. The source paper is *Heterogeneous trust in reliable broadcast via modal logic and history structures*, by Murdoch J. Gabbay and Isaac Sheff.
+
+Reference draft: *Heterogeneous trust in reliable broadcast via modal logic and history structures*, Murdoch J. Gabbay and Isaac Sheff, **18 November 2026** (`hbb-disc(20261118-194826).pdf`), SHA-256 `08361854a013fa9ec7928221b9f05896386801b8d6247250a524c27d151199a4`. The PDF is not bundled.

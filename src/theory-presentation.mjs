@@ -17,7 +17,7 @@ const keywords = new Set(['axiom','property','include','forall','exists','exists
 const metadata = new Set(['backward','forward','other','all']);
 const identifier = /[\p{L}_][\p{L}\p{N}_$']*/uy;
 const number = /-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?/y;
-const operators = /^(?:<->|<=>|->|=>|&&|\|\||!=|==|∃⁰¹|∃₀₁|∃01|∃¹|∃₁|∃1|∃!|[⊤⊥¬∧∨⇒→⇔↔∀∃↓⇓↕⇕♢◇□≠=&|!])/u;
+const operators = /^(?:<->|<=>|->|=>|&&|\|\||!=|==|∃=1|∃⩽1|∃≤1|∃⁰¹|∃₀₁|∃01|∃¹|∃₁|∃1|∃!|[⊤⊥¬∧∨⇒→⇔↔∀∃↓⇓↕⇕♢◇□≠=&|!])/u;
 
 function highlightCode(source, json = false, budget={count:0,exhausted:false}) {
   const out = [];

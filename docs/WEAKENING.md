@@ -4,40 +4,40 @@ Run the complete tour from the release directory with Node.js 20 or newer:
 
 ```sh
 node demo.mjs
-node demo.mjs --suite hbb1
-node demo.mjs --suite hbb2 --output ./weakening-results
-node demo.mjs --suite hbb3
+node demo.mjs --suite HBBSafe
+node demo.mjs --suite HBBSimp --output ./weakening-results
+node demo.mjs --suite HBBCorr
 ```
 
-The tour is dependency free. Its default `all` suite checks 37 cases across HBB1, HBB2 and HBB3, the three canonical correctness claims in every case, and two separately classified diagnostic probes of incorrect paper axioms. All 45 model/counterexample certificates are independently replayed. `--suite hbb1`, `--suite hbb2` and `--suite hbb3` run 13, 10 and 14 cases respectively. The HBB2-only suite retains its ten original controls/variants and twelve certificates. The exit status is zero only when every expected result, complete retained-theory check, scenario check and replay succeeds. An unexpected result, incomplete check or replay failure produces a nonzero exit status.
+The tour is dependency free. Its default `all` suite checks 39 cases across HBBSafe, HBBSimp and HBBCorr, the three canonical correctness claims in every case, and three separately classified diagnostic probes of incorrect paper axioms. All 47 returned model/counterexample certificates are independently replayed. `--suite HBBSafe`, `--suite HBBSimp` and `--suite HBBCorr` run 15, 10 and 14 cases respectively. The HBBSimp-only suite has ten controls/variants and twelve certificates. The exit status is zero only when every expected result, complete retained-theory check, scenario check and replay succeeds. An unexpected result, incomplete check or replay failure produces a nonzero exit status.
 
-`--output` saves a readable `REPORT.md`, the checked matrix in `report.json`, each full experiment in `CASE_ID/run.json`, and separate `*.evidence.json` and `*.replay.json` files for each consistent model and each failed claim. A previously executed report and all 45 evidence certificates are included in [reports/weakening-tour](../reports/weakening-tour/REPORT.md). The [suite registry](../examples/experiment-suites.json) selects the expectation files: [HBB1](../examples/hbb1-cases.json), [HBB2](../examples/weakening-cases.json), and [HBB3](../examples/hbb3-cases.json). A rerun can save a new set of checked results in your chosen directory.
+`--output` saves a readable `REPORT.md`, the checked matrix in `report.json`, each full experiment in `CASE_ID/run.json`, and separate `*.evidence.json` and `*.replay.json` files for each consistent model and each failed claim. The executed report and its replayable evidence certificates are included in [reports/weakening-tour](../reports/weakening-tour/REPORT.md). The [suite registry](../examples/experiment-suites.json) selects the expectation files: [HBBSafe](../examples/hbb1-cases.json), [HBBSimp](../examples/weakening-cases.json), and [HBBCorr](../examples/hbb3-cases.json). A rerun can save a new set of checked results in your chosen directory.
 
 The programmatic entry point is:
 
 ```js
 import {runWeakeningTour} from './demo.mjs';
-const report = await runWeakeningTour({suite:'hbb1',outputDirectory:'./weakening-results'});
+const report = await runWeakeningTour({suite:'HBBSafe',outputDirectory:'./weakening-results'});
 ```
 
 Omit `outputDirectory` for a read-only run. Omit `suite`, or use `suite:'all'`, for all three protocols. Per-case `maxCompilationNodes` entries raise the allowance for the larger fixed-history examples; the default per-experiment/replay time budget is 60 seconds. Each returned case records all retained and dropped axiom names, the three claim outcomes, whether each scenario occurs, the exact original rules that fail in the supplied interpretation, and every replay result. The API throws when a check fails. `maxMilliseconds` sets the budget for each individual experiment or replay, not a new history-search bound.
 
-The remainder of this guide details the HBB2 subset. See [HBB1_EXAMPLES.md](HBB1_EXAMPLES.md) and [HBB3_EXAMPLES.md](HBB3_EXAMPLES.md) for their own checked matrices, and [PAPER_MAP.md](PAPER_MAP.md) for every rule and claim source.
+The remainder of this guide details the HBBSimp subset. See the [HBBSafe guide](HBB1_EXAMPLES.md) and [HBBCorr guide](HBB3_EXAMPLES.md) for their own checked matrices, and [PAPER_MAP.md](PAPER_MAP.md) for every rule and claim source.
 
-## HBB2 expected results
+## HBBSimp expected results
 
-Every consistent row retains the **complete dynamic ThyLive theory**, including LiveAlways, LiveSeq and both Knowledge schemes. “Present” means that the complete scenario supplied by `correctnessProperties('ThyHBB2')` occurs. “Absent” identifies a vacuous true conditional in this history.
+Every consistent row retains the **complete dynamic ThyLive theory**, including LiveAlways, LiveSeq and both Knowledge schemes. “Present” means that the complete scenario supplied by `correctnessProperties('HBBSimp')` occurs. “Absent” identifies a vacuous true conditional in this history.
 
-| Change and source | Retained assumptions | Liveness 1 | Liveness 2 | Agreement |
+| Change and source | Retained assumptions | Happy Termination | Cascade Termination | Agreement |
 |---|---|---|---|---|
-| [Completed baseline](../examples/theories/hbb2.md) | Full ThyHBB2 | Holds; scenario present | Holds; scenario present | Holds; scenario present |
-| [Remove EchoNE](../examples/theories/echo-ne.md) | ThyHBB2 minus EchoNE, plus NoLive | Holds; scenario absent | Holds; scenario absent | **Fails; scenario present** |
+| [Completed baseline](../examples/theories/hbb2.md) | Full HBBSimp | Holds; scenario present | Holds; scenario present | Holds; scenario present |
+| [Remove EchoNE](../examples/theories/echo-ne.md) | HBBSimp minus EchoNE, plus NoLive | Holds; scenario absent | Holds; scenario absent | **Fails; scenario present** |
 | [Restrict EchoNE to live participants](../examples/theories/echo-ne-live-only.md) | Edited EchoNE, every other rule, NoLive | Holds; scenario absent | Holds; scenario absent | **Fails; scenario present** |
-| [Remove Echo!](../examples/theories/echo-progress.md) | ThyHBB2 minus Echo! | **Fails; scenario present** | Holds; scenario absent | Holds; scenario absent |
-| [Remove Vote!](../examples/theories/vote-progress.md) | ThyHBB2 minus Vote! | **Fails; scenario present** | Holds; scenario absent | Holds; scenario absent |
-| [Remove Deliver!](../examples/theories/deliver-progress.md) | ThyHBB2 minus Deliver! | **Fails; scenario present** | **Fails; scenario present** | Holds; scenario present |
+| [Remove Echo!](../examples/theories/echo-progress.md) | HBBSimp minus Echo! | **Fails; scenario present** | Holds; scenario absent | Holds; scenario absent |
+| [Remove Vote!](../examples/theories/vote-progress.md) | HBBSimp minus Vote! | **Fails; scenario present** | Holds; scenario absent | Holds; scenario absent |
+| [Remove Deliver!](../examples/theories/deliver-progress.md) | HBBSimp minus Deliver! | **Fails; scenario present** | **Fails; scenario present** | Holds; scenario present |
 
-The four original full-axiom controls use `echo-ne.md`, `echo-progress.md`, `vote-progress.md` and `deliver-progress.md` without an omission. Each gives **no model on that exact fixed history**, with every property **not tested**. No model is a consistency result, not a proof of any correctness claim. The completed baseline confirms that the original theory also has a consistent model exercising all three scenarios.
+The four full-axiom controls use `echo-ne.md`, `echo-progress.md`, `vote-progress.md` and `deliver-progress.md` without an omission. Each gives **no model on that exact fixed history**, with every property **not tested**. No model is a consistency result, not a proof of any correctness claim. The completed baseline confirms that the original theory also has a consistent model exercising all three scenarios.
 
 “Holds” in this tour means no counterexample among the predicate interpretations of the exact declared finite history, value domain and quorum basis, with supplied positive facts pinned. The tour does not search arbitrary history extensions and does not prove an unbounded theorem. A countermodel shows that the edited assumption set permits the exhibited bad behavior. It does not show that every other weakening, or every alternative assumption set, has the same consequence.
 
@@ -51,9 +51,9 @@ forall v,w. live -> echo(v) -> past echo(w) -> v=w
 
 also admits the same exact history. This makes the prohibition conditional on liveness, while Agreement's stated sequentiality premise still applies. Every other axiom and NoLive are identical in the two sources. The failed Agreement binding is `a=b=l=m=red`, `v=red`, `w=blue` at participant p, end of time. Its premise and delivery trigger are both true; `red=blue` is false. Both liveness scenarios are absent, including their live-quorum premise.
 
-**Echo!.** A live singleton p proposes v and records a final silent observation, but never echoes. Its sole quorum is {p}. The proposal is unique, a live quorum exists, and p knows that a live participant observed the proposal. Liveness 1 fails at p with `l=v`, `v=v`, because no delivery occurs. In the supplied interpretation the full theory fails exactly Echo!; all other rules, including every ThyLive instance, pass.
+**Echo!.** A live singleton p proposes v and records a final silent observation, but never echoes. Its sole quorum is {p}. The proposal is unique, a live quorum exists, and p knows that a live participant observed the proposal. Happy Termination fails at p with `l=v`, `v=v`, because no delivery occurs. In the supplied interpretation the full theory fails exactly Echo!; all other rules, including every ThyLive instance, pass.
 
-**Vote!.** The same live singleton proposes and echoes v, then records its observation without voting. Liveness 1 again fails at p with `l=v`, `v=v`. The supplied interpretation fails exactly Vote! before omission. Liveness 2 and Agreement have no delivery scenario in either singleton progress example.
+**Vote!.** The same live singleton proposes and echoes v, then records its observation without voting. Happy Termination again fails at p with `l=v`, `v=v`. The supplied interpretation fails exactly Vote! before omission. Cascade Termination and Agreement have no delivery scenario in either singleton progress example.
 
 **Deliver!.** Both p and q are live. The only declared quorum basis is {p}. A strict global chain contains these tuples:
 
@@ -67,14 +67,14 @@ Both silent observations contain every real event, satisfying the complete Knowl
 
 ## Exact claims and non-vacuity
 
-The executable claims are the full closed conditional formulas from Figure 10 (p. 50) and Theorem 7.1.3 (p. 51), of the supplied draft dated 7 November 2026. The tour compares their parsed syntax to `correctnessProperties('ThyHBB2')`; it never substitutes an unconditional delivery assertion.
+The executable claims are the full closed conditional formulas from Figure 11 (p. 57) and Theorem 7.1.3 (p. 57), of the supplied draft dated 18 November 2026. The tour compares their parsed syntax to `correctnessProperties('HBBSimp')`; it never substitutes an unconditional delivery assertion.
 
 ```text
-Liveness 1:
+Happy Termination:
 forall l,v. ((box[l] live) & (exists1 w. dia[] past propose(w))) ->
   (dia[] past (live & dia[] past propose(v)) -> live -> sometime deliver(l,l,v))
 
-Liveness 2:
+Cascade Termination:
 forall a,b,l,v. ((dia[a,b] true) & (box[b] live)) ->
   (dia[] past deliver(a,l,v) -> live -> sometime deliver(b,l,v))
 
@@ -108,7 +108,7 @@ These successful counterexample runs intentionally use CLI exit status **1**. A 
 Replay a tour certificate in a fresh process:
 
 ```sh
-node src/cli.mjs replay ./weakening-results/deliver-progress-removed/liveness-2.evidence.json
+node src/cli.mjs replay ./weakening-results/deliver-progress-removed/cascade-termination.evidence.json
 ```
 
-Replay reparses the saved source and recorded omissions, reconstructs the model and finite ThyLive reduction, checks every retained axiom, and checks the false property at its saved failure context. It does not accept cached success fields as proof. The HBB2 regression independently invokes this CLI replay on its twelve certificates; the combined tour replays all 45 certificates through the same interpreter.
+Replay reparses the saved source and recorded omissions, reconstructs the model and finite ThyLive reduction, checks every retained axiom, and checks the false property at its saved failure context. It does not accept cached success fields as proof. The HBBSimp regression independently invokes this CLI replay on its twelve certificates; the combined tour replays every certificate through the same interpreter.

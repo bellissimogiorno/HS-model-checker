@@ -7,7 +7,7 @@ import {EXAMPLES,exampleOptions} from '../src/example-catalog.mjs';
 import {parseDocument} from '../src/document.mjs';
 import {runExperiment,replayExperiment} from '../src/experiment.mjs';
 
-const canonical=['Liveness 1','Liveness 2','Agreement'];
+const canonical=['Happy Termination','Cascade Termination','Agreement'];
 const omissions={
   'hbb1-echo-progress.md':['Echo!'],
   'hbb1-vote-progress.md':['Vote!'],
@@ -39,7 +39,7 @@ test('correct-theory presets test canonical claims separately from incorrect-axi
   for(const file of ['hbb1-echo-choice.md','hbb3-corr-definition.md'])assert.deepEqual(exampleOptions(file).selectedProperties,canonical,file);
 });
 
-test('all29 real preset requests produce their intended finite outcomes and replay their witnesses',async()=>{
+test('all31 real preset requests produce their intended finite outcomes and replay their witnesses',async()=>{
   const cases=[];
   for(const manifest of ['hbb1-cases.json','weakening-cases.json','hbb3-cases.json']) {
     cases.push(...JSON.parse(await readFile(new URL('../examples/'+manifest,import.meta.url),'utf8')).cases);
@@ -61,8 +61,22 @@ test('all29 real preset requests produce their intended finite outcomes and repl
     const maxMilliseconds=Math.max(30000,options.maxMilliseconds);
     const run=await runExperiment(source,{...options,maxMilliseconds});
     assert.equal(run.complete,true,example.file+': '+run.reason);
-    assert.equal(run.status,expected?.expectedStatus??diagnostics[example.file].status,example.file);
-    assert.deepEqual(run.properties.map(p=>p.status),expected?.expectedProperties??diagnostics[example.file].properties,example.file);
+    // Registry controls test the three correctness claims, with any explicitly
+    // incorrect candidate recorded separately as a diagnostic probe. A browser
+    // lesson can deliberately select both, so compare each selected name with
+    // its independently declared expectation rather than treating the probe's
+    // failure as failure of a correctness theorem.
+    const selected=options.selectedProperties??doc.properties.map(p=>p.name);
+    const expectedProperties=expected?selected.map(name=>{
+      const index=canonical.indexOf(name);
+      if(index>=0)return expected.expectedProperties[index];
+      const probe=expected.diagnosticProbes?.find(row=>row.name===name);
+      assert(probe,`${example.file}: no declared expectation for ${name}`);
+      return expected.expectedStatus==='no-model'?'not-tested':probe.expectedStatus;
+    }):diagnostics[example.file].properties;
+    const expectedStatus=expected?(expected.expectedStatus==='no-model'?'no-model':expectedProperties.includes('counterexample')?'counterexample':expectedProperties.length?'holds':'model'):diagnostics[example.file].status;
+    assert.equal(run.status,expectedStatus,example.file);
+    assert.deepEqual(run.properties.map(p=>p.status),expectedProperties,example.file);
     assert.deepEqual(run.droppedAxioms,options.droppedAxioms,example.file);
     assert.deepEqual(run.selectedProperties,options.selectedProperties??doc.properties.map(p=>p.name),example.file);
     if(run.consistency.consistent) {
@@ -88,6 +102,6 @@ test('all29 real preset requests produce their intended finite outcomes and repl
     }
     checked++;
   }
-  assert.equal(checked,29);assert.equal(fullControls,16);
-  assert.ok(replayed>29,'all returned models and failures are checked concretely');
+  assert.equal(checked,31);assert.equal(fullControls,16);
+  assert.ok(replayed>31,'all returned models and failures are checked concretely');
 });

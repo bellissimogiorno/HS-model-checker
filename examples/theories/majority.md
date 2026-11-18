@@ -15,7 +15,7 @@ These claims test the declared finite scenario. Their validity scope is shown on
 Every two independently chosen quorums for the indicated learner must intersect.
 
 ```hsm
-# Scenario: added for this experiment; not a paper axiom or correctness claim. Lemma 4.1.1(2), pp. 32-33.
+# Scenario: added for this experiment; not a paper axiom or correctness claim. Lemma 4.1.1(2), pp. 37–38.
 property Pairwise intersection [end]:
   ♢["l","l"] ⊤
 ```
@@ -25,7 +25,7 @@ property Pairwise intersection [end]:
 Every three independently chosen quorums for this learner must intersect. Pairwise intersection alone does not imply this claim.
 
 ```hsm
-# Scenario: added for this experiment; not a paper axiom or correctness claim. Lemma 4.1.1(2), pp. 32-33.
+# Scenario: added for this experiment; not a paper axiom or correctness claim. Lemma 4.1.1(2), pp. 37–38.
 property Triple intersection [end]:
   ♢["l","l","l"] ⊤
 ```
@@ -34,13 +34,15 @@ property Triple intersection [end]:
 
 Implementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.
 
-Paper draft: *Heterogeneous trust in reliable broadcast via modal logic and history structures*, Murdoch J. Gabbay and Isaac Sheff, **2026-11-07**. References use the draft's printed page numbers.
+Paper draft: *Heterogeneous trust in reliable broadcast via modal logic and history structures*, Murdoch J. Gabbay and Isaac Sheff, **2026-11-18**. References use the draft's printed page numbers.
 
-Sections 2-4 supply the semantics: history structures (Definition 2.3.5, p. 11), semifilters (Definition 3.3.2, pp. 19-20), models (Definition 3.3.3, p. 20), modal validity (Definition 3.4.10 and Figure 3, pp. 24-25), and independent n-way quorum intersections (Lemma 4.1.1 and Notation 4.1.2, pp. 32-33).
+Sections 2-4 supply the semantics: history structures (Definition 2.3.5, p. 15), semifilters (Definition 3.3.2, pp. 23–24), models (Definition 3.3.3, p. 24), modal validity (Definition 3.4.10 and Figure 4, p. 28), and independent n-way quorum intersections (Lemma 4.1.1 and Notation 4.1.2, pp. 37–38).
 
 Pedagogical quorum diagnostic, not a literal paper theory: the two named properties are probes of the supplied majority trust structure. No protocol axioms are omitted or modified, and no HBB correctness theorem is asserted. Repeated occurrences of a learner choose quorums independently.
 
 [Full paper source and ASCII notation map](../../docs/PAPER_MAP.md).
+
+Reference PDF: `hbb-disc(20261118-194826).pdf`, SHA-256 `08361854a013fa9ec7928221b9f05896386801b8d6247250a524c27d151199a4`.
 
 ## Supplied history
 

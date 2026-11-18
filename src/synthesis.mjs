@@ -6,6 +6,7 @@
  * assignments. Every returned model is independently replayed by evaluator.mjs.
  */
 import {Circuit, solve} from './sat.mjs';
+import {SEMANTICS_PROFILE} from './run-identity.mjs';
 import {compileModel, eventKey, minimizeMasks} from './model.mjs';
 import {parseFormula} from './parser.mjs';
 import {Evaluator, EvaluationLimitError} from './evaluator.mjs';
@@ -203,7 +204,7 @@ export function synthesize(modelJSON,options={}) {
     remaining();
   };
   let theory;
-  const experiment={format:'history-structure-synthesis/v1',theory:structuredClone(options.theory??[]),property:options.property??null,scope,pinFacts,limits:{maxMilliseconds,maxCompilationNodes,maxKnowledgeFamilies,maxDecisions,maxSteps:replayMaxSteps},seedModel:structuredClone(modelJSON)};
+  const experiment={format:'history-structure-synthesis/v1',semantics:SEMANTICS_PROFILE,theory:structuredClone(options.theory??[]),property:options.property??null,scope,pinFacts,limits:{maxMilliseconds,maxCompilationNodes,maxKnowledgeFamilies,maxDecisions,maxSteps:replayMaxSteps},seedModel:structuredClone(modelJSON)};
   const replay=(assignment,checkProperty)=>{
     progress('Replaying model');
     const completed=structuredClone(modelJSON);

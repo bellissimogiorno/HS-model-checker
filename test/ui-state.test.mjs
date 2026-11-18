@@ -5,7 +5,8 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {runExperiment,replayExperiment} from '../src/experiment.mjs';
 import {EXAMPLES,EXAMPLE_GROUPS,exampleOptions} from '../src/example-catalog.mjs';
-import {parseDocument} from '../src/document.mjs';
+import {parseDocument,serializeDocument} from '../src/document.mjs';
+import {SEMANTICS_PROFILE} from '../src/run-identity.mjs';
 
 // Enough HTML decoding for textContent at the boundary; this fixture never
 // executes generated markup or claims to reproduce native browser layout.
@@ -13,7 +14,7 @@ const htmlText = source => String(source).replace(/<[^>]*>/g,'').replace(/&(?:am
   '&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&#39;':"'"
 })[entity]??String.fromCodePoint(entity[2].toLowerCase()==='x'?parseInt(entity.slice(3,-1),16):Number(entity.slice(2,-1))));
 
-let radios=[];
+let radios=[],fixtureSerial=0;
 class Element {
   constructor(tag='div') {
     this.tagName=tag.toUpperCase();this.children=[];this.parentNode=null;this.listeners={};this.attributes={};this.dataset={};this.style={};this._text='';this._html='';this._value='';this.hidden=false;this._checked=false;this.className='';this.selectionStart=0;this.selectionEnd=0;this.scrollTop=0;this.scrollLeft=0;this.clientWidth=640;this.clientHeight=360;
@@ -27,7 +28,7 @@ class Element {
   get value(){return this.tagName==='SELECT'&&!this._value?this.children[0]?.value??'':this._value;}
   set checked(value){if(value&&this.name==='mode')for(const n of radios)n._checked=false;this._checked=!!value;}
   get checked(){return this._checked;}
-  append(...nodes){for(let node of nodes){if(typeof node==='string'){const text=new Element('#text');text.textContent=node;node=text;}node.parentNode=this;this.children.push(node);}}
+  append(...nodes){for(let node of nodes){if(typeof node==='string'){const text=new Element('#text');text.textContent=node;node=text;}if(node.parentNode){const prior=node.parentNode.children,index=prior.indexOf(node);if(index>=0)prior.splice(index,1);}node.parentNode=this;this.children.push(node);}}
   replaceChildren(...nodes){this.children=[];this._text='';this._html='';if(this.tagName==='SELECT')this._value='';this.append(...nodes);}
   addEventListener(type,callback){(this.listeners[type]??=[]).push(callback);}
   async fire(type,extra={}){for(const callback of this.listeners[type]??[])await callback({target:this,preventDefault(){},...extra});}
@@ -61,7 +62,7 @@ function matches(node,selector){
   return false;
 }
 
-async function fixture(){
+async function fixture({nativeDialog=true,storageEntries=[]}={}){
   const root=new URL('../',import.meta.url),appURL=new URL('src/app.mjs',root);
   const html=await readFile(new URL('index.html',root),'utf8'),ids=new Map();
   for(const match of html.matchAll(/<([a-z][a-z0-9-]*)\b([^>]*\bid="([^"]+)"[^>]*)>/gi)){
@@ -77,18 +78,25 @@ async function fixture(){
   const document={getElementById:id=>{assert(ids.has(id),'HTML contains '+id);return ids.get(id);},createElement:tag=>new Element(tag),createElementNS:(_ns,tag)=>new Element(tag),body:new Element('body'),activeElement:null,viewEvents:[],
     querySelectorAll:selector=>selector==='input[name="mode"]'?radios:selector==='#propertyOptions input,#axiomOptions input'?['propertyOptions','axiomOptions'].flatMap(id=>ids.get(id).querySelectorAll('input')):[],
     querySelector:selector=>{if(selector==='.workflow-nav')return workflowBar;const match=selector.match(/^input\[name="mode"\](?::checked|\[value="([^"]+)"\])$/);return match?radios.find(node=>match[1]?node.value===match[1]:node.checked):null;}};
-  const storage=new Map(),fetches=[],workers=[],pageEvents=new Map(),resizeObservers=[];
+  const storage=new Map(storageEntries),fetches=[],workers=[],pageEvents=new Map(),resizeObservers=[];
   globalThis.window={addEventListener:(name,callback)=>pageEvents.set(name,callback),scrollY:0,scrollTo:options=>{document.viewEvents.push({type:'scrollTo',options});window.scrollY=options.top;}};
   Object.assign(globalThis,{document,addEventListener:(name,callback)=>pageEvents.set(name,callback),ResizeObserver:class{constructor(callback){this.callback=callback;this.observed=[];resizeObservers.push(this);}observe(node){this.observed.push(node);}disconnect(){this.observed=[];}},matchMedia:()=>({matches:true}),location:{protocol:'http:'},localStorage:{getItem:key=>storage.get(key)??null,setItem:(key,value)=>storage.set(key,value),removeItem:key=>storage.delete(key)},fetch:()=>new Promise(resolve=>fetches.push(resolve)),Worker:class{constructor(){workers.push(this);}postMessage(message){this.sent=message;}terminate(){this.terminated=true;}}});
-  const source=(await readFile(appURL,'utf8')).replace(/from '\.\/([^']+)'/g,(_all,path)=>'from '+JSON.stringify(new URL(path,appURL).href)).replaceAll('import.meta.url',JSON.stringify(appURL.href))+'\nexport {state,loadSource,loadExample,inspectModel,updateChoices,applyModel,project};';
+  document.body.append(ids.get('aboutDetails'),ids.get('aboutDialog'));
+  if(nativeDialog){
+    const dialog=ids.get('aboutDialog');dialog.open=false;dialog.showCount=0;
+    dialog.showModal=function(){assert.equal(this.open,false);this.open=true;this.showCount++;};
+    dialog.close=function(){if(!this.open)return;this.open=false;return this.fire('close');};
+  }
+  const source=(await readFile(appURL,'utf8')).replace(/from '\.\/([^']+)'/g,(_all,path)=>'from '+JSON.stringify(new URL(path,appURL).href)).replaceAll('import.meta.url',JSON.stringify(appURL.href))+'\nexport {state,loadSource,loadExample,inspectModel,updateChoices,applyModel,project};\n// fixture '+ ++fixtureSerial;
   const app=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
   const first=await readFile(new URL('examples/theories/first-steps.md',root),'utf8');
   fetches.shift()({ok:true,text:async()=>first});await new Promise(resolve=>setTimeout(resolve,0));
-  return {app,ids,workers,fetches,first,storage,pageEvents,resizeObservers,document,chooserLabel,workflowBar};
+  return {app,ids,workers,fetches,first,storage,pageEvents,resizeObservers,document,chooserLabel,workflowBar,html};
 }
 
 test('application keeps model/source/query results and delayed loads in their exact contexts',async t=>{
-  const {app,ids,workers,fetches,first,storage,pageEvents,resizeObservers,document,chooserLabel,workflowBar}=await fixture();
+  const {app,ids,workers,fetches,first,storage,pageEvents,resizeObservers,document,chooserLabel,workflowBar,html}=await fixture();
+  t.after(()=>pageEvents.get('pagehide')?.());
   const $=id=>ids.get(id);
   await t.test('curated picker groups every example and starts on First steps',()=>{
     const groups=$('exampleSelect').children.filter(node=>node.tagName==='OPTGROUP');
@@ -97,6 +105,47 @@ test('application keeps model/source/query results and delayed loads in their ex
     assert.equal($('exampleSelect').value,'first-steps.md');
     assert.equal(app.state.example,'first-steps.md');
     assert.equal($('theoryEditor').value,first);
+  });
+  await t.test('About provides the required credits and a native dialog with Close, Escape and focus restoration',async()=>{
+    assert.match(html,/<nav aria-label="Resources">[^\n]*id="aboutLink"[^\n]*>About<\/a>/);
+    assert.match(html,/vibe-coded following prompts by Murdoch J\. Gabbay/);
+    assert.match(html,/Heterogeneous trust in reliable broadcast via modal logic and history structures/);
+    assert.match(html,/Murdoch J\. Gabbay and Isaac Sheff/);assert.match(html,/18 November 2026/);
+    assert.match(html,/0\.7\.1 is a proof-of-concept/);
+    const dialog=$('aboutDialog'),link=$('aboutLink'),close=$('closeAbout');
+    assert.equal(link.getAttribute('href'),'#aboutDetails');assert.equal(link.getAttribute('aria-haspopup'),'dialog');
+    assert.equal(dialog.getAttribute('aria-labelledby'),'aboutHeading');assert.equal(dialog.getAttribute('aria-describedby'),'aboutSummary');
+    assert.equal($('aboutDetails').parentNode,dialog);assert.equal(dialog.hidden,false);assert.equal(close.hidden,false);
+    document.viewEvents.length=0;let prevented=false;
+    await link.fire('click',{preventDefault(){prevented=true;}});assert.equal(prevented,true);
+    assert.equal(dialog.open,true);assert.equal(document.activeElement,close);assert.deepEqual(close.focusOptions,{preventScroll:true});
+    await link.click();assert.equal(dialog.showCount,1,'an already open dialog is not opened twice');
+    await close.click();assert.equal(dialog.open,false);assert.equal(document.activeElement,link);assert.deepEqual(link.focusOptions,{preventScroll:true});
+    await link.click();dialog.open=false;await dialog.fire('close'); // Native Escape dispatches this event.
+    assert.equal(document.activeElement,link);assert.equal(dialog.showCount,2);
+    $('theoryEditor').focus();await dialog.fire('close');
+    assert.equal(document.activeElement,$('theoryEditor'),'a stray close event does not move focus');
+    assert(document.viewEvents.every(event=>event.type==='focus'),'About never invokes page scrolling');
+  });
+  await t.test('About leaves the running worker, inputs and recorded counterexample intact',async()=>{
+    app.loadSource(first);await $('runForm').fire('submit');
+    const worker=workers.at(-1),job=app.state.job,timer=app.state.timer,revision=app.state.revision,doc=app.state.doc;
+    const project=JSON.stringify(app.project()),count=workers.length,requests=fetches.length,priorResult=$('results').textContent;
+    await $('aboutLink').click();
+    assert.equal(app.state.worker,worker);assert.equal(app.state.job,job);assert.equal(app.state.timer,timer);
+    assert.notEqual(worker.terminated,true);assert.equal(workers.length,count);assert.equal(fetches.length,requests);
+    assert.equal(app.state.revision,revision);assert.equal(app.state.doc,doc);assert.equal(JSON.stringify(app.project()),project);
+    assert.equal($('results').textContent,priorResult);assert.equal($('runButton').disabled,true);
+    const result=await runExperiment(worker.sent.sourceMarkdown,worker.sent.options);
+    assert.equal(result.status,'counterexample');worker.onmessage({data:{id:worker.sent.id,type:'result',result}});
+    assert.equal($('aboutDialog').open,true,'a finishing experiment leaves About open');
+    const run=app.state.run,inspected=app.state.inspectedData,selected=app.state.selectedNode;
+    const savedProject=JSON.stringify(app.project()),rendered=$('results').textContent;
+    await $('closeAbout').click();
+    assert.equal(app.state.run,run);assert.equal(app.state.inspectedData,inspected);assert.equal(app.state.selectedNode,selected);
+    assert.equal(JSON.stringify(app.project()),savedProject);assert.equal($('results').textContent,rendered);
+    assert.match(rendered,/Counterexample found/);assert.equal(app.state.job,null);assert.equal(workers.length,count);
+    app.loadSource(first);
   });
   const meaning=source=>{
     const doc=parseDocument(source);
@@ -140,7 +189,7 @@ test('application keeps model/source/query results and delayed loads in their ex
     assert.equal($('theoryPreviewStatus').hidden,true);assert.equal($('runButton').disabled,false);
     const selectedFormula=$('propertyOptions').querySelectorAll('code')[0];
     assert(selectedFormula,'the visible claim has a formula');
-    assert.match(selectedFormula.textContent,/∃¹/);assert.match(selectedFormula.innerHTML,/tok-operator/);
+    assert.match(selectedFormula.textContent,/∃=1/);assert.match(selectedFormula.innerHTML,/tok-operator/);
     await $('unicodeTheory').click();assert.deepEqual(meaning($('theoryEditor').value),expected);
     assert.equal(app.updateChoices(),true);
   });
@@ -225,7 +274,7 @@ test('application keeps model/source/query results and delayed loads in their ex
     assert.equal(app.state.theoryBasePath,'examples/theories/');assert.equal(linkPath(),'/docs/PAPER_MAP.md');
     assert.equal($('theoryEditor').value,saved.sourceMarkdown);
     pageEvents.get('pagehide')();
-    const key='history-structure-model-checker/custom-draft/v0.2';assert.equal(JSON.parse(storage.get(key)).theoryBasePath,'examples/theories/');
+    const key='history-structure-model-checker/custom-draft/v0.3';assert.equal(JSON.parse(storage.get(key)).theoryBasePath,'examples/theories/');
     app.loadSource(first);storage.set(key,JSON.stringify(saved));await $('restoreDraft').click();await $('readTheory').click();
     assert.equal(app.state.theoryBasePath,'examples/theories/');assert.equal(linkPath(),'/docs/PAPER_MAP.md');
     app.loadSource(first,{},true,undefined,'javascript:alert(1)');assert.equal(app.state.theoryBasePath,'');
@@ -287,6 +336,8 @@ test('application keeps model/source/query results and delayed loads in their ex
     worker.onmessage({data: {id: request.id, type: 'result', result}});
     assert($('results').textContent.includes(result.snapshot.id));
     assert($('results').textContent.includes(result.snapshot.engine.version));
+    assert.equal(app.state.runProject.format,'history-structure-project/v3');
+    assert.equal(app.state.runProject.semantics,SEMANTICS_PROFILE);
     assert($('results').querySelectorAll('button').some(button => button.textContent === 'Download run Markdown'));
     assert.equal(app.state.run.sourceMarkdown, first);
     const id = app.state.run.snapshot.id;
@@ -350,7 +401,7 @@ test('application keeps model/source/query results and delayed loads in their ex
   });
   await t.test('pagehide flushes the last pending draft and forgetting cancels a pending save',async()=>{
     app.loadSource(first);$('theoryEditor').value=first+'\nLast edit before closing.\n';await $('theoryEditor').fire('input');pageEvents.get('pagehide')();
-    const key='history-structure-model-checker/custom-draft/v0.2';assert(JSON.parse(storage.get(key)).sourceMarkdown.includes('Last edit before closing.'));
+    const key='history-structure-model-checker/custom-draft/v0.3';assert(JSON.parse(storage.get(key)).sourceMarkdown.includes('Last edit before closing.'));
     await $('theoryEditor').fire('input');await $('forgetDraft').click();pageEvents.get('pagehide')();assert.equal(storage.has(key),false);
   });
   // These flow checks drive the actual application with small worker messages.
@@ -388,7 +439,7 @@ test('application keeps model/source/query results and delayed loads in their ex
     assert.equal(buttons[1].dataset.direction,'next');
     return buttons[1];
   };
-  await t.test('HBB1 Remove Echo! opens the actual weakening, with explicit full-theory and defaults comparisons',async()=>{
+  await t.test('HBBSafe Remove Echo! opens the actual weakening, with explicit full-theory and defaults comparisons',async()=>{
     const source=await loadCurated('hbb1-echo-progress.md');
     assert.equal($('examplePreset').hidden,false);
     assert.match($('examplePresetText').textContent,/Echo!/);
@@ -420,13 +471,26 @@ test('application keeps model/source/query results and delayed loads in their ex
     const expectedPalette=new Map([['null',null]]);for(const node of app.state.doc.model.nodes)expectedPalette.set(JSON.stringify(node.event),node.event);
     assert.deepEqual(JSON.parse($('eventPalette').value),[...expectedPalette.values()]);
     result=await execute();assert.equal(result.status,'counterexample');
-    assert.equal(result.properties.find(p=>p.name==='Liveness 1').status,'counterexample');
+    assert.equal(result.properties.find(p=>p.name==='Happy Termination').status,'counterexample');
     const variant=source+'\nA custom source note.\n';
     $('theoryEditor').value=variant;await $('theoryEditor').fire('input');assert.equal(app.updateChoices(),true);
     assert.equal($('examplePreset').hidden,true,'preset actions do not promise the baseline outcome for an edited source');
     await $('presetFullTheory').click();await $('presetDefaults').click();
     assert.equal($('theoryEditor').value,variant,'stale preset actions cannot replace an edited source');
     assert.deepEqual(omitted(),['Echo!'],'stale preset actions cannot replace the edited source choices either');
+  });
+  await t.test('the end-only Echo diagnostic is selected explicitly without presenting a protocol correctness failure',async()=>{
+    await loadCurated('hbb1-echo-end-only.md');
+    assert.deepEqual($('propertyOptions').querySelectorAll('input:checked').map(row=>row.value),
+      ['Happy Termination','Cascade Termination','Agreement','Bad end-only Echo!']);
+    assert.match($('examplePresetText').textContent,/not a failure of a protocol correctness claim/);
+    await $('runForm').fire('submit');const worker=workers.at(-1),request=worker.sent;
+    const result=await runExperiment(request.sourceMarkdown,request.options);
+    worker.onmessage({data:{id:request.id,type:'result',result}});
+    assert.equal(result.status,'counterexample');
+    assert.deepEqual(result.properties.map(row=>row.status),['holds','holds','holds','counterexample']);
+    assert.equal(result.properties.at(-1).name,'Bad end-only Echo!');
+    assert.equal(replayExperiment(result.properties.at(-1).evidence).verified,true);
   });
   await t.test('new curated examples clear the previous counterexample and navigate back without running',async()=>{
     const source=await loadCurated(EXAMPLES[0].file);
@@ -577,7 +641,7 @@ test('application keeps model/source/query results and delayed loads in their ex
     assert.equal($('exampleSelect').value,EXAMPLES[0].file);
   });
   await t.test('weakening a curated run keeps its next step and preserves that run as a recoverable draft',async()=>{
-    const source=await loadCurated(EXAMPLES[0].file),key='history-structure-model-checker/custom-draft/v0.2';
+    const source=await loadCurated(EXAMPLES[0].file),key='history-structure-model-checker/custom-draft/v0.3';
     const axiom=$('axiomOptions').querySelectorAll('input').find(n=>n.value==='SomeChoice');
     axiom.checked=false;await axiom.fire('change');
     $('timeBudget').value='7';await $('timeBudget').fire('input');
@@ -604,7 +668,7 @@ test('application keeps model/source/query results and delayed loads in their ex
     assert.equal($('exampleContinuation').hidden,true);await settingsAction.click();assert.equal(fetches.length,requests);
   });
   await t.test('the first lesson can edit existence to uniqueness, rerun, then advance while keeping its exact variant draft',async()=>{
-    const source=await loadCurated(EXAMPLES[0].file),key='history-structure-model-checker/custom-draft/v0.2';
+    const source=await loadCurated(EXAMPLES[0].file),key='history-structure-model-checker/custom-draft/v0.3';
     const declaration='axiom SomeChoice [other]:\n  ∃ v. chosen(v)';assert(source.includes(declaration));
     const variant=source.replace(declaration,'axiom SomeChoice [other]:\n  ∃¹ v. chosen(v)');
     await $('editTheory').click();$('theoryEditor').value=variant;await $('theoryEditor').fire('input');
@@ -732,4 +796,362 @@ test('application keeps model/source/query results and delayed loads in their ex
     const pending=app.loadExample('echo-ne.md'),resolve=fetches.shift();app.loadSource(first.replace('First steps — why uniqueness needs an assumption','Imported custom draft'));
     resolve({ok:true,text:async()=>first});await pending;assert($('theoryEditor').value.includes('Imported custom draft'));assert.equal(app.state.custom,true);
   });
+});
+
+// Unsupported browsers retain one ordinary, readable section with a real hash link.
+test('About remains readable when native dialog support is unavailable',async()=>{
+  const {ids,document,html}=await fixture({nativeDialog:false});
+  const link=ids.get('aboutLink'),dialog=ids.get('aboutDialog'),section=ids.get('aboutDetails');
+  assert.equal(link.getAttribute('href'),'#aboutDetails');assert.equal(link.getAttribute('aria-haspopup'),undefined);
+  assert.equal(section.hidden,false);assert.equal(section.parentNode,document.body);
+  assert.equal(dialog.hidden,true);assert.equal(ids.get('closeAbout').hidden,true);
+  assert.equal(link.listeners.click,undefined,'normal anchor navigation remains available');
+  assert.match(html,/<section id="aboutDetails"[^>]*>[\s\S]*?vibe-coded following prompts/);
+});
+
+test('saved implicit theories require explicit current-draft review before a new run',async t=>{
+  const {app,ids,workers,first,storage,pageEvents}=await fixture(),$=id=>ids.get(id);
+  t.after(()=>pageEvents.get('pagehide')?.());
+  const doc=parseDocument(first);doc.includeLive=true;doc.model.signature.predicates.push('live');
+  const source=serializeDocument(doc),key='history-structure-model-checker/custom-draft/v0.3';
+  const importProject=async data=>{
+    const text=JSON.stringify(data);
+    $('importFile').files=[{name:'saved-project.json',size:Buffer.byteLength(text),text:async()=>text}];
+    await $('importFile').fire('change');
+  };
+  await $('runForm').fire('submit');const worker=workers.at(-1),request=worker.sent;
+  const result=await runExperiment(request.sourceMarkdown,request.options);
+  worker.onmessage({data:{id:request.id,type:'result',result}});
+  assert.match($('results').textContent,/Counterexample found/);
+  const legacy={format:'history-structure-project/v2',sourceMarkdown:source,options:{mode:'synthesize'}};
+  for(const profile of [undefined,'hbb-disc/2026-11-07']){
+    await importProject({...legacy,semantics:profile});
+    assert.equal($('theoryEditor').value,source);assert.equal(app.state.sourceCurrent,false);
+    assert.equal(app.state.semanticsReview,true);assert.equal($('runButton').disabled,true);
+    assert.equal(app.state.run,null);assert.equal($('staleResults').hidden,true);
+    assert.doesNotMatch($('results').textContent,/Counterexample found/);
+    assert.match($('notice').textContent,/18 November 2026/);
+    assert.match($('notice').textContent,/Update choices/);
+    assert.equal($('sourceDetails').hidden,false);
+    assert.equal(app.project().semantics,undefined,'saving unreviewed source cannot mark it as current');
+    assert.equal(app.project().format,'history-structure-project/v3');
+    pageEvents.get('pagehide')();assert.equal(JSON.parse(storage.get(key)).semantics,undefined);
+    assert.equal(JSON.parse(storage.get(key)).format,'history-structure-project/v3');
+    await $('restoreDraft').click();assert.equal(app.state.sourceCurrent,false);
+    await $('updateChoices').click();assert.equal(app.state.sourceCurrent,true);
+    assert.equal(app.state.semanticsReview,false);assert.equal($('runButton').disabled,false);
+    assert.equal(app.project().semantics,SEMANTICS_PROFILE);
+    pageEvents.get('pagehide')();assert.equal(JSON.parse(storage.get(key)).semantics,SEMANTICS_PROFILE);
+  }
+  await importProject({...legacy,semantics:SEMANTICS_PROFILE});
+  assert.equal(app.state.sourceCurrent,true);assert.equal(app.state.semanticsReview,false);
+  const current=app.project();assert.equal(current.format,'history-structure-project/v3');
+  await importProject(current);assert.equal(app.state.sourceCurrent,true,'profiled current projects reload directly');
+  await importProject({...current,semantics:undefined});
+  assert.equal(app.state.sourceCurrent,false,'unreviewed v3 imports retain the review requirement');
+  await $('updateChoices').click();
+  await importProject({...legacy,options:{mode:'synthesize',droppedAxioms:['ThyLive']}});
+  assert.equal(app.state.sourceCurrent,true,'explicitly dropped ThyLive leaves a literal core theory');
+  assert.deepEqual($('axiomOptions').querySelectorAll('input:not(:checked)').map(row=>row.value),['ThyLive']);
+  assert.equal(app.state.semanticsReview,false);
+});
+
+test('an implicit-theory certificate from another draft stays inspectable but cannot start replay',async t=>{
+  const {app,ids,workers,first,pageEvents}=await fixture(),$=id=>ids.get(id);
+  t.after(()=>pageEvents.get('pagehide')?.());
+  const doc=parseDocument(first);doc.includeLive=true;doc.model.signature.predicates.push('live');
+  const source=serializeDocument(doc),result=await runExperiment(source,{mode:'synthesize'});
+  assert.equal(result.status,'counterexample');
+  const evidence=structuredClone(result.properties.find(row=>row.status==='counterexample').evidence);
+  evidence.semantics='hbb-disc/2026-11-07';
+  const text=JSON.stringify(evidence),count=workers.length;
+  $('importFile').files=[{name:'saved-evidence.json',size:Buffer.byteLength(text),text:async()=>text}];
+  await $('importFile').fire('change');
+  assert.equal(app.state.importedEvidence.semantics,'hbb-disc/2026-11-07');
+  assert.equal(app.state.sourceCurrent,false);assert.equal($('runButton').disabled,true);
+  assert.match($('results').textContent,/cannot replay/);
+  assert.match($('results').textContent,/new run/);
+  assert.doesNotMatch($('results').textContent,/replay verified/i);
+  const replay=$('results').querySelectorAll('button').find(row=>row.textContent==='Replay imported evidence');
+  assert(replay);assert.equal(replay.disabled,true);await replay.click();
+  assert.equal(workers.length,count,'even a detached/programmatic click cannot start incompatible replay');
+  assert(app.state.inspectedData,'the recorded model remains inspectable');
+});
+
+test('current draft storage is isolated while legacy source remains recoverable with explicit review',async t=>{
+  const oldKey='history-structure-model-checker/custom-draft/v0.2',newKey='history-structure-model-checker/custom-draft/v0.3';
+  const first=await readFile(new URL('../examples/theories/first-steps.md',import.meta.url),'utf8');
+  const doc=parseDocument(first);doc.includeLive=true;doc.model.signature.predicates.push('live');
+  const legacy={format:'history-structure-project/v2',sourceMarkdown:serializeDocument(doc),options:{mode:'synthesize'}};
+  const oldBytes=JSON.stringify(legacy),{app,ids,storage,pageEvents}=await fixture({storageEntries:[[oldKey,oldBytes]]}),$=id=>ids.get(id);
+  t.after(()=>pageEvents.get('pagehide')?.());
+  assert.equal($('restoreDraft').hidden,false,'a legacy draft is offered for safe recovery');
+  app.loadSource(first+'\nA new current draft.\n');pageEvents.get('pagehide')();
+  assert.equal(storage.get(oldKey),oldBytes,'new saves never overwrite the slot read by earlier applications');
+  const current=JSON.parse(storage.get(newKey));assert.equal(current.format,'history-structure-project/v3');
+  assert.equal(current.semantics,SEMANTICS_PROFILE);
+  storage.delete(newKey);await $('restoreDraft').click();
+  assert.equal($('theoryEditor').value,legacy.sourceMarkdown);assert.equal(app.state.sourceCurrent,false);
+  assert.equal(app.state.semanticsReview,true);assert.equal($('runButton').disabled,true);
+  pageEvents.get('pagehide')();assert.equal(storage.get(oldKey),oldBytes);
+  const staged=JSON.parse(storage.get(newKey));assert.equal(staged.format,'history-structure-project/v3');
+  assert.equal(staged.semantics,undefined,'recovering an old draft does not imply its acceptance');
+  await $('updateChoices').click();pageEvents.get('pagehide')();
+  assert.equal(JSON.parse(storage.get(newKey)).semantics,SEMANTICS_PROFILE);
+  assert.equal(storage.get(oldKey),oldBytes,'explicit review also preserves the original recovery source');
+  await $('forgetDraft').click();assert.equal(storage.has(newKey),false);assert.equal(storage.has(oldKey),false);
+  assert.equal($('theoryEditor').value,legacy.sourceMarkdown,'forgetting saved drafts leaves the open source intact');
+});
+
+function delayedFileImport(ids,name='delayed.md'){
+  let resolve,reject;
+  const text=new Promise((accept,fail)=>{resolve=accept;reject=fail;});
+  const file={name,size:10,text:()=>text},input=ids.get('importFile');
+  input.files=[file];input.value=name;
+  const pending=input.fire('change');
+  return {resolve,reject,pending,input};
+}
+
+test('delayed file imports cannot overwrite later edits, settings, loads or checks',async()=>{
+  for(const action of ['source','setting','model','example','experiment','formula']){
+    const {app,ids,first,workers,fetches,pageEvents}=await fixture(),$=id=>ids.get(id);
+    try {
+      const old=delayedFileImport(ids);
+      let finishExample;
+      if(action==='source'){$('theoryEditor').value=first+'\nNewer source edit.\n';await $('theoryEditor').fire('input');}
+      if(action==='setting'){$('timeBudget').value='17';await $('timeBudget').fire('input');}
+      if(action==='model'){$('modelEditor').value='{"unfinished":"newer model edit"}';await $('modelEditor').fire('input');}
+      if(action==='example'){
+        finishExample=app.loadExample('echo-ne.md');
+        assert(fetches.length,'the newer example request is pending');
+      }
+      if(action==='experiment')await $('runForm').fire('submit');
+      if(action==='formula')await $('checkFormula').click();
+      const snapshot={source:$('theoryEditor').value,project:JSON.stringify(app.project()),run:app.state.run,job:app.state.job,worker:app.state.worker,revision:app.state.revision,model:$('modelEditor').value,notice:$('notice').textContent};
+      old.resolve(first+'\nObsolete imported source.\n');await old.pending;
+      assert.equal($('theoryEditor').value,snapshot.source,action);
+      assert.equal(JSON.stringify(app.project()),snapshot.project,action);
+      assert.equal(app.state.revision,snapshot.revision,action);
+      assert.equal(app.state.run,snapshot.run,action);
+      assert.equal(app.state.job,snapshot.job,action);
+      assert.equal(app.state.worker,snapshot.worker,action);
+      assert.equal($('modelEditor').value,snapshot.model,action);
+      assert.equal($('notice').textContent,snapshot.notice,action);
+      if(snapshot.worker)assert.notEqual(snapshot.worker.terminated,true,action+': the newer worker stays alive');
+      if(finishExample){fetches.shift()({ok:true,text:async()=>readFile(new URL('../examples/theories/echo-ne.md',import.meta.url),'utf8')});await finishExample;assert.equal(app.state.example,'echo-ne.md');}
+      if(action==='experiment'||action==='formula')assert(workers.length>0);
+    } finally {
+      if(app.state.job)await $('stopButton').click();
+      pageEvents.get('pagehide')?.();
+    }
+  }
+});
+
+test('the latest file selection wins and obsolete read errors cannot change its result or input',async t=>{
+  const {app,ids,first,pageEvents}=await fixture(),$=id=>ids.get(id);
+  t.after(()=>pageEvents.get('pagehide')?.());
+  const older=delayedFileImport(ids,'older.md'),newer=delayedFileImport(ids,'newer.md');
+  const expected=first+'\nThe newer selected file.\n';
+  newer.resolve(expected);await newer.pending;
+  assert.equal($('theoryEditor').value,expected);assert.equal(newer.input.value,'','the completed current selection can be chosen again');
+  const notice=$('notice').textContent,revision=app.state.revision;
+  newer.input.value='a later input state';
+  older.resolve(first+'\nAn older file finishing last.\n');await older.pending;
+  assert.equal($('theoryEditor').value,expected);assert.equal(app.state.revision,revision);
+  assert.equal($('notice').textContent,notice);assert.equal(newer.input.value,'a later input state');
+  const failing=delayedFileImport(ids,'unreadable.md');
+  $('theoryEditor').value=expected+'\nA newer manual edit.\n';await $('theoryEditor').fire('input');
+  const edited=$('theoryEditor').value,currentNotice=$('notice').textContent;
+  failing.reject(new Error('Obsolete file read failure'));await failing.pending;
+  assert.equal($('theoryEditor').value,edited);assert.equal($('notice').textContent,currentNotice);
+});
+
+test('invalid structured imports leave the current valid source, result, inspection and recoverable draft intact',async t=>{
+  const {app,ids,first,workers,storage,pageEvents}=await fixture(),$=id=>ids.get(id);
+  t.after(()=>pageEvents.get('pagehide')?.());
+  app.loadSource(first);await $('runForm').fire('submit');
+  const worker=workers.at(-1),request=worker.sent,result=await runExperiment(request.sourceMarkdown,request.options);
+  worker.onmessage({data:{id:request.id,type:'result',result}});
+  pageEvents.get('pagehide')?.();
+  assert.equal(result.status,'counterexample');
+  const before={source:$('theoryEditor').value,project:JSON.stringify(app.project()),doc:app.state.doc,run:app.state.run,inspected:app.state.inspected,revision:app.state.revision,results:$('results').textContent,storage:[...storage]};
+  const invalid=[
+    ['syntax.json','{'],['wrong-shape.json','null'],
+    ['unknown.json',JSON.stringify({format:'unknown-format'})],
+    ['bad-options.json',JSON.stringify({format:'history-structure-project/v3',sourceMarkdown:first,options:[]})],
+    ['bad-selection.json',JSON.stringify({format:'history-structure-project/v3',sourceMarkdown:first,options:{selectedProperties:['Unknown']}})],
+    ...[
+      {mode:'unknown-mode'},{maxMilliseconds:'25000'},{maxMilliseconds:0},{pinFacts:'false'},
+      {maxAdditionalNodes:9},{maxAdditionalNodes:0.5},{maxModels:0},{maxModels:100001},
+      {maxSteps:0},{maxKnowledgeFamilies:100000001},{maxCompilationNodes:-1},{maxDecisions:-1},
+      {palette:'not-an-array'},{palette:[]},{palette:['undeclared-event']},
+    ].map(options=>['bad-setting.json',JSON.stringify({format:'history-structure-project/v3',sourceMarkdown:first+'\nDo not replace the workspace.\n',options})]),
+    ['bad-model-draft.json',JSON.stringify({format:'history-structure-project/v3',sourceMarkdown:first,unappliedModelSource:{lost:'draft'}})],
+    ['bad-model.json',JSON.stringify({format:'history-structure-model/v1',participants:[]})],
+    ['bad-evidence.json',JSON.stringify({format:'history-structure-evidence/v1',sourceMarkdown:first,model:{invalid:true}})],
+  ];
+  for(const [name,text] of invalid){
+    $('importFile').files=[{name,size:text.length,text:async()=>text}];await $('importFile').fire('change');
+    assert.equal($('theoryEditor').value,before.source,name);assert.equal(JSON.stringify(app.project()),before.project,name);
+    assert.equal(app.state.doc,before.doc,name);assert.equal(app.state.run,before.run,name);assert.equal(app.state.inspected,before.inspected,name);
+    assert.equal(app.state.revision,before.revision,name);assert.equal($('results').textContent,before.results,name);
+    pageEvents.get('pagehide')?.();assert.deepEqual([...storage],before.storage,name);
+    assert.equal($('importFile').value,'',name);assert.match($('notice').className,/error/,name);
+  }
+});
+
+test('valid imported settings retain the requested scope, including false and zero values',async t=>{
+  const {app,ids,first,pageEvents}=await fixture(),$=id=>ids.get(id);
+  t.after(()=>pageEvents.get('pagehide')?.());
+  const options={mode:'search',pinFacts:false,maxMilliseconds:125.5,maxAdditionalNodes:0,maxModels:11,maxKnowledgeFamilies:5,maxCompilationNodes:1234,maxDecisions:0,maxSteps:6789,palette:[null],selectedProperties:[]};
+  const data={format:'history-structure-project/v3',semantics:SEMANTICS_PROFILE,sourceMarkdown:first,options},text=JSON.stringify(data);
+  $('importFile').files=[{name:'scope.json',size:text.length,text:async()=>text}];await $('importFile').fire('change');
+  assert.equal(app.state.sourceCurrent,true);
+  const restored=app.project().options;
+  for(const [name,value] of Object.entries(options))assert.deepEqual(restored[name],value,name);
+});
+
+test('invalid saved-draft settings are rejected before disturbing the current source or worker',async t=>{
+  const {app,ids,first,storage,pageEvents}=await fixture(),$=id=>ids.get(id);
+  t.after(()=>pageEvents.get('pagehide')?.());
+  await $('runForm').fire('submit');const worker=app.state.worker,job=app.state.job,revision=app.state.revision;
+  const key='history-structure-model-checker/custom-draft/v0.3',bytes=JSON.stringify({format:'history-structure-project/v3',semantics:SEMANTICS_PROFILE,sourceMarkdown:first+'\nAn invalid saved scope.\n',options:{mode:'unknown-mode'}});
+  storage.set(key,bytes);await $('restoreDraft').click();
+  assert.equal($('theoryEditor').value,first);assert.equal(app.state.revision,revision);
+  assert.equal(app.state.worker,worker);assert.equal(app.state.job,job);assert.notEqual(worker.terminated,true);
+  assert.equal(storage.get(key),bytes);assert.match($('notice').textContent,/mode must be/);
+  await $('stopButton').click();
+});
+
+test('unfinished raw Markdown imports remain editable with no runnable verdict and preserve the prior recovery draft',async t=>{
+  const {app,ids,first,storage,pageEvents}=await fixture(),$=id=>ids.get(id);
+  t.after(()=>pageEvents.get('pagehide')?.());
+  app.loadSource(first);pageEvents.get('pagehide')?.();
+  const key='history-structure-model-checker/custom-draft/v0.3',prior=storage.get(key);
+  const text=first+'\n```hsm\naxiom Broken [other]: ∀\n```\n';
+  $('importFile').files=[{name:'unfinished.md',size:text.length,text:async()=>text}];await $('importFile').fire('change');
+  assert.equal($('theoryEditor').value,text);assert.equal(app.state.sourceCurrent,false);
+  assert.equal($('runButton').disabled,true);assert.equal($('sourceDetails').hidden,false);
+  assert.equal($('claimsControls').hidden,true);assert.match($('notice').textContent,/editable draft/);
+  pageEvents.get('pagehide')?.();assert.equal(storage.get(key),prior,'an invalid import does not overwrite the previous recoverable custom source');
+});
+
+test('inactive search fields are disabled so their native constraints cannot block another mode',async t=>{
+  const {app,ids,pageEvents}=await fixture(),$=id=>ids.get(id);
+  t.after(()=>pageEvents.get('pagehide')?.());
+  const choose=async value=>{const radio=document.querySelector('input[name="mode"][value="'+value+'"]');radio.checked=true;await radio.fire('change');};
+  for(const id of ['maxAdditionalNodes','maxModels','eventPalette'])assert.equal($(id).disabled,true,id);
+  await choose('search');
+  for(const id of ['maxAdditionalNodes','maxModels','eventPalette'])assert.equal($(id).disabled,false,id);
+  $('maxAdditionalNodes').value='9';await $('maxAdditionalNodes').fire('input');
+  $('maxModels').value='0';await $('maxModels').fire('input');
+  for(const value of ['synthesize','evaluate']){
+    await choose(value);
+    for(const id of ['maxAdditionalNodes','maxModels','eventPalette'])assert.equal($(id).disabled,true,value+': '+id);
+    assert.equal(app.project().options.mode,value);
+    assert.equal(app.project().options.maxAdditionalNodes,0);
+    assert.equal(app.project().options.maxModels,1000);
+  }
+  await choose('search');assert.equal($('maxAdditionalNodes').value,'9');assert.equal($('maxModels').value,'0');
+});
+
+test('an empty zero-allowed limit is an invalid field rather than an implicit zero scope',async t=>{
+  const {app,ids,workers,pageEvents}=await fixture(),$=id=>ids.get(id);
+  t.after(()=>pageEvents.get('pagehide')?.());
+  const search=document.querySelector('input[name="mode"][value="search"]');search.checked=true;await search.fire('change');
+  for(const id of ['maxAdditionalNodes','decisionBudget']){
+    const old=$(id).value,count=workers.length;
+    $(id).value='';await $(id).fire('input');await $('runForm').fire('submit');
+    assert.equal(workers.length,count,id);assert.equal(app.state.job,null,id);
+    assert.match($('notice').textContent,/must be nonnegative and integral/,id);
+    $(id).value=old;await $(id).fire('input');
+  }
+  $('maxAdditionalNodes').value='0';$('decisionBudget').value='0';
+  assert.equal(app.project().options.maxAdditionalNodes,0);assert.equal(app.project().options.maxDecisions,0);
+});
+
+test('unfinished local drafts recover their exact text, settings and model edits without a verdict or implicit semantic review',async()=>{
+  const key='history-structure-model-checker/custom-draft/v0.3';
+  for(const profile of [undefined,'hbb-disc/2026-11-07',SEMANTICS_PROFILE]){
+    let f=await fixture(),$=id=>f.ids.get(id);
+    try {
+      const doc=parseDocument(f.first);doc.includeLive=true;doc.model.signature.predicates.push('live');
+      const repaired=serializeDocument(doc),unfinished=repaired+'\n```hsm\nproperty Unfinished [end]: ∀\n```\n';
+      const modelText='{"name":"my unfinished model",\n  "nodes": [\n';
+      const options={mode:'search',pinFacts:false,maxMilliseconds:125.5,maxAdditionalNodes:0,maxModels:17,maxKnowledgeFamilies:9,maxCompilationNodes:1234,maxDecisions:0,maxSteps:7654,palette:[null],selectedProperties:['UniqueChoice'],droppedAxioms:['SomeChoice']};
+      const saved={format:'history-structure-project/v3',semantics:profile,sourceMarkdown:unfinished,unappliedModelSource:modelText,options};
+      await $('runForm').fire('submit');assert(f.app.state.worker);
+      f.storage.set(key,JSON.stringify(saved));await $('restoreDraft').click();
+      assert.equal(f.app.state.job,null);assert.equal(f.app.state.worker,null);
+      assert.equal(f.app.state.run,null);assert.equal(f.app.state.doc,null);assert.equal(f.app.state.inspected,null);
+      assert.equal($('theoryEditor').value,unfinished);assert.equal($('modelEditor').value,modelText);
+      assert.equal(f.app.state.sourceCurrent,false);assert.equal(f.app.state.modelDirty,true);assert.equal(f.app.state.semanticsReview,true);
+      assert.equal($('runButton').disabled,true);assert.equal($('claimsControls').hidden,true);assert.equal($('sourceDetails').hidden,false);
+      assert.doesNotMatch($('results').textContent,/Counterexample found|Holds within/);
+      assert.equal($('dagContainer').textContent,'');assert.equal($('loadedTheory').textContent,'Unfinished custom draft');assert.equal($('propertyOptions').querySelectorAll('input').length,0);assert.match($('notice').textContent,/Unfinished custom draft restored/);
+      assert.deepEqual(f.app.project().options,options);assert.equal(f.app.project().unappliedModelSource,modelText);
+      assert.equal(f.app.project().semantics,undefined,'restoration is not acknowledgement of a semantic profile');
+      f.pageEvents.get('pagehide')?.();
+      const bytes=f.storage.get(key),snapshot=JSON.parse(bytes);
+      assert.equal(snapshot.sourceMarkdown,unfinished);assert.equal(snapshot.unappliedModelSource,modelText);assert.deepEqual(snapshot.options,options);assert.equal(snapshot.semantics,undefined);
+      f=await fixture({storageEntries:[[key,bytes]]});$=id=>f.ids.get(id);
+      await $('restoreDraft').click();
+      assert.equal($('theoryEditor').value,unfinished);assert.equal($('modelEditor').value,modelText);assert.deepEqual(f.app.project().options,options);
+      assert.equal(f.app.project().semantics,undefined);assert.equal(f.app.state.sourceCurrent,false);
+      $('theoryEditor').value=repaired;await $('theoryEditor').fire('input');
+      const workerCount=f.workers.length;await $('runForm').fire('submit');
+      assert.equal(f.workers.length,workerCount,'repairing text alone cannot run the saved old or unspecified theory');
+      assert.equal(f.app.project().semantics,undefined);
+      await $('updateChoices').click();
+      assert.equal(f.app.state.sourceCurrent,true);assert.equal(f.app.state.semanticsReview,false);assert.equal(f.app.state.pendingDraftRestore,null);
+      assert.equal($('modelEditor').value,modelText,'updating repaired Markdown retains separate unfinished model JSON');
+      assert.equal(f.app.state.modelDirty,true);assert.equal($('runButton').disabled,true);
+      const recovered=f.app.project();
+      for(const [name,value] of Object.entries(options))assert.deepEqual(recovered.options[name],value,name);
+      assert.equal(recovered.semantics,SEMANTICS_PROFILE);assert.equal(recovered.unappliedModelSource,modelText);
+      await $('discardModelChanges').click();
+      assert.equal(f.app.state.modelDirty,false);assert.equal($('runButton').disabled,false);
+      f.pageEvents.get('pagehide')?.();assert.equal(JSON.parse(f.storage.get(key)).semantics,SEMANTICS_PROFILE);
+    } finally {
+      if(f.app.state.job)await $('stopButton').click();
+      f.pageEvents.get('pagehide')?.();
+    }
+  }
+});
+
+test('editing the settings of an unfinished restored draft retains its saved selections and invalid setting rejection stays transactional',async t=>{
+  const {app,ids,first,storage,pageEvents}=await fixture(),$=id=>ids.get(id);
+  t.after(()=>pageEvents.get('pagehide')?.());
+  const key='history-structure-model-checker/custom-draft/v0.3',unfinished=first+'\n```hsm\nproperty Broken [end]: ∀\n```\n';
+  const prior={source:$('theoryEditor').value,revision:app.state.revision,project:JSON.stringify(app.project())};
+  storage.set(key,JSON.stringify({sourceMarkdown:unfinished,options:{maxDecisions:'0'}}));
+  await $('restoreDraft').click();
+  assert.equal($('theoryEditor').value,prior.source);assert.equal(app.state.revision,prior.revision);assert.equal(JSON.stringify(app.project()),prior.project);
+  assert.match($('notice').textContent,/maxDecisions must be an integer/);
+  const options={mode:'synthesize',selectedProperties:[],droppedAxioms:['SomeChoice'],maxMilliseconds:2000,maxDecisions:0};
+  storage.set(key,JSON.stringify({sourceMarkdown:unfinished,options}));await $('restoreDraft').click();
+  assert.deepEqual(app.project().options,options);
+  $('timeBudget').value='13';await $('timeBudget').fire('input');
+  assert.deepEqual(app.project().options,{...options,maxMilliseconds:13000});
+  pageEvents.get('pagehide')?.();assert.deepEqual(JSON.parse(storage.get(key)).options,{...options,maxMilliseconds:13000});
+  $('theoryEditor').value=first;await $('theoryEditor').fire('input');await $('updateChoices').click();
+  assert.equal(app.state.sourceCurrent,true);assert.deepEqual(app.project().options.selectedProperties,[]);assert.deepEqual(app.project().options.droppedAxioms,['SomeChoice']);
+  assert.equal(app.project().options.maxMilliseconds,13000);assert.equal(app.project().options.maxDecisions,0);
+});
+
+test('repairing a local draft may remove or rename claims without trapping its saved selections',async t=>{
+  const {app,ids,first,storage,pageEvents}=await fixture(),$=id=>ids.get(id);
+  t.after(()=>pageEvents.get('pagehide')?.());
+  const key='history-structure-model-checker/custom-draft/v0.3';
+  storage.set(key,JSON.stringify({sourceMarkdown:first+'\n```hsm\nproperty Broken [end]: ∀\n```\n',options:{selectedProperties:['UniqueChoice'],droppedAxioms:['SomeChoice'],maxMilliseconds:3000}}));
+  await $('restoreDraft').click();
+  const doc=parseDocument(first);doc.properties[0].name='Renamed choice';doc.axioms=[];
+  $('theoryEditor').value=serializeDocument(doc);await $('theoryEditor').fire('input');
+  await $('updateChoices').click();
+  assert.equal(app.state.sourceCurrent,true);assert.equal(app.state.pendingDraftRestore,null);
+  assert.equal($('claimsControls').hidden,false);assert.deepEqual(app.project().options.selectedProperties,[]);assert.deepEqual(app.project().options.droppedAxioms,[]);
+  assert.equal(app.project().options.maxMilliseconds,3000);
+  assert.match($('notice').textContent,/UniqueChoice/);assert.match($('notice').textContent,/SomeChoice/);assert.match($('notice').textContent,/Review the current claims/);
+  const property=$('propertyOptions').querySelectorAll('input')[0];property.checked=true;await property.fire('change');
+  assert.deepEqual(app.project().options.selectedProperties,['Renamed choice']);assert.equal($('runButton').disabled,false);
 });

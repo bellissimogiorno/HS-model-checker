@@ -75,6 +75,16 @@ export function makePalette(data, palette) {
  * reloadable JSON model and both assumption/property check results. */
 export async function explore(modelData, options = {}, onProgress = () => {}) {
   const start = Date.now();
+  // The operation yields while enumerating histories. Own its mathematical
+  // request before that first yield: caller edits must not mix assumptions
+  // between candidates or rewrite the scope recorded with the result. The
+  // progress callback is intentionally retained as a function, separately from
+  // the data snapshot. All nested option data used here is in these two fields.
+  modelData = structuredClone(modelData);
+  options = {...options,
+    assumptions: structuredClone(options.assumptions ?? 'none'),
+    palette: options.palette === undefined ? undefined : structuredClone(options.palette),
+  };
   const base = compileModel(modelData);
   for (const fact of modelData.facts ?? []) {
     const selectors = Array.isArray(fact.at) ? fact.at : [fact.at];
@@ -94,7 +104,7 @@ export async function explore(modelData, options = {}, onProgress = () => {}) {
   const property = parseFormula(options.property);
   const assumptions = options.assumptions ?? 'none';
   const isCustom=assumptions!==null && typeof assumptions==='object';
-  if (!(assumptions === 'none' || ['ThyLive','ThyHBB1','ThyHBB2','ThyHBB3'].includes(assumptions) || isCustom)) throw new Error('Unknown exploration assumptions.');
+  if (!(assumptions === 'none' || ['ThyLive','HBBSafe','HBBSimp','HBBCorr'].includes(assumptions) || isCustom)) throw new Error('Unknown exploration assumptions.');
   const custom = isCustom?customTheorySpec(assumptions):null;
   const palette = makePalette(modelData,options.palette);
   const limits = {maxAdditionalNodes,maxModels,maxMilliseconds,maxKnowledgeFamilies,maxSteps,palette,scope,assumptions};

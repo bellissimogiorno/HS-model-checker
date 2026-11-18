@@ -16,9 +16,10 @@ const ROOT=dirname(dirname(fileURLToPath(import.meta.url)));
 test('the reproducible tour checks all three claims, complete retained schemes and every saved certificate',async()=>{
   const output=await mkdtemp(join(ROOT,'.weakening-tour-'));
   try {
-    const report=await runWeakeningTour({outputDirectory:output,suite:'hbb2'});
+    const report=await runWeakeningTour({outputDirectory:output,suite:'HBBSimp'});
     assert.equal(report.status,'passed');
-    assert.equal(report.version,'0.6.9');
+    assert.equal(report.version,'0.7.1');
+    assert.equal(report.suite,'HBBSimp');
     assert.equal(report.cases.length,10);
     assert.equal(report.evidenceCount,12);
     assert.equal(report.verifiedEvidenceCount,report.evidenceCount);
@@ -28,9 +29,10 @@ test('the reproducible tour checks all three claims, complete retained schemes a
     assert.equal(weak.length,5);
     assert.deepEqual(report.cases[0].properties.map(p=>[p.status,p.scenarioPresent]),[['holds',true],['holds',true],['holds',true]]);
     for(const row of report.cases) {
+      assert.equal(row.suite,'HBBSimp');
       assert.equal(row.complete,true);
       assert.ok(row.retainedAxioms.includes('ThyLive'));
-      assert.deepEqual(row.properties.map(p=>p.name),['Liveness 1','Liveness 2','Agreement']);
+      assert.deepEqual(row.properties.map(p=>p.name),['Happy Termination','Cascade Termination','Agreement']);
       const saved=JSON.parse(await readFile(join(output,row.id,'run.json'),'utf8'));
       assert.equal(saved.status,row.status);
       if(!row.consistent) {
@@ -50,7 +52,7 @@ test('the reproducible tour checks all three claims, complete retained schemes a
           assert.equal(p.failure.triggerHolds,true);
           assert.equal(p.failure.conclusionHolds,false);
           assert.equal(p.failure.explanation.holds,false);
-          if(p.name.startsWith('Liveness'))assert.equal(p.failure.participantIsLive,true);
+          if(['Happy Termination','Cascade Termination'].includes(p.name))assert.equal(p.failure.participantIsLive,true);
         }
         // A separate Node process reparses and rechecks the saved certificate;
         // success flags in report.json cannot make this replay succeed.
@@ -76,7 +78,7 @@ test('live-only EchoNE keeps the same NoLive history and only changes the non-eq
   assert.deepEqual(weak.axioms.filter(a=>a.name!=='EchoNE').map(({name,kind,formula})=>({name,kind,formula})),full.axioms.filter(a=>a.name!=='EchoNE').map(({name,kind,formula})=>({name,kind,formula})));
   assert.deepEqual(weak.axioms.find(a=>a.name==='EchoNE').ast,parseFormula('forall v,w. live -> echo(v) -> past echo(w) -> v=w'));
   assert.deepEqual(weak.axioms.find(a=>a.name==='NoLive').ast,parseFormula('not live'));
-  const model=compileModel(weak.model),properties=correctnessProperties('ThyHBB2');
+  const model=compileModel(weak.model),properties=correctnessProperties('HBBSimp');
   assert.equal(new Evaluator(model).check(properties.find(p=>p.name==='Agreement').ast).holds,false);
   assert.equal(new Evaluator(model).check(properties.find(p=>p.name==='Agreement').nonvacuityAst).holds,true);
 });
@@ -96,11 +98,11 @@ test('tour CLI explains usage and rejects invalid requests with a nonzero status
 test('all three protocol suites separate canonical counterexamples from incorrect-axiom diagnostics',async()=>{
   const report=await runWeakeningTour();
   assert.equal(report.suite,'all');
-  assert.equal(report.cases.length,37);
-  assert.equal(report.evidenceCount,45);
-  assert.equal(report.verifiedEvidenceCount,45);
-  assert.equal(report.diagnosticCount,2);
-  assert.deepEqual(Object.keys(report.propertiesByTheory),['ThyHBB1','ThyHBB2','ThyHBB3']);
+  assert.equal(report.cases.length,39);
+  assert.equal(report.evidenceCount,47);
+  assert.equal(report.verifiedEvidenceCount,47);
+  assert.equal(report.diagnosticCount,3);
+  assert.deepEqual(Object.keys(report.propertiesByTheory),['HBBSafe','HBBSimp','HBBCorr']);
   for(const row of report.cases){
     assert(row.retainedAxioms.includes('ThyLive'));
     assert.equal(row.complete,true);
@@ -112,7 +114,7 @@ test('all three protocol suites separate canonical counterexamples from incorrec
     for(const diagnostic of row.diagnostics){
       assert.equal(diagnostic.status,'counterexample');
       assert.equal(diagnostic.failure.holds,false);
-      assert(!['Liveness 1','Liveness 2','Agreement'].includes(diagnostic.name));
+      assert(!['Happy Termination','Cascade Termination','Agreement'].includes(diagnostic.name));
     }
   }
   const badEcho=report.cases.find(c=>c.id==='hbb1-echo-choice-wrong');
@@ -124,5 +126,5 @@ test('all three protocol suites separate canonical counterexamples from incorrec
   const safety=report.cases.find(c=>c.id==='hbb1-vote-safe-omitted');
   assert.equal(safety.properties.find(p=>p.name==='Agreement').status,'counterexample');
   const relay=report.cases.find(c=>c.id==='hbb3-vote-prime-progress-removed');
-  assert.equal(relay.properties.find(p=>p.name==='Liveness 2').status,'counterexample');
+  assert.equal(relay.properties.find(p=>p.name==='Cascade Termination').status,'counterexample');
 });

@@ -1,17 +1,17 @@
 {
   "format": "history-structure-weakening-cases/v1",
-  "theory": "ThyHBB1",
+  "theory": "HBBSafe",
   "properties": [
-    "Liveness 1",
-    "Liveness 2",
+    "Happy Termination",
+    "Cascade Termination",
     "Agreement"
   ],
   "cases": [
     {
       "id": "hbb1-complete-baseline",
-      "label": "HBB1 completed full theory",
+      "label": "HBBSafe completed full theory",
       "file": "hbb1.md",
-      "theory": "ThyHBB1",
+      "theory": "HBBSafe",
       "category": "control",
       "droppedAxioms": [],
       "expectedStatus": "holds",
@@ -27,16 +27,16 @@
       ],
       "expectedOriginalFailures": [],
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)"
       ]
     },
     {
       "id": "hbb1-echo-progress-full",
-      "label": "HBB1 missing echo, full theory",
+      "label": "HBBSafe missing echo, full theory",
       "file": "hbb1-echo-progress.md",
-      "theory": "ThyHBB1",
+      "theory": "HBBSafe",
       "category": "control",
       "droppedAxioms": [],
       "expectedStatus": "no-model",
@@ -49,16 +49,16 @@
         "Echo!"
       ],
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)"
       ]
     },
     {
       "id": "hbb1-echo-progress-removed",
-      "label": "HBB1 remove Echo!",
+      "label": "HBBSafe remove Echo!",
       "file": "hbb1-echo-progress.md",
-      "theory": "ThyHBB1",
+      "theory": "HBBSafe",
       "category": "weakening",
       "droppedAxioms": [
         "Echo!"
@@ -78,16 +78,16 @@
         "Echo!"
       ],
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)"
       ]
     },
     {
       "id": "hbb1-vote-progress-full",
-      "label": "HBB1 missing vote, full theory",
+      "label": "HBBSafe missing vote, full theory",
       "file": "hbb1-vote-progress.md",
-      "theory": "ThyHBB1",
+      "theory": "HBBSafe",
       "category": "control",
       "droppedAxioms": [],
       "expectedStatus": "no-model",
@@ -100,16 +100,16 @@
         "Vote!"
       ],
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)"
       ]
     },
     {
       "id": "hbb1-vote-progress-removed",
-      "label": "HBB1 remove Vote!",
+      "label": "HBBSafe remove Vote!",
       "file": "hbb1-vote-progress.md",
-      "theory": "ThyHBB1",
+      "theory": "HBBSafe",
       "category": "weakening",
       "droppedAxioms": [
         "Vote!"
@@ -129,16 +129,16 @@
         "Vote!"
       ],
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)"
       ]
     },
     {
       "id": "hbb1-deliver-progress-full",
-      "label": "HBB1 missing deliver, full theory",
+      "label": "HBBSafe missing deliver, full theory",
       "file": "hbb1-deliver-progress.md",
-      "theory": "ThyHBB1",
+      "theory": "HBBSafe",
       "category": "control",
       "droppedAxioms": [],
       "expectedStatus": "no-model",
@@ -151,16 +151,16 @@
         "Deliver!"
       ],
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)"
       ]
     },
     {
       "id": "hbb1-deliver-progress-removed",
-      "label": "HBB1 remove Deliver!",
+      "label": "HBBSafe remove Deliver!",
       "file": "hbb1-deliver-progress.md",
-      "theory": "ThyHBB1",
+      "theory": "HBBSafe",
       "category": "weakening",
       "droppedAxioms": [
         "Deliver!"
@@ -180,17 +180,17 @@
         "Deliver!"
       ],
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)"
       ],
       "expectedFailurePlace": "q"
     },
     {
       "id": "hbb1-safe-full",
-      "label": "HBB1 missing votes, Safe retained",
+      "label": "HBBSafe missing votes, Safe retained",
       "file": "hbb1-safe-removed.md",
-      "theory": "ThyHBB1",
+      "theory": "HBBSafe",
       "category": "control",
       "droppedAxioms": [],
       "expectedStatus": "no-model",
@@ -203,17 +203,17 @@
         "Safe"
       ],
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)",
-        "Remark 6.2.2, p. 44; Lemma 6.5.2, pp. 47\u201348 (unique-proposal safety)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)",
+        "Remark 6.3.2, pp. 50\u201351; Lemma 6.6.2, p. 54\u201348 (unique-proposal safety)"
       ]
     },
     {
       "id": "hbb1-safe-removed",
-      "label": "HBB1 remove Safe definition",
+      "label": "HBBSafe remove Safe definition",
       "file": "hbb1-safe-removed.md",
-      "theory": "ThyHBB1",
+      "theory": "HBBSafe",
       "category": "weakening",
       "droppedAxioms": [
         "Safe"
@@ -233,17 +233,17 @@
         "Safe"
       ],
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)",
-        "Remark 6.2.2, p. 44; Lemma 6.5.2, pp. 47\u201348 (unique-proposal safety)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)",
+        "Remark 6.3.2, pp. 50\u201351; Lemma 6.6.2, p. 54\u201348 (unique-proposal safety)"
       ]
     },
     {
       "id": "hbb1-echo-choice-correct",
-      "label": "HBB1 choose one of two proposed values",
+      "label": "HBBSafe choose one of two proposed values",
       "file": "hbb1-echo-choice.md",
-      "theory": "ThyHBB1",
+      "theory": "HBBSafe",
       "category": "control",
       "droppedAxioms": [],
       "expectedStatus": "holds",
@@ -259,11 +259,11 @@
       ],
       "expectedOriginalFailures": [],
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)",
-        "Remark 6.2.3(2), p. 44 (literal incorrect Echo!)",
-        "Definition 5.2.1(3), p. 37 (implicit universal closure of open axioms)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)",
+        "Remark 6.3.3(2), p. 51 (literal incorrect Echo!)",
+        "Definition 5.2.1(3), p. 42 (implicit universal closure of open axioms)"
       ],
       "diagnosticProbes": [
         {
@@ -274,9 +274,9 @@
     },
     {
       "id": "hbb1-echo-choice-wrong",
-      "label": "HBB1 incorrect universal Echo!",
+      "label": "HBBSafe incorrect universal Echo!",
       "file": "hbb1-echo-choice-wrong.md",
-      "theory": "ThyHBB1",
+      "theory": "HBBSafe",
       "category": "paper-incorrect",
       "droppedAxioms": [],
       "expectedStatus": "no-model",
@@ -289,18 +289,75 @@
         "Echo!"
       ],
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)",
-        "Remark 6.2.3(2), p. 44 (literal incorrect Echo!)",
-        "Definition 5.2.1(3), p. 37 (implicit universal closure of open axioms)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)",
+        "Remark 6.3.3(2), p. 51 (literal incorrect Echo!)",
+        "Definition 5.2.1(3), p. 42 (implicit universal closure of open axioms)"
+      ]
+    },
+    {
+      "theory": "HBBSafe",
+      "droppedAxioms": [],
+      "paperReferences": [
+        "Figure 8, p. 48; Definition 6.2.2, p. 47 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (full conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)",
+        "Remark 6.3.3(3), p. 51 (explicitly incorrect missing-sometime Echo!)",
+        "Remark 5.2.12, pp. 45\u201346 (LiveActive is optional)"
+      ],
+      "id": "hbb1-echo-end-only-correct",
+      "label": "HBBSafe end-only knowledge is not actionable",
+      "file": "hbb1-echo-end-only.md",
+      "category": "control",
+      "expectedStatus": "holds",
+      "expectedProperties": [
+        "holds",
+        "holds",
+        "holds"
+      ],
+      "expectedScenarios": [
+        false,
+        false,
+        false
+      ],
+      "expectedOriginalFailures": [],
+      "diagnosticProbes": [
+        {
+          "name": "Bad end-only Echo!",
+          "expectedStatus": "counterexample"
+        }
+      ]
+    },
+    {
+      "theory": "HBBSafe",
+      "droppedAxioms": [],
+      "paperReferences": [
+        "Figure 8, p. 48; Definition 6.2.2, p. 47 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (full conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)",
+        "Remark 6.3.3(3), p. 51 (explicitly incorrect missing-sometime Echo!)",
+        "Remark 5.2.12, pp. 45\u201346 (LiveActive is optional)"
+      ],
+      "id": "hbb1-echo-end-only-wrong",
+      "label": "HBBSafe incorrect end-only Echo!",
+      "file": "hbb1-echo-end-only-wrong.md",
+      "category": "paper-incorrect",
+      "expectedStatus": "no-model",
+      "expectedProperties": [
+        "not-tested",
+        "not-tested",
+        "not-tested"
+      ],
+      "expectedOriginalFailures": [
+        "Echo!"
       ]
     },
     {
       "id": "hbb1-vote-safe-full",
-      "label": "HBB1 unsafe votes, full safety guard",
+      "label": "HBBSafe unsafe votes, full safety guard",
       "file": "hbb1-vote-safe.md",
-      "theory": "ThyHBB1",
+      "theory": "HBBSafe",
       "category": "control",
       "droppedAxioms": [],
       "expectedStatus": "no-model",
@@ -313,17 +370,17 @@
         "Vote?"
       ],
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)",
-        "Proposition 6.3.1, p. 45 (Agreement proof uses Vote? safety and Safe)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)",
+        "Proposition 6.4.1, p. 52 (Agreement proof uses Vote? safety and Safe)"
       ]
     },
     {
       "id": "hbb1-vote-safe-omitted",
-      "label": "HBB1 omit Vote? safety guard",
+      "label": "HBBSafe omit Vote? safety guard",
       "file": "hbb1-vote-safe-omitted.md",
-      "theory": "ThyHBB1",
+      "theory": "HBBSafe",
       "category": "weakening",
       "droppedAxioms": [],
       "expectedStatus": "counterexample",
@@ -339,10 +396,10 @@
       ],
       "expectedOriginalFailures": [],
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)",
-        "Proposition 6.3.1, p. 45 (Agreement proof uses Vote? safety and Safe)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)",
+        "Proposition 6.4.1, p. 52 (Agreement proof uses Vote? safety and Safe)"
       ]
     }
   ]

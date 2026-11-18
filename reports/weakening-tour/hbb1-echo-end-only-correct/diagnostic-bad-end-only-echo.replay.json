@@ -1,0 +1,956 @@
+{
+  "verified": true,
+  "status": "counterexample",
+  "assumptions": {
+    "name": "Custom theory",
+    "holds": true,
+    "complete": true,
+    "includeLive": true,
+    "axioms": [
+      {
+        "name": "LiveAlways",
+        "kind": "other",
+        "direction": "other",
+        "formula": "live <-> end live",
+        "ast": {
+          "type": "iff",
+          "left": {
+            "type": "atom",
+            "symbol": "live",
+            "args": []
+          },
+          "right": {
+            "type": "end",
+            "body": {
+              "type": "atom",
+              "symbol": "live",
+              "args": []
+            }
+          }
+        },
+        "source": {
+          "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
+          "definition": "5.2.4",
+          "definitionPage": 43
+        },
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 5,
+        "totalRepresentatives": 5,
+        "exhaustive": true,
+        "stats": {
+          "steps": 24,
+          "memoHits": 3,
+          "memoEntries": 17,
+          "memoEvictions": 0,
+          "elapsedMs": 0.08530700000005709
+        }
+      },
+      {
+        "name": "LiveSeq",
+        "kind": "other",
+        "direction": "other",
+        "formula": "live -> seq",
+        "ast": {
+          "type": "implies",
+          "left": {
+            "type": "atom",
+            "symbol": "live",
+            "args": []
+          },
+          "right": {
+            "type": "seq"
+          }
+        },
+        "source": {
+          "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
+          "definition": "5.2.4",
+          "definitionPage": 43
+        },
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 5,
+        "totalRepresentatives": 5,
+        "exhaustive": true,
+        "stats": {
+          "steps": 15,
+          "memoHits": 0,
+          "memoEntries": 12,
+          "memoEvictions": 0,
+          "elapsedMs": 0.15412700000001678
+        }
+      },
+      {
+        "name": "KnowledgeDia:\"propose\"(\"v\")",
+        "kind": "other",
+        "direction": "other",
+        "formula": "(end (dia[] past (live & \"propose\"(\"v\")))) -> live -> sometime (dia[] past \"propose\"(\"v\"))",
+        "ast": {
+          "type": "implies",
+          "left": {
+            "type": "end",
+            "body": {
+              "type": "dia",
+              "learners": [],
+              "body": {
+                "type": "past",
+                "body": {
+                  "type": "and",
+                  "left": {
+                    "type": "atom",
+                    "symbol": "live",
+                    "args": []
+                  },
+                  "right": {
+                    "type": "atom",
+                    "symbol": "propose",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "v"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "right": {
+            "type": "implies",
+            "left": {
+              "type": "atom",
+              "symbol": "live",
+              "args": []
+            },
+            "right": {
+              "type": "sometime",
+              "body": {
+                "type": "dia",
+                "learners": [],
+                "body": {
+                  "type": "past",
+                  "body": {
+                    "type": "atom",
+                    "symbol": "propose",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "v"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "source": {
+          "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
+          "definition": "5.2.4",
+          "definitionPage": 43
+        },
+        "scheme": "KnowledgeDia",
+        "event": {
+          "symbol": "propose",
+          "args": [
+            "v"
+          ]
+        },
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 5,
+        "totalRepresentatives": 5,
+        "exhaustive": true,
+        "stats": {
+          "steps": 40,
+          "memoHits": 5,
+          "memoEntries": 16,
+          "memoEvictions": 0,
+          "elapsedMs": 0.08752800000002026
+        }
+      },
+      {
+        "name": "KnowledgeBox:\"propose\"(\"v\"):0",
+        "kind": "other",
+        "direction": "other",
+        "formula": "(end (box[\"v\"] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[\"v\"] past \"propose\"(\"v\"))",
+        "ast": {
+          "type": "implies",
+          "left": {
+            "type": "end",
+            "body": {
+              "type": "box",
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "v"
+                }
+              ],
+              "body": {
+                "type": "past",
+                "body": {
+                  "type": "and",
+                  "left": {
+                    "type": "atom",
+                    "symbol": "live",
+                    "args": []
+                  },
+                  "right": {
+                    "type": "atom",
+                    "symbol": "propose",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "v"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "right": {
+            "type": "implies",
+            "left": {
+              "type": "atom",
+              "symbol": "live",
+              "args": []
+            },
+            "right": {
+              "type": "sometime",
+              "body": {
+                "type": "box",
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "v"
+                  }
+                ],
+                "body": {
+                  "type": "past",
+                  "body": {
+                    "type": "atom",
+                    "symbol": "propose",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "v"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "source": {
+          "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
+          "definition": "5.2.4",
+          "definitionPage": 43
+        },
+        "scheme": "KnowledgeBox",
+        "event": {
+          "symbol": "propose",
+          "args": [
+            "v"
+          ]
+        },
+        "learners": [
+          "v"
+        ],
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 5,
+        "totalRepresentatives": 5,
+        "exhaustive": true,
+        "stats": {
+          "steps": 37,
+          "memoHits": 4,
+          "memoEntries": 13,
+          "memoEvictions": 0,
+          "elapsedMs": 0.0725800000000163
+        }
+      },
+      {
+        "name": "Echo?",
+        "kind": "backward",
+        "formula": "\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)",
+        "ast": {
+          "type": "forall",
+          "variable": "v",
+          "body": {
+            "type": "implies",
+            "left": {
+              "type": "atom",
+              "symbol": "echo",
+              "args": [
+                {
+                  "type": "var",
+                  "name": "v"
+                }
+              ]
+            },
+            "right": {
+              "type": "dia",
+              "learners": [],
+              "body": {
+                "type": "past",
+                "body": {
+                  "type": "atom",
+                  "symbol": "propose",
+                  "args": [
+                    {
+                      "type": "var",
+                      "name": "v"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 5,
+        "totalRepresentatives": 5,
+        "exhaustive": true,
+        "stats": {
+          "steps": 23,
+          "memoHits": 0,
+          "memoEntries": 15,
+          "memoEvictions": 0,
+          "elapsedMs": 0.06797900000015034
+        }
+      },
+      {
+        "name": "Vote?",
+        "kind": "backward",
+        "formula": "\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))",
+        "ast": {
+          "type": "forall",
+          "variable": "l",
+          "body": {
+            "type": "forall",
+            "variable": "v",
+            "body": {
+              "type": "implies",
+              "left": {
+                "type": "atom",
+                "symbol": "vote",
+                "args": [
+                  {
+                    "type": "var",
+                    "name": "l"
+                  },
+                  {
+                    "type": "var",
+                    "name": "v"
+                  }
+                ]
+              },
+              "right": {
+                "type": "and",
+                "left": {
+                  "type": "atom",
+                  "symbol": "safe",
+                  "args": [
+                    {
+                      "type": "var",
+                      "name": "l"
+                    }
+                  ]
+                },
+                "right": {
+                  "type": "box",
+                  "learners": [
+                    {
+                      "type": "var",
+                      "name": "l"
+                    }
+                  ],
+                  "body": {
+                    "type": "past",
+                    "body": {
+                      "type": "atom",
+                      "symbol": "echo",
+                      "args": [
+                        {
+                          "type": "var",
+                          "name": "v"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 5,
+        "totalRepresentatives": 5,
+        "exhaustive": true,
+        "stats": {
+          "steps": 34,
+          "memoHits": 0,
+          "memoEntries": 20,
+          "memoEvictions": 0,
+          "elapsedMs": 0.11896899999987909
+        }
+      },
+      {
+        "name": "Deliver?",
+        "kind": "backward",
+        "formula": "\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)",
+        "ast": {
+          "type": "forall",
+          "variable": "m",
+          "body": {
+            "type": "forall",
+            "variable": "l",
+            "body": {
+              "type": "forall",
+              "variable": "v",
+              "body": {
+                "type": "implies",
+                "left": {
+                  "type": "atom",
+                  "symbol": "deliver",
+                  "args": [
+                    {
+                      "type": "var",
+                      "name": "m"
+                    },
+                    {
+                      "type": "var",
+                      "name": "l"
+                    },
+                    {
+                      "type": "var",
+                      "name": "v"
+                    }
+                  ]
+                },
+                "right": {
+                  "type": "box",
+                  "learners": [
+                    {
+                      "type": "var",
+                      "name": "m"
+                    }
+                  ],
+                  "body": {
+                    "type": "past",
+                    "body": {
+                      "type": "atom",
+                      "symbol": "vote",
+                      "args": [
+                        {
+                          "type": "var",
+                          "name": "l"
+                        },
+                        {
+                          "type": "var",
+                          "name": "v"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 5,
+        "totalRepresentatives": 5,
+        "exhaustive": true,
+        "stats": {
+          "steps": 39,
+          "memoHits": 0,
+          "memoEntries": 25,
+          "memoEvictions": 0,
+          "elapsedMs": 0.19398299999988922
+        }
+      },
+      {
+        "name": "EchoNE",
+        "kind": "other",
+        "formula": "\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w",
+        "ast": {
+          "type": "forall",
+          "variable": "v",
+          "body": {
+            "type": "forall",
+            "variable": "w",
+            "body": {
+              "type": "implies",
+              "left": {
+                "type": "atom",
+                "symbol": "echo",
+                "args": [
+                  {
+                    "type": "var",
+                    "name": "v"
+                  }
+                ]
+              },
+              "right": {
+                "type": "implies",
+                "left": {
+                  "type": "past",
+                  "body": {
+                    "type": "atom",
+                    "symbol": "echo",
+                    "args": [
+                      {
+                        "type": "var",
+                        "name": "w"
+                      }
+                    ]
+                  }
+                },
+                "right": {
+                  "type": "eq",
+                  "left": {
+                    "type": "var",
+                    "name": "v"
+                  },
+                  "right": {
+                    "type": "var",
+                    "name": "w"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 5,
+        "totalRepresentatives": 5,
+        "exhaustive": true,
+        "stats": {
+          "steps": 32,
+          "memoHits": 0,
+          "memoEntries": 20,
+          "memoEvictions": 0,
+          "elapsedMs": 0.11850700000013603
+        }
+      },
+      {
+        "name": "Safe",
+        "kind": "other",
+        "formula": "\n  ∀ l. safe(l) ⇔ ((∃⩽1 v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))",
+        "ast": {
+          "type": "forall",
+          "variable": "l",
+          "body": {
+            "type": "iff",
+            "left": {
+              "type": "atom",
+              "symbol": "safe",
+              "args": [
+                {
+                  "type": "var",
+                  "name": "l"
+                }
+              ]
+            },
+            "right": {
+              "type": "or",
+              "left": {
+                "type": "exists01",
+                "variable": "v",
+                "body": {
+                  "type": "dia",
+                  "learners": [],
+                  "body": {
+                    "type": "past",
+                    "body": {
+                      "type": "atom",
+                      "symbol": "propose",
+                      "args": [
+                        {
+                          "type": "var",
+                          "name": "v"
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "right": {
+                "type": "forall",
+                "variable": "m",
+                "body": {
+                  "type": "dia",
+                  "learners": [
+                    {
+                      "type": "var",
+                      "name": "l"
+                    },
+                    {
+                      "type": "var",
+                      "name": "m"
+                    }
+                  ],
+                  "body": {
+                    "type": "seq"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 5,
+        "totalRepresentatives": 5,
+        "exhaustive": true,
+        "stats": {
+          "steps": 66,
+          "memoHits": 6,
+          "memoEntries": 35,
+          "memoEvictions": 0,
+          "elapsedMs": 0.23257399999988593
+        }
+      },
+      {
+        "name": "Echo!",
+        "kind": "forward",
+        "formula": "\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
+        "ast": {
+          "type": "forall",
+          "variable": "v",
+          "body": {
+            "type": "implies",
+            "left": {
+              "type": "sometime",
+              "body": {
+                "type": "and",
+                "left": {
+                  "type": "atom",
+                  "symbol": "live",
+                  "args": []
+                },
+                "right": {
+                  "type": "dia",
+                  "learners": [],
+                  "body": {
+                    "type": "past",
+                    "body": {
+                      "type": "atom",
+                      "symbol": "propose",
+                      "args": [
+                        {
+                          "type": "var",
+                          "name": "v"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "right": {
+              "type": "exists",
+              "variable": "w",
+              "body": {
+                "type": "sometime",
+                "body": {
+                  "type": "atom",
+                  "symbol": "echo",
+                  "args": [
+                    {
+                      "type": "var",
+                      "name": "w"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 5,
+        "totalRepresentatives": 5,
+        "exhaustive": true,
+        "stats": {
+          "steps": 32,
+          "memoHits": 2,
+          "memoEntries": 17,
+          "memoEvictions": 0,
+          "elapsedMs": 0.08750899999995454
+        }
+      },
+      {
+        "name": "Vote!",
+        "kind": "forward",
+        "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)",
+        "ast": {
+          "type": "forall",
+          "variable": "l",
+          "body": {
+            "type": "forall",
+            "variable": "v",
+            "body": {
+              "type": "implies",
+              "left": {
+                "type": "everytime",
+                "body": {
+                  "type": "atom",
+                  "symbol": "safe",
+                  "args": [
+                    {
+                      "type": "var",
+                      "name": "l"
+                    }
+                  ]
+                }
+              },
+              "right": {
+                "type": "implies",
+                "left": {
+                  "type": "sometime",
+                  "body": {
+                    "type": "and",
+                    "left": {
+                      "type": "atom",
+                      "symbol": "live",
+                      "args": []
+                    },
+                    "right": {
+                      "type": "box",
+                      "learners": [
+                        {
+                          "type": "var",
+                          "name": "l"
+                        }
+                      ],
+                      "body": {
+                        "type": "past",
+                        "body": {
+                          "type": "atom",
+                          "symbol": "echo",
+                          "args": [
+                            {
+                              "type": "var",
+                              "name": "v"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "type": "sometime",
+                  "body": {
+                    "type": "atom",
+                    "symbol": "vote",
+                    "args": [
+                      {
+                        "type": "var",
+                        "name": "l"
+                      },
+                      {
+                        "type": "var",
+                        "name": "v"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 5,
+        "totalRepresentatives": 5,
+        "exhaustive": true,
+        "stats": {
+          "steps": 56,
+          "memoHits": 4,
+          "memoEntries": 33,
+          "memoEvictions": 0,
+          "elapsedMs": 0.21279099999992468
+        }
+      },
+      {
+        "name": "Deliver!",
+        "kind": "forward",
+        "formula": "\n  ∀ m,l,v. ↕ (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)",
+        "ast": {
+          "type": "forall",
+          "variable": "m",
+          "body": {
+            "type": "forall",
+            "variable": "l",
+            "body": {
+              "type": "forall",
+              "variable": "v",
+              "body": {
+                "type": "implies",
+                "left": {
+                  "type": "sometime",
+                  "body": {
+                    "type": "and",
+                    "left": {
+                      "type": "atom",
+                      "symbol": "live",
+                      "args": []
+                    },
+                    "right": {
+                      "type": "box",
+                      "learners": [
+                        {
+                          "type": "var",
+                          "name": "m"
+                        }
+                      ],
+                      "body": {
+                        "type": "past",
+                        "body": {
+                          "type": "atom",
+                          "symbol": "vote",
+                          "args": [
+                            {
+                              "type": "var",
+                              "name": "l"
+                            },
+                            {
+                              "type": "var",
+                              "name": "v"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "type": "sometime",
+                  "body": {
+                    "type": "atom",
+                    "symbol": "deliver",
+                    "args": [
+                      {
+                        "type": "var",
+                        "name": "m"
+                      },
+                      {
+                        "type": "var",
+                        "name": "l"
+                      },
+                      {
+                        "type": "var",
+                        "name": "v"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 5,
+        "totalRepresentatives": 5,
+        "exhaustive": true,
+        "stats": {
+          "steps": 47,
+          "memoHits": 2,
+          "memoEntries": 27,
+          "memoEvictions": 0,
+          "elapsedMs": 0.18557099999998172
+        }
+      }
+    ],
+    "counts": {
+      "total": 12,
+      "passed": 12,
+      "failed": 0,
+      "inconclusive": 0
+    },
+    "stats": {
+      "steps": 445,
+      "elapsedMs": 3
+    }
+  },
+  "property": {
+    "holds": false,
+    "complete": true,
+    "scope": "all",
+    "failures": [
+      {
+        "place": "p",
+        "time": "@t1",
+        "timeLabel": "end",
+        "event": null,
+        "node": null,
+        "history": [
+          "proposal"
+        ]
+      }
+    ],
+    "checked": 4,
+    "totalRepresentatives": 5,
+    "exhaustive": false,
+    "stats": {
+      "steps": 41,
+      "memoHits": 0,
+      "memoEntries": 25,
+      "memoEvictions": 0,
+      "elapsedMs": 0.12969700000007833
+    }
+  },
+  "stats": {
+    "elapsedMs": 13
+  }
+}

@@ -1,13 +1,31 @@
 #!/usr/bin/env python3
-"""Check, commit and push the generated public HSM repository in one command.
+"""Check, commit and push the public repository to its configured remote.
 
-First publication: python3 tools/push_github.py --repo OWNER/REPO --create
-Later updates:     python3 tools/push_github.py
-Read-only preview: python3 tools/push_github.py --dry-run
+Run inside the generated public checkout:
 
-Python 3, Git and Node 20+ are required. GitHub CLI (`gh auth login`) is
-required for explicit repository creation and automatic Pages configuration.
-The script never force-pushes, resets, pulls, rebases or deletes user files.
+    python3 tools/push_github.py --dry-run
+    python3 tools/push_github.py
+    python3 tools/push_github.py --no-pages --message "Update the checker"
+
+This command publishes the files already in this checkout; it does not copy an
+update from a separate maintenance installation. For that complete workflow,
+run the maintenance installation's root push_github.py instead.
+
+Preview is local and read-only. Publication rebuilds the reader, verifies the
+package, runs tests and evidence replay, commits approved changes if needed,
+checks remote history, pushes origin/main and requests the Pages workflow.
+GitHub Actions reports deployment completion. --no-pages skips configuration;
+it does not disable a site or its existing automatic deployment workflow.
+
+Python 3, Git and Node 20+ are required. GitHub CLI (gh auth login) is required
+for Pages configuration and explicit creation. Git also needs a commit name and
+email; GitHub authentication does not supply them. Existing remotes and history
+are preserved. Conflicts and unexpected files are refused. The script never
+force-pushes, resets, pulls, rebases or deletes user files.
+
+Optional first publication to a new public repository is explicit:
+    python3 tools/push_github.py --repo OWNER/REPO --create
+Do not use --create when publishing an existing configured checkout.
 """
 from __future__ import annotations
 
@@ -35,6 +53,7 @@ class PublishError(Exception):
 
 def command(args, *, check=True, stream=False):
     result = subprocess.run(args, cwd=ROOT, text=True,
+                            env=dict(os.environ, GIT_OPTIONAL_LOCKS="0"),
                             stdout=None if stream else subprocess.PIPE,
                             stderr=None if stream else subprocess.PIPE)
     if check and result.returncode:
@@ -46,6 +65,60 @@ def command(args, *, check=True, stream=False):
 
 def git(*args, check=True):
     return command(["git", "--literal-pathspecs", *args], check=check)
+
+
+def git_bytes(*args, check=True):
+    """Read raw index paths/blobs without text decoding or optional Git writes."""
+    result = subprocess.run(["git", "--literal-pathspecs", *args], cwd=ROOT,
+                            env=dict(os.environ, GIT_OPTIONAL_LOCKS="0"),
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if check and result.returncode:
+        raise PublishError("Cannot inspect the Git index; no files changed.\n"
+                           + result.stderr.decode(errors="replace").strip())
+    return result
+
+
+def require_preserved_index(approved_index=None):
+    """Refuse indexed drafts that the final git add would silently replace.
+
+    Read entries and HEAD directly so assume-unchanged/skip-worktree flags do
+    not hide content. An unchanged index is safe. An intentional staged update
+    is safe only while its bytes and executable bit match the working file.
+    A staged deletion remains an explicit task for the user to review.
+    """
+    indexed, head = {}, {}
+    for row in git_bytes("ls-files", "--stage", "-z").stdout.split(b"\0"):
+        if not row:
+            continue
+        metadata, path = row.split(b"\t", 1)
+        mode, digest, stage = metadata.split()
+        if stage != b"0":
+            raise PublishError("Resolve Git conflicts before publishing; no files changed.")
+        indexed[path] = (mode, digest)
+    if git_bytes("rev-parse", "--verify", "HEAD", check=False).returncode == 0:
+        for row in git_bytes("ls-tree", "-r", "--full-tree", "-z", "HEAD").stdout.split(b"\0"):
+            if row:
+                metadata, path = row.split(b"\t", 1)
+                mode, kind, digest = metadata.split()
+                head[path] = (mode, digest)
+    for raw_path in sorted(indexed.keys() | head.keys()):
+        entry = indexed.get(raw_path)
+        if approved_index is not None and raw_path in approved_index and entry == approved_index[raw_path]:
+            # Reader/manifest generation may change a working file whose
+            # original staged bytes were already inspected and approved.
+            continue
+        if entry == head.get(raw_path):
+            continue
+        name = os.fsdecode(raw_path)
+        if entry is None:
+            raise PublishError(f"Preserve or commit the staged deletion before publishing: {name}. No files changed.")
+        mode, digest = entry
+        current = ROOT / name
+        if (mode not in (b"100644", b"100755") or current.is_symlink() or not current.is_file()
+                or bool(current.stat().st_mode & 0o111) != (mode == b"100755")
+                or git_bytes("cat-file", "blob", digest.decode("ascii")).stdout != current.read_bytes()):
+            raise PublishError(f"Indexed draft differs from the working file: {name}. Save or commit it before publishing; no files changed.")
+    return indexed
 
 
 def safe_name(name):
@@ -283,6 +356,7 @@ def main(argv=None):
         remote, repository = remote_state(exists, args.repo, args.no_pages)
         if args.create and remote:
             raise PublishError("origin already exists. Omit --create for updates; no remote was changed.")
+        approved_index = require_preserved_index() if exists else None
         if args.dry_run:
             print(f"Read-only preview: HSM {version}, {len(names)} managed files, branch main.")
             print("Would rebuild the reader, refresh checksums, run Node/Python tests and replay verification.")
@@ -318,6 +392,7 @@ def main(argv=None):
         _, allowed = repository_state(names)
         ensure_remote_history()
         git("diff", "--check")
+        require_preserved_index(approved_index)  # Recheck edits staged while checks ran.
         paths = sorted(allowed)
         for start in range(0, len(paths), 100):
             # A retired path may never have been committed; do not pass nonexistent

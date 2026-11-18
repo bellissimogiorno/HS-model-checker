@@ -5,8 +5,8 @@ import {Evaluator} from '../src/evaluator.mjs';
 import {parseFormula} from '../src/parser.mjs';
 import {buildTheory, checkTheory, correctnessProperties, knowledgeFamilies, TheoryError} from '../src/theories.mjs';
 
-function singleRun(name='ThyHBB2',observe=true) {
-  const h3=name==='ThyHBB3';
+function singleRun(name='HBBSimp',observe=true) {
+  const h3=name==='HBBCorr';
   const events = [
     {symbol:'propose',args:['x']},
     {symbol:'echo',args:['x']},
@@ -35,13 +35,13 @@ function majority(live=false,eventSignature=['propose']) {
   };
 }
 
-for (const name of ['ThyHBB1','ThyHBB2','ThyHBB3']) {
+for (const name of ['HBBSafe','HBBSimp','HBBCorr']) {
   test(`${name}: a completed singleton run satisfies full theory and all paper properties`,()=>{
     const model=compileModel(singleRun(name));
     const result=checkTheory(model,name);
     assert.equal(result.holds,true,JSON.stringify(result.axioms.filter(a=>a.holds!==true)));
     assert.equal(result.complete,true);
-    assert.equal(result.completeness.events,5); // Four occurring plus one absent representative.
+    assert.equal(result.completeness.events,4); // All four occurring events; absent events have false antecedents.
     const evaluator=new Evaluator(model);
     for (const property of correctnessProperties(name)) {
       assert.equal(evaluator.check(property.ast,{scope:'end'}).holds,true,property.name);
@@ -51,28 +51,27 @@ for (const name of ['ThyHBB1','ThyHBB2','ThyHBB3']) {
 }
 
 test('a prefix ending at a real deliver lacks a required knowledge observation',()=>{
-  const result=checkTheory(compileModel(singleRun('ThyHBB2',false)),'ThyHBB2');
+  const result=checkTheory(compileModel(singleRun('HBBSimp',false)),'HBBSimp');
   assert.equal(result.holds,false);
   assert.ok(result.axioms.some(a=>a.scheme==='KnowledgeDia' && a.event.symbol==='deliver' && a.holds===false));
 });
 
-test('exact saturation preserves repeated independent quorum choices',()=>{
+test('the quorum Knowledge scheme covers each single learner, without synthesizing learner lists',()=>{
   const model=compileModel(majority());
   const result=knowledgeFamilies(model);
   assert.equal(result.complete,true);
-  assert.equal(result.families.length,4);
-  assert.deepEqual(result.families.map(f=>f.learners.length),[0,1,2,3]);
-  assert.deepEqual(result.families[3].masks,[0n]);
+  assert.equal(result.families.length,1);
+  assert.deepEqual(result.families.map(f=>f.learners),[['x']]);
+  assert.deepEqual(result.families[0].masks,[3n,5n,6n]);
 });
 
-test('absent event knowledge instance detects empty-intersection live inactivity',()=>{
+test('live inactivity satisfies ThyLive even when three independently chosen majority quorums have empty intersection',()=>{
   const model=compileModel(majority(true));
   const result=checkTheory(model,'ThyLive');
-  assert.equal(result.holds,false);
+  assert.equal(result.holds,true);
   assert.equal(result.complete,true);
-  const failed=result.axioms.filter(a=>a.holds===false);
-  assert.ok(failed.some(a=>a.scheme==='KnowledgeBox' && a.learners.length===3));
-  assert.ok(failed.every(a=>a.scheme==='KnowledgeBox'));
+  assert.equal(result.completeness.events,0);
+  assert.deepEqual(result.axioms.map(a=>a.name),['LiveAlways','LiveSeq']);
 });
 
 test('an empty event signature has no Knowledge instances and does not impose LiveActive',()=>{
@@ -85,16 +84,20 @@ test('an empty event signature has no Knowledge instances and does not impose Li
 });
 
 test('a capped scheme subset cannot produce a validity claim',()=>{
-  const model=compileModel(majority(false));
+  const data=majority(false);
+  data.values=['x','y'];data.quorums.y=data.quorums.x;
+  data.nodes=[{id:'proposal',place:'a',event:{symbol:'propose',args:['x']},past:[]}];
+  const model=compileModel(data);
   const result=checkTheory(model,'ThyLive',{maxKnowledgeFamilies:1});
   assert.equal(result.holds,null);
   assert.equal(result.complete,false);
-  assert.match(result.reason,/exceeded 1 distinct families/);
+  assert.match(result.reason,/exceeded 1/);
   assert.ok(result.axioms.every(a=>a.holds===true));
 });
 
 test('a failed axiom remains conclusively false even if scheme saturation was incomplete',()=>{
   const data=majority(false);
+  data.values=['x','y'];data.quorums.y=data.quorums.x;
   data.nodes=[{id:'fork1',place:'a',event:null,past:[]},{id:'fork2',place:'a',event:{symbol:'propose',args:[]},past:[]}];
   data.facts=[{place:'a',at:'*',atom:'live'}];
   const result=checkTheory(compileModel(data),'ThyLive',{maxKnowledgeFamilies:1});
@@ -105,25 +108,26 @@ test('a failed axiom remains conclusively false even if scheme saturation was in
 
 test('quoted event symbols round-trip in Knowledge-scheme formulas',()=>{
   const data=majority(false,['past']);
+  data.nodes=[{id:'quoted-event',place:'a',event:{symbol:'past',args:[]},past:[]}];
   const theory=buildTheory(compileModel(data),'ThyLive');
   assert.ok(theory.axioms.some(a=>a.formula.includes('"past"()')));
   assert.equal(checkTheory(data,'ThyLive').holds,true);
 });
 
 test('evaluation budgets report inconclusive rather than passing',()=>{
-  const result=checkTheory(singleRun(),'ThyHBB2',{maxSteps:1});
+  const result=checkTheory(singleRun(),'HBBSimp',{maxSteps:1});
   assert.equal(result.holds,null);
   assert.equal(result.complete,false);
   assert.ok(result.axioms.some(a=>a.holds===null));
 });
 
 test('theories require their signature and reject invalid scheme budgets',()=>{
-  assert.throws(()=>buildTheory(majority(),'ThyHBB3'),TheoryError);
+  assert.throws(()=>buildTheory(majority(),'HBBCorr'),TheoryError);
   assert.throws(()=>knowledgeFamilies(compileModel(majority()),{maxKnowledgeFamilies:0}),TheoryError);
 });
 
 test('the step budget is shared across axioms rather than renewed per row',()=>{
-  const result=checkTheory(singleRun(),'ThyHBB2',{maxSteps:400});
+  const result=checkTheory(singleRun(),'HBBSimp',{maxSteps:400});
   assert.equal(result.holds,null);
   assert.equal(result.complete,false);
   assert.ok(result.stats.steps<=401);
@@ -131,14 +135,14 @@ test('the step budget is shared across axioms rather than renewed per row',()=>{
 });
 
 test('the total time budget includes building knowledge schemes',()=>{
-  const result=checkTheory(singleRun(),'ThyHBB2',{maxMilliseconds:0.0001});
+  const result=checkTheory(singleRun(),'HBBSimp',{maxMilliseconds:0.0001});
   assert.equal(result.holds,null);
   assert.equal(result.complete,false);
   assert.match(result.reason,/time budget/);
 });
 
-test('HBB3 Vote! preserves its existential value choice',()=>{
-  const data=singleRun('ThyHBB3');
+test('HBBCorr Vote! preserves its existential value choice',()=>{
+  const data=singleRun('HBBCorr');
   data.values=['A','B'];
   data.quorums={A:[['p']],B:[['p']]};
   const events=[
@@ -149,7 +153,7 @@ test('HBB3 Vote! preserves its existential value choice',()=>{
   data.nodes=events.map((event,i)=>({id:`n${i}`,place:'p',event,past:i?[`n${i-1}`]:[]}));
   data.facts=[{place:'p',at:'*',atom:'live'}];
   const model=compileModel(data);
-  const rule=buildTheory(model,'ThyHBB3').axioms.find(a=>a.name==='Vote!');
+  const rule=buildTheory(model,'HBBCorr').axioms.find(a=>a.name==='Vote!');
   const evaluator=new Evaluator(model);
   assert.equal(evaluator.check(rule.ast,{scope:'all'}).holds,true);
   assert.equal(evaluator.check(parseFormula('forall l,v. (live & box[l] past echo(v)) -> sometime vote(l,v)'),{scope:'all'}).holds,false);

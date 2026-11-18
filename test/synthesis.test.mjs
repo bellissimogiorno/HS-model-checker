@@ -100,12 +100,12 @@ test('full ThyLive schemes constrain synthesized rho when events first occur',()
 });
 test('completed paper theories synthesize and preserve their correctness properties',async()=>{
   const data=JSON.parse(await readFile(new URL('../examples/hbb2-complete.json',import.meta.url),'utf8'));
-  const result=synthesize(data,{theory:'ThyHBB2',property:'seq'});
+  const result=synthesize(data,{theory:'HBBSimp',property:'seq'});
   assert.equal(result.status,'holds');assert.equal(result.consistent,true);
 });
 test('scheme or compilation exhaustion is incomplete and invalid language is an error',()=>{
   assert.equal(synthesize(base(),{property:'flag',maxCompilationNodes:1}).status,'incomplete');
-  const data=base({participants:['p','q'],values:['v'],quorums:{v:[['p']]},signature:{events:['E'],predicates:['live']}});
+  const data=base({participants:['p','q'],values:['v','w'],quorums:{v:[['p']],w:[['q']]},signature:{events:['E'],predicates:['live']},nodes:[{id:'e',place:'p',event:'E',past:[]}]});
   assert.equal(synthesize(data,{theory:'ThyLive',maxKnowledgeFamilies:1}).status,'incomplete');
   assert.throws(()=>synthesize(base(),{property:'missing'}),/unknown symbol/);
   assert.throws(()=>synthesize(base(),{property:'chosen(?x)'}),/Free variable/);

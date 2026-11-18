@@ -1,8 +1,8 @@
 # An incorrect correlation definition overconstrains the DAG
 
-This is the **explicitly incorrect replacement** from Remark 8.6.4, p. 61. It replaces both CorrSeq and CorrPast by `CorrWrong: corr(l,m) ⇔ ♢[l,m] seq`; all other Figure 11 rules and full ThyLive stay selected. The declared DAG and quorum basis are identical to the full-theory diagnostic. At the end the equivalence forces corr(L,M) and corr(M,N), but forces corr(L,N) false. Retained CorrTran requires corr(L,N), so no predicate interpretation can satisfy this replacement theory on this fixed DAG.
+This is the **explicitly incorrect replacement** from Remark 8.6.4, p. 68. It replaces both CorrSeq and CorrPast by `CorrWrong: corr(l,m) ⇔ ♢[l,m] seq`; all other Figure 12 rules and full ThyLive stay selected. The declared DAG and quorum basis are identical to the full-theory diagnostic. At the end the equivalence forces corr(L,M) and corr(M,N), but forces corr(L,N) false. Retained CorrTran requires corr(L,N), so no predicate interpretation can satisfy this replacement theory on this fixed DAG.
 
-The full theory admits the same history. This establishes a semantic design failure through overconstraint, not a counterexample to the paper’s correctness theorem. All three canonical claims remain **Not tested** in the no-model row. The underlying side-choosing issue appears in Remark 8.1.1(2), pp. 54–55.
+The full theory admits the same history. This establishes a semantic design failure through overconstraint, not a counterexample to the paper’s correctness theorem. All three canonical claims remain **Not tested** in the no-model row. The underlying side-choosing issue appears in Remark 8.1.1(2), pp. 60–61.
 
 The added `NoLive` scenario rule fixes `live` false. Consequently the forward rules and both Knowledge schemes remain present and hold; these examples exercise safety, not progress. This is an explicit model scenario, not a proposed replacement for a paper axiom.
 
@@ -13,7 +13,7 @@ Read the rules below, choose **Continue to claims**, review the selected propert
 The complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.
 
 ```hsm
-# Paper: Figure 6, p. 38, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 37).
+# Paper: Figure 7, p. 43, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 42).
 include ThyLive
 ```
 
@@ -34,7 +34,7 @@ axiom NoLive [other]:
 An echo must be justified by knowledge of a proposal of that value.
 
 ```hsm
-# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.
+# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.
 axiom Echo? [backward]:
   ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)
 ```
@@ -44,7 +44,7 @@ axiom Echo? [backward]:
 A vote requires either quorum echoes of that value, or knowledge of a matching vote for a currently correlated learner.
 
 ```hsm
-# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.
+# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.
 axiom Vote? [backward]:
   ∀ l,v. vote(l,v) ⇒ ((□[l] ↓ echo(v)) ∨ (∃ m. (corr(m,l) ∧ ♢[] ↓ vote(m,v))))
 ```
@@ -54,7 +54,7 @@ axiom Vote? [backward]:
 Delivery requires knowledge of a quorum of matching votes for the same learner.
 
 ```hsm
-# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.
+# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.
 axiom Deliver? [backward]:
   ∀ l,v. deliver(l,v) ⇒ □[l] ↓ vote(l,v)
 ```
@@ -64,7 +64,7 @@ axiom Deliver? [backward]:
 A participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.
 
 ```hsm
-# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.
+# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.
 axiom EchoNE [other]:
   ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w
 ```
@@ -74,7 +74,7 @@ axiom EchoNE [other]:
 An actual local vote and an earlier local vote for correlated learners must carry the same value.
 
 ```hsm
-# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.
+# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.
 axiom VoteNE [other]:
   ∀ l,m,v,w. vote(l,v) ⇒ ↓ vote(m,w) ⇒ corr(l,m) ⇒ v=w
 ```
@@ -84,7 +84,7 @@ axiom VoteNE [other]:
 Every triple of independently chosen learner quorums must have a common participant. Repeated learner names still make independent quorum choices.
 
 ```hsm
-# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.
+# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.
 axiom 3twined [other]:
   ∀ l,m,n. ♢[l,m,n] ⊤
 ```
@@ -94,7 +94,7 @@ axiom 3twined [other]:
 Correlation is symmetric. Reflexivity is not an additional assumption.
 
 ```hsm
-# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.
+# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.
 axiom CorrSymm [other]:
   ∀ l,m. corr(l,m) ⇒ corr(m,l)
 ```
@@ -104,49 +104,49 @@ axiom CorrSymm [other]:
 Correlation is transitive.
 
 ```hsm
-# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.
+# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.
 axiom CorrTran [other]:
   ∀ l,m,n. corr(l,m) ⇒ corr(m,n) ⇒ corr(l,n)
 ```
 
 ### Echo! — forward rule
 
-A live participant that knows a proposal must echo some value somewhere in its actual local run. The value is existentially chosen.
+If an actual local tuple records a live participant knowing a proposal, that participant must echo some value at an actual local tuple. The value is existentially chosen; end-of-time knowledge alone does not activate the rule.
 
 ```hsm
-# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.
+# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.
 axiom Echo! [forward]:
-  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)
+  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)
 ```
 
 ### Vote! — forward rule
 
-A live participant with quorum echoes must vote for some value for that learner somewhere in its actual local run. The chosen value remains existential.
+If an actual local tuple records a live participant knowing the required quorum of echoes, that participant must vote at an actual local tuple. The rule does not impose a time order between those two tuples. The vote value remains existentially chosen.
 
 ```hsm
-# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.
+# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.
 axiom Vote! [forward]:
-  ∀ l,v. (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)
+  ∀ l,v. ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)
 ```
 
 ### Vote'! — forward rule
 
-With correlation at every actual local tuple and knowledge of a correlated learner’s vote, a live participant must vote for some value for the target learner somewhere in its actual local run.
+If an actual local tuple records a live participant knowing a correlated source vote, and correlation holds at every actual local tuple, that participant must vote for some value at an actual local tuple. The existential value choice is retained.
 
 ```hsm
-# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.
+# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.
 axiom Vote'! [forward]:
-  ∀ l,m,v. (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)
+  ∀ l,m,v. ↕ (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)
 ```
 
 ### Deliver! — forward rule
 
-A live participant with quorum votes must deliver that learner and value somewhere in its actual local run.
+If an actual local tuple records a live participant knowing the required quorum of votes, that participant must deliver at an actual local tuple. Merely learning of those votes at the end of time does not activate the rule.
 
 ```hsm
-# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.
+# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.
 axiom Deliver! [forward]:
-  ∀ l,v. (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)
+  ∀ l,v. ↕ (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)
 ```
 
 ### CorrWrong — other assumption
@@ -154,7 +154,7 @@ axiom Deliver! [forward]:
 This deliberately incorrect replacement equates correlation with sequential quorum intersections. Together with retained transitivity, it can reject legitimate history structures.
 
 ```hsm
-# Paper: Remark 8.6.4, p. 61. Deliberately incorrect variant.
+# Paper: Remark 8.6.4, p. 68. Deliberately incorrect variant.
 axiom CorrWrong [other]:
   ∀ l,m. corr(l,m) ⇔ ♢[l,m] seq
 ```
@@ -163,24 +163,24 @@ axiom CorrWrong [other]:
 
 Each correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.
 
-### Liveness 1 — correctness claim
+### Happy Termination — correctness claim
 
 Under the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.
 
 ```hsm
-# Paper: Figure 12, p. 56; Theorem 8.2.3, p. 57; Proposition 8.5.1, pp. 59–60.
-property Liveness 1 [end]:
-  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒
+# Paper: Figure 13, p. 63; Theorem 8.2.3, p. 64; Proposition 8.5.1, p. 66.
+property Happy Termination [end]:
+  ∀ l,v. ((□[l] live) ∧ (∃=1 w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒
   live ⇒ ↕ deliver(l,v))
 ```
 
-### Liveness 2 — correctness claim
+### Cascade Termination — correctness claim
 
 Under the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant.
 
 ```hsm
-# Paper: Figure 12, p. 56; Theorem 8.2.3, p. 57; Proposition 8.4.5, p. 59.
-property Liveness 2 [end]:
+# Paper: Figure 13, p. 63; Theorem 8.2.3, p. 64; Proposition 8.4.5, pp. 65–66.
+property Cascade Termination [end]:
   ∀ l,m,v. ((□[] corr(l,m)) ∧ (□[m] live)) ⇒ (♢[] ↓ deliver(l,v) ⇒ live ⇒ ↕
   deliver(m,v))
 ```
@@ -190,7 +190,7 @@ property Liveness 2 [end]:
 Under the displayed trust premise, the two known deliveries must have the same broadcast value.
 
 ```hsm
-# Paper: Figure 12, p. 56; Theorem 8.2.3, p. 57; Proposition 8.3.1, p. 57.
+# Paper: Figure 13, p. 63; Theorem 8.2.3, p. 64; Proposition 8.3.1, p. 64.
 property Agreement [end]:
   ∀ l,m,v,w. ((□[] corr(l,m))) ⇒ ((♢[] ↓ deliver(l,v)) ∧ (♢[] ↓ deliver(m,w)) ⇒ v=w)
 ```
@@ -199,11 +199,13 @@ property Agreement [end]:
 
 Implementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.
 
-Source: Murdoch J. Gabbay and Isaac Sheff, *Heterogeneous trust in reliable broadcast via modal logic and history structures*, draft 7 November 2026 (`2026-11-07`; the supplied `hbb-disc` draft).
+Source: Murdoch J. Gabbay and Isaac Sheff, *Heterogeneous trust in reliable broadcast via modal logic and history structures*, draft 18 November 2026 (`2026-11-18`; the supplied `hbb-disc` draft).
 
-The protocol rules are Figure 11, p. 56, Definition 8.2.1, p. 55. The three conditional claims are Figure 12, p. 56, Theorem 8.2.3, p. 57: Agreement is proved in Proposition 8.3.1, p. 57; Liveness 2 in Proposition 8.4.5, p. 59; Liveness 1 in Proposition 8.5.1, pp. 59–60. The executable names `CorrSeq`, `CorrPast`, `CorrSymm`, and `CorrTran` denote the paper’s dotted-equality rules (≐seq), (≐⇓), (≐symm), and (≐tran). Here `vote(l,v)` and `deliver(l,v)` have two arguments: learner first, broadcast value second.
+The protocol rules are Figure 12, p. 63, Definition 8.2.1, p. 62. The three conditional claims are Figure 13, p. 63, Theorem 8.2.3, p. 64: Agreement is proved in Proposition 8.3.1, p. 64; Cascade Termination in Proposition 8.4.5, pp. 65–66; Happy Termination in Proposition 8.5.1, p. 66. The executable names `CorrSeq`, `CorrPast`, `CorrSymm`, and `CorrTran` denote the paper’s dotted-equality rules (≐seq), (≐⇓), (≐symm), and (≐tran). Here `vote(l,v)` and `deliver(l,v)` have two arguments: learner first, broadcast value second.
 
-This document is a pedagogical scenario/experiment, not a literal paper theory listing. Choose **Use this history; find facts** to search predicate interpretations on the declared DAG, with the supplied positive facts pinned. The matrix applies exactly the omission or replacement described above; every other protocol axiom and the complete dynamic `ThyLive` include remain selected. A no-model result concerns this exact history and is not a proof of a correctness theorem. Every false conditional is checked with its full premise and trigger true at the recorded failure binding. A true claim with an absent scenario is vacuous here. See the [paper map](../../docs/PAPER_MAP.md) and [paper variants](../../docs/PAPER_VARIANTS.md) for the complete source correspondence. HBB1 and HBB2 use three-argument deliveries, whereas this HBB3 example uses `deliver(l,v)`.
+This document is a pedagogical scenario/experiment, not a literal paper theory listing. Choose **Use this history; find facts** to search predicate interpretations on the declared DAG, with the supplied positive facts pinned. The matrix applies exactly the omission or replacement described above; every other protocol axiom and the complete dynamic `ThyLive` include remain selected. A no-model result concerns this exact history and is not a proof of a correctness theorem. Every false conditional is checked with its full premise and trigger true at the recorded failure binding. A true claim with an absent scenario is vacuous here. See the [paper map](../../docs/PAPER_MAP.md) and [paper variants](../../docs/PAPER_VARIANTS.md) for the complete source correspondence. HBBSafe and HBBSimp use three-argument deliveries, whereas this HBBCorr example uses `deliver(l,v)`.
+
+Reference PDF: `hbb-disc(20261118-194826).pdf`, SHA-256 `08361854a013fa9ec7928221b9f05896386801b8d6247250a524c27d151199a4`.
 
 ## Supplied history
 

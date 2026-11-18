@@ -1,5 +1,17 @@
 #!/usr/bin/env python3
-"""Stage only public HSM web files for GitHub Pages (no dependencies)."""
+"""Stage a clean copy of the public web files for GitHub Pages.
+
+Run in the generated public repository (not the maintenance installation):
+
+    python3 tools/build_site.py
+    python3 tools/build_site.py --output "/path/to/new-site-directory"
+
+The default output is a new _site directory inside the public checkout. Existing
+outputs are refused: choose a new path or deliberately remove an old build after
+checking it. The command reads PUBLICATION.json and stages only the listed web
+assets, theories, guides and evidence. It does not stage Git data or run tests,
+commit, push or deploy. The Pages workflow uploads this staged directory.
+"""
 from __future__ import annotations
 
 import argparse
@@ -75,7 +87,7 @@ def stage(root: Path, output: Path) -> int:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--output', type=Path, default=ROOT / '_site', help='New output directory (default: repository/_site)')
     args = parser.parse_args()
     try:

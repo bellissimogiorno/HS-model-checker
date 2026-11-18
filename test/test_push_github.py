@@ -48,7 +48,7 @@ class PublisherTests(unittest.TestCase):
         for key in ["GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE"]:
             self.env.pop(key, None)
         self.files = {
-            "VERSION": "0.6.9\n", "package.json": '{"version":"0.6.9"}\n',
+            "VERSION": "0.7.1\n", "package.json": '{"version":"0.7.1"}\n',
             "README.md": "# Public checker\n", "MANIFEST.sha256": "",
             ".gitignore": "__pycache__/\n*.pyc\n",
             "src/value.mjs": "export const value = 1;\n",
@@ -256,6 +256,88 @@ os.execv(os.environ['HSM_REAL_GIT'],[os.environ['HSM_REAL_GIT'],*args])
         self.assertIn("differs", result.stderr)
         self.assertEqual(snapshot(self.root), before)
         self.assertEqual(self.log(), [])
+
+    def committed_checkout(self):
+        self.init_checkout()
+        self.git('add', '--all')
+        self.git('commit', '-m', 'Canonical input fixture')
+
+    def stage_distinct_draft(self):
+        path = self.root/'README.md'
+        path.write_bytes(b'Indexed draft only\x00binary\n')
+        self.git('add', '--', 'README.md')
+        path.write_text(self.files['README.md'])
+
+    def test_indexed_draft_refuses_before_reader_or_manifest_writes(self):
+        self.committed_checkout()
+        self.stage_distinct_draft()
+        before = snapshot(self.root)
+        result = self.push('--no-pages', ok=False)
+        self.assertIn('Indexed draft differs', result.stderr)
+        self.assertEqual(snapshot(self.root), before)
+        self.assertEqual(self.log(), [])
+
+    def test_flagged_indexed_drafts_are_not_hidden_from_read_only_preview(self):
+        self.committed_checkout()
+        self.stage_distinct_draft()
+        for flag in ['assume-unchanged', 'skip-worktree']:
+            self.git('update-index', '--' + flag, '--', 'README.md')
+            before = snapshot(self.root)
+            result = self.push('--no-pages', '--dry-run', ok=False)
+            self.assertIn('Indexed draft differs', result.stderr)
+            self.assertEqual(snapshot(self.root), before)
+            self.assertEqual(self.log(), [])
+            self.git('update-index', '--no-' + flag, '--', 'README.md')
+
+    def test_indexed_deletion_with_a_restored_working_file_refuses(self):
+        self.committed_checkout()
+        self.git('rm', '--', 'README.md')
+        (self.root/'README.md').write_text(self.files['README.md'])
+        before = snapshot(self.root)
+        result = self.push('--no-pages', ok=False)
+        self.assertIn('staged deletion', result.stderr)
+        self.assertEqual(snapshot(self.root), before)
+        self.assertEqual(self.log(), [])
+
+    def test_indexed_executable_change_with_restored_working_mode_refuses(self):
+        self.committed_checkout()
+        self.git('update-index', '--chmod=+x', '--', 'README.md')
+        before = snapshot(self.root)
+        result = self.push('--no-pages', ok=False)
+        self.assertIn('Indexed draft differs', result.stderr)
+        self.assertEqual(snapshot(self.root), before)
+        self.assertEqual(self.log(), [])
+
+    def test_a_matching_staged_update_can_be_published(self):
+        self.committed_checkout()
+        text = 'Intentional staged and visible update\n'
+        (self.root/'README.md').write_text(text)
+        self.git('add', '--', 'README.md')
+        self.push('--no-pages')
+        self.assertEqual(self.git('show', 'main:README.md', cwd=self.remote).stdout, text)
+
+    def test_staged_first_publication_survives_its_own_manifest_generation(self):
+        self.init_checkout()
+        self.git('add', '--all')
+        self.push('--no-pages')
+        self.assertEqual(self.head(), self.head(remote=True))
+
+    def test_a_draft_staged_during_checks_is_preserved_before_final_add(self):
+        self.committed_checkout()
+        before_head = self.head()
+        self.executable('node', '''import os,subprocess,sys
+from pathlib import Path
+if sys.argv[1]=='--test':
+ path=Path('README.md');original=path.read_bytes()
+ path.write_bytes(b'Draft staged while checks run\\n')
+ subprocess.run([os.environ['HSM_REAL_GIT'],'add','--','README.md'],check=True)
+ path.write_bytes(original)
+''')
+        result = self.push('--no-pages', ok=False)
+        self.assertIn('Indexed draft differs', result.stderr)
+        self.assertEqual(self.head(), before_head)
+        self.assertEqual(self.git('show', ':README.md').stdout, 'Draft staged while checks run\n')
+        self.assertEqual(self.git('ls-remote', '--heads', 'origin').stdout, '')
 
     def test_extra_user_files_are_never_staged(self):
         self.init_checkout()

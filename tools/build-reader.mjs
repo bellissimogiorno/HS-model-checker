@@ -1,5 +1,20 @@
 #!/usr/bin/env node
-/** Reproducibly build the double-clickable theory reader from current sources. */
+/** Reproducibly build the standalone theory reader from current sources.
+ *
+ * From the package directory:
+ *   node tools/build-reader.mjs          write theories.html
+ *   node tools/build-reader.mjs --check  verify it without changing any files
+ *
+ * The script also works from another current directory when invoked by its
+ * full path. It reads VERSION, the bundled font, and every curated Markdown
+ * theory named in src/example-catalog.mjs. Parsing validates each source, then
+ * the shared renderer produces one self-contained HTML file that can be opened
+ * directly without a server or network. It does not run the model-checker.
+ *
+ * Regenerate after changing theory sources, catalog descriptions, notation,
+ * reader rendering or VERSION. --check exits nonzero for a missing/stale reader;
+ * it never repairs the file implicitly. Node 20+ is required; no npm install.
+ */
 import {readFile, writeFile} from 'node:fs/promises';
 import {resolve, dirname, relative, isAbsolute, sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -57,8 +72,13 @@ export async function buildReader({root=ROOT,check=false}={}) {
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const args=process.argv.slice(2);
-    if (args.length>1 || args.some(arg=>arg!=='--check')) throw new Error('Usage: node tools/build-reader.mjs [--check]');
-    const result=await buildReader({check:args.includes('--check')});
-    console.log(`${result.check?'Verified':'Built'} theories.html: ${result.theories} theories, ${result.bytes} bytes.`);
+    if (args.length===1 && ['--help','-h'].includes(args[0])) {
+      console.log('Usage: node tools/build-reader.mjs [--check]\n\nWithout options, rebuild theories.html from the current curated Markdown sources.\nUse --check to verify the generated file without writing; a stale or missing\nreader gives a nonzero exit status. Run after changing sources, catalog,\nnotation, rendering or VERSION. The output opens directly without a server.\n\nExamples:\n  node tools/build-reader.mjs\n  node tools/build-reader.mjs --check\n\nThe command is rooted at its package, so it also works from another directory.\nIt requires Node 20+ and runs no solver or network request.');
+      process.exitCode=0;
+    } else {
+      if (args.length>1 || args.some(arg=>arg!=='--check')) throw new Error('Usage: node tools/build-reader.mjs [--check]');
+      const result=await buildReader({check:args.includes('--check')});
+      console.log(`${result.check?'Verified':'Built'} theories.html: ${result.theories} theories, ${result.bytes} bytes.`);
+    }
   } catch(error) {console.error(error.message);process.exitCode=1;}
 }

@@ -4,9 +4,14 @@
  * proofs, or a substitute for concrete replay. No Node or DOM dependency is
  * used, so CLI and browser workers construct the same identity.
  */
+export const SEMANTICS_PROFILE = 'hbb-disc/2026-11-18';
+// These profiles have identical core formula/model truth conditions. The
+// caller must separately guard implicit theory inclusions before allowing one.
+const CORE_COMPATIBLE_PROFILES = new Set([SEMANTICS_PROFILE, 'hbb-disc/2026-11-07']);
+
 export const ENGINE_IDENTITY = Object.freeze({
-  name: 'history-structure-model-checker', version: '0.6.9',
-  semantics: 'hbb-disc/2026-11-07',
+  name: 'history-structure-model-checker', version: '0.7.1',
+  semantics: SEMANTICS_PROFILE,
 });
 
 const roundConstants = new Uint32Array([
@@ -104,10 +109,10 @@ export function createRunSnapshot(sourceMarkdown,{selectedProperties,droppedAxio
 
 /** Check saved identity metadata, never the logical certificate itself. Old
  * evidence without snapshot metadata is deliberately handled by the caller. */
-export function verifyRunSnapshot(snapshot,sourceMarkdown,{bounds,droppedAxioms,selectedProperties}) {
+export function verifyRunSnapshot(snapshot,sourceMarkdown,{bounds,droppedAxioms,selectedProperties},{allowLegacyCore=false}={}) {
   if(!snapshot||typeof snapshot!=='object'||snapshot.format!=='history-structure-run-snapshot/v1')throw new Error('Malformed run snapshot metadata.');
   const engine=snapshot.engine;
-  if(!engine||engine.name!==ENGINE_IDENTITY.name||engine.semantics!==ENGINE_IDENTITY.semantics||typeof engine.version!=='string'||!/^\d+\.\d+\.\d+$/.test(engine.version))throw new Error('Unsupported run snapshot engine identity.');
+  if(!engine||engine.name!==ENGINE_IDENTITY.name||!(engine.semantics===SEMANTICS_PROFILE || allowLegacyCore&&CORE_COMPATIBLE_PROFILES.has(engine.semantics))||typeof engine.version!=='string'||!/^\d+\.\d+\.\d+$/.test(engine.version))throw new Error('Unsupported run snapshot engine identity.');
   const expected=createRunSnapshot(sourceMarkdown,{bounds,droppedAxioms,selectedProperties},engine);
   if(canonicalJSON(snapshot)!==canonicalJSON(expected))throw new Error('Run snapshot identity does not match its source, selections, bounds or engine metadata.');
   return true;

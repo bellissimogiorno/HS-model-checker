@@ -103,7 +103,7 @@ export class HistoryModel {
       this.quorums.set(v, Object.freeze(minimizeMasks(bases)));
     }
 
-    const rawNodes = data.nodes ?? [];
+    const rawNodes = own(data, 'nodes') ? data.nodes : [];
     if (!Array.isArray(rawNodes)) throw new ModelError('nodes must be an array.');
     const rawById = new Map();
     for (const raw of rawNodes) {
@@ -115,7 +115,7 @@ export class HistoryModel {
       if (!own(raw, 'event')) throw new ModelError(`Node ${JSON.stringify(raw.id)} must specify event (use null for dagger).`);
       const event = normalizeEvent(raw.event, { label: `node ${JSON.stringify(raw.id)} event` });
       this.requireGround(event, 'event');
-      const past = strings(raw.past ?? [], `node ${JSON.stringify(raw.id)} past`);
+      const past = strings(own(raw, 'past') ? raw.past : [], `node ${JSON.stringify(raw.id)} past`);
       rawById.set(raw.id, { ...raw, event, past });
     }
 
@@ -194,17 +194,19 @@ export class HistoryModel {
     this._tuples = new Map();
     for (const node of this.nodes) this._tuples.set(this.tupleKey(node.place, node.timeIndex, node.event), node);
     this._facts = new Map();
-    const facts = data.facts ?? [];
+    const facts = own(data, 'facts') ? data.facts : [];
     if (!Array.isArray(facts)) throw new ModelError('facts must be an array.');
     for (const fact of facts) {
       fields(fact, ['place', 'at', 'atom'], 'fact');
       this.requirePlace(fact.place);
       const atom = normalizeEvent(fact.atom, { allowNull: false, label: 'fact.atom' });
       this.requireGround(atom, 'predicate');
+      if (!own(fact, 'at')) throw new ModelError('fact.at is required; use "end" explicitly for the full history.');
       let selectors = Array.isArray(fact.at) ? fact.at : [fact.at];
       if (!selectors.length) throw new ModelError('fact.at array must be nonempty.');
       const indices = new Set();
       for (const selector of selectors) {
+        if (typeof selector !== 'string') throw new ModelError('fact.at selectors must be time-selector strings.');
         if (selector === '*') for (const t of this.times) indices.add(t.index);
         else indices.add(this.resolveTime(selector).index);
       }

@@ -1,6 +1,6 @@
 {
   "format": "history-structure-weakening-tour/v2",
-  "version": "0.6.9",
+  "version": "0.7.1",
   "status": "passed",
   "suite": "all",
   "scope": "Each exact declared finite history, value domain and quorum basis; all predicate interpretations with supplied positive facts pinned. No history extensions. These results are not unbounded proofs.",
@@ -11,39 +11,39 @@
   ],
   "outputDirectory": "reports/weakening-tour",
   "propertiesByTheory": {
-    "ThyHBB1": [
+    "HBBSafe": [
       {
-        "name": "Liveness 1",
+        "name": "Happy Termination",
         "formula": "forall l,v. ((box[l] live) & (exists1 w. dia[] past propose(w))) -> (dia[] past (live & dia[] past propose(v)) -> live -> sometime deliver(l,l,v))",
         "scope": "end",
         "nonvacuity": "exists l,v. ((box[l] live) & (exists1 w. dia[] past propose(w))) & (dia[] past (live & dia[] past propose(v)))",
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 41,
-          "figure": 8,
-          "figurePage": 41,
-          "theorem": "6.1.6",
-          "theoremPage": 43,
-          "proposition": "6.5.3",
-          "propositionPage": 48
+          "draft": "2026-11-18",
+          "page": 48,
+          "figure": 9,
+          "figurePage": 48,
+          "theorem": "6.2.6",
+          "theoremPage": 49,
+          "proposition": "6.6.3",
+          "propositionPage": 54
         }
       },
       {
-        "name": "Liveness 2",
+        "name": "Cascade Termination",
         "formula": "forall a,b,l,v. ((dia[a,b] true) & (box[b] live) & (box[] safe(l))) -> (dia[] past deliver(a,l,v) -> live -> sometime deliver(b,l,v))",
         "scope": "end",
         "nonvacuity": "exists a,b,l,v. ((dia[a,b] true) & (box[b] live) & (box[] safe(l))) & (dia[] past deliver(a,l,v))",
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 41,
-          "figure": 8,
-          "figurePage": 41,
-          "theorem": "6.1.6",
-          "theoremPage": 43,
-          "proposition": "6.4.5",
-          "propositionPage": 47
+          "draft": "2026-11-18",
+          "page": 48,
+          "figure": 9,
+          "figurePage": 48,
+          "theorem": "6.2.6",
+          "theoremPage": 49,
+          "proposition": "6.5.5",
+          "propositionPage": 53
         }
       },
       {
@@ -53,50 +53,50 @@
         "nonvacuity": "exists a,b,l,m,v,w. ((dia[a,b] seq)) & ((dia[] past deliver(a,l,v)) & (dia[] past deliver(b,m,w)))",
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 41,
-          "figure": 8,
-          "figurePage": 41,
-          "theorem": "6.1.6",
-          "theoremPage": 43,
-          "proposition": "6.3.1",
-          "propositionPage": 45
+          "draft": "2026-11-18",
+          "page": 48,
+          "figure": 9,
+          "figurePage": 48,
+          "theorem": "6.2.6",
+          "theoremPage": 49,
+          "proposition": "6.4.1",
+          "propositionPage": 52
         }
       }
     ],
-    "ThyHBB2": [
+    "HBBSimp": [
       {
-        "name": "Liveness 1",
+        "name": "Happy Termination",
         "formula": "forall l,v. ((box[l] live) & (exists1 w. dia[] past propose(w))) -> (dia[] past (live & dia[] past propose(v)) -> live -> sometime deliver(l,l,v))",
         "scope": "end",
         "nonvacuity": "exists l,v. ((box[l] live) & (exists1 w. dia[] past propose(w))) & (dia[] past (live & dia[] past propose(v)))",
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 50,
-          "figure": 10,
-          "figurePage": 50,
+          "draft": "2026-11-18",
+          "page": 57,
+          "figure": 11,
+          "figurePage": 57,
           "theorem": "7.1.3",
-          "theoremPage": 51,
+          "theoremPage": 57,
           "proposition": "7.3.3",
-          "propositionPage": 53
+          "propositionPage": 59
         }
       },
       {
-        "name": "Liveness 2",
+        "name": "Cascade Termination",
         "formula": "forall a,b,l,v. ((dia[a,b] true) & (box[b] live)) -> (dia[] past deliver(a,l,v) -> live -> sometime deliver(b,l,v))",
         "scope": "end",
         "nonvacuity": "exists a,b,l,v. ((dia[a,b] true) & (box[b] live)) & (dia[] past deliver(a,l,v))",
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 50,
-          "figure": 10,
-          "figurePage": 50,
+          "draft": "2026-11-18",
+          "page": 57,
+          "figure": 11,
+          "figurePage": 57,
           "theorem": "7.1.3",
-          "theoremPage": 51,
+          "theoremPage": 57,
           "proposition": "7.3.2",
-          "propositionPage": 52
+          "propositionPage": 59
         }
       },
       {
@@ -106,50 +106,50 @@
         "nonvacuity": "exists a,b,l,m,v,w. ((dia[l,m] seq)) & ((dia[] past deliver(a,l,v)) & (dia[] past deliver(b,m,w)))",
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 50,
-          "figure": 10,
-          "figurePage": 50,
+          "draft": "2026-11-18",
+          "page": 57,
+          "figure": 11,
+          "figurePage": 57,
           "theorem": "7.1.3",
-          "theoremPage": 51,
+          "theoremPage": 57,
           "proposition": "7.3.1",
-          "propositionPage": 52
+          "propositionPage": 59
         }
       }
     ],
-    "ThyHBB3": [
+    "HBBCorr": [
       {
-        "name": "Liveness 1",
+        "name": "Happy Termination",
         "formula": "forall l,v. ((box[l] live) & (exists1 w. dia[] past propose(w))) -> (dia[] past (live & dia[] past propose(v)) -> live -> sometime deliver(l,v))",
         "scope": "end",
         "nonvacuity": "exists l,v. ((box[l] live) & (exists1 w. dia[] past propose(w))) & (dia[] past (live & dia[] past propose(v)))",
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 56,
-          "figure": 12,
-          "figurePage": 56,
+          "draft": "2026-11-18",
+          "page": 63,
+          "figure": 13,
+          "figurePage": 63,
           "theorem": "8.2.3",
-          "theoremPage": 57,
+          "theoremPage": 64,
           "proposition": "8.5.1",
-          "propositionPage": 59
+          "propositionPage": 66
         }
       },
       {
-        "name": "Liveness 2",
+        "name": "Cascade Termination",
         "formula": "forall l,m,v. ((box[] corr(l,m)) & (box[m] live)) -> (dia[] past deliver(l,v) -> live -> sometime deliver(m,v))",
         "scope": "end",
         "nonvacuity": "exists l,m,v. ((box[] corr(l,m)) & (box[m] live)) & (dia[] past deliver(l,v))",
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 56,
-          "figure": 12,
-          "figurePage": 56,
+          "draft": "2026-11-18",
+          "page": 63,
+          "figure": 13,
+          "figurePage": 63,
           "theorem": "8.2.3",
-          "theoremPage": 57,
+          "theoremPage": 64,
           "proposition": "8.4.5",
-          "propositionPage": 59
+          "propositionPage": 65
         }
       },
       {
@@ -159,14 +159,14 @@
         "nonvacuity": "exists l,m,v,w. ((box[] corr(l,m))) & ((dia[] past deliver(l,v)) & (dia[] past deliver(m,w)))",
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 56,
-          "figure": 12,
-          "figurePage": 56,
+          "draft": "2026-11-18",
+          "page": 63,
+          "figure": 13,
+          "figurePage": 63,
           "theorem": "8.2.3",
-          "theoremPage": 57,
+          "theoremPage": 64,
           "proposition": "8.3.1",
-          "propositionPage": 57
+          "propositionPage": 64
         }
       }
     ]
@@ -174,15 +174,15 @@
   "cases": [
     {
       "id": "hbb1-complete-baseline",
-      "suite": "hbb1",
-      "theory": "ThyHBB1",
-      "label": "HBB1 completed full theory",
+      "suite": "HBBSafe",
+      "theory": "HBBSafe",
+      "label": "HBBSafe completed full theory",
       "category": "control",
       "file": "examples/theories/hbb1.md",
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -207,12 +207,12 @@
       "originalFailingRules": [],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "holds",
           "scenarioPresent": true
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": true
         },
@@ -229,8 +229,8 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 20,
-            "passed": 20,
+            "total": 18,
+            "passed": 18,
             "failed": 0,
             "inconclusive": 0
           }
@@ -242,15 +242,15 @@
     },
     {
       "id": "hbb1-echo-progress-full",
-      "suite": "hbb1",
-      "theory": "ThyHBB1",
-      "label": "HBB1 missing echo, full theory",
+      "suite": "HBBSafe",
+      "theory": "HBBSafe",
+      "label": "HBBSafe missing echo, full theory",
       "category": "control",
       "file": "examples/theories/hbb1-echo-progress.md",
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -277,12 +277,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
@@ -298,15 +298,15 @@
     },
     {
       "id": "hbb1-echo-progress-removed",
-      "suite": "hbb1",
-      "theory": "ThyHBB1",
-      "label": "HBB1 remove Echo!",
+      "suite": "HBBSafe",
+      "theory": "HBBSafe",
+      "label": "HBBSafe remove Echo!",
       "category": "weakening",
       "file": "examples/theories/hbb1-echo-progress.md",
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -334,7 +334,7 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "counterexample",
           "scenarioPresent": true,
           "failure": {
@@ -940,13 +940,13 @@
                 "memoHits": 37,
                 "memoEntries": 27,
                 "memoEvictions": 0,
-                "elapsedMs": 2.907263999999941
+                "elapsedMs": 1.268669999999986
               }
             }
           }
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": false
         },
@@ -963,19 +963,19 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 13,
-            "passed": 13,
+            "total": 11,
+            "passed": 11,
             "failed": 0,
             "inconclusive": 0
           }
         },
         {
-          "name": "liveness-1",
+          "name": "happy-termination",
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 13,
-            "passed": 13,
+            "total": 11,
+            "passed": 11,
             "failed": 0,
             "inconclusive": 0
           }
@@ -983,20 +983,20 @@
       ],
       "savedEvidence": [
         "hbb1-echo-progress-removed/model.evidence.json",
-        "hbb1-echo-progress-removed/liveness-1.evidence.json"
+        "hbb1-echo-progress-removed/happy-termination.evidence.json"
       ]
     },
     {
       "id": "hbb1-vote-progress-full",
-      "suite": "hbb1",
-      "theory": "ThyHBB1",
-      "label": "HBB1 missing vote, full theory",
+      "suite": "HBBSafe",
+      "theory": "HBBSafe",
+      "label": "HBBSafe missing vote, full theory",
       "category": "control",
       "file": "examples/theories/hbb1-vote-progress.md",
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -1023,12 +1023,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
@@ -1044,15 +1044,15 @@
     },
     {
       "id": "hbb1-vote-progress-removed",
-      "suite": "hbb1",
-      "theory": "ThyHBB1",
-      "label": "HBB1 remove Vote!",
+      "suite": "HBBSafe",
+      "theory": "HBBSafe",
+      "label": "HBBSafe remove Vote!",
       "category": "weakening",
       "file": "examples/theories/hbb1-vote-progress.md",
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -1080,7 +1080,7 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "counterexample",
           "scenarioPresent": true,
           "failure": {
@@ -1741,13 +1741,13 @@
                 "memoHits": 38,
                 "memoEntries": 28,
                 "memoEvictions": 0,
-                "elapsedMs": 0.3725299999998697
+                "elapsedMs": 0.34950199999997267
               }
             }
           }
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": false
         },
@@ -1764,19 +1764,19 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 15,
-            "passed": 15,
+            "total": 13,
+            "passed": 13,
             "failed": 0,
             "inconclusive": 0
           }
         },
         {
-          "name": "liveness-1",
+          "name": "happy-termination",
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 15,
-            "passed": 15,
+            "total": 13,
+            "passed": 13,
             "failed": 0,
             "inconclusive": 0
           }
@@ -1784,20 +1784,20 @@
       ],
       "savedEvidence": [
         "hbb1-vote-progress-removed/model.evidence.json",
-        "hbb1-vote-progress-removed/liveness-1.evidence.json"
+        "hbb1-vote-progress-removed/happy-termination.evidence.json"
       ]
     },
     {
       "id": "hbb1-deliver-progress-full",
-      "suite": "hbb1",
-      "theory": "ThyHBB1",
-      "label": "HBB1 missing deliver, full theory",
+      "suite": "HBBSafe",
+      "theory": "HBBSafe",
+      "label": "HBBSafe missing deliver, full theory",
       "category": "control",
       "file": "examples/theories/hbb1-deliver-progress.md",
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -1824,12 +1824,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
@@ -1845,15 +1845,15 @@
     },
     {
       "id": "hbb1-deliver-progress-removed",
-      "suite": "hbb1",
-      "theory": "ThyHBB1",
-      "label": "HBB1 remove Deliver!",
+      "suite": "HBBSafe",
+      "theory": "HBBSafe",
+      "label": "HBBSafe remove Deliver!",
       "category": "weakening",
       "file": "examples/theories/hbb1-deliver-progress.md",
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -1881,7 +1881,7 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "counterexample",
           "scenarioPresent": true,
           "failure": {
@@ -2551,13 +2551,13 @@
                 "memoHits": 42,
                 "memoEntries": 41,
                 "memoEvictions": 0,
-                "elapsedMs": 0.4820319999998901
+                "elapsedMs": 0.24492699999996148
               }
             }
           }
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "counterexample",
           "scenarioPresent": true,
           "failure": {
@@ -3251,7 +3251,7 @@
                 "memoHits": 41,
                 "memoEntries": 33,
                 "memoEvictions": 0,
-                "elapsedMs": 0.28889699999990626
+                "elapsedMs": 0.4346329999999625
               }
             }
           }
@@ -3269,30 +3269,30 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 24,
-            "passed": 24,
+            "total": 17,
+            "passed": 17,
             "failed": 0,
             "inconclusive": 0
           }
         },
         {
-          "name": "liveness-1",
+          "name": "happy-termination",
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 24,
-            "passed": 24,
+            "total": 17,
+            "passed": 17,
             "failed": 0,
             "inconclusive": 0
           }
         },
         {
-          "name": "liveness-2",
+          "name": "cascade-termination",
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 24,
-            "passed": 24,
+            "total": 17,
+            "passed": 17,
             "failed": 0,
             "inconclusive": 0
           }
@@ -3300,22 +3300,22 @@
       ],
       "savedEvidence": [
         "hbb1-deliver-progress-removed/model.evidence.json",
-        "hbb1-deliver-progress-removed/liveness-1.evidence.json",
-        "hbb1-deliver-progress-removed/liveness-2.evidence.json"
+        "hbb1-deliver-progress-removed/happy-termination.evidence.json",
+        "hbb1-deliver-progress-removed/cascade-termination.evidence.json"
       ]
     },
     {
       "id": "hbb1-safe-full",
-      "suite": "hbb1",
-      "theory": "ThyHBB1",
-      "label": "HBB1 missing votes, Safe retained",
+      "suite": "HBBSafe",
+      "theory": "HBBSafe",
+      "label": "HBBSafe missing votes, Safe retained",
       "category": "control",
       "file": "examples/theories/hbb1-safe-removed.md",
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)",
-        "Remark 6.2.2, p. 44; Lemma 6.5.2, pp. 47\u201348 (unique-proposal safety)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)",
+        "Remark 6.3.2, pp. 50\u201351; Lemma 6.6.2, p. 54\u201348 (unique-proposal safety)"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -3342,12 +3342,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
@@ -3363,16 +3363,16 @@
     },
     {
       "id": "hbb1-safe-removed",
-      "suite": "hbb1",
-      "theory": "ThyHBB1",
-      "label": "HBB1 remove Safe definition",
+      "suite": "HBBSafe",
+      "theory": "HBBSafe",
+      "label": "HBBSafe remove Safe definition",
       "category": "weakening",
       "file": "examples/theories/hbb1-safe-removed.md",
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)",
-        "Remark 6.2.2, p. 44; Lemma 6.5.2, pp. 47\u201348 (unique-proposal safety)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)",
+        "Remark 6.3.2, pp. 50\u201351; Lemma 6.6.2, p. 54\u201348 (unique-proposal safety)"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -3400,7 +3400,7 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "counterexample",
           "scenarioPresent": true,
           "failure": {
@@ -4061,13 +4061,13 @@
                 "memoHits": 38,
                 "memoEntries": 28,
                 "memoEvictions": 0,
-                "elapsedMs": 0.20063699999991513
+                "elapsedMs": 0.18898000000001502
               }
             }
           }
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": false
         },
@@ -4084,19 +4084,19 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 15,
-            "passed": 15,
+            "total": 13,
+            "passed": 13,
             "failed": 0,
             "inconclusive": 0
           }
         },
         {
-          "name": "liveness-1",
+          "name": "happy-termination",
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 15,
-            "passed": 15,
+            "total": 13,
+            "passed": 13,
             "failed": 0,
             "inconclusive": 0
           }
@@ -4104,22 +4104,22 @@
       ],
       "savedEvidence": [
         "hbb1-safe-removed/model.evidence.json",
-        "hbb1-safe-removed/liveness-1.evidence.json"
+        "hbb1-safe-removed/happy-termination.evidence.json"
       ]
     },
     {
       "id": "hbb1-echo-choice-correct",
-      "suite": "hbb1",
-      "theory": "ThyHBB1",
-      "label": "HBB1 choose one of two proposed values",
+      "suite": "HBBSafe",
+      "theory": "HBBSafe",
+      "label": "HBBSafe choose one of two proposed values",
       "category": "control",
       "file": "examples/theories/hbb1-echo-choice.md",
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)",
-        "Remark 6.2.3(2), p. 44 (literal incorrect Echo!)",
-        "Definition 5.2.1(3), p. 37 (implicit universal closure of open axioms)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)",
+        "Remark 6.3.3(2), p. 51 (literal incorrect Echo!)",
+        "Definition 5.2.1(3), p. 42 (implicit universal closure of open axioms)"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -4144,12 +4144,12 @@
       "originalFailingRules": [],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "holds",
           "scenarioPresent": false
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": true
         },
@@ -4162,20 +4162,18 @@
       "diagnostics": [
         {
           "name": "Bad Echo!",
-          "formula": "\n  \u2200 v,w. (live \u2227 \u2662[] \u2193 propose(v)) \u21d2 \u2195 echo(w)",
+          "formula": "\n  \u2200 v,w. \u2195 (live \u2227 \u2662[] \u2193 propose(v)) \u21d2 \u2195 echo(w)",
           "scope": "all",
           "status": "counterexample",
           "classification": "candidate-axiom or structural diagnostic; not a canonical correctness claim",
           "failure": {
             "world": {
               "place": "p",
-              "time": "e1",
-              "timeLabel": "@t1",
+              "time": "empty",
+              "timeLabel": "empty",
               "event": null,
               "node": null,
-              "history": [
-                "e0"
-              ]
+              "history": []
             },
             "bindings": {
               "v": "a",
@@ -4191,8 +4189,8 @@
               "reason": "This value falsifies the universally quantified body.",
               "world": {
                 "place": "p",
-                "time": "@t1",
-                "timeLabel": "@t1",
+                "time": "@t0",
+                "timeLabel": "empty",
                 "event": null,
                 "node": null
               },
@@ -4204,8 +4202,8 @@
                   "reason": "This value falsifies the universally quantified body.",
                   "world": {
                     "place": "p",
-                    "time": "@t1",
-                    "timeLabel": "@t1",
+                    "time": "@t0",
+                    "timeLabel": "empty",
                     "event": null,
                     "node": null
                   },
@@ -4219,8 +4217,8 @@
                       "reason": "The antecedent holds but the consequent is false.",
                       "world": {
                         "place": "p",
-                        "time": "@t1",
-                        "timeLabel": "@t1",
+                        "time": "@t0",
+                        "timeLabel": "empty",
                         "event": null,
                         "node": null
                       },
@@ -4230,13 +4228,13 @@
                       },
                       "children": [
                         {
-                          "type": "and",
+                          "type": "sometime",
                           "holds": true,
-                          "reason": "Both conjuncts hold.",
+                          "reason": "A local tuple satisfies the subformula.",
                           "world": {
                             "place": "p",
-                            "time": "@t1",
-                            "timeLabel": "@t1",
+                            "time": "@t0",
+                            "timeLabel": "empty",
                             "event": null,
                             "node": null
                           },
@@ -4246,38 +4244,20 @@
                           },
                           "children": [
                             {
-                              "type": "atom",
+                              "type": "and",
                               "holds": true,
-                              "reason": "The predicate interpretation contains this atom here.",
+                              "reason": "Both conjuncts hold.",
                               "world": {
                                 "place": "p",
                                 "time": "@t1",
                                 "timeLabel": "@t1",
-                                "event": null,
-                                "node": null
-                              },
-                              "bindings": {
-                                "v": "a",
-                                "w": "b"
-                              },
-                              "children": [],
-                              "details": {
-                                "atom": {
-                                  "symbol": "live",
-                                  "args": []
-                                }
-                              }
-                            },
-                            {
-                              "type": "dia",
-                              "holds": true,
-                              "reason": "Each minimal quorum intersection has a participant satisfying the body.",
-                              "world": {
-                                "place": "p",
-                                "time": "@t1",
-                                "timeLabel": "@t1",
-                                "event": null,
-                                "node": null
+                                "event": {
+                                  "symbol": "propose",
+                                  "args": [
+                                    "b"
+                                  ]
+                                },
+                                "node": "e1"
                               },
                               "bindings": {
                                 "v": "a",
@@ -4285,15 +4265,48 @@
                               },
                               "children": [
                                 {
-                                  "type": "past",
+                                  "type": "atom",
                                   "holds": true,
-                                  "reason": "A local tuple satisfies the subformula.",
+                                  "reason": "The predicate interpretation contains this atom here.",
                                   "world": {
                                     "place": "p",
                                     "time": "@t1",
                                     "timeLabel": "@t1",
-                                    "event": null,
-                                    "node": null
+                                    "event": {
+                                      "symbol": "propose",
+                                      "args": [
+                                        "b"
+                                      ]
+                                    },
+                                    "node": "e1"
+                                  },
+                                  "bindings": {
+                                    "v": "a",
+                                    "w": "b"
+                                  },
+                                  "children": [],
+                                  "details": {
+                                    "atom": {
+                                      "symbol": "live",
+                                      "args": []
+                                    }
+                                  }
+                                },
+                                {
+                                  "type": "dia",
+                                  "holds": true,
+                                  "reason": "Each minimal quorum intersection has a participant satisfying the body.",
+                                  "world": {
+                                    "place": "p",
+                                    "time": "@t1",
+                                    "timeLabel": "@t1",
+                                    "event": {
+                                      "symbol": "propose",
+                                      "args": [
+                                        "b"
+                                      ]
+                                    },
+                                    "node": "e1"
                                   },
                                   "bindings": {
                                     "v": "a",
@@ -4301,60 +4314,83 @@
                                   },
                                   "children": [
                                     {
-                                      "type": "atom",
+                                      "type": "past",
                                       "holds": true,
-                                      "reason": "The current event matches, and its exact tuple occurs in the history.",
+                                      "reason": "A local tuple satisfies the subformula.",
                                       "world": {
                                         "place": "p",
-                                        "time": "@t0",
-                                        "timeLabel": "empty",
-                                        "event": {
-                                          "symbol": "propose",
-                                          "args": [
-                                            "a"
-                                          ]
-                                        },
-                                        "node": "e0"
+                                        "time": "@t1",
+                                        "timeLabel": "@t1",
+                                        "event": null,
+                                        "node": null
                                       },
                                       "bindings": {
                                         "v": "a",
                                         "w": "b"
                                       },
-                                      "children": [],
+                                      "children": [
+                                        {
+                                          "type": "atom",
+                                          "holds": true,
+                                          "reason": "The current event matches, and its exact tuple occurs in the history.",
+                                          "world": {
+                                            "place": "p",
+                                            "time": "@t0",
+                                            "timeLabel": "empty",
+                                            "event": {
+                                              "symbol": "propose",
+                                              "args": [
+                                                "a"
+                                              ]
+                                            },
+                                            "node": "e0"
+                                          },
+                                          "bindings": {
+                                            "v": "a",
+                                            "w": "b"
+                                          },
+                                          "children": [],
+                                          "details": {
+                                            "atom": {
+                                              "symbol": "propose",
+                                              "args": [
+                                                "a"
+                                              ]
+                                            },
+                                            "currentEvent": {
+                                              "symbol": "propose",
+                                              "args": [
+                                                "a"
+                                              ]
+                                            },
+                                            "tupleOccurs": true
+                                          }
+                                        }
+                                      ],
                                       "details": {
-                                        "atom": {
-                                          "symbol": "propose",
-                                          "args": [
-                                            "a"
-                                          ]
-                                        },
-                                        "currentEvent": {
-                                          "symbol": "propose",
-                                          "args": [
-                                            "a"
-                                          ]
-                                        },
-                                        "tupleOccurs": true
+                                        "candidates": 1,
+                                        "range": "strict local past",
+                                        "witnessTuple": "e0"
                                       }
                                     }
                                   ],
                                   "details": {
-                                    "candidates": 1,
-                                    "range": "strict local past",
-                                    "witnessTuple": "e0"
+                                    "learners": [],
+                                    "learnerCount": 0,
+                                    "minimalIntersections": 1,
+                                    "satisfyingParticipants": [
+                                      "p"
+                                    ]
                                   }
                                 }
-                              ],
-                              "details": {
-                                "learners": [],
-                                "learnerCount": 0,
-                                "minimalIntersections": 1,
-                                "satisfyingParticipants": [
-                                  "p"
-                                ]
-                              }
+                              ]
                             }
-                          ]
+                          ],
+                          "details": {
+                            "candidates": 10,
+                            "range": "all recorded tuples at this participant",
+                            "witnessTuple": "e1"
+                          }
                         },
                         {
                           "type": "sometime",
@@ -4362,8 +4398,8 @@
                           "reason": "No local tuple satisfies the subformula.",
                           "world": {
                             "place": "p",
-                            "time": "@t1",
-                            "timeLabel": "@t1",
+                            "time": "@t0",
+                            "timeLabel": "empty",
                             "event": null,
                             "node": null
                           },
@@ -4779,11 +4815,11 @@
               },
               "partial": false,
               "stats": {
-                "steps": 74,
-                "memoHits": 25,
-                "memoEntries": 29,
+                "steps": 92,
+                "memoHits": 28,
+                "memoEntries": 39,
                 "memoEvictions": 0,
-                "elapsedMs": 0.48988399999961985
+                "elapsedMs": 0.18765699999994467
               }
             }
           }
@@ -4795,8 +4831,8 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 30,
-            "passed": 30,
+            "total": 37,
+            "passed": 37,
             "failed": 0,
             "inconclusive": 0
           }
@@ -4806,8 +4842,8 @@
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 30,
-            "passed": 30,
+            "total": 37,
+            "passed": 37,
             "failed": 0,
             "inconclusive": 0
           }
@@ -4820,17 +4856,17 @@
     },
     {
       "id": "hbb1-echo-choice-wrong",
-      "suite": "hbb1",
-      "theory": "ThyHBB1",
-      "label": "HBB1 incorrect universal Echo!",
+      "suite": "HBBSafe",
+      "theory": "HBBSafe",
+      "label": "HBBSafe incorrect universal Echo!",
       "category": "paper-incorrect",
       "file": "examples/theories/hbb1-echo-choice-wrong.md",
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)",
-        "Remark 6.2.3(2), p. 44 (literal incorrect Echo!)",
-        "Definition 5.2.1(3), p. 37 (implicit universal closure of open axioms)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)",
+        "Remark 6.3.3(2), p. 51 (literal incorrect Echo!)",
+        "Definition 5.2.1(3), p. 42 (implicit universal closure of open axioms)"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -4857,12 +4893,390 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
+          "status": "not-tested",
+          "scenarioPresent": null
+        },
+        {
+          "name": "Agreement",
+          "status": "not-tested",
+          "scenarioPresent": null
+        }
+      ],
+      "diagnostics": [],
+      "replays": [],
+      "savedEvidence": []
+    },
+    {
+      "id": "hbb1-echo-end-only-correct",
+      "suite": "HBBSafe",
+      "theory": "HBBSafe",
+      "label": "HBBSafe end-only knowledge is not actionable",
+      "category": "control",
+      "file": "examples/theories/hbb1-echo-end-only.md",
+      "paperReferences": [
+        "Figure 8, p. 48; Definition 6.2.2, p. 47 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (full conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)",
+        "Remark 6.3.3(3), p. 51 (explicitly incorrect missing-sometime Echo!)",
+        "Remark 5.2.12, pp. 45\u201346 (LiveActive is optional)"
+      ],
+      "limits": {
+        "maxMilliseconds": 60000,
+        "maxCompilationNodes": 500000,
+        "maxDecisions": 100000
+      },
+      "droppedAxioms": [],
+      "retainedAxioms": [
+        "ThyLive",
+        "Echo?",
+        "Vote?",
+        "Deliver?",
+        "EchoNE",
+        "Safe",
+        "Echo!",
+        "Vote!",
+        "Deliver!"
+      ],
+      "status": "holds",
+      "complete": true,
+      "consistent": true,
+      "originalFailingRules": [],
+      "properties": [
+        {
+          "name": "Happy Termination",
+          "status": "holds",
+          "scenarioPresent": false
+        },
+        {
+          "name": "Cascade Termination",
+          "status": "holds",
+          "scenarioPresent": false
+        },
+        {
+          "name": "Agreement",
+          "status": "holds",
+          "scenarioPresent": false
+        }
+      ],
+      "diagnostics": [
+        {
+          "name": "Bad end-only Echo!",
+          "formula": "\n  \u2200 v. (live \u2227 \u2662[] \u2193 propose(v)) \u21d2 \u2203 w. \u2195 echo(w)",
+          "scope": "all",
+          "status": "counterexample",
+          "classification": "candidate-axiom or structural diagnostic; not a canonical correctness claim",
+          "failure": {
+            "world": {
+              "place": "p",
+              "time": "end",
+              "timeLabel": "end",
+              "event": null,
+              "node": null,
+              "history": [
+                "proposal"
+              ]
+            },
+            "bindings": {
+              "v": "v"
+            },
+            "holds": false,
+            "connective": "implies",
+            "leftHolds": true,
+            "rightHolds": false,
+            "explanation": {
+              "type": "forall",
+              "holds": false,
+              "reason": "This value falsifies the universally quantified body.",
+              "world": {
+                "place": "p",
+                "time": "@t1",
+                "timeLabel": "end",
+                "event": null,
+                "node": null
+              },
+              "bindings": {},
+              "children": [
+                {
+                  "type": "implies",
+                  "holds": false,
+                  "reason": "The antecedent holds but the consequent is false.",
+                  "world": {
+                    "place": "p",
+                    "time": "@t1",
+                    "timeLabel": "end",
+                    "event": null,
+                    "node": null
+                  },
+                  "bindings": {
+                    "v": "v"
+                  },
+                  "children": [
+                    {
+                      "type": "and",
+                      "holds": true,
+                      "reason": "Both conjuncts hold.",
+                      "world": {
+                        "place": "p",
+                        "time": "@t1",
+                        "timeLabel": "end",
+                        "event": null,
+                        "node": null
+                      },
+                      "bindings": {
+                        "v": "v"
+                      },
+                      "children": [
+                        {
+                          "type": "atom",
+                          "holds": true,
+                          "reason": "The predicate interpretation contains this atom here.",
+                          "world": {
+                            "place": "p",
+                            "time": "@t1",
+                            "timeLabel": "end",
+                            "event": null,
+                            "node": null
+                          },
+                          "bindings": {
+                            "v": "v"
+                          },
+                          "children": [],
+                          "details": {
+                            "atom": {
+                              "symbol": "live",
+                              "args": []
+                            }
+                          }
+                        },
+                        {
+                          "type": "dia",
+                          "holds": true,
+                          "reason": "Each minimal quorum intersection has a participant satisfying the body.",
+                          "world": {
+                            "place": "p",
+                            "time": "@t1",
+                            "timeLabel": "end",
+                            "event": null,
+                            "node": null
+                          },
+                          "bindings": {
+                            "v": "v"
+                          },
+                          "children": [
+                            {
+                              "type": "past",
+                              "holds": true,
+                              "reason": "A local tuple satisfies the subformula.",
+                              "world": {
+                                "place": "q",
+                                "time": "@t1",
+                                "timeLabel": "end",
+                                "event": null,
+                                "node": null
+                              },
+                              "bindings": {
+                                "v": "v"
+                              },
+                              "children": [
+                                {
+                                  "type": "atom",
+                                  "holds": true,
+                                  "reason": "The current event matches, and its exact tuple occurs in the history.",
+                                  "world": {
+                                    "place": "q",
+                                    "time": "@t0",
+                                    "timeLabel": "empty",
+                                    "event": {
+                                      "symbol": "propose",
+                                      "args": [
+                                        "v"
+                                      ]
+                                    },
+                                    "node": "proposal"
+                                  },
+                                  "bindings": {
+                                    "v": "v"
+                                  },
+                                  "children": [],
+                                  "details": {
+                                    "atom": {
+                                      "symbol": "propose",
+                                      "args": [
+                                        "v"
+                                      ]
+                                    },
+                                    "currentEvent": {
+                                      "symbol": "propose",
+                                      "args": [
+                                        "v"
+                                      ]
+                                    },
+                                    "tupleOccurs": true
+                                  }
+                                }
+                              ],
+                              "details": {
+                                "candidates": 1,
+                                "range": "strict local past",
+                                "witnessTuple": "proposal"
+                              }
+                            }
+                          ],
+                          "details": {
+                            "learners": [],
+                            "learnerCount": 0,
+                            "minimalIntersections": 1,
+                            "satisfyingParticipants": [
+                              "q"
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "exists",
+                      "holds": false,
+                      "reason": "No value satisfies the body.",
+                      "world": {
+                        "place": "p",
+                        "time": "@t1",
+                        "timeLabel": "end",
+                        "event": null,
+                        "node": null
+                      },
+                      "bindings": {
+                        "v": "v"
+                      },
+                      "children": [
+                        {
+                          "type": "sometime",
+                          "holds": false,
+                          "reason": "No local tuple satisfies the subformula. The range is empty.",
+                          "world": {
+                            "place": "p",
+                            "time": "@t1",
+                            "timeLabel": "end",
+                            "event": null,
+                            "node": null
+                          },
+                          "bindings": {
+                            "v": "v",
+                            "w": "v"
+                          },
+                          "children": [],
+                          "details": {
+                            "candidates": 0,
+                            "range": "all recorded tuples at this participant"
+                          }
+                        }
+                      ],
+                      "details": {
+                        "variable": "w",
+                        "domainSize": 1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "details": {
+                "variable": "v",
+                "domainSize": 1,
+                "counterexampleBinding": {
+                  "v": "v"
+                }
+              },
+              "partial": false,
+              "stats": {
+                "steps": 43,
+                "memoHits": 14,
+                "memoEntries": 10,
+                "memoEvictions": 0,
+                "elapsedMs": 0.08301699999992707
+              }
+            }
+          }
+        }
+      ],
+      "replays": [
+        {
+          "name": "model",
+          "verified": true,
+          "status": "model",
+          "retainedAxiomCounts": {
+            "total": 12,
+            "passed": 12,
+            "failed": 0,
+            "inconclusive": 0
+          }
+        },
+        {
+          "name": "diagnostic-bad-end-only-echo",
+          "verified": true,
+          "status": "counterexample",
+          "retainedAxiomCounts": {
+            "total": 12,
+            "passed": 12,
+            "failed": 0,
+            "inconclusive": 0
+          }
+        }
+      ],
+      "savedEvidence": [
+        "hbb1-echo-end-only-correct/model.evidence.json",
+        "hbb1-echo-end-only-correct/diagnostic-bad-end-only-echo.evidence.json"
+      ]
+    },
+    {
+      "id": "hbb1-echo-end-only-wrong",
+      "suite": "HBBSafe",
+      "theory": "HBBSafe",
+      "label": "HBBSafe incorrect end-only Echo!",
+      "category": "paper-incorrect",
+      "file": "examples/theories/hbb1-echo-end-only-wrong.md",
+      "paperReferences": [
+        "Figure 8, p. 48; Definition 6.2.2, p. 47 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (full conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)",
+        "Remark 6.3.3(3), p. 51 (explicitly incorrect missing-sometime Echo!)",
+        "Remark 5.2.12, pp. 45\u201346 (LiveActive is optional)"
+      ],
+      "limits": {
+        "maxMilliseconds": 60000,
+        "maxCompilationNodes": 500000,
+        "maxDecisions": 100000
+      },
+      "droppedAxioms": [],
+      "retainedAxioms": [
+        "ThyLive",
+        "Echo?",
+        "Vote?",
+        "Deliver?",
+        "EchoNE",
+        "Safe",
+        "Echo!",
+        "Vote!",
+        "Deliver!"
+      ],
+      "status": "no-model",
+      "complete": true,
+      "consistent": false,
+      "originalFailingRules": [
+        "Echo!"
+      ],
+      "properties": [
+        {
+          "name": "Happy Termination",
+          "status": "not-tested",
+          "scenarioPresent": null
+        },
+        {
+          "name": "Cascade Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
@@ -4878,16 +5292,16 @@
     },
     {
       "id": "hbb1-vote-safe-full",
-      "suite": "hbb1",
-      "theory": "ThyHBB1",
-      "label": "HBB1 unsafe votes, full safety guard",
+      "suite": "HBBSafe",
+      "theory": "HBBSafe",
+      "label": "HBBSafe unsafe votes, full safety guard",
       "category": "control",
       "file": "examples/theories/hbb1-vote-safe.md",
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)",
-        "Proposition 6.3.1, p. 45 (Agreement proof uses Vote? safety and Safe)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)",
+        "Proposition 6.4.1, p. 52 (Agreement proof uses Vote? safety and Safe)"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -4915,12 +5329,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
@@ -4936,16 +5350,16 @@
     },
     {
       "id": "hbb1-vote-safe-omitted",
-      "suite": "hbb1",
-      "theory": "ThyHBB1",
-      "label": "HBB1 omit Vote? safety guard",
+      "suite": "HBBSafe",
+      "theory": "HBBSafe",
+      "label": "HBBSafe omit Vote? safety guard",
       "category": "weakening",
       "file": "examples/theories/hbb1-vote-safe-omitted.md",
       "paperReferences": [
-        "Figure 7, p. 41; Definition 6.1.2 (ThyHBB1)",
-        "Figure 8, p. 41; Theorem 6.1.6, p. 43 (conditional correctness)",
-        "Figure 6, p. 38; Definition 5.2.4 (complete ThyLive)",
-        "Proposition 6.3.1, p. 45 (Agreement proof uses Vote? safety and Safe)"
+        "Figure 8, p. 48; Definition 6.2.2 (HBBSafe)",
+        "Figure 9, p. 48; Theorem 6.2.6, p. 49 (conditional correctness)",
+        "Figure 7, p. 43; Definition 5.2.4 (complete ThyLive)",
+        "Proposition 6.4.1, p. 52 (Agreement proof uses Vote? safety and Safe)"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -4971,12 +5385,12 @@
       "originalFailingRules": [],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "holds",
           "scenarioPresent": false
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": false
         },
@@ -5526,7 +5940,7 @@
                 "memoHits": 46,
                 "memoEntries": 4474,
                 "memoEvictions": 0,
-                "elapsedMs": 17.17224299999998
+                "elapsedMs": 11.370260000000144
               }
             }
           }
@@ -5539,8 +5953,8 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 65,
-            "passed": 65,
+            "total": 43,
+            "passed": 43,
             "failed": 0,
             "inconclusive": 0
           }
@@ -5550,8 +5964,8 @@
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 65,
-            "passed": 65,
+            "total": 43,
+            "passed": 43,
             "failed": 0,
             "inconclusive": 0
           }
@@ -5564,15 +5978,15 @@
     },
     {
       "id": "complete-baseline",
-      "suite": "hbb2",
-      "theory": "ThyHBB2",
+      "suite": "HBBSimp",
+      "theory": "HBBSimp",
       "label": "Completed full theory",
       "category": "control",
       "file": "examples/theories/hbb2.md",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -5596,12 +6010,12 @@
       "originalFailingRules": [],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "holds",
           "scenarioPresent": true
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": true
         },
@@ -5618,8 +6032,8 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 19,
-            "passed": 19,
+            "total": 17,
+            "passed": 17,
             "failed": 0,
             "inconclusive": 0
           }
@@ -5631,15 +6045,15 @@
     },
     {
       "id": "echo-ne-full",
-      "suite": "hbb2",
-      "theory": "ThyHBB2",
+      "suite": "HBBSimp",
+      "theory": "HBBSimp",
       "label": "Two values, full EchoNE",
       "category": "control",
       "file": "examples/theories/echo-ne.md",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -5666,12 +6080,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
@@ -5687,15 +6101,15 @@
     },
     {
       "id": "echo-ne-removed",
-      "suite": "hbb2",
-      "theory": "ThyHBB2",
+      "suite": "HBBSimp",
+      "theory": "HBBSimp",
       "label": "Remove EchoNE",
       "category": "weakening",
       "file": "examples/theories/echo-ne.md",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -5723,12 +6137,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "holds",
           "scenarioPresent": false
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": false
         },
@@ -6276,7 +6690,7 @@
                 "memoHits": 45,
                 "memoEntries": 55,
                 "memoEvictions": 0,
-                "elapsedMs": 0.6772599999994782
+                "elapsedMs": 0.6144180000001143
               }
             }
           }
@@ -6289,8 +6703,8 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 27,
-            "passed": 27,
+            "total": 33,
+            "passed": 33,
             "failed": 0,
             "inconclusive": 0
           }
@@ -6300,8 +6714,8 @@
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 27,
-            "passed": 27,
+            "total": 33,
+            "passed": 33,
             "failed": 0,
             "inconclusive": 0
           }
@@ -6314,15 +6728,15 @@
     },
     {
       "id": "echo-ne-live-only",
-      "suite": "hbb2",
-      "theory": "ThyHBB2",
+      "suite": "HBBSimp",
+      "theory": "HBBSimp",
       "label": "Restrict EchoNE to live participants",
       "category": "control",
       "file": "examples/theories/echo-ne-live-only.md",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -6347,12 +6761,12 @@
       "originalFailingRules": [],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "holds",
           "scenarioPresent": false
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": false
         },
@@ -6900,7 +7314,7 @@
                 "memoHits": 45,
                 "memoEntries": 55,
                 "memoEvictions": 0,
-                "elapsedMs": 0.4052080000001297
+                "elapsedMs": 1.5471760000000359
               }
             }
           }
@@ -6913,8 +7327,8 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 28,
-            "passed": 28,
+            "total": 34,
+            "passed": 34,
             "failed": 0,
             "inconclusive": 0
           }
@@ -6924,8 +7338,8 @@
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 28,
-            "passed": 28,
+            "total": 34,
+            "passed": 34,
             "failed": 0,
             "inconclusive": 0
           }
@@ -6938,15 +7352,15 @@
     },
     {
       "id": "echo-progress-full",
-      "suite": "hbb2",
-      "theory": "ThyHBB2",
+      "suite": "HBBSimp",
+      "theory": "HBBSimp",
       "label": "Missing echo, full theory",
       "category": "control",
       "file": "examples/theories/echo-progress.md",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -6972,12 +7386,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
@@ -6993,15 +7407,15 @@
     },
     {
       "id": "echo-progress-removed",
-      "suite": "hbb2",
-      "theory": "ThyHBB2",
+      "suite": "HBBSimp",
+      "theory": "HBBSimp",
       "label": "Remove Echo!",
       "category": "weakening",
       "file": "examples/theories/echo-progress.md",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -7028,7 +7442,7 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "counterexample",
           "scenarioPresent": true,
           "failure": {
@@ -7634,13 +8048,13 @@
                 "memoHits": 37,
                 "memoEntries": 27,
                 "memoEvictions": 0,
-                "elapsedMs": 0.34494900000026973
+                "elapsedMs": 1.8335990000000493
               }
             }
           }
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": false
         },
@@ -7657,19 +8071,19 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 12,
-            "passed": 12,
+            "total": 10,
+            "passed": 10,
             "failed": 0,
             "inconclusive": 0
           }
         },
         {
-          "name": "liveness-1",
+          "name": "happy-termination",
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 12,
-            "passed": 12,
+            "total": 10,
+            "passed": 10,
             "failed": 0,
             "inconclusive": 0
           }
@@ -7677,20 +8091,20 @@
       ],
       "savedEvidence": [
         "echo-progress-removed/model.evidence.json",
-        "echo-progress-removed/liveness-1.evidence.json"
+        "echo-progress-removed/happy-termination.evidence.json"
       ]
     },
     {
       "id": "vote-progress-full",
-      "suite": "hbb2",
-      "theory": "ThyHBB2",
+      "suite": "HBBSimp",
+      "theory": "HBBSimp",
       "label": "Missing vote, full theory",
       "category": "control",
       "file": "examples/theories/vote-progress.md",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -7716,12 +8130,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
@@ -7737,15 +8151,15 @@
     },
     {
       "id": "vote-progress-removed",
-      "suite": "hbb2",
-      "theory": "ThyHBB2",
+      "suite": "HBBSimp",
+      "theory": "HBBSimp",
       "label": "Remove Vote!",
       "category": "weakening",
       "file": "examples/theories/vote-progress.md",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -7772,7 +8186,7 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "counterexample",
           "scenarioPresent": true,
           "failure": {
@@ -8433,13 +8847,13 @@
                 "memoHits": 38,
                 "memoEntries": 28,
                 "memoEvictions": 0,
-                "elapsedMs": 0.3488450000004377
+                "elapsedMs": 0.17724300000008952
               }
             }
           }
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": false
         },
@@ -8456,19 +8870,19 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 14,
-            "passed": 14,
+            "total": 12,
+            "passed": 12,
             "failed": 0,
             "inconclusive": 0
           }
         },
         {
-          "name": "liveness-1",
+          "name": "happy-termination",
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 14,
-            "passed": 14,
+            "total": 12,
+            "passed": 12,
             "failed": 0,
             "inconclusive": 0
           }
@@ -8476,20 +8890,20 @@
       ],
       "savedEvidence": [
         "vote-progress-removed/model.evidence.json",
-        "vote-progress-removed/liveness-1.evidence.json"
+        "vote-progress-removed/happy-termination.evidence.json"
       ]
     },
     {
       "id": "deliver-progress-full",
-      "suite": "hbb2",
-      "theory": "ThyHBB2",
+      "suite": "HBBSimp",
+      "theory": "HBBSimp",
       "label": "Missing delivery, full theory",
       "category": "control",
       "file": "examples/theories/deliver-progress.md",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -8515,12 +8929,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
@@ -8536,15 +8950,15 @@
     },
     {
       "id": "deliver-progress-removed",
-      "suite": "hbb2",
-      "theory": "ThyHBB2",
+      "suite": "HBBSimp",
+      "theory": "HBBSimp",
       "label": "Remove Deliver!",
       "category": "weakening",
       "file": "examples/theories/deliver-progress.md",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -8571,7 +8985,7 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "counterexample",
           "scenarioPresent": true,
           "failure": {
@@ -9241,13 +9655,13 @@
                 "memoHits": 42,
                 "memoEntries": 41,
                 "memoEvictions": 0,
-                "elapsedMs": 0.3773770000007062
+                "elapsedMs": 0.21835199999986799
               }
             }
           }
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "counterexample",
           "scenarioPresent": true,
           "failure": {
@@ -9833,7 +10247,7 @@
                 "memoHits": 35,
                 "memoEntries": 29,
                 "memoEvictions": 0,
-                "elapsedMs": 0.3278540000001158
+                "elapsedMs": 0.27000499999940075
               }
             }
           }
@@ -9851,30 +10265,30 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 23,
-            "passed": 23,
+            "total": 16,
+            "passed": 16,
             "failed": 0,
             "inconclusive": 0
           }
         },
         {
-          "name": "liveness-1",
+          "name": "happy-termination",
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 23,
-            "passed": 23,
+            "total": 16,
+            "passed": 16,
             "failed": 0,
             "inconclusive": 0
           }
         },
         {
-          "name": "liveness-2",
+          "name": "cascade-termination",
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 23,
-            "passed": 23,
+            "total": 16,
+            "passed": 16,
             "failed": 0,
             "inconclusive": 0
           }
@@ -9882,21 +10296,21 @@
       ],
       "savedEvidence": [
         "deliver-progress-removed/model.evidence.json",
-        "deliver-progress-removed/liveness-1.evidence.json",
-        "deliver-progress-removed/liveness-2.evidence.json"
+        "deliver-progress-removed/happy-termination.evidence.json",
+        "deliver-progress-removed/cascade-termination.evidence.json"
       ]
     },
     {
       "id": "hbb3-complete-baseline",
-      "suite": "hbb3",
-      "theory": "ThyHBB3",
-      "label": "HBB3 completed full theory",
+      "suite": "HBBCorr",
+      "theory": "HBBCorr",
+      "label": "HBBCorr completed full theory",
       "category": "control",
       "file": "examples/theories/hbb3.md",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -9927,12 +10341,12 @@
       "originalFailingRules": [],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "holds",
           "scenarioPresent": true
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": true
         },
@@ -9949,8 +10363,8 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 26,
-            "passed": 26,
+            "total": 24,
+            "passed": 24,
             "failed": 0,
             "inconclusive": 0
           }
@@ -9962,15 +10376,15 @@
     },
     {
       "id": "hbb3-corr-seq-removed",
-      "suite": "hbb3",
-      "theory": "ThyHBB3",
+      "suite": "HBBCorr",
+      "theory": "HBBCorr",
       "label": "Remove CorrSeq: correlated fork",
       "category": "weakening",
       "file": "examples/theories/hbb3-corr-seq.md",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -10005,12 +10419,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "holds",
           "scenarioPresent": false
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": false
         },
@@ -10480,7 +10894,7 @@
                 "memoHits": 41,
                 "memoEntries": 53,
                 "memoEvictions": 0,
-                "elapsedMs": 0.3787899999997535
+                "elapsedMs": 0.42498299999988376
               }
             }
           }
@@ -10493,8 +10907,8 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 34,
-            "passed": 34,
+            "total": 40,
+            "passed": 40,
             "failed": 0,
             "inconclusive": 0
           }
@@ -10504,8 +10918,8 @@
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 34,
-            "passed": 34,
+            "total": 40,
+            "passed": 40,
             "failed": 0,
             "inconclusive": 0
           }
@@ -10518,15 +10932,15 @@
     },
     {
       "id": "hbb3-corr-past-removed",
-      "suite": "hbb3",
-      "theory": "ThyHBB3",
+      "suite": "HBBCorr",
+      "theory": "HBBCorr",
       "label": "Remove CorrPast: correlation arrives late",
       "category": "weakening",
       "file": "examples/theories/hbb3-corr-past.md",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -10561,12 +10975,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "holds",
           "scenarioPresent": false
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": false
         },
@@ -11070,7 +11484,7 @@
                 "memoHits": 42,
                 "memoEntries": 310,
                 "memoEvictions": 0,
-                "elapsedMs": 1.0546880000001693
+                "elapsedMs": 0.7799999999997453
               }
             }
           }
@@ -11083,8 +11497,8 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 46,
-            "passed": 46,
+            "total": 52,
+            "passed": 52,
             "failed": 0,
             "inconclusive": 0
           }
@@ -11094,8 +11508,8 @@
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 46,
-            "passed": 46,
+            "total": 52,
+            "passed": 52,
             "failed": 0,
             "inconclusive": 0
           }
@@ -11108,15 +11522,15 @@
     },
     {
       "id": "hbb3-vote-ne-removed",
-      "suite": "hbb3",
-      "theory": "ThyHBB3",
+      "suite": "HBBCorr",
+      "theory": "HBBCorr",
       "label": "Remove VoteNE: sequential conflicting votes",
       "category": "weakening",
       "file": "examples/theories/hbb3-vote-ne.md",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -11151,12 +11565,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "holds",
           "scenarioPresent": false
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": false
         },
@@ -11660,7 +12074,7 @@
                 "memoHits": 42,
                 "memoEntries": 310,
                 "memoEvictions": 0,
-                "elapsedMs": 3.5658559999992576
+                "elapsedMs": 0.7633529999993698
               }
             }
           }
@@ -11673,8 +12087,8 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 46,
-            "passed": 46,
+            "total": 52,
+            "passed": 52,
             "failed": 0,
             "inconclusive": 0
           }
@@ -11684,8 +12098,8 @@
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 46,
-            "passed": 46,
+            "total": 52,
+            "passed": 52,
             "failed": 0,
             "inconclusive": 0
           }
@@ -11698,16 +12112,16 @@
     },
     {
       "id": "hbb3-three-twined-removed",
-      "suite": "hbb3",
-      "theory": "ThyHBB3",
+      "suite": "HBBCorr",
+      "theory": "HBBCorr",
       "label": "Remove 3twined: pairwise overlap only",
       "category": "weakening",
       "file": "examples/theories/hbb3-three-twined.md",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38",
-        "Remark 8.6.2, pp. 60-61; Lemma 8.4.3, p. 58"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43",
+        "Remark 8.6.2, p. 67; Lemma 8.4.3, p. 58"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -11741,12 +12155,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "holds",
           "scenarioPresent": false
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "counterexample",
           "scenarioPresent": true,
           "failure": {
@@ -12591,7 +13005,7 @@
                 "memoHits": 48,
                 "memoEntries": 73,
                 "memoEvictions": 0,
-                "elapsedMs": 0.5913939999991271
+                "elapsedMs": 0.41138800000044284
               }
             }
           }
@@ -12609,19 +13023,19 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 123,
-            "passed": 123,
+            "total": 59,
+            "passed": 59,
             "failed": 0,
             "inconclusive": 0
           }
         },
         {
-          "name": "liveness-2",
+          "name": "cascade-termination",
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 123,
-            "passed": 123,
+            "total": 59,
+            "passed": 59,
             "failed": 0,
             "inconclusive": 0
           }
@@ -12629,20 +13043,20 @@
       ],
       "savedEvidence": [
         "hbb3-three-twined-removed/model.evidence.json",
-        "hbb3-three-twined-removed/liveness-2.evidence.json"
+        "hbb3-three-twined-removed/cascade-termination.evidence.json"
       ]
     },
     {
       "id": "hbb3-echo-progress-full",
-      "suite": "hbb3",
-      "theory": "ThyHBB3",
-      "label": "HBB3 missing echo, full theory",
+      "suite": "HBBCorr",
+      "theory": "HBBCorr",
+      "label": "HBBCorr missing echo, full theory",
       "category": "control",
       "file": "examples/theories/hbb3-echo-progress.md",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -12675,12 +13089,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
@@ -12696,15 +13110,15 @@
     },
     {
       "id": "hbb3-echo-progress-removed",
-      "suite": "hbb3",
-      "theory": "ThyHBB3",
-      "label": "Remove HBB3 Echo!",
+      "suite": "HBBCorr",
+      "theory": "HBBCorr",
+      "label": "Remove HBBCorr Echo!",
       "category": "weakening",
       "file": "examples/theories/hbb3-echo-progress.md",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -12738,7 +13152,7 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "counterexample",
           "scenarioPresent": true,
           "failure": {
@@ -13342,13 +13756,13 @@
                 "memoHits": 37,
                 "memoEntries": 27,
                 "memoEvictions": 0,
-                "elapsedMs": 0.4151930000007269
+                "elapsedMs": 0.28618699999969976
               }
             }
           }
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": false
         },
@@ -13365,19 +13779,19 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 19,
-            "passed": 19,
+            "total": 17,
+            "passed": 17,
             "failed": 0,
             "inconclusive": 0
           }
         },
         {
-          "name": "liveness-1",
+          "name": "happy-termination",
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 19,
-            "passed": 19,
+            "total": 17,
+            "passed": 17,
             "failed": 0,
             "inconclusive": 0
           }
@@ -13385,20 +13799,20 @@
       ],
       "savedEvidence": [
         "hbb3-echo-progress-removed/model.evidence.json",
-        "hbb3-echo-progress-removed/liveness-1.evidence.json"
+        "hbb3-echo-progress-removed/happy-termination.evidence.json"
       ]
     },
     {
       "id": "hbb3-vote-progress-full",
-      "suite": "hbb3",
-      "theory": "ThyHBB3",
-      "label": "HBB3 missing vote, full theory",
+      "suite": "HBBCorr",
+      "theory": "HBBCorr",
+      "label": "HBBCorr missing vote, full theory",
       "category": "control",
       "file": "examples/theories/hbb3-vote-progress.md",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -13431,12 +13845,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
@@ -13452,15 +13866,15 @@
     },
     {
       "id": "hbb3-vote-progress-removed",
-      "suite": "hbb3",
-      "theory": "ThyHBB3",
-      "label": "Remove HBB3 Vote!",
+      "suite": "HBBCorr",
+      "theory": "HBBCorr",
+      "label": "Remove HBBCorr Vote!",
       "category": "weakening",
       "file": "examples/theories/hbb3-vote-progress.md",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -13494,7 +13908,7 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "counterexample",
           "scenarioPresent": true,
           "failure": {
@@ -14152,13 +14566,13 @@
                 "memoHits": 38,
                 "memoEntries": 28,
                 "memoEvictions": 0,
-                "elapsedMs": 0.36197399999946356
+                "elapsedMs": 0.24047500000051514
               }
             }
           }
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": false
         },
@@ -14175,19 +14589,19 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 21,
-            "passed": 21,
+            "total": 19,
+            "passed": 19,
             "failed": 0,
             "inconclusive": 0
           }
         },
         {
-          "name": "liveness-1",
+          "name": "happy-termination",
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 21,
-            "passed": 21,
+            "total": 19,
+            "passed": 19,
             "failed": 0,
             "inconclusive": 0
           }
@@ -14195,20 +14609,20 @@
       ],
       "savedEvidence": [
         "hbb3-vote-progress-removed/model.evidence.json",
-        "hbb3-vote-progress-removed/liveness-1.evidence.json"
+        "hbb3-vote-progress-removed/happy-termination.evidence.json"
       ]
     },
     {
       "id": "hbb3-deliver-progress-full",
-      "suite": "hbb3",
-      "theory": "ThyHBB3",
-      "label": "HBB3 missing delivery, full theory",
+      "suite": "HBBCorr",
+      "theory": "HBBCorr",
+      "label": "HBBCorr missing delivery, full theory",
       "category": "control",
       "file": "examples/theories/hbb3-deliver-progress.md",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -14241,12 +14655,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
@@ -14262,15 +14676,15 @@
     },
     {
       "id": "hbb3-deliver-progress-removed",
-      "suite": "hbb3",
-      "theory": "ThyHBB3",
-      "label": "Remove HBB3 Deliver!",
+      "suite": "HBBCorr",
+      "theory": "HBBCorr",
+      "label": "Remove HBBCorr Deliver!",
       "category": "weakening",
       "file": "examples/theories/hbb3-deliver-progress.md",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -14304,7 +14718,7 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "counterexample",
           "scenarioPresent": true,
           "failure": {
@@ -15003,13 +15417,13 @@
                 "memoHits": 39,
                 "memoEntries": 29,
                 "memoEvictions": 0,
-                "elapsedMs": 4.76534299999912
+                "elapsedMs": 0.19412499999998545
               }
             }
           }
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": false
         },
@@ -15026,19 +15440,19 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 23,
-            "passed": 23,
+            "total": 21,
+            "passed": 21,
             "failed": 0,
             "inconclusive": 0
           }
         },
         {
-          "name": "liveness-1",
+          "name": "happy-termination",
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 23,
-            "passed": 23,
+            "total": 21,
+            "passed": 21,
             "failed": 0,
             "inconclusive": 0
           }
@@ -15046,21 +15460,21 @@
       ],
       "savedEvidence": [
         "hbb3-deliver-progress-removed/model.evidence.json",
-        "hbb3-deliver-progress-removed/liveness-1.evidence.json"
+        "hbb3-deliver-progress-removed/happy-termination.evidence.json"
       ]
     },
     {
       "id": "hbb3-vote-prime-progress-removed",
-      "suite": "hbb3",
-      "theory": "ThyHBB3",
+      "suite": "HBBCorr",
+      "theory": "HBBCorr",
       "label": "Remove Vote'!: correlated target stalls",
       "category": "weakening",
       "file": "examples/theories/hbb3-vote-prime-progress.md",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38",
-        "Remark 8.2.2(4) and footnote 54, p. 57"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43",
+        "Remark 8.2.2(4) and footnote 64, p. 62"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -15094,12 +15508,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "holds",
           "scenarioPresent": false
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "counterexample",
           "scenarioPresent": true,
           "failure": {
@@ -15782,7 +16196,7 @@
                 "memoHits": 40,
                 "memoEntries": 79,
                 "memoEvictions": 0,
-                "elapsedMs": 0.48692899999878136
+                "elapsedMs": 0.2949690000004921
               }
             }
           }
@@ -15800,19 +16214,19 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 36,
-            "passed": 36,
+            "total": 33,
+            "passed": 33,
             "failed": 0,
             "inconclusive": 0
           }
         },
         {
-          "name": "liveness-2",
+          "name": "cascade-termination",
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 36,
-            "passed": 36,
+            "total": 33,
+            "passed": 33,
             "failed": 0,
             "inconclusive": 0
           }
@@ -15820,21 +16234,21 @@
       ],
       "savedEvidence": [
         "hbb3-vote-prime-progress-removed/model.evidence.json",
-        "hbb3-vote-prime-progress-removed/liveness-2.evidence.json"
+        "hbb3-vote-prime-progress-removed/cascade-termination.evidence.json"
       ]
     },
     {
       "id": "hbb3-corr-definition-valid",
-      "suite": "hbb3",
-      "theory": "ThyHBB3",
+      "suite": "HBBCorr",
+      "theory": "HBBCorr",
       "label": "Correct correlation allows this history",
       "category": "paper-diagnostic",
       "file": "examples/theories/hbb3-corr-definition.md",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38",
-        "Remark 8.6.4, p. 61; Remark 8.1.1(2), pp. 54-55"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43",
+        "Remark 8.6.4, p. 68; Remark 8.1.1(2), pp. 60\u201361"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -15866,12 +16280,12 @@
       "originalFailingRules": [],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "holds",
           "scenarioPresent": false
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "holds",
           "scenarioPresent": false
         },
@@ -16048,7 +16462,7 @@
                 "memoHits": 10,
                 "memoEntries": 8,
                 "memoEvictions": 0,
-                "elapsedMs": 0.146827000000485
+                "elapsedMs": 0.06267300000035902
               }
             }
           }
@@ -16060,8 +16474,8 @@
           "verified": true,
           "status": "model",
           "retainedAxiomCounts": {
-            "total": 22,
-            "passed": 22,
+            "total": 17,
+            "passed": 17,
             "failed": 0,
             "inconclusive": 0
           }
@@ -16071,8 +16485,8 @@
           "verified": true,
           "status": "counterexample",
           "retainedAxiomCounts": {
-            "total": 22,
-            "passed": 22,
+            "total": 17,
+            "passed": 17,
             "failed": 0,
             "inconclusive": 0
           }
@@ -16085,16 +16499,16 @@
     },
     {
       "id": "hbb3-corr-definition-wrong",
-      "suite": "hbb3",
-      "theory": "ThyHBB3",
+      "suite": "HBBCorr",
+      "theory": "HBBCorr",
       "label": "Incorrect correlation equivalence rejects it",
       "category": "paper-incorrect",
       "file": "examples/theories/hbb3-corr-definition-wrong.md",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38",
-        "Remark 8.6.4, p. 61; Remark 8.1.1(2), pp. 54-55"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43",
+        "Remark 8.6.4, p. 68; Remark 8.1.1(2), pp. 60\u201361"
       ],
       "limits": {
         "maxMilliseconds": 60000,
@@ -16127,12 +16541,12 @@
       ],
       "properties": [
         {
-          "name": "Liveness 1",
+          "name": "Happy Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
         {
-          "name": "Liveness 2",
+          "name": "Cascade Termination",
           "status": "not-tested",
           "scenarioPresent": null
         },
@@ -16147,7 +16561,7 @@
       "savedEvidence": []
     }
   ],
-  "diagnosticCount": 2,
-  "evidenceCount": 45,
-  "verifiedEvidenceCount": 45
+  "diagnosticCount": 3,
+  "evidenceCount": 47,
+  "verifiedEvidenceCount": 47
 }

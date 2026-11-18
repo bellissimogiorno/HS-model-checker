@@ -33,7 +33,7 @@ test('module worker checks formula scopes and returns explanatory quantified ass
 });
 test('module worker reports all-world named and dynamic custom theories',async()=>{
   const model=await example();
-  const built=await request({action:'theory',model,theory:'ThyHBB2'});
+  const built=await request({action:'theory',model,theory:'HBBSimp'});
   assert.equal(built.result.holds,true);
   const custom=await request({action:'theory',model,theory:'custom',axioms:{includeLive:true,axioms:[{name:'Custom?',formula:'true'}]}});
   assert.equal(custom.result.holds,true);
@@ -41,7 +41,7 @@ test('module worker reports all-world named and dynamic custom theories',async()
 });
 test('copied editable theories retain dynamic schemes rather than finite snapshots',async()=>{
   const model=await example('hbb1-complete');
-  const copied=await request({action:'copyTheory',model,theory:'ThyHBB1'});
+  const copied=await request({action:'copyTheory',model,theory:'HBBSafe'});
   assert.equal(copied.result.includeLive,true);
   assert.equal(copied.result.axioms.length,8);
   assert(copied.result.axioms.every(a=>!a.name.startsWith('Knowledge')));
@@ -57,7 +57,7 @@ test('worker errors distinguish invalid syntax and incomplete evaluation',async(
 });
 test('worker exploration returns a model with a certified property failure',async()=>{
   const model=await example('fork');
-  const searched=await request({action:'explore',model,options:{property:'seq',assumptions:'ThyHBB2',maxAdditionalNodes:0}});
+  const searched=await request({action:'explore',model,options:{property:'seq',assumptions:'HBBSimp',maxAdditionalNodes:0}});
   assert.equal(searched.type,'result');assert.equal(searched.result.status,'counterexample');
   assert.equal(searched.result.witness.assumptions.holds,true);
   assert.equal(searched.result.witness.result.holds,false);

@@ -9,7 +9,7 @@ import {explore} from '../src/search.mjs';
 const example=async()=>JSON.parse(await readFile(new URL('../examples/hbb2-complete.json',import.meta.url),'utf8'));
 test('editable protocol copies regenerate full liveness schemes for the current model',async()=>{
   const data=await example();
-  const built=buildTheory(compileModel(data),'ThyHBB2');
+  const built=buildTheory(compileModel(data),'HBBSimp');
   const spec={includeLive:true,axioms:built.axioms.filter(a=>!a.scheme&&!['LiveAlways','LiveSeq'].includes(a.name)).map(({name,formula,kind})=>({name,formula,kind}))};
   assert.equal(checkCustomTheory(data,spec).holds,true);
   data.nodes.pop(); // Final real deliver now lacks a later observation.

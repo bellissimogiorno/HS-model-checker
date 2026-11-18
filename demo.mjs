@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/** Reproducible HBB1/2/3 experiments. Histories are fixed, predicate valuations
+/** Reproducible HBBSafe, HBBSimp and HBBCorr experiments. Histories are fixed, predicate valuations
  * are synthesized, and every returned model/counterexample is replayed. */
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {dirname,join,resolve,relative} from 'node:path';
@@ -14,7 +14,7 @@ import {parseFormula} from './src/parser.mjs';
 
 const ROOT=dirname(fileURLToPath(import.meta.url));
 const SCOPE='Each exact declared finite history, value domain and quorum basis; all predicate interpretations with supplied positive facts pinned. No history extensions. These results are not unbounded proofs.';
-const PROPERTY_NAMES=['Liveness 1','Liveness 2','Agreement'];
+const PROPERTY_NAMES=['Happy Termination','Cascade Termination','Agreement'];
 function requireResult(condition,message){if(!condition)throw new Error(message);}
 function same(actual,expected,label){requireResult(JSON.stringify(actual)===JSON.stringify(expected),`${label}: expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}.`);}
 const json=value=>JSON.stringify(value,null,2)+'\n';
@@ -44,7 +44,7 @@ function failureDetails(model,property,failure){
   const conclusionHolds=evaluator.evaluate(body.right.right,world,bindings);
   same([premiseHolds,triggerHolds,conclusionHolds],[true,true,false],`${property.name}: nonvacuous failure`);
   const details={world:failure,bindings,premiseHolds,triggerHolds,conclusionHolds};
-  if(property.name.startsWith('Liveness')){
+  if(['Happy Termination','Cascade Termination'].includes(property.name)){
     details.participantIsLive=evaluator.evaluate(parseFormula('live'),world);
     requireResult(details.participantIsLive,`${property.name}: failed participant is not live.`);
   }
@@ -70,8 +70,9 @@ function diagnosticDetails(model,property,failure){
 
 async function casesFor(suite){
   const registry=JSON.parse(await readFile(join(ROOT,'examples/experiment-suites.json'),'utf8'));
-  const suites=suite==='all'?registry.suites:registry.suites.filter(row=>row.id===suite);
-  requireResult(suites.length>0,`Unknown suite ${JSON.stringify(suite)}. Choose all, hbb1, hbb2 or hbb3.`);
+  const selector=String(suite).toLowerCase();
+  const suites=selector==='all'?registry.suites:registry.suites.filter(row=>row.id.toLowerCase()===selector||row.label.toLowerCase()===selector);
+  requireResult(suites.length>0,`Unknown suite ${JSON.stringify(suite)}. Choose all, HBBSafe, HBBSimp or HBBCorr.`);
   const cases=[],matrices=[],ids=new Set();
   for(const entry of suites){
     const matrix=JSON.parse(await readFile(join(ROOT,'examples',entry.manifest),'utf8'));
@@ -79,16 +80,16 @@ async function casesFor(suite){
     matrices.push(`examples/${entry.manifest}`);
     for(const row of matrix.cases){
       requireResult(!ids.has(row.id),`Duplicate experiment ID ${row.id}.`);ids.add(row.id);
-      cases.push({...row,suite:entry.id,theory:row.theory??matrix.theory});
+      cases.push({...row,suite:entry.label,theory:row.theory??matrix.theory});
     }
   }
-  return {cases,matrices};
+  return {cases,matrices,suite:selector==='all'?'all':suites[0].label};
 }
 
 function markdownReport(report){
   const lines=['# Reproducible protocol and axiom-variant tour','',`Version ${report.version}; suite ${report.suite}. ${report.scope}`,'',
     '“Holds” means no counterexample in the exact scope above. “Scenario absent” identifies a true conditional whose complete premise and trigger are not jointly exercised. A no-model row establishes inconsistency of that fixed history with the retained assumptions; every correctness claim remains not tested.','',
-    '| Theory | Case | Assumptions | Liveness 1 | Liveness 2 | Agreement |','|---|---|---|---|---|---|'];
+    '| Theory | Case | Assumptions | Happy Termination | Cascade Termination | Agreement |','|---|---|---|---|---|---|'];
   for(const row of report.cases){
     const cells=row.properties.map(p=>p.status==='not-tested'?'Not tested':p.status==='counterexample'?'**Fails; scenario present**':`Holds; scenario ${p.scenarioPresent?'present':'absent'}`);
     lines.push(`| ${row.theory} | ${row.label} | ${row.consistent?'Model; all retained axioms pass':'No model on fixed history'} | ${cells.join(' | ')} |`);
@@ -121,7 +122,7 @@ export async function runWeakeningTour({outputDirectory,suite='all',maxMilliseco
   requireResult(Number.isFinite(maxMilliseconds)&&maxMilliseconds>0,'maxMilliseconds must be positive and finite.');
   const selected=await casesFor(suite),output=outputDirectory===undefined?null:resolve(outputDirectory);
   if(output)await mkdir(output,{recursive:true});
-  const report={format:'history-structure-weakening-tour/v2',version:'0.6.9',status:'passed',suite,scope:SCOPE,
+  const report={format:'history-structure-weakening-tour/v2',version:'0.7.1',status:'passed',suite:selected.suite,scope:SCOPE,
     expectedMatrices:selected.matrices,outputDirectory:output,propertiesByTheory:{},cases:[],diagnosticCount:0,evidenceCount:0,verifiedEvidenceCount:0};
   for(const spec of selected.cases){
     const canonical=correctnessProperties(spec.theory);
@@ -156,7 +157,11 @@ export async function runWeakeningTour({outputDirectory,suite='all',maxMilliseco
       const replay=replayExperiment(evidence,{maxMilliseconds});
       requireResult(replay.verified===true,`${spec.id}: ${name} replay failed (${replay.reason??replay.status}).`);
       requireResult(replay.assumptions.complete&&replay.assumptions.holds&&replay.assumptions.includeLive,`${spec.id}: incomplete/false retained theory.`);
-      requireResult(replay.assumptions.axioms.some(a=>a.name.startsWith('KnowledgeDia:'))&&replay.assumptions.axioms.some(a=>a.name.startsWith('KnowledgeBox:')),`${spec.id}: Knowledge schemes missing.`);
+      const hasEvents=compileModel(evidence.model).nodes.some(node=>node.event!==null);
+      const knowledge=replay.assumptions.axioms.filter(a=>a.scheme);
+      requireResult(!hasEvents||(knowledge.some(a=>a.scheme==='KnowledgeDia')&&knowledge.some(a=>a.scheme==='KnowledgeBox')),`${spec.id}: nonvacuous Knowledge schemes missing.`);
+      requireResult(hasEvents||knowledge.length===0,`${spec.id}: absent events should have no nonvacuous Knowledge instances.`);
+      requireResult(knowledge.filter(a=>a.scheme==='KnowledgeBox').every(a=>a.learners.length===1),`${spec.id}: quorum Knowledge must use one learner.`);
       report.verifiedEvidenceCount++;row.replays.push({name,verified:true,status:replay.status,retainedAxiomCounts:replay.assumptions.counts});
       if(directory){const file=join(directory,`${name}.evidence.json`);await writeFile(file,json(evidence));await writeFile(join(directory,`${name}.replay.json`),json(replay));row.savedEvidence.push(relative(output,file).split('\\').join('/'));}
     }
@@ -210,7 +215,7 @@ if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
     for(let i=0;i<args.length;i++){
       if(args[i]==='--output'&&args[i+1])outputDirectory=args[++i];
       else if(args[i]==='--suite'&&args[i+1])suite=args[++i];
-      else if(args[i]==='--help'||args[i]==='-h'){console.log('Usage: node demo.mjs [--suite all|hbb1|hbb2|hbb3] [--output DIRECTORY]\nChecks canonical properties and separate paper-axiom probes; independently replays every certificate.');process.exit(0);}
+      else if(args[i]==='--help'||args[i]==='-h'){console.log('Usage: node demo.mjs [--suite all|HBBSafe|HBBSimp|HBBCorr] [--output DIRECTORY]\nChecks canonical properties and separate paper-axiom probes; independently replays every certificate.');process.exit(0);}
       else throw new Error(`Unknown or incomplete option ${args[i]}. Use --help.`);
     }
     console.log(markdownReport(await runWeakeningTour({outputDirectory,suite})));

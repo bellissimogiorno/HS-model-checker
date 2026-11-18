@@ -13,8 +13,8 @@ import {parseFormula} from '../src/parser.mjs';
 
 const ROOT=dirname(dirname(fileURLToPath(import.meta.url)));
 const read=async file=>parseDocument(await readFile(join(ROOT,'examples/theories',file),'utf8'));
-const canonical=correctnessProperties('ThyHBB1');
-const badEcho='forall v,w. (live & dia[] past propose(v)) -> sometime echo(w)';
+const canonical=correctnessProperties('HBBSafe');
+const badEcho='forall v,w. sometime (live & dia[] past propose(v)) -> sometime echo(w)';
 
 // An existential scenario elsewhere is insufficient: each failed conditional
 // must have a true complete premise and trigger at its own failure world.
@@ -38,18 +38,18 @@ function assertNonvacuousFailure(evidence,property) {
   assert.equal(evaluator.evaluate(body.right.left,world,witness),true);
   assert.equal(evaluator.evaluate(body.right.right,world,witness),false);
   assert.equal(evaluator.evaluate(property.nonvacuityAst,world),true);
-  if(property.name.startsWith('Liveness'))assert.equal(evaluator.evaluate(parseFormula('live'),world),true);
+  if(['Happy Termination','Cascade Termination'].includes(property.name))assert.equal(evaluator.evaluate(parseFormula('live'),world),true);
 }
 
-test('HBB1 fixed-history examples retain full ThyLive, check exact conditional claims and replay every model and failure',async()=>{
+test('HBBSafe fixed-history examples retain full ThyLive, check exact conditional claims and replay every model and failure',async()=>{
   const matrix=JSON.parse(await readFile(join(ROOT,'examples/hbb1-cases.json'),'utf8'));
-  assert.equal(matrix.theory,'ThyHBB1');
-  assert.equal(matrix.cases.length,13);
+  assert.equal(matrix.theory,'HBBSafe');
+  assert.equal(matrix.cases.length,15);
   assert.deepEqual(matrix.properties,canonical.map(p=>p.name));
   let models=0,failures=0,probes=0;
   for(const spec of matrix.cases) {
     const doc=await read(spec.file);
-    assert.equal(spec.theory,'ThyHBB1');
+    assert.equal(spec.theory,'HBBSafe');
     assert.equal(doc.includeLive,true);
     assert.ok(!spec.droppedAxioms.includes('ThyLive'));
     for(const property of canonical) {
@@ -94,10 +94,10 @@ test('HBB1 fixed-history examples retain full ThyLive, check exact conditional c
       probes++;
     }
   }
-  assert.deepEqual([models,failures,probes],[7,6,1]);
+  assert.deepEqual([models,failures,probes],[8,6,2]);
 });
 
-test('the HBB1 safety-guard example changes only Vote? and violates Agreement with Safe retained',async()=>{
+test('the HBBSafe safety-guard example changes only Vote? and violates Agreement with Safe retained',async()=>{
   const full=await read('hbb1-vote-safe.md'),weak=await read('hbb1-vote-safe-omitted.md');
   assert.deepEqual(full.model,weak.model);
   const rules=doc=>doc.axioms.map(({name,kind,formula})=>({name,kind,formula}));
@@ -127,4 +127,27 @@ test('the paper incorrect Echo! is an independently universal bad-axiom probe an
   assert.deepEqual(correct.model.nodes.filter(n=>n.event?.symbol==='propose').map(n=>n.event.args),[['a'],['b']]);
   // The second universally closed value is independent of the proposal value.
   assert.equal(parseFormula(badEcho).body.type,'forall');
+});
+
+test('the paper missing-sometime Echo! wrongly activates on end-only knowledge at an inactive live participant',async()=>{
+  const correct=await read('hbb1-echo-end-only.md'),wrong=await read('hbb1-echo-end-only-wrong.md');
+  assert.deepEqual(wrong.model,correct.model);
+  const meaning=({name,kind,ast})=>({name,kind,ast});
+  assert.deepEqual(wrong.axioms.filter(a=>a.name!=='Echo!').map(meaning),correct.axioms.filter(a=>a.name!=='Echo!').map(meaning));
+  const model=compileModel(correct.model),ev=new Evaluator(model),world=model.world({place:'p',time:'end'});
+  assert.equal(model.nodes.filter(n=>n.place==='p').length,0);
+  assert.equal(ev.evaluate(parseFormula('live & dia[] past propose("v")'),world),true);
+  assert.equal(ev.evaluate(parseFormula('sometime (live & dia[] past propose("v"))'),world),false);
+  assert.equal(ev.evaluate(parseFormula('exists w. sometime echo(w)'),world),false);
+  assert.equal(checkCustomTheory(model,selectTheory(correct).theory).holds,true);
+  const diagnostic=correct.properties.find(p=>p.name==='Bad end-only Echo!');
+  assert.deepEqual(diagnostic.ast,wrong.axioms.find(a=>a.name==='Echo!').ast);
+  assert.equal(ev.check(diagnostic.ast,{scope:'all'}).holds,false);
+  for(const property of canonical) {
+    assert.equal(ev.check(property.ast,{scope:'end'}).holds,true);
+    assert.equal(ev.check(property.nonvacuityAst,{scope:'end'}).holds,false);
+  }
+  const rejected=await runExperiment(wrong,{mode:'synthesize',pinFacts:true,maxMilliseconds:30000});
+  assert.equal(rejected.status,'no-model');
+  assert.equal(rejected.complete,true);
 });

@@ -1,7 +1,8 @@
 {
   "format": "history-structure-run/v1",
-  "version": "0.6.9",
-  "name": "HBB1: remove the Safe definition",
+  "version": "0.7.1",
+  "semantics": "hbb-disc/2026-11-18",
+  "name": "HBBSafe: remove the Safe definition",
   "mode": "synthesize",
   "status": "counterexample",
   "complete": true,
@@ -14,7 +15,7 @@
     "witness": {
       "model": {
         "format": "history-structure-model/v1",
-        "name": "HBB1 Safe definition removed: proposal and echo, no votes",
+        "name": "HBBSafe Safe definition removed: proposal and echo, no votes",
         "participants": [
           "p"
         ],
@@ -103,7 +104,7 @@
               "memoHits": 5,
               "memoEntries": 19,
               "memoEvictions": 0,
-              "elapsedMs": 0.04732000000012704
+              "elapsedMs": 0.04228100000000268
             }
           },
           {
@@ -122,7 +123,7 @@
               "memoHits": 0,
               "memoEntries": 18,
               "memoEvictions": 0,
-              "elapsedMs": 0.030465000000049258
+              "elapsedMs": 0.027120999999965534
             }
           },
           {
@@ -141,13 +142,13 @@
               "memoHits": 15,
               "memoEntries": 40,
               "memoEvictions": 0,
-              "elapsedMs": 0.3481340000000728
+              "elapsedMs": 0.06390700000008565
             }
           },
           {
             "name": "KnowledgeBox:\"propose\"(\"v\"):0",
             "kind": "other",
-            "formula": "(end (box[] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[] past \"propose\"(\"v\"))",
+            "formula": "(end (box[\"v\"] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[\"v\"] past \"propose\"(\"v\"))",
             "holds": true,
             "complete": true,
             "scope": "all",
@@ -156,11 +157,11 @@
             "totalRepresentatives": 6,
             "exhaustive": true,
             "stats": {
-              "steps": 73,
+              "steps": 76,
               "memoHits": 15,
               "memoEntries": 40,
               "memoEvictions": 0,
-              "elapsedMs": 0.18928900000014437
+              "elapsedMs": 0.15556800000001658
             }
           },
           {
@@ -179,13 +180,13 @@
               "memoHits": 21,
               "memoEntries": 46,
               "memoEvictions": 0,
-              "elapsedMs": 0.08245099999999184
+              "elapsedMs": 0.06953599999997095
             }
           },
           {
             "name": "KnowledgeBox:\"echo\"(\"v\"):0",
             "kind": "other",
-            "formula": "(end (box[] past (live & \"echo\"(\"v\")))) -> live -> sometime (box[] past \"echo\"(\"v\"))",
+            "formula": "(end (box[\"v\"] past (live & \"echo\"(\"v\")))) -> live -> sometime (box[\"v\"] past \"echo\"(\"v\"))",
             "holds": true,
             "complete": true,
             "scope": "all",
@@ -194,49 +195,11 @@
             "totalRepresentatives": 6,
             "exhaustive": true,
             "stats": {
-              "steps": 86,
+              "steps": 89,
               "memoHits": 21,
               "memoEntries": 46,
               "memoEvictions": 0,
-              "elapsedMs": 0.2188330000001315
-            }
-          },
-          {
-            "name": "KnowledgeDia:\"propose\"()",
-            "kind": "other",
-            "formula": "(end (dia[] past (live & \"propose\"()))) -> live -> sometime (dia[] past \"propose\"())",
-            "holds": true,
-            "complete": true,
-            "scope": "all",
-            "failures": [],
-            "checked": 6,
-            "totalRepresentatives": 6,
-            "exhaustive": true,
-            "stats": {
-              "steps": 42,
-              "memoHits": 5,
-              "memoEntries": 23,
-              "memoEvictions": 0,
-              "elapsedMs": 0.04328400000008514
-            }
-          },
-          {
-            "name": "KnowledgeBox:\"propose\"():0",
-            "kind": "other",
-            "formula": "(end (box[] past (live & \"propose\"()))) -> live -> sometime (box[] past \"propose\"())",
-            "holds": true,
-            "complete": true,
-            "scope": "all",
-            "failures": [],
-            "checked": 6,
-            "totalRepresentatives": 6,
-            "exhaustive": true,
-            "stats": {
-              "steps": 42,
-              "memoHits": 5,
-              "memoEntries": 23,
-              "memoEvictions": 0,
-              "elapsedMs": 0.033699999999953434
+              "elapsedMs": 0.06403399999999237
             }
           },
           {
@@ -255,7 +218,7 @@
               "memoHits": 0,
               "memoEntries": 21,
               "memoEvictions": 0,
-              "elapsedMs": 0.10223100000007435
+              "elapsedMs": 0.03096200000004501
             }
           },
           {
@@ -274,7 +237,7 @@
               "memoHits": 0,
               "memoEntries": 24,
               "memoEvictions": 0,
-              "elapsedMs": 0.05668400000013207
+              "elapsedMs": 0.04032100000006267
             }
           },
           {
@@ -293,7 +256,7 @@
               "memoHits": 0,
               "memoEntries": 30,
               "memoEvictions": 0,
-              "elapsedMs": 0.5984339999999975
+              "elapsedMs": 0.0483639999999923
             }
           },
           {
@@ -312,13 +275,13 @@
               "memoHits": 0,
               "memoEntries": 27,
               "memoEvictions": 0,
-              "elapsedMs": 0.07844599999998536
+              "elapsedMs": 0.03757400000006328
             }
           },
           {
             "name": "Echo!",
             "kind": "forward",
-            "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
+            "formula": "\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
             "holds": true,
             "complete": true,
             "scope": "all",
@@ -327,17 +290,17 @@
             "totalRepresentatives": 6,
             "exhaustive": true,
             "stats": {
-              "steps": 73,
-              "memoHits": 10,
-              "memoEntries": 45,
+              "steps": 76,
+              "memoHits": 20,
+              "memoEntries": 41,
               "memoEvictions": 0,
-              "elapsedMs": 0.2789519999998902
+              "elapsedMs": 0.07187900000008085
             }
           },
           {
             "name": "Vote!",
             "kind": "forward",
-            "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)",
+            "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)",
             "holds": true,
             "complete": true,
             "scope": "all",
@@ -346,17 +309,17 @@
             "totalRepresentatives": 6,
             "exhaustive": true,
             "stats": {
-              "steps": 48,
+              "steps": 49,
               "memoHits": 5,
               "memoEntries": 25,
               "memoEvictions": 0,
-              "elapsedMs": 0.06222200000001976
+              "elapsedMs": 0.03629000000000815
             }
           },
           {
             "name": "Deliver!",
             "kind": "forward",
-            "formula": "\n  ∀ m,l,v. (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)",
+            "formula": "\n  ∀ m,l,v. ↕ (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)",
             "holds": true,
             "complete": true,
             "scope": "all",
@@ -365,17 +328,17 @@
             "totalRepresentatives": 6,
             "exhaustive": true,
             "stats": {
-              "steps": 78,
-              "memoHits": 5,
-              "memoEntries": 49,
+              "steps": 82,
+              "memoHits": 16,
+              "memoEntries": 44,
               "memoEvictions": 0,
-              "elapsedMs": 0.7170189999999366
+              "elapsedMs": 0.08950700000002598
             }
           }
         ],
         "counts": {
-          "total": 15,
-          "passed": 15,
+          "total": 13,
+          "passed": 13,
           "failed": 0,
           "inconclusive": 0
         }
@@ -383,6 +346,7 @@
       "result": null,
       "experiment": {
         "format": "history-structure-synthesis/v1",
+        "semantics": "hbb-disc/2026-11-18",
         "theory": {
           "includeLive": true,
           "axioms": [
@@ -409,17 +373,17 @@
             {
               "name": "Echo!",
               "kind": "forward",
-              "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+              "formula": "\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
             },
             {
               "name": "Vote!",
               "kind": "forward",
-              "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
+              "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
             },
             {
               "name": "Deliver!",
               "kind": "forward",
-              "formula": "\n  ∀ m,l,v. (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)"
+              "formula": "\n  ∀ m,l,v. ↕ (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)"
             }
           ]
         },
@@ -427,7 +391,7 @@
         "scope": "end",
         "pinFacts": true,
         "limits": {
-          "maxMilliseconds": 59990,
+          "maxMilliseconds": 59998,
           "maxCompilationNodes": 500000,
           "maxKnowledgeFamilies": 256,
           "maxDecisions": 100000,
@@ -435,7 +399,7 @@
         },
         "seedModel": {
           "format": "history-structure-model/v1",
-          "name": "HBB1 Safe definition removed: proposal and echo, no votes",
+          "name": "HBBSafe Safe definition removed: proposal and echo, no votes",
           "participants": [
             "p"
           ],
@@ -507,24 +471,25 @@
       "verified": true
     },
     "stats": {
-      "compilationNodes": 1629,
+      "compilationNodes": 1434,
       "predicateVariables": 4,
       "variables": 7,
       "clauses": 8,
       "decisions": 4,
       "consistencyDecisions": 4,
       "targetDecisions": 0,
-      "elapsedMilliseconds": 9
+      "elapsedMilliseconds": 7
     },
     "coverage": "All predicate interpretations on the supplied fixed finite history, participant/value domains and quorum semifilters; supplied positive facts are pinned when pinFacts is enabled.",
     "evidence": {
       "format": "history-structure-evidence/v1",
-      "version": "0.6.9",
-      "name": "HBB1: remove the Safe definition",
-      "sourceMarkdown": "# HBB1: remove the Safe definition\n\nA live singleton proposes and echoes the unique value, then stops before voting. Safety has no supplied positive facts. In the given interpretation safe(v) is false, so **only Safe fails**: Vote! is disabled by its persistent-safety premise. With Safe retained, its at-most-one-proposal disjunct forces safe(v) everywhere, enabling Vote! and making this stopped history inconsistent. Omitting only **Safe** permits safe(v) to remain false and gives a nonvacuous **Liveness 1** counterexample. The other two correctness scenarios are absent.\n\nThis is a genuine HBB1 definition-removal experiment, not one of the paper's stated incorrect-axiom variants. It uses Remark 6.2.2, p. 44, and Lemma 6.5.2, pp. 47–48: at most one proposed value implies safety. The paired full and omitted rows change only the retained rule selection; the correctness property itself is unchanged.\n\n**Browser preset:** only **Safe** is omitted. **Keep all axioms** selects the full-theory comparison; **Use example defaults** restores the omission. Neither action starts a run. The source declares every rule: plain Markdown imports and CLI runs retain them unless you specify `--drop \"Safe\"`.\n\nRead the rules below, choose **Continue to claims**, review the selected properties and assumptions, then continue to the run settings and run the check. Use **Edit Markdown** to change a rule; Unicode and ASCII spellings have identical semantics. The supplied history JSON is at the end.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 6, p. 38, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 37).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires both current `safe(l)` and knowledge of a quorum of prior matching echoes.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a reporting quorum of matching source-learner votes.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Deliver? [backward]:\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### Safe — other assumption\n\nSafety is a biconditional: at most one proposal value is known, or every learner has a sequential witness in every relevant quorum intersection.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2; Remark 6.2.2, p. 44.\naxiom Safe [other]:\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))\n```\n\n### Echo! — forward rule\n\nA live participant that knows a proposal must echo some value somewhere in its actual local run. The value is existentially chosen.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Echo! [forward]:\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nIf safety holds at every actual local tuple, a live participant with quorum echoes must vote for that value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Vote! [forward]:\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)\n```\n\n### Deliver! — forward rule\n\nA live participant with a reporting quorum of votes must deliver the indicated reporting learner, source learner and value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Deliver! [forward]:\n  ∀ m,l,v. (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Liveness 1 — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.5.3, p. 48.\nproperty Liveness 1 [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))\n```\n\n### Liveness 2 — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant. The source learner must also be safe at every participant at the end of time.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.4.5, p. 47.\nproperty Liveness 2 [end]:\n  ∀ a,b,l,v. ((♢[a,b] ⊤) ∧ (□[b] live) ∧ (□[] safe(l))) ⇒ (♢[] ↓ deliver(a,l,v) ⇒ live ⇒\n  ↕ deliver(b,l,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.3.1, p. 45.\nproperty Agreement [end]:\n  ∀ a,b,l,m,v,w. ((♢[a,b] seq)) ⇒ ((♢[] ↓ deliver(a,l,v)) ∧ (♢[] ↓ deliver(b,m,w)) ⇒\n  v=w)\n```\n\n## Paper and interpretation\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nAll rules and complete conditional correctness properties in this document are sourced to Murdoch J. Gabbay and Isaac Sheff, *Heterogeneous trust in reliable broadcast via modal logic and history structures*, draft dated 7 November 2026 (**2026-11-07**). Figure 7, p. 41 and Definition 6.1.2 give ThyHBB1; Figure 8, p. 41 and Theorem 6.1.6, p. 43 give its correctness statements.\n\nThis is a pedagogical finite model, not a literal history from the paper. Delivery arguments are ordered deliver(m,l,v): m is the reporting learner, l is the source/vote learner and v is the value.\n\nThe model, value domain, quorum basis, facts and any scenario-only axiom are choices of this finite experiment. Every experiment retains the complete dynamic ThyLive include: LiveAlways, LiveSeq and both Knowledge schemes are checked at all possible worlds, covering all ground events and all finite learner lists, including repeated learners and the empty list. See the [paper map](../../docs/PAPER_MAP.md) and [paper variants](../../docs/PAPER_VARIANTS.md) for the exact source mapping and classification.\n\nResults concern this fixed finite history and all predicate interpretations extending its positive facts. They are not unbounded correctness or axiom-independence proofs.\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"HBB1 Safe definition removed: proposal and echo, no votes\",\n  \"participants\": [\n    \"p\"\n  ],\n  \"values\": [\n    \"v\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"safe\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"e0\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"propose\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": []\n    },\n    {\n      \"id\": \"e1\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"echo\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e0\"\n      ]\n    },\n    {\n      \"id\": \"e2\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": [\n        \"e1\"\n      ]\n    }\n  ],\n  \"quorums\": {\n    \"v\": [\n      [\n        \"p\"\n      ]\n    ]\n  },\n  \"facts\": [\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    }\n  ]\n}\n```\n",
+      "version": "0.7.1",
+      "semantics": "hbb-disc/2026-11-18",
+      "name": "HBBSafe: remove the Safe definition",
+      "sourceMarkdown": "# HBBSafe: remove the Safe definition\n\nA live singleton proposes and echoes the unique value, then stops before voting. Safety has no supplied positive facts. In the given interpretation safe(v) is false, so **only Safe fails**: Vote! is disabled by its persistent-safety premise. With Safe retained, its at-most-one-proposal disjunct forces safe(v) everywhere, enabling Vote! and making this stopped history inconsistent. Omitting only **Safe** permits safe(v) to remain false and gives a nonvacuous **Happy Termination** counterexample. The other two correctness scenarios are absent.\n\nThis is a genuine HBBSafe definition-removal experiment, not one of the paper's stated incorrect-axiom variants. It uses Remark 6.3.2, pp. 50–51, and Lemma 6.6.2, p. 54: at most one proposed value implies safety. The paired full and omitted rows change only the retained rule selection; the correctness property itself is unchanged.\n\n**Browser preset:** only **Safe** is omitted. **Keep all axioms** selects the full-theory comparison; **Use example defaults** restores the omission. Neither action starts a run. The source declares every rule: plain Markdown imports and CLI runs retain them unless you specify `--drop \"Safe\"`.\n\nRead the rules below, choose **Continue to claims**, review the selected properties and assumptions, then continue to the run settings and run the check. Use **Edit Markdown** to change a rule; Unicode and ASCII spellings have identical semantics. The supplied history JSON is at the end.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 7, p. 43, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 42).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires both current `safe(l)` and knowledge of a quorum of prior matching echoes.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a reporting quorum of matching source-learner votes.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Deliver? [backward]:\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### Safe — other assumption\n\nSafety is a biconditional: at most one proposal value is known, or every learner has a sequential witness in every relevant quorum intersection.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2; Remark 6.3.2, pp. 50–51.\naxiom Safe [other]:\n  ∀ l. safe(l) ⇔ ((∃⩽1 v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))\n```\n\n### Echo! — forward rule\n\nIf an actual local tuple records a live participant knowing a proposal, that participant must echo some value at an actual local tuple. The value is existentially chosen; end-of-time knowledge alone does not activate the rule.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Echo! [forward]:\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nIf an actual local tuple records a live participant knowing the required quorum of echoes, that participant must vote at an actual local tuple. The rule does not impose a time order between those two tuples. Its separate ⇕ safe(l) guard requires safety at every actual local tuple; the required vote is for the same value.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Vote! [forward]:\n  ∀ l,v. ⇕ safe(l) ⇒ ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)\n```\n\n### Deliver! — forward rule\n\nIf an actual local tuple records a live participant knowing the required quorum of votes, that participant must deliver at an actual local tuple. Merely learning of those votes at the end of time does not activate the rule.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Deliver! [forward]:\n  ∀ m,l,v. ↕ (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Happy Termination — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 9, p. 48; Theorem 6.2.6, p. 49; Proposition 6.6.3, pp. 54–55.\nproperty Happy Termination [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃=1 w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))\n```\n\n### Cascade Termination — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant. The source learner must also be safe at every participant at the end of time.\n\n```hsm\n# Paper: Figure 9, p. 48; Theorem 6.2.6, p. 49; Proposition 6.5.5, pp. 53–54.\nproperty Cascade Termination [end]:\n  ∀ a,b,l,v. ((♢[a,b] ⊤) ∧ (□[b] live) ∧ (□[] safe(l))) ⇒ (♢[] ↓ deliver(a,l,v) ⇒ live ⇒\n  ↕ deliver(b,l,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 9, p. 48; Theorem 6.2.6, p. 49; Proposition 6.4.1, p. 52.\nproperty Agreement [end]:\n  ∀ a,b,l,m,v,w. ((♢[a,b] seq)) ⇒ ((♢[] ↓ deliver(a,l,v)) ∧ (♢[] ↓ deliver(b,m,w)) ⇒\n  v=w)\n```\n\n## Paper and interpretation\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nAll rules and complete conditional correctness properties in this document are sourced to Murdoch J. Gabbay and Isaac Sheff, *Heterogeneous trust in reliable broadcast via modal logic and history structures*, draft dated 18 November 2026 (**2026-11-18**). Figure 8, p. 48 and Definition 6.2.2 give HBBSafe; Figure 9, p. 48 and Theorem 6.2.6, p. 49 give its correctness statements.\n\nThis is a pedagogical finite model, not a literal history from the paper. Delivery arguments are ordered deliver(m,l,v): m is the reporting learner, l is the source/vote learner and v is the value.\n\nThe model, value domain, quorum basis, facts and any scenario-only axiom are choices of this finite experiment. Every experiment retains the complete dynamic ThyLive include: LiveAlways, LiveSeq and both Knowledge schemes are checked at all possible worlds, covering all ground events and each single learner for the quorum Knowledge scheme. See the [paper map](../../docs/PAPER_MAP.md) and [paper variants](../../docs/PAPER_VARIANTS.md) for the exact source mapping and classification.\n\nResults concern this fixed finite history and all predicate interpretations extending its positive facts. They are not unbounded correctness or axiom-independence proofs.\n\nReference PDF: `hbb-disc(20261118-194826).pdf`, SHA-256 `08361854a013fa9ec7928221b9f05896386801b8d6247250a524c27d151199a4`.\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"HBBSafe Safe definition removed: proposal and echo, no votes\",\n  \"participants\": [\n    \"p\"\n  ],\n  \"values\": [\n    \"v\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"safe\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"e0\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"propose\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": []\n    },\n    {\n      \"id\": \"e1\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"echo\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e0\"\n      ]\n    },\n    {\n      \"id\": \"e2\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": [\n        \"e1\"\n      ]\n    }\n  ],\n  \"quorums\": {\n    \"v\": [\n      [\n        \"p\"\n      ]\n    ]\n  },\n  \"facts\": [\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    }\n  ]\n}\n```\n",
       "model": {
         "format": "history-structure-model/v1",
-        "name": "HBB1 Safe definition removed: proposal and echo, no votes",
+        "name": "HBBSafe Safe definition removed: proposal and echo, no votes",
         "participants": [
           "p"
         ],
@@ -618,17 +583,17 @@
           {
             "name": "Echo!",
             "kind": "forward",
-            "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+            "formula": "\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
           },
           {
             "name": "Vote!",
             "kind": "forward",
-            "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
+            "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
           },
           {
             "name": "Deliver!",
             "kind": "forward",
-            "formula": "\n  ∀ m,l,v. (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)"
+            "formula": "\n  ∀ m,l,v. ↕ (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)"
           }
         ]
       },
@@ -662,14 +627,14 @@
         "format": "history-structure-run-snapshot/v1",
         "engine": {
           "name": "history-structure-model-checker",
-          "version": "0.6.9",
-          "semantics": "hbb-disc/2026-11-07"
+          "version": "0.7.1",
+          "semantics": "hbb-disc/2026-11-18"
         },
         "backend": "builtin-cdcl/tseitin",
-        "sourceSha256": "fefb883f56f5a35539b5ef1fd2ed8afb11ab989461dcac32f7eaeb3934195153",
+        "sourceSha256": "45d73870f0ebf0d8023593e1f71219da4739630f51a3dbc795af44fa658c2a54",
         "selectedProperties": [
-          "Liveness 1",
-          "Liveness 2",
+          "Happy Termination",
+          "Cascade Termination",
           "Agreement"
         ],
         "droppedAxioms": [
@@ -685,33 +650,33 @@
           "maxModels": 1000,
           "maxKnowledgeFamilies": 256
         },
-        "id": "sha256:5b0b8b1181b01927dd10f8eb2e64e07e193836ddf680cb68ca36aa8ebc0db9ee"
+        "id": "sha256:4e7d2840eee8851575ad7edd7939e81cff80a43730225ca1e3ef6e8d731b5c27"
       },
       "expected": "model"
     }
   },
   "properties": [
     {
-      "name": "Liveness 1",
-      "formula": "\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))",
+      "name": "Happy Termination",
+      "formula": "\n  ∀ l,v. ((□[l] live) ∧ (∃=1 w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))",
       "scope": "end",
       "status": "counterexample",
       "unknownHistories": 0,
       "stats": {
-        "compilationNodes": 1718,
+        "compilationNodes": 1523,
         "predicateVariables": 4,
         "variables": 7,
         "clauses": 8,
         "decisions": 8,
         "consistencyDecisions": 4,
         "targetDecisions": 4,
-        "elapsedMilliseconds": 26
+        "elapsedMilliseconds": 8
       },
       "reason": "A predicate interpretation satisfies the retained assumptions and falsifies the property; both judgements were independently replayed.",
       "witness": {
         "model": {
           "format": "history-structure-model/v1",
-          "name": "HBB1 Safe definition removed: proposal and echo, no votes",
+          "name": "HBBSafe Safe definition removed: proposal and echo, no votes",
           "participants": [
             "p"
           ],
@@ -800,7 +765,7 @@
                 "memoHits": 5,
                 "memoEntries": 19,
                 "memoEvictions": 0,
-                "elapsedMs": 0.12265099999990525
+                "elapsedMs": 0.050324000000046
               }
             },
             {
@@ -819,7 +784,7 @@
                 "memoHits": 0,
                 "memoEntries": 18,
                 "memoEvictions": 0,
-                "elapsedMs": 0.1307329999999638
+                "elapsedMs": 0.03805899999997564
               }
             },
             {
@@ -838,13 +803,13 @@
                 "memoHits": 15,
                 "memoEntries": 40,
                 "memoEvictions": 0,
-                "elapsedMs": 0.2921609999998509
+                "elapsedMs": 0.09426199999995788
               }
             },
             {
               "name": "KnowledgeBox:\"propose\"(\"v\"):0",
               "kind": "other",
-              "formula": "(end (box[] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[] past \"propose\"(\"v\"))",
+              "formula": "(end (box[\"v\"] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[\"v\"] past \"propose\"(\"v\"))",
               "holds": true,
               "complete": true,
               "scope": "all",
@@ -853,11 +818,11 @@
               "totalRepresentatives": 6,
               "exhaustive": true,
               "stats": {
-                "steps": 73,
+                "steps": 76,
                 "memoHits": 15,
                 "memoEntries": 40,
                 "memoEvictions": 0,
-                "elapsedMs": 0.3509079999998903
+                "elapsedMs": 0.19878200000005108
               }
             },
             {
@@ -876,13 +841,13 @@
                 "memoHits": 21,
                 "memoEntries": 46,
                 "memoEvictions": 0,
-                "elapsedMs": 0.39688599999999497
+                "elapsedMs": 0.10748999999998432
               }
             },
             {
               "name": "KnowledgeBox:\"echo\"(\"v\"):0",
               "kind": "other",
-              "formula": "(end (box[] past (live & \"echo\"(\"v\")))) -> live -> sometime (box[] past \"echo\"(\"v\"))",
+              "formula": "(end (box[\"v\"] past (live & \"echo\"(\"v\")))) -> live -> sometime (box[\"v\"] past \"echo\"(\"v\"))",
               "holds": true,
               "complete": true,
               "scope": "all",
@@ -891,49 +856,11 @@
               "totalRepresentatives": 6,
               "exhaustive": true,
               "stats": {
-                "steps": 86,
+                "steps": 89,
                 "memoHits": 21,
                 "memoEntries": 46,
                 "memoEvictions": 0,
-                "elapsedMs": 0.3766760000000886
-              }
-            },
-            {
-              "name": "KnowledgeDia:\"propose\"()",
-              "kind": "other",
-              "formula": "(end (dia[] past (live & \"propose\"()))) -> live -> sometime (dia[] past \"propose\"())",
-              "holds": true,
-              "complete": true,
-              "scope": "all",
-              "failures": [],
-              "checked": 6,
-              "totalRepresentatives": 6,
-              "exhaustive": true,
-              "stats": {
-                "steps": 42,
-                "memoHits": 5,
-                "memoEntries": 23,
-                "memoEvictions": 0,
-                "elapsedMs": 0.17041199999994205
-              }
-            },
-            {
-              "name": "KnowledgeBox:\"propose\"():0",
-              "kind": "other",
-              "formula": "(end (box[] past (live & \"propose\"()))) -> live -> sometime (box[] past \"propose\"())",
-              "holds": true,
-              "complete": true,
-              "scope": "all",
-              "failures": [],
-              "checked": 6,
-              "totalRepresentatives": 6,
-              "exhaustive": true,
-              "stats": {
-                "steps": 42,
-                "memoHits": 5,
-                "memoEntries": 23,
-                "memoEvictions": 0,
-                "elapsedMs": 0.15544999999997344
+                "elapsedMs": 0.13491499999997814
               }
             },
             {
@@ -952,7 +879,7 @@
                 "memoHits": 0,
                 "memoEntries": 21,
                 "memoEvictions": 0,
-                "elapsedMs": 0.272171999999955
+                "elapsedMs": 0.05320299999993949
               }
             },
             {
@@ -971,7 +898,7 @@
                 "memoHits": 0,
                 "memoEntries": 24,
                 "memoEvictions": 0,
-                "elapsedMs": 0.29706800000008116
+                "elapsedMs": 0.052199999999970714
               }
             },
             {
@@ -990,7 +917,7 @@
                 "memoHits": 0,
                 "memoEntries": 30,
                 "memoEvictions": 0,
-                "elapsedMs": 0.4637049999998908
+                "elapsedMs": 0.07132200000000921
               }
             },
             {
@@ -1009,13 +936,13 @@
                 "memoHits": 0,
                 "memoEntries": 27,
                 "memoEvictions": 0,
-                "elapsedMs": 2.5824089999998705
+                "elapsedMs": 0.05556300000000647
               }
             },
             {
               "name": "Echo!",
               "kind": "forward",
-              "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
+              "formula": "\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
               "holds": true,
               "complete": true,
               "scope": "all",
@@ -1024,17 +951,17 @@
               "totalRepresentatives": 6,
               "exhaustive": true,
               "stats": {
-                "steps": 73,
-                "memoHits": 10,
-                "memoEntries": 45,
+                "steps": 76,
+                "memoHits": 20,
+                "memoEntries": 41,
                 "memoEvictions": 0,
-                "elapsedMs": 0.12390299999992749
+                "elapsedMs": 0.1158900000000358
               }
             },
             {
               "name": "Vote!",
               "kind": "forward",
-              "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)",
+              "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)",
               "holds": true,
               "complete": true,
               "scope": "all",
@@ -1043,17 +970,17 @@
               "totalRepresentatives": 6,
               "exhaustive": true,
               "stats": {
-                "steps": 48,
+                "steps": 49,
                 "memoHits": 5,
                 "memoEntries": 25,
                 "memoEvictions": 0,
-                "elapsedMs": 0.1561410000001615
+                "elapsedMs": 0.05882200000007742
               }
             },
             {
               "name": "Deliver!",
               "kind": "forward",
-              "formula": "\n  ∀ m,l,v. (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)",
+              "formula": "\n  ∀ m,l,v. ↕ (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)",
               "holds": true,
               "complete": true,
               "scope": "all",
@@ -1062,17 +989,17 @@
               "totalRepresentatives": 6,
               "exhaustive": true,
               "stats": {
-                "steps": 78,
-                "memoHits": 5,
-                "memoEntries": 49,
+                "steps": 82,
+                "memoHits": 16,
+                "memoEntries": 44,
                 "memoEvictions": 0,
-                "elapsedMs": 0.19643000000019128
+                "elapsedMs": 0.13767400000006091
               }
             }
           ],
           "counts": {
-            "total": 15,
-            "passed": 15,
+            "total": 13,
+            "passed": 13,
             "failed": 0,
             "inconclusive": 0
           }
@@ -1103,11 +1030,12 @@
             "memoHits": 0,
             "memoEntries": 28,
             "memoEvictions": 0,
-            "elapsedMs": 0.09150500000009743
+            "elapsedMs": 0.09736099999997805
           }
         },
         "experiment": {
           "format": "history-structure-synthesis/v1",
+          "semantics": "hbb-disc/2026-11-18",
           "theory": {
             "includeLive": true,
             "axioms": [
@@ -1134,25 +1062,25 @@
               {
                 "name": "Echo!",
                 "kind": "forward",
-                "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+                "formula": "\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
               },
               {
                 "name": "Vote!",
                 "kind": "forward",
-                "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
+                "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
               },
               {
                 "name": "Deliver!",
                 "kind": "forward",
-                "formula": "\n  ∀ m,l,v. (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)"
+                "formula": "\n  ∀ m,l,v. ↕ (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)"
               }
             ]
           },
-          "property": "\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))",
+          "property": "\n  ∀ l,v. ((□[l] live) ∧ (∃=1 w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))",
           "scope": "end",
           "pinFacts": true,
           "limits": {
-            "maxMilliseconds": 59978,
+            "maxMilliseconds": 59989,
             "maxCompilationNodes": 500000,
             "maxKnowledgeFamilies": 256,
             "maxDecisions": 100000,
@@ -1160,7 +1088,7 @@
           },
           "seedModel": {
             "format": "history-structure-model/v1",
-            "name": "HBB1 Safe definition removed: proposal and echo, no votes",
+            "name": "HBBSafe Safe definition removed: proposal and echo, no votes",
             "participants": [
               "p"
             ],
@@ -1233,12 +1161,13 @@
       },
       "evidence": {
         "format": "history-structure-evidence/v1",
-        "version": "0.6.9",
-        "name": "HBB1: remove the Safe definition",
-        "sourceMarkdown": "# HBB1: remove the Safe definition\n\nA live singleton proposes and echoes the unique value, then stops before voting. Safety has no supplied positive facts. In the given interpretation safe(v) is false, so **only Safe fails**: Vote! is disabled by its persistent-safety premise. With Safe retained, its at-most-one-proposal disjunct forces safe(v) everywhere, enabling Vote! and making this stopped history inconsistent. Omitting only **Safe** permits safe(v) to remain false and gives a nonvacuous **Liveness 1** counterexample. The other two correctness scenarios are absent.\n\nThis is a genuine HBB1 definition-removal experiment, not one of the paper's stated incorrect-axiom variants. It uses Remark 6.2.2, p. 44, and Lemma 6.5.2, pp. 47–48: at most one proposed value implies safety. The paired full and omitted rows change only the retained rule selection; the correctness property itself is unchanged.\n\n**Browser preset:** only **Safe** is omitted. **Keep all axioms** selects the full-theory comparison; **Use example defaults** restores the omission. Neither action starts a run. The source declares every rule: plain Markdown imports and CLI runs retain them unless you specify `--drop \"Safe\"`.\n\nRead the rules below, choose **Continue to claims**, review the selected properties and assumptions, then continue to the run settings and run the check. Use **Edit Markdown** to change a rule; Unicode and ASCII spellings have identical semantics. The supplied history JSON is at the end.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 6, p. 38, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 37).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires both current `safe(l)` and knowledge of a quorum of prior matching echoes.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a reporting quorum of matching source-learner votes.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Deliver? [backward]:\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### Safe — other assumption\n\nSafety is a biconditional: at most one proposal value is known, or every learner has a sequential witness in every relevant quorum intersection.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2; Remark 6.2.2, p. 44.\naxiom Safe [other]:\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))\n```\n\n### Echo! — forward rule\n\nA live participant that knows a proposal must echo some value somewhere in its actual local run. The value is existentially chosen.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Echo! [forward]:\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nIf safety holds at every actual local tuple, a live participant with quorum echoes must vote for that value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Vote! [forward]:\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)\n```\n\n### Deliver! — forward rule\n\nA live participant with a reporting quorum of votes must deliver the indicated reporting learner, source learner and value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Deliver! [forward]:\n  ∀ m,l,v. (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Liveness 1 — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.5.3, p. 48.\nproperty Liveness 1 [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))\n```\n\n### Liveness 2 — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant. The source learner must also be safe at every participant at the end of time.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.4.5, p. 47.\nproperty Liveness 2 [end]:\n  ∀ a,b,l,v. ((♢[a,b] ⊤) ∧ (□[b] live) ∧ (□[] safe(l))) ⇒ (♢[] ↓ deliver(a,l,v) ⇒ live ⇒\n  ↕ deliver(b,l,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.3.1, p. 45.\nproperty Agreement [end]:\n  ∀ a,b,l,m,v,w. ((♢[a,b] seq)) ⇒ ((♢[] ↓ deliver(a,l,v)) ∧ (♢[] ↓ deliver(b,m,w)) ⇒\n  v=w)\n```\n\n## Paper and interpretation\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nAll rules and complete conditional correctness properties in this document are sourced to Murdoch J. Gabbay and Isaac Sheff, *Heterogeneous trust in reliable broadcast via modal logic and history structures*, draft dated 7 November 2026 (**2026-11-07**). Figure 7, p. 41 and Definition 6.1.2 give ThyHBB1; Figure 8, p. 41 and Theorem 6.1.6, p. 43 give its correctness statements.\n\nThis is a pedagogical finite model, not a literal history from the paper. Delivery arguments are ordered deliver(m,l,v): m is the reporting learner, l is the source/vote learner and v is the value.\n\nThe model, value domain, quorum basis, facts and any scenario-only axiom are choices of this finite experiment. Every experiment retains the complete dynamic ThyLive include: LiveAlways, LiveSeq and both Knowledge schemes are checked at all possible worlds, covering all ground events and all finite learner lists, including repeated learners and the empty list. See the [paper map](../../docs/PAPER_MAP.md) and [paper variants](../../docs/PAPER_VARIANTS.md) for the exact source mapping and classification.\n\nResults concern this fixed finite history and all predicate interpretations extending its positive facts. They are not unbounded correctness or axiom-independence proofs.\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"HBB1 Safe definition removed: proposal and echo, no votes\",\n  \"participants\": [\n    \"p\"\n  ],\n  \"values\": [\n    \"v\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"safe\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"e0\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"propose\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": []\n    },\n    {\n      \"id\": \"e1\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"echo\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e0\"\n      ]\n    },\n    {\n      \"id\": \"e2\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": [\n        \"e1\"\n      ]\n    }\n  ],\n  \"quorums\": {\n    \"v\": [\n      [\n        \"p\"\n      ]\n    ]\n  },\n  \"facts\": [\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    }\n  ]\n}\n```\n",
+        "version": "0.7.1",
+        "semantics": "hbb-disc/2026-11-18",
+        "name": "HBBSafe: remove the Safe definition",
+        "sourceMarkdown": "# HBBSafe: remove the Safe definition\n\nA live singleton proposes and echoes the unique value, then stops before voting. Safety has no supplied positive facts. In the given interpretation safe(v) is false, so **only Safe fails**: Vote! is disabled by its persistent-safety premise. With Safe retained, its at-most-one-proposal disjunct forces safe(v) everywhere, enabling Vote! and making this stopped history inconsistent. Omitting only **Safe** permits safe(v) to remain false and gives a nonvacuous **Happy Termination** counterexample. The other two correctness scenarios are absent.\n\nThis is a genuine HBBSafe definition-removal experiment, not one of the paper's stated incorrect-axiom variants. It uses Remark 6.3.2, pp. 50–51, and Lemma 6.6.2, p. 54: at most one proposed value implies safety. The paired full and omitted rows change only the retained rule selection; the correctness property itself is unchanged.\n\n**Browser preset:** only **Safe** is omitted. **Keep all axioms** selects the full-theory comparison; **Use example defaults** restores the omission. Neither action starts a run. The source declares every rule: plain Markdown imports and CLI runs retain them unless you specify `--drop \"Safe\"`.\n\nRead the rules below, choose **Continue to claims**, review the selected properties and assumptions, then continue to the run settings and run the check. Use **Edit Markdown** to change a rule; Unicode and ASCII spellings have identical semantics. The supplied history JSON is at the end.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 7, p. 43, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 42).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires both current `safe(l)` and knowledge of a quorum of prior matching echoes.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a reporting quorum of matching source-learner votes.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Deliver? [backward]:\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### Safe — other assumption\n\nSafety is a biconditional: at most one proposal value is known, or every learner has a sequential witness in every relevant quorum intersection.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2; Remark 6.3.2, pp. 50–51.\naxiom Safe [other]:\n  ∀ l. safe(l) ⇔ ((∃⩽1 v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))\n```\n\n### Echo! — forward rule\n\nIf an actual local tuple records a live participant knowing a proposal, that participant must echo some value at an actual local tuple. The value is existentially chosen; end-of-time knowledge alone does not activate the rule.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Echo! [forward]:\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nIf an actual local tuple records a live participant knowing the required quorum of echoes, that participant must vote at an actual local tuple. The rule does not impose a time order between those two tuples. Its separate ⇕ safe(l) guard requires safety at every actual local tuple; the required vote is for the same value.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Vote! [forward]:\n  ∀ l,v. ⇕ safe(l) ⇒ ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)\n```\n\n### Deliver! — forward rule\n\nIf an actual local tuple records a live participant knowing the required quorum of votes, that participant must deliver at an actual local tuple. Merely learning of those votes at the end of time does not activate the rule.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Deliver! [forward]:\n  ∀ m,l,v. ↕ (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Happy Termination — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 9, p. 48; Theorem 6.2.6, p. 49; Proposition 6.6.3, pp. 54–55.\nproperty Happy Termination [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃=1 w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))\n```\n\n### Cascade Termination — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant. The source learner must also be safe at every participant at the end of time.\n\n```hsm\n# Paper: Figure 9, p. 48; Theorem 6.2.6, p. 49; Proposition 6.5.5, pp. 53–54.\nproperty Cascade Termination [end]:\n  ∀ a,b,l,v. ((♢[a,b] ⊤) ∧ (□[b] live) ∧ (□[] safe(l))) ⇒ (♢[] ↓ deliver(a,l,v) ⇒ live ⇒\n  ↕ deliver(b,l,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 9, p. 48; Theorem 6.2.6, p. 49; Proposition 6.4.1, p. 52.\nproperty Agreement [end]:\n  ∀ a,b,l,m,v,w. ((♢[a,b] seq)) ⇒ ((♢[] ↓ deliver(a,l,v)) ∧ (♢[] ↓ deliver(b,m,w)) ⇒\n  v=w)\n```\n\n## Paper and interpretation\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nAll rules and complete conditional correctness properties in this document are sourced to Murdoch J. Gabbay and Isaac Sheff, *Heterogeneous trust in reliable broadcast via modal logic and history structures*, draft dated 18 November 2026 (**2026-11-18**). Figure 8, p. 48 and Definition 6.2.2 give HBBSafe; Figure 9, p. 48 and Theorem 6.2.6, p. 49 give its correctness statements.\n\nThis is a pedagogical finite model, not a literal history from the paper. Delivery arguments are ordered deliver(m,l,v): m is the reporting learner, l is the source/vote learner and v is the value.\n\nThe model, value domain, quorum basis, facts and any scenario-only axiom are choices of this finite experiment. Every experiment retains the complete dynamic ThyLive include: LiveAlways, LiveSeq and both Knowledge schemes are checked at all possible worlds, covering all ground events and each single learner for the quorum Knowledge scheme. See the [paper map](../../docs/PAPER_MAP.md) and [paper variants](../../docs/PAPER_VARIANTS.md) for the exact source mapping and classification.\n\nResults concern this fixed finite history and all predicate interpretations extending its positive facts. They are not unbounded correctness or axiom-independence proofs.\n\nReference PDF: `hbb-disc(20261118-194826).pdf`, SHA-256 `08361854a013fa9ec7928221b9f05896386801b8d6247250a524c27d151199a4`.\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"HBBSafe Safe definition removed: proposal and echo, no votes\",\n  \"participants\": [\n    \"p\"\n  ],\n  \"values\": [\n    \"v\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"safe\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"e0\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"propose\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": []\n    },\n    {\n      \"id\": \"e1\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"echo\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e0\"\n      ]\n    },\n    {\n      \"id\": \"e2\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": [\n        \"e1\"\n      ]\n    }\n  ],\n  \"quorums\": {\n    \"v\": [\n      [\n        \"p\"\n      ]\n    ]\n  },\n  \"facts\": [\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    }\n  ]\n}\n```\n",
         "model": {
           "format": "history-structure-model/v1",
-          "name": "HBB1 Safe definition removed: proposal and echo, no votes",
+          "name": "HBBSafe Safe definition removed: proposal and echo, no votes",
           "participants": [
             "p"
           ],
@@ -1332,17 +1261,17 @@
             {
               "name": "Echo!",
               "kind": "forward",
-              "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+              "formula": "\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
             },
             {
               "name": "Vote!",
               "kind": "forward",
-              "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
+              "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
             },
             {
               "name": "Deliver!",
               "kind": "forward",
-              "formula": "\n  ∀ m,l,v. (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)"
+              "formula": "\n  ∀ m,l,v. ↕ (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)"
             }
           ]
         },
@@ -1360,8 +1289,8 @@
           "Safe"
         ],
         "property": {
-          "name": "Liveness 1",
-          "formula": "\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))",
+          "name": "Happy Termination",
+          "formula": "\n  ∀ l,v. ((□[l] live) ∧ (∃=1 w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))",
           "scope": "end"
         },
         "failure": {
@@ -1391,14 +1320,14 @@
           "format": "history-structure-run-snapshot/v1",
           "engine": {
             "name": "history-structure-model-checker",
-            "version": "0.6.9",
-            "semantics": "hbb-disc/2026-11-07"
+            "version": "0.7.1",
+            "semantics": "hbb-disc/2026-11-18"
           },
           "backend": "builtin-cdcl/tseitin",
-          "sourceSha256": "fefb883f56f5a35539b5ef1fd2ed8afb11ab989461dcac32f7eaeb3934195153",
+          "sourceSha256": "45d73870f0ebf0d8023593e1f71219da4739630f51a3dbc795af44fa658c2a54",
           "selectedProperties": [
-            "Liveness 1",
-            "Liveness 2",
+            "Happy Termination",
+            "Cascade Termination",
             "Agreement"
           ],
           "droppedAxioms": [
@@ -1414,26 +1343,26 @@
             "maxModels": 1000,
             "maxKnowledgeFamilies": 256
           },
-          "id": "sha256:5b0b8b1181b01927dd10f8eb2e64e07e193836ddf680cb68ca36aa8ebc0db9ee"
+          "id": "sha256:4e7d2840eee8851575ad7edd7939e81cff80a43730225ca1e3ef6e8d731b5c27"
         },
         "expected": "counterexample"
       }
     },
     {
-      "name": "Liveness 2",
+      "name": "Cascade Termination",
       "formula": "\n  ∀ a,b,l,v. ((♢[a,b] ⊤) ∧ (□[b] live) ∧ (□[] safe(l))) ⇒ (♢[] ↓ deliver(a,l,v) ⇒ live ⇒\n  ↕ deliver(b,l,v))",
       "scope": "end",
       "status": "holds",
       "unknownHistories": 0,
       "stats": {
-        "compilationNodes": 1707,
+        "compilationNodes": 1512,
         "predicateVariables": 4,
         "variables": 7,
         "clauses": 9,
         "decisions": 4,
         "consistencyDecisions": 4,
         "targetDecisions": 0,
-        "elapsedMilliseconds": 6
+        "elapsedMilliseconds": 9
       },
       "reason": "No counterexample exists within the explicit history, value, trust and palette bounds."
     },
@@ -1444,14 +1373,14 @@
       "status": "holds",
       "unknownHistories": 0,
       "stats": {
-        "compilationNodes": 1701,
+        "compilationNodes": 1506,
         "predicateVariables": 4,
         "variables": 7,
         "clauses": 9,
         "decisions": 4,
         "consistencyDecisions": 4,
         "targetDecisions": 0,
-        "elapsedMilliseconds": 7
+        "elapsedMilliseconds": 11
       },
       "reason": "No counterexample exists within the explicit history, value, trust and palette bounds."
     }
@@ -1459,7 +1388,7 @@
   "witness": {
     "model": {
       "format": "history-structure-model/v1",
-      "name": "HBB1 Safe definition removed: proposal and echo, no votes",
+      "name": "HBBSafe Safe definition removed: proposal and echo, no votes",
       "participants": [
         "p"
       ],
@@ -1548,7 +1477,7 @@
             "memoHits": 5,
             "memoEntries": 19,
             "memoEvictions": 0,
-            "elapsedMs": 0.12265099999990525
+            "elapsedMs": 0.050324000000046
           }
         },
         {
@@ -1567,7 +1496,7 @@
             "memoHits": 0,
             "memoEntries": 18,
             "memoEvictions": 0,
-            "elapsedMs": 0.1307329999999638
+            "elapsedMs": 0.03805899999997564
           }
         },
         {
@@ -1586,13 +1515,13 @@
             "memoHits": 15,
             "memoEntries": 40,
             "memoEvictions": 0,
-            "elapsedMs": 0.2921609999998509
+            "elapsedMs": 0.09426199999995788
           }
         },
         {
           "name": "KnowledgeBox:\"propose\"(\"v\"):0",
           "kind": "other",
-          "formula": "(end (box[] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[] past \"propose\"(\"v\"))",
+          "formula": "(end (box[\"v\"] past (live & \"propose\"(\"v\")))) -> live -> sometime (box[\"v\"] past \"propose\"(\"v\"))",
           "holds": true,
           "complete": true,
           "scope": "all",
@@ -1601,11 +1530,11 @@
           "totalRepresentatives": 6,
           "exhaustive": true,
           "stats": {
-            "steps": 73,
+            "steps": 76,
             "memoHits": 15,
             "memoEntries": 40,
             "memoEvictions": 0,
-            "elapsedMs": 0.3509079999998903
+            "elapsedMs": 0.19878200000005108
           }
         },
         {
@@ -1624,13 +1553,13 @@
             "memoHits": 21,
             "memoEntries": 46,
             "memoEvictions": 0,
-            "elapsedMs": 0.39688599999999497
+            "elapsedMs": 0.10748999999998432
           }
         },
         {
           "name": "KnowledgeBox:\"echo\"(\"v\"):0",
           "kind": "other",
-          "formula": "(end (box[] past (live & \"echo\"(\"v\")))) -> live -> sometime (box[] past \"echo\"(\"v\"))",
+          "formula": "(end (box[\"v\"] past (live & \"echo\"(\"v\")))) -> live -> sometime (box[\"v\"] past \"echo\"(\"v\"))",
           "holds": true,
           "complete": true,
           "scope": "all",
@@ -1639,49 +1568,11 @@
           "totalRepresentatives": 6,
           "exhaustive": true,
           "stats": {
-            "steps": 86,
+            "steps": 89,
             "memoHits": 21,
             "memoEntries": 46,
             "memoEvictions": 0,
-            "elapsedMs": 0.3766760000000886
-          }
-        },
-        {
-          "name": "KnowledgeDia:\"propose\"()",
-          "kind": "other",
-          "formula": "(end (dia[] past (live & \"propose\"()))) -> live -> sometime (dia[] past \"propose\"())",
-          "holds": true,
-          "complete": true,
-          "scope": "all",
-          "failures": [],
-          "checked": 6,
-          "totalRepresentatives": 6,
-          "exhaustive": true,
-          "stats": {
-            "steps": 42,
-            "memoHits": 5,
-            "memoEntries": 23,
-            "memoEvictions": 0,
-            "elapsedMs": 0.17041199999994205
-          }
-        },
-        {
-          "name": "KnowledgeBox:\"propose\"():0",
-          "kind": "other",
-          "formula": "(end (box[] past (live & \"propose\"()))) -> live -> sometime (box[] past \"propose\"())",
-          "holds": true,
-          "complete": true,
-          "scope": "all",
-          "failures": [],
-          "checked": 6,
-          "totalRepresentatives": 6,
-          "exhaustive": true,
-          "stats": {
-            "steps": 42,
-            "memoHits": 5,
-            "memoEntries": 23,
-            "memoEvictions": 0,
-            "elapsedMs": 0.15544999999997344
+            "elapsedMs": 0.13491499999997814
           }
         },
         {
@@ -1700,7 +1591,7 @@
             "memoHits": 0,
             "memoEntries": 21,
             "memoEvictions": 0,
-            "elapsedMs": 0.272171999999955
+            "elapsedMs": 0.05320299999993949
           }
         },
         {
@@ -1719,7 +1610,7 @@
             "memoHits": 0,
             "memoEntries": 24,
             "memoEvictions": 0,
-            "elapsedMs": 0.29706800000008116
+            "elapsedMs": 0.052199999999970714
           }
         },
         {
@@ -1738,7 +1629,7 @@
             "memoHits": 0,
             "memoEntries": 30,
             "memoEvictions": 0,
-            "elapsedMs": 0.4637049999998908
+            "elapsedMs": 0.07132200000000921
           }
         },
         {
@@ -1757,13 +1648,13 @@
             "memoHits": 0,
             "memoEntries": 27,
             "memoEvictions": 0,
-            "elapsedMs": 2.5824089999998705
+            "elapsedMs": 0.05556300000000647
           }
         },
         {
           "name": "Echo!",
           "kind": "forward",
-          "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
+          "formula": "\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
           "holds": true,
           "complete": true,
           "scope": "all",
@@ -1772,17 +1663,17 @@
           "totalRepresentatives": 6,
           "exhaustive": true,
           "stats": {
-            "steps": 73,
-            "memoHits": 10,
-            "memoEntries": 45,
+            "steps": 76,
+            "memoHits": 20,
+            "memoEntries": 41,
             "memoEvictions": 0,
-            "elapsedMs": 0.12390299999992749
+            "elapsedMs": 0.1158900000000358
           }
         },
         {
           "name": "Vote!",
           "kind": "forward",
-          "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)",
+          "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)",
           "holds": true,
           "complete": true,
           "scope": "all",
@@ -1791,17 +1682,17 @@
           "totalRepresentatives": 6,
           "exhaustive": true,
           "stats": {
-            "steps": 48,
+            "steps": 49,
             "memoHits": 5,
             "memoEntries": 25,
             "memoEvictions": 0,
-            "elapsedMs": 0.1561410000001615
+            "elapsedMs": 0.05882200000007742
           }
         },
         {
           "name": "Deliver!",
           "kind": "forward",
-          "formula": "\n  ∀ m,l,v. (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)",
+          "formula": "\n  ∀ m,l,v. ↕ (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)",
           "holds": true,
           "complete": true,
           "scope": "all",
@@ -1810,17 +1701,17 @@
           "totalRepresentatives": 6,
           "exhaustive": true,
           "stats": {
-            "steps": 78,
-            "memoHits": 5,
-            "memoEntries": 49,
+            "steps": 82,
+            "memoHits": 16,
+            "memoEntries": 44,
             "memoEvictions": 0,
-            "elapsedMs": 0.19643000000019128
+            "elapsedMs": 0.13767400000006091
           }
         }
       ],
       "counts": {
-        "total": 15,
-        "passed": 15,
+        "total": 13,
+        "passed": 13,
         "failed": 0,
         "inconclusive": 0
       }
@@ -1851,11 +1742,12 @@
         "memoHits": 0,
         "memoEntries": 28,
         "memoEvictions": 0,
-        "elapsedMs": 0.09150500000009743
+        "elapsedMs": 0.09736099999997805
       }
     },
     "experiment": {
       "format": "history-structure-synthesis/v1",
+      "semantics": "hbb-disc/2026-11-18",
       "theory": {
         "includeLive": true,
         "axioms": [
@@ -1882,25 +1774,25 @@
           {
             "name": "Echo!",
             "kind": "forward",
-            "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+            "formula": "\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
           },
           {
             "name": "Vote!",
             "kind": "forward",
-            "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
+            "formula": "\n  ∀ l,v. ⇕ safe(l) ⇒ ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)"
           },
           {
             "name": "Deliver!",
             "kind": "forward",
-            "formula": "\n  ∀ m,l,v. (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)"
+            "formula": "\n  ∀ m,l,v. ↕ (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)"
           }
         ]
       },
-      "property": "\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))",
+      "property": "\n  ∀ l,v. ((□[l] live) ∧ (∃=1 w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))",
       "scope": "end",
       "pinFacts": true,
       "limits": {
-        "maxMilliseconds": 59978,
+        "maxMilliseconds": 59989,
         "maxCompilationNodes": 500000,
         "maxKnowledgeFamilies": 256,
         "maxDecisions": 100000,
@@ -1908,7 +1800,7 @@
       },
       "seedModel": {
         "format": "history-structure-model/v1",
-        "name": "HBB1 Safe definition removed: proposal and echo, no votes",
+        "name": "HBBSafe Safe definition removed: proposal and echo, no votes",
         "participants": [
           "p"
         ],
@@ -1993,8 +1885,8 @@
     "Safe"
   ],
   "selectedProperties": [
-    "Liveness 1",
-    "Liveness 2",
+    "Happy Termination",
+    "Cascade Termination",
     "Agreement"
   ],
   "bounds": {
@@ -2007,19 +1899,19 @@
     "maxModels": 1000,
     "maxKnowledgeFamilies": 256
   },
-  "sourceMarkdown": "# HBB1: remove the Safe definition\n\nA live singleton proposes and echoes the unique value, then stops before voting. Safety has no supplied positive facts. In the given interpretation safe(v) is false, so **only Safe fails**: Vote! is disabled by its persistent-safety premise. With Safe retained, its at-most-one-proposal disjunct forces safe(v) everywhere, enabling Vote! and making this stopped history inconsistent. Omitting only **Safe** permits safe(v) to remain false and gives a nonvacuous **Liveness 1** counterexample. The other two correctness scenarios are absent.\n\nThis is a genuine HBB1 definition-removal experiment, not one of the paper's stated incorrect-axiom variants. It uses Remark 6.2.2, p. 44, and Lemma 6.5.2, pp. 47–48: at most one proposed value implies safety. The paired full and omitted rows change only the retained rule selection; the correctness property itself is unchanged.\n\n**Browser preset:** only **Safe** is omitted. **Keep all axioms** selects the full-theory comparison; **Use example defaults** restores the omission. Neither action starts a run. The source declares every rule: plain Markdown imports and CLI runs retain them unless you specify `--drop \"Safe\"`.\n\nRead the rules below, choose **Continue to claims**, review the selected properties and assumptions, then continue to the run settings and run the check. Use **Edit Markdown** to change a rule; Unicode and ASCII spellings have identical semantics. The supplied history JSON is at the end.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 6, p. 38, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 37).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires both current `safe(l)` and knowledge of a quorum of prior matching echoes.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a reporting quorum of matching source-learner votes.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Deliver? [backward]:\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### Safe — other assumption\n\nSafety is a biconditional: at most one proposal value is known, or every learner has a sequential witness in every relevant quorum intersection.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2; Remark 6.2.2, p. 44.\naxiom Safe [other]:\n  ∀ l. safe(l) ⇔ ((∃⁰¹ v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))\n```\n\n### Echo! — forward rule\n\nA live participant that knows a proposal must echo some value somewhere in its actual local run. The value is existentially chosen.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Echo! [forward]:\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nIf safety holds at every actual local tuple, a live participant with quorum echoes must vote for that value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Vote! [forward]:\n  ∀ l,v. ⇕ safe(l) ⇒ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)\n```\n\n### Deliver! — forward rule\n\nA live participant with a reporting quorum of votes must deliver the indicated reporting learner, source learner and value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 7, p. 41; Definition 6.1.2.\naxiom Deliver! [forward]:\n  ∀ m,l,v. (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Liveness 1 — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.5.3, p. 48.\nproperty Liveness 1 [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))\n```\n\n### Liveness 2 — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant. The source learner must also be safe at every participant at the end of time.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.4.5, p. 47.\nproperty Liveness 2 [end]:\n  ∀ a,b,l,v. ((♢[a,b] ⊤) ∧ (□[b] live) ∧ (□[] safe(l))) ⇒ (♢[] ↓ deliver(a,l,v) ⇒ live ⇒\n  ↕ deliver(b,l,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 8, p. 41; Theorem 6.1.6, p. 43; Proposition 6.3.1, p. 45.\nproperty Agreement [end]:\n  ∀ a,b,l,m,v,w. ((♢[a,b] seq)) ⇒ ((♢[] ↓ deliver(a,l,v)) ∧ (♢[] ↓ deliver(b,m,w)) ⇒\n  v=w)\n```\n\n## Paper and interpretation\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nAll rules and complete conditional correctness properties in this document are sourced to Murdoch J. Gabbay and Isaac Sheff, *Heterogeneous trust in reliable broadcast via modal logic and history structures*, draft dated 7 November 2026 (**2026-11-07**). Figure 7, p. 41 and Definition 6.1.2 give ThyHBB1; Figure 8, p. 41 and Theorem 6.1.6, p. 43 give its correctness statements.\n\nThis is a pedagogical finite model, not a literal history from the paper. Delivery arguments are ordered deliver(m,l,v): m is the reporting learner, l is the source/vote learner and v is the value.\n\nThe model, value domain, quorum basis, facts and any scenario-only axiom are choices of this finite experiment. Every experiment retains the complete dynamic ThyLive include: LiveAlways, LiveSeq and both Knowledge schemes are checked at all possible worlds, covering all ground events and all finite learner lists, including repeated learners and the empty list. See the [paper map](../../docs/PAPER_MAP.md) and [paper variants](../../docs/PAPER_VARIANTS.md) for the exact source mapping and classification.\n\nResults concern this fixed finite history and all predicate interpretations extending its positive facts. They are not unbounded correctness or axiom-independence proofs.\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"HBB1 Safe definition removed: proposal and echo, no votes\",\n  \"participants\": [\n    \"p\"\n  ],\n  \"values\": [\n    \"v\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"safe\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"e0\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"propose\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": []\n    },\n    {\n      \"id\": \"e1\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"echo\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e0\"\n      ]\n    },\n    {\n      \"id\": \"e2\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": [\n        \"e1\"\n      ]\n    }\n  ],\n  \"quorums\": {\n    \"v\": [\n      [\n        \"p\"\n      ]\n    ]\n  },\n  \"facts\": [\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    }\n  ]\n}\n```\n",
+  "sourceMarkdown": "# HBBSafe: remove the Safe definition\n\nA live singleton proposes and echoes the unique value, then stops before voting. Safety has no supplied positive facts. In the given interpretation safe(v) is false, so **only Safe fails**: Vote! is disabled by its persistent-safety premise. With Safe retained, its at-most-one-proposal disjunct forces safe(v) everywhere, enabling Vote! and making this stopped history inconsistent. Omitting only **Safe** permits safe(v) to remain false and gives a nonvacuous **Happy Termination** counterexample. The other two correctness scenarios are absent.\n\nThis is a genuine HBBSafe definition-removal experiment, not one of the paper's stated incorrect-axiom variants. It uses Remark 6.3.2, pp. 50–51, and Lemma 6.6.2, p. 54: at most one proposed value implies safety. The paired full and omitted rows change only the retained rule selection; the correctness property itself is unchanged.\n\n**Browser preset:** only **Safe** is omitted. **Keep all axioms** selects the full-theory comparison; **Use example defaults** restores the omission. Neither action starts a run. The source declares every rule: plain Markdown imports and CLI runs retain them unless you specify `--drop \"Safe\"`.\n\nRead the rules below, choose **Continue to claims**, review the selected properties and assumptions, then continue to the run settings and run the check. Use **Edit Markdown** to change a rule; Unicode and ASCII spellings have identical semantics. The supplied history JSON is at the end.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 7, p. 43, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 42).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires both current `safe(l)` and knowledge of a quorum of prior matching echoes.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a reporting quorum of matching source-learner votes.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Deliver? [backward]:\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### Safe — other assumption\n\nSafety is a biconditional: at most one proposal value is known, or every learner has a sequential witness in every relevant quorum intersection.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2; Remark 6.3.2, pp. 50–51.\naxiom Safe [other]:\n  ∀ l. safe(l) ⇔ ((∃⩽1 v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))\n```\n\n### Echo! — forward rule\n\nIf an actual local tuple records a live participant knowing a proposal, that participant must echo some value at an actual local tuple. The value is existentially chosen; end-of-time knowledge alone does not activate the rule.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Echo! [forward]:\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nIf an actual local tuple records a live participant knowing the required quorum of echoes, that participant must vote at an actual local tuple. The rule does not impose a time order between those two tuples. Its separate ⇕ safe(l) guard requires safety at every actual local tuple; the required vote is for the same value.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Vote! [forward]:\n  ∀ l,v. ⇕ safe(l) ⇒ ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)\n```\n\n### Deliver! — forward rule\n\nIf an actual local tuple records a live participant knowing the required quorum of votes, that participant must deliver at an actual local tuple. Merely learning of those votes at the end of time does not activate the rule.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Deliver! [forward]:\n  ∀ m,l,v. ↕ (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Happy Termination — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 9, p. 48; Theorem 6.2.6, p. 49; Proposition 6.6.3, pp. 54–55.\nproperty Happy Termination [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃=1 w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))\n```\n\n### Cascade Termination — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant. The source learner must also be safe at every participant at the end of time.\n\n```hsm\n# Paper: Figure 9, p. 48; Theorem 6.2.6, p. 49; Proposition 6.5.5, pp. 53–54.\nproperty Cascade Termination [end]:\n  ∀ a,b,l,v. ((♢[a,b] ⊤) ∧ (□[b] live) ∧ (□[] safe(l))) ⇒ (♢[] ↓ deliver(a,l,v) ⇒ live ⇒\n  ↕ deliver(b,l,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 9, p. 48; Theorem 6.2.6, p. 49; Proposition 6.4.1, p. 52.\nproperty Agreement [end]:\n  ∀ a,b,l,m,v,w. ((♢[a,b] seq)) ⇒ ((♢[] ↓ deliver(a,l,v)) ∧ (♢[] ↓ deliver(b,m,w)) ⇒\n  v=w)\n```\n\n## Paper and interpretation\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nAll rules and complete conditional correctness properties in this document are sourced to Murdoch J. Gabbay and Isaac Sheff, *Heterogeneous trust in reliable broadcast via modal logic and history structures*, draft dated 18 November 2026 (**2026-11-18**). Figure 8, p. 48 and Definition 6.2.2 give HBBSafe; Figure 9, p. 48 and Theorem 6.2.6, p. 49 give its correctness statements.\n\nThis is a pedagogical finite model, not a literal history from the paper. Delivery arguments are ordered deliver(m,l,v): m is the reporting learner, l is the source/vote learner and v is the value.\n\nThe model, value domain, quorum basis, facts and any scenario-only axiom are choices of this finite experiment. Every experiment retains the complete dynamic ThyLive include: LiveAlways, LiveSeq and both Knowledge schemes are checked at all possible worlds, covering all ground events and each single learner for the quorum Knowledge scheme. See the [paper map](../../docs/PAPER_MAP.md) and [paper variants](../../docs/PAPER_VARIANTS.md) for the exact source mapping and classification.\n\nResults concern this fixed finite history and all predicate interpretations extending its positive facts. They are not unbounded correctness or axiom-independence proofs.\n\nReference PDF: `hbb-disc(20261118-194826).pdf`, SHA-256 `08361854a013fa9ec7928221b9f05896386801b8d6247250a524c27d151199a4`.\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"HBBSafe Safe definition removed: proposal and echo, no votes\",\n  \"participants\": [\n    \"p\"\n  ],\n  \"values\": [\n    \"v\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"safe\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"e0\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"propose\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": []\n    },\n    {\n      \"id\": \"e1\",\n      \"place\": \"p\",\n      \"event\": {\n        \"symbol\": \"echo\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": [\n        \"e0\"\n      ]\n    },\n    {\n      \"id\": \"e2\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": [\n        \"e1\"\n      ]\n    }\n  ],\n  \"quorums\": {\n    \"v\": [\n      [\n        \"p\"\n      ]\n    ]\n  },\n  \"facts\": [\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    }\n  ]\n}\n```\n",
   "snapshot": {
     "format": "history-structure-run-snapshot/v1",
     "engine": {
       "name": "history-structure-model-checker",
-      "version": "0.6.9",
-      "semantics": "hbb-disc/2026-11-07"
+      "version": "0.7.1",
+      "semantics": "hbb-disc/2026-11-18"
     },
     "backend": "builtin-cdcl/tseitin",
-    "sourceSha256": "fefb883f56f5a35539b5ef1fd2ed8afb11ab989461dcac32f7eaeb3934195153",
+    "sourceSha256": "45d73870f0ebf0d8023593e1f71219da4739630f51a3dbc795af44fa658c2a54",
     "selectedProperties": [
-      "Liveness 1",
-      "Liveness 2",
+      "Happy Termination",
+      "Cascade Termination",
       "Agreement"
     ],
     "droppedAxioms": [
@@ -2035,13 +1927,13 @@
       "maxModels": 1000,
       "maxKnowledgeFamilies": 256
     },
-    "id": "sha256:5b0b8b1181b01927dd10f8eb2e64e07e193836ddf680cb68ca36aa8ebc0db9ee"
+    "id": "sha256:4e7d2840eee8851575ad7edd7939e81cff80a43730225ca1e3ef6e8d731b5c27"
   },
   "stats": {
     "histories": 1,
     "historiesWithModels": 1,
     "modelsSatisfyingAssumptions": 1,
     "synthesisQueries": 4,
-    "elapsedMs": 66
+    "elapsedMs": 42
   }
 }

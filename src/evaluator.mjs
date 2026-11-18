@@ -1,8 +1,8 @@
-/** Exact finite-model evaluator for Figures 2--5 of hbb-disc.
+/** Exact finite-model evaluator for Figures 4--6 of hbb-disc (18 November 2026 draft).
  *
  * Quantification is over values; learners use that same domain. Predicate
  * interpretations do not depend on the current event. Modal jumps preserve or
- * reset that event exactly as specified in Figure 3.
+ * reset that event exactly as specified in Figure 4.
  */
 import { HistoryModel, ModelError, eventKey, minimizeMasks, normalizeEvent } from './model.mjs';
 

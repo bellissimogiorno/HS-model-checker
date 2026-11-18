@@ -1,6 +1,6 @@
 # Literate history theories
 
-A theory is a Markdown document: explain the experiment in prose, present each rule beside its formula, and supply a history model. The checker executes only explicitly tagged blocks. The supplied theories use the two-valued history language of the **hbb-disc draft dated 2026-11-07**.
+A theory is a Markdown document: explain the experiment in prose, present each rule beside its formula, and supply a history model. The checker executes only explicitly tagged blocks. The supplied theories use the two-valued history language of the **hbb-disc draft dated 2026-11-18**.
 
 ## Read, edit and run
 
@@ -26,7 +26,7 @@ so uniqueness is a property to test.
 
 ```hsm
 axiom SomeChoice [other]: ∃ v. chosen(v)
-property UniqueChoice [end]: ∃¹ v. chosen(v)
+property UniqueChoice [end]: ∃=1 v. chosen(v)
 ```
 
 ## History model
@@ -56,14 +56,14 @@ In **Use this history; find facts**, this theory permits both values to be chose
 | `¬`, `∧`, `∨` | `not`, `and`, `or` | Boolean connectives; `!`, `&`, `\|` also work |
 | `⇒`, `⇔` | `->`, `<->` | Implication and equivalence |
 | `∀`, `∃` | `forall`, `exists` | Every or some value |
-| `∃¹`, `∃⁰¹` | `exists1`, `exists01` | Exactly one or at most one value |
+| `∃=1`, `∃⩽1` | `exists1`, `exists01` | Exactly one or at most one value |
 | `↓`, `⇓` | `past`, `allpast` | Some or every actual local past tuple |
 | `↕`, `⇕` | `sometime`, `everytime` | Some or every actual local tuple in the complete history |
 | `♢[l,m] φ` | `dia[l,m] φ` | Every l/m quorum intersection has a participant satisfying φ |
 | `□[l,m] φ` | `box[l,m] φ` | Some l/m quorum intersection consists of participants satisfying φ |
 | `≠` | `!=` | Inequality |
 
-`seq` and `end` retain their names. `end φ` evaluates at the full history with current event †. `↕` does not impose a future order. `◇` is accepted as an alternative diamond; the displayed examples use the paper's `♢`. See [SEMANTICS.md](SEMANTICS.md) and the [paper map](PAPER_MAP.md) for the precise interpretations.
+The alternative `∃≤1` and compact `∃¹` / `∃⁰¹` input spellings are accepted too. `seq` and `end` retain their names. `end φ` evaluates at the full history with current event †. `↕` does not impose a future order. `◇` is accepted as an alternative diamond; the displayed examples use the paper's `♢`. See [SEMANTICS.md](SEMANTICS.md) and the [paper map](PAPER_MAP.md) for the precise interpretations.
 
 ## Declarations and binding
 
@@ -87,11 +87,11 @@ axiom Echo? [backward]: ∀ v.
 
 ## Echo progress
 
-A live participant that knows a proposal must echo some value in the complete run.
+If a participant has an actual local tuple where it is live and knows a proposal, it must echo some value in the complete run. The outer ↕ is necessary because axioms also apply at hypothetical worlds.
 
 ```hsm
 axiom Echo! [forward]: ∀ v.
-  (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)
+  ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)
 ```
 ````
 
@@ -99,7 +99,7 @@ The model signature declares the event and predicate symbols used in formulas. L
 
 ## Dynamic liveness and selections
 
-`include ThyLive` in an `hsm` block requires the complete liveness theory, including both Knowledge schemes. The model signature must contain predicate `live`. Instances regenerate for each model searched or replayed; they are not frozen to the history present when the file was saved.
+`include ThyLive` in an `hsm` block requires the complete liveness theory, including both Knowledge schemes. KnowledgeBox has one learner parameter; the language still admits general learner lists in other formulas. The model signature must contain predicate `live`. Instances regenerate for each model searched or replayed; they are not frozen to the history present when the file was saved.
 
 Only `include ThyLive` is supported. The supplied HBB protocol rules remain explicit editable declarations. In **Claims**, ThyLive is one assumption group; other axioms are selected individually. Evidence records retained and omitted names. An empty property selection asks only for a model of the retained assumptions. A no-model result concerns assumption consistency in the selected scope. Its properties are Not tested; it does not establish them.
 

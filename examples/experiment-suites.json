@@ -1,8 +1,8 @@
 {
   "format": "history-structure-experiment-suites/v1",
   "suites": [
-    {"id":"hbb1", "label":"ThyHBB1", "manifest":"hbb1-cases.json"},
-    {"id":"hbb2", "label":"ThyHBB2", "manifest":"weakening-cases.json"},
-    {"id":"hbb3", "label":"ThyHBB3", "manifest":"hbb3-cases.json"}
+    {"id":"hbb1", "label":"HBBSafe", "manifest":"hbb1-cases.json"},
+    {"id":"hbb2", "label":"HBBSimp", "manifest":"weakening-cases.json"},
+    {"id":"hbb3", "label":"HBBCorr", "manifest":"hbb3-cases.json"}
   ]
 }

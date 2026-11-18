@@ -8,7 +8,7 @@ import {parseFormula} from './parser.mjs';
 import {parseDocument,serializeDocument,selectTheory} from './document.mjs';
 import {synthesize} from './synthesis.mjs';
 import {historyFingerprint,ideals,generators,makePalette} from './search.mjs';
-import {createRunSnapshot,verifyRunSnapshot} from './run-identity.mjs';
+import {createRunSnapshot,verifyRunSnapshot,SEMANTICS_PROFILE} from './run-identity.mjs';
 
 const clone = value => structuredClone(value);
 function positive(value,fallback,label,allowZero=false,max=100000000) {
@@ -95,13 +95,47 @@ export function createEvidence(input,rawOptions,row,runSnapshot) {
   }
   const bounds=clone(options);delete bounds.selectedProperties;delete bounds.droppedAxioms;
   const snapshot=runSnapshot??createRunSnapshot(doc.source,{bounds,droppedAxioms:selection.droppedAxioms,selectedProperties:selection.selectedProperties});
-  return {format:'history-structure-evidence/v1',version:'0.6.9',name:doc.name,
+  return {format:'history-structure-evidence/v1',version:'0.7.1',semantics:SEMANTICS_PROFILE,name:doc.name,
     sourceMarkdown:doc.source??serializeDocument(doc),model:clone(witness.model),
     theory:selection.theory,retainedAxioms:[...(selection.theory.includeLive?['ThyLive']:[]),...selection.theory.axioms.map(a=>a.name)],
     droppedAxioms:selection.droppedAxioms??options.droppedAxioms??[],property,
     failure,
     mode:options.mode??'synthesize',bounds,snapshot,
     expected:property?'counterexample':'model'};
+}
+
+/** Compare the supplied total interpretation, not its selector spelling.
+ * A fixed history can be represented with another topological node order;
+ * @tN then names a different represented time. Each source node's stable alias
+ * still identifies its exact past in the witness. Use those pasts to align the
+ * time indices in linear time, without materialising every history as a set.
+ * Unlisted atoms are false, so equality of finite true-atom supports is exact.
+ */
+function sameEvaluationInterpretation(source,base,witness,model) {
+  const times=new Map([[base.fullTime.index,model.fullTime.index]]);
+  for (const node of base.nodes) {
+    const target=model.aliases.get(node.id);
+    if (!target) return false;
+    const previous=times.get(node.timeIndex);
+    if (previous!==undefined&&previous!==target.timeIndex) return false;
+    times.set(node.timeIndex,target.timeIndex);
+  }
+  if (times.size!==base.times.length) return false;
+  const support=(data,compiled,mapping)=> {
+    const result=new Set();
+    for (const fact of data.facts??[]) {
+      const atom=eventKey(normalizeEvent(fact.atom,{allowNull:false}));
+      for (const selector of Array.isArray(fact.at)?fact.at:[fact.at]) {
+        const selected=selector==='*'?compiled.times:[compiled.resolveTime(selector)];
+        for (const time of selected) result.add(JSON.stringify([fact.place,mapping?mapping.get(time.index):time.index,atom]));
+      }
+    }
+    return result;
+  };
+  const supplied=support(source,base,times),recorded=support(witness,model);
+  if (supplied.size!==recorded.size) return false;
+  for (const fact of supplied) if (!recorded.has(fact)) return false;
+  return true;
 }
 
 /** Verify source/selection consistency, scope membership and the actual model.
@@ -115,12 +149,22 @@ export function replayExperiment(evidence,{maxMilliseconds=15000,maxSteps}={}) {
   const replayOptions=optionsInput({...evidence.bounds,mode:evidence.mode??'synthesize',maxMilliseconds,...(maxSteps===undefined?{}:{maxSteps})});
   if(evidence.bounds?.mode&&evidence.bounds.mode!==replayOptions.mode)throw new Error('Evidence mode disagrees with its recorded bounds.');
   const selection=selectTheory(doc,{droppedAxioms:evidence.droppedAxioms??[],selectedProperties:evidence.property?[evidence.property.name]:[]});
+  // A source containing `include ThyLive` is not a complete formula listing:
+  // its meaning depends on the recorded draft. Never silently regenerate a
+  // different implicit theory when replaying an older certificate. Literal
+  // formulas may use the unchanged core semantics without an implicit profile.
+  if (evidence.semantics!==undefined && ![SEMANTICS_PROFILE,'hbb-disc/2026-11-07'].includes(evidence.semantics))
+    throw new Error('Unsupported evidence semantics profile. Re-run the source with the current reference draft.');
+  if (selection.theory.includeLive && evidence.semantics!==SEMANTICS_PROFILE)
+    throw new Error(`Evidence retaining include ThyLive requires semantics profile ${SEMANTICS_PROFILE}. Re-run the source under the current reference draft; its implicit axioms cannot be silently reinterpreted.`);
+  if (evidence.semantics!==undefined && evidence.snapshot?.engine?.semantics!==undefined && evidence.semantics!==evidence.snapshot.engine.semantics)
+    throw new Error('Evidence semantics profile disagrees with its run snapshot.');
   if(evidence.snapshot!==undefined) {
     // A certificate can concern one property from a multi-property run. Check
     // the original complete selection as well as membership of this claim.
     const savedSelection=selectTheory(doc,{droppedAxioms:evidence.droppedAxioms??[],selectedProperties:evidence.snapshot?.selectedProperties});
     if(evidence.property&&!savedSelection.selectedProperties.includes(evidence.property.name))throw new Error('Evidence property was not selected in its run snapshot.');
-    verifyRunSnapshot(evidence.snapshot,evidence.sourceMarkdown,{bounds:evidence.bounds,droppedAxioms:savedSelection.droppedAxioms,selectedProperties:savedSelection.selectedProperties});
+    verifyRunSnapshot(evidence.snapshot,evidence.sourceMarkdown,{bounds:evidence.bounds,droppedAxioms:savedSelection.droppedAxioms,selectedProperties:savedSelection.selectedProperties},{allowLegacyCore:!selection.theory.includeLive});
   }
   if (JSON.stringify(selection.theory)!==JSON.stringify(evidence.theory)) throw new Error('Evidence retained theory does not match its source and omissions.');
   const retained=[...(selection.theory.includeLive?['ThyLive']:[]),...selection.theory.axioms.map(a=>a.name)];
@@ -153,7 +197,7 @@ export function replayExperiment(evidence,{maxMilliseconds=15000,maxSteps}={}) {
     const baseAliases=new Set((doc.model.nodes??[]).map(n=>n.id));
     for (const n of evidence.model.nodes??[]) if(!baseAliases.has(n.id)&&!allowed.has(eventKey(normalizeEvent(n.event))))throw new Error('Evidence uses a generated event outside its palette.');
   } else if (historyFingerprint(model,[...base.aliases.keys()])!==historyFingerprint(base,[...base.aliases.keys()])) throw new Error('Evidence changes the fixed history.');
-  if (mode==='evaluate'&&JSON.stringify(evidence.model.facts??[])!==JSON.stringify(doc.model.facts??[])) throw new Error('Evaluation evidence changes the supplied predicate interpretation.');
+  if (mode==='evaluate'&&!sameEvaluationInterpretation(doc.model,base,evidence.model,model)) throw new Error('Evaluation evidence changes the supplied predicate interpretation.');
   if(mode!=='evaluate'&&(evidence.bounds?.pinFacts??true)) {
     for(const fact of doc.model.facts??[]) {
       const atom=normalizeEvent(fact.atom,{allowNull:false});
@@ -224,7 +268,7 @@ export async function runExperiment(input,rawOptions={},onProgress=()=>{}) {
   const remaining=()=>Math.max(1,deadline-Date.now());
   const finish=(status,reason,complete=true)=> {
     const ended=Date.now(),expired=ended>=deadline;
-    return {format:'history-structure-run/v1',version:'0.6.9',name:doc.name,mode:options.mode,status:expired?'incomplete':status,complete:complete&&!expired,
+    return {format:'history-structure-run/v1',version:'0.7.1',semantics:SEMANTICS_PROFILE,name:doc.name,mode:options.mode,status:expired?'incomplete':status,complete:complete&&!expired,
       reason:expired?'The experiment time budget expired while completing the report. Any independently verified models and counterexamples remain available.':reason,consistency,properties,
       witness:firstWitness,retainedAxioms,droppedAxioms:selection.droppedAxioms??options.droppedAxioms??[],selectedProperties:properties.map(p=>p.name),bounds,sourceMarkdown:doc.source,snapshot,stats:{...stats,elapsedMs:ended-started}};
   };

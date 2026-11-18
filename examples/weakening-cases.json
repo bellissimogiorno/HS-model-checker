@@ -1,9 +1,9 @@
 {
   "format": "history-structure-weakening-cases/v1",
-  "theory": "ThyHBB2",
+  "theory": "HBBSimp",
   "properties": [
-    "Liveness 1",
-    "Liveness 2",
+    "Happy Termination",
+    "Cascade Termination",
     "Agreement"
   ],
   "cases": [
@@ -24,12 +24,12 @@
         true
       ],
       "expectedOriginalFailures": [],
-      "theory": "ThyHBB2",
+      "theory": "HBBSimp",
       "category": "control",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
@@ -46,12 +46,12 @@
       "expectedOriginalFailures": [
         "EchoNE"
       ],
-      "theory": "ThyHBB2",
+      "theory": "HBBSimp",
       "category": "control",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
@@ -75,12 +75,12 @@
       "expectedOriginalFailures": [
         "EchoNE"
       ],
-      "theory": "ThyHBB2",
+      "theory": "HBBSimp",
       "category": "weakening",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
@@ -100,12 +100,12 @@
         true
       ],
       "expectedOriginalFailures": [],
-      "theory": "ThyHBB2",
+      "theory": "HBBSimp",
       "category": "control",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
@@ -122,12 +122,12 @@
       "expectedOriginalFailures": [
         "Echo!"
       ],
-      "theory": "ThyHBB2",
+      "theory": "HBBSimp",
       "category": "control",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
@@ -151,12 +151,12 @@
       "expectedOriginalFailures": [
         "Echo!"
       ],
-      "theory": "ThyHBB2",
+      "theory": "HBBSimp",
       "category": "weakening",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
@@ -173,12 +173,12 @@
       "expectedOriginalFailures": [
         "Vote!"
       ],
-      "theory": "ThyHBB2",
+      "theory": "HBBSimp",
       "category": "control",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
@@ -202,12 +202,12 @@
       "expectedOriginalFailures": [
         "Vote!"
       ],
-      "theory": "ThyHBB2",
+      "theory": "HBBSimp",
       "category": "weakening",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
@@ -224,12 +224,12 @@
       "expectedOriginalFailures": [
         "Deliver!"
       ],
-      "theory": "ThyHBB2",
+      "theory": "HBBSimp",
       "category": "control",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
@@ -254,12 +254,12 @@
         "Deliver!"
       ],
       "expectedFailurePlace": "q",
-      "theory": "ThyHBB2",
+      "theory": "HBBSimp",
       "category": "weakening",
       "paperReferences": [
-        "Definition 7.1.1, p. 49; Figure 9, p. 50",
-        "Theorem 7.1.3, p. 51; Figure 10, p. 50",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 7.1.1, p. 56; Figure 10, p. 57",
+        "Theorem 7.1.3, p. 57; Figure 11, p. 57",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     }
   ]

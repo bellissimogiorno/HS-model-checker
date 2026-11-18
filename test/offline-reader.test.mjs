@@ -118,7 +118,7 @@ test('offline reader runtime navigates, searches both notations, and downloads e
   assert.equal($('readerCount').textContent,'1 of '+EXAMPLES.length+' theories');assert.equal(visible()[0].id,wanted.id);
   assert.equal($('readerPrevious').disabled,true);assert.equal($('readerNext').disabled,true);
   $('readerSearch').value='exists01';$('readerSearch').fire('input');
-  assert.ok(visible().length===1);assert.ok(visible()[0].source.includes('∃⁰¹'),'ASCII query finds Unicode formulas');
+  assert.ok(visible().length===1);assert.ok(visible()[0].source.includes('∃⩽1'),'ASCII query finds the paper’s Unicode formulas');
   $('readerSearch').value='no-theory-has-this-unique-phrase';$('readerSearch').fire('input');
   assert.equal(visible().length,0);assert.equal($('readerEmpty').hidden,false);
   $('readerClear').click();assert.equal($('readerCount').textContent,EXAMPLES.length+' of '+EXAMPLES.length+' theories');assert.equal(visible().length,1);

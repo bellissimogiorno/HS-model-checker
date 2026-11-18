@@ -12,6 +12,7 @@ test('lexical highlighting preserves complete, incomplete, Unicode and ASCII inp
     ['hsm',`# Paper: x\r\naxiom Echo! [forward]: ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\r\n`],
     ['hsm',`axiom "Alternative:!" [backward]: forall v. echo(v) -> dia[] past propose(v) // tail\n`],
     ['hsm',`property A [all]: ∃⁰¹ v. chosen(v) ∨ ∃¹ w. w ≠ "x<&"\naxiom B: "unfinished`],
+    ['hsm',`property Counts [end]: ∃=1 v. p(v) ∨ ∃⩽1 w. q(w) ∨ ∃≤1 x. p(x)`],
     ['hsm',`forall v'. p(v') & p('quoted') & p("\\\"quoted\\\"")`],
     ['json',`{ "x": "<script>", "n": -1.25e+2, "b": true, "other": null }`],
     ['markdown',`# T\r\n\r\nA **bold** paragraph with \`literal<&\`.\r\n~~~hsm\r\n∀ v. p(v)\r\n~~~\r\n`],
@@ -23,6 +24,7 @@ test('lexical highlighting preserves complete, incomplete, Unicode and ASCII inp
   assert.match(highlightSource('∀ v. p(v) ⇒ □[v] ↓ q("x") # note','hsm'),/tok-operator/);
   assert.match(highlightSource('∀ v. p(v) ⇒ □[v] ↓ q("x") # note','hsm'),/tok-string/);
   assert.match(highlightSource('∀ v. p(v) ⇒ □[v] ↓ q("x") # note','hsm'),/tok-comment/);
+  for(const symbol of ['∃=1','∃⩽1','∃≤1','∃¹','∃⁰¹'])assert.ok(highlightSource(symbol+' v. p(v)','hsm').startsWith('<span class="tok-operator">'+symbol+'</span>'),symbol+' highlights as one quantifier token');
 });
 
 test('literate Markdown renders semantic prose and highlighted executable blocks with collapsed model JSON',()=>{
@@ -88,7 +90,7 @@ test('outer longer fences keep inner hsm examples literal and unclosed editing f
 test('every bundled theory renders its prose and executable declarations without raw model expansion',async()=>{
   const base=new URL('../examples/theories/',import.meta.url);
   const files=(await readdir(base)).filter(n=>n.endsWith('.md'));
-  assert.equal(files.length,29);
+  assert.equal(files.length,31);
   for(const name of files) {
     const source=await readFile(new URL(name,base),'utf8');
     const html=renderTheoryMarkdown(source,{basePath:'examples/theories/'});

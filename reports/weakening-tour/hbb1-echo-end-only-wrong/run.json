@@ -1,0 +1,104 @@
+{
+  "format": "history-structure-run/v1",
+  "version": "0.7.1",
+  "semantics": "hbb-disc/2026-11-18",
+  "name": "HBBSafe: the incorrect end-only Echo! demands an untriggered action",
+  "mode": "synthesize",
+  "status": "no-model",
+  "complete": true,
+  "reason": "No model of the retained assumptions exists within this explicit scope; no property is reported as proved.",
+  "consistency": {
+    "status": "no-model",
+    "consistent": false,
+    "reason": "The fixed history was exhausted."
+  },
+  "properties": [
+    {
+      "name": "Happy Termination",
+      "formula": "\n  ∀ l,v. ((□[l] live) ∧ (∃=1 w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))",
+      "scope": "end",
+      "status": "not-tested",
+      "unknownHistories": 0,
+      "reason": "No retained-axiom model was established in the searched scope."
+    },
+    {
+      "name": "Cascade Termination",
+      "formula": "\n  ∀ a,b,l,v. ((♢[a,b] ⊤) ∧ (□[b] live) ∧ (□[] safe(l))) ⇒ (♢[] ↓ deliver(a,l,v) ⇒ live ⇒\n  ↕ deliver(b,l,v))",
+      "scope": "end",
+      "status": "not-tested",
+      "unknownHistories": 0,
+      "reason": "No retained-axiom model was established in the searched scope."
+    },
+    {
+      "name": "Agreement",
+      "formula": "\n  ∀ a,b,l,m,v,w. ((♢[a,b] seq)) ⇒ ((♢[] ↓ deliver(a,l,v)) ∧ (♢[] ↓ deliver(b,m,w)) ⇒\n  v=w)",
+      "scope": "end",
+      "status": "not-tested",
+      "unknownHistories": 0,
+      "reason": "No retained-axiom model was established in the searched scope."
+    }
+  ],
+  "witness": null,
+  "retainedAxioms": [
+    "ThyLive",
+    "Echo?",
+    "Vote?",
+    "Deliver?",
+    "EchoNE",
+    "Safe",
+    "Echo!",
+    "Vote!",
+    "Deliver!"
+  ],
+  "droppedAxioms": [],
+  "selectedProperties": [
+    "Happy Termination",
+    "Cascade Termination",
+    "Agreement"
+  ],
+  "bounds": {
+    "mode": "synthesize",
+    "pinFacts": true,
+    "maxMilliseconds": 60000,
+    "maxCompilationNodes": 500000,
+    "maxDecisions": 100000,
+    "maxAdditionalNodes": 2,
+    "maxModels": 1000,
+    "maxKnowledgeFamilies": 256
+  },
+  "sourceMarkdown": "# HBBSafe: the incorrect end-only Echo! demands an untriggered action\n\nThis example has exactly the participants, history, facts, quorums and correctness formulas of [the valid end-only-knowledge model](hbb1-echo-end-only.md). It changes only **Echo!**, replacing the paper’s actual-local antecedent by the explicitly incorrect formula in Remark 6.3.3(3), p. 51.\n\nAt p’s end-of-time world, `live ∧ ♢[] ↓ propose(v)` holds. The replacement therefore requires an actual local echo, but p has no actual tuples. No interpretation can satisfy this edited theory on the supplied history, so every correctness claim remains **Not tested**. This is overconstraint by a candidate axiom, rather than a protocol correctness counterexample. Restoring the correct Echo! admits the model.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 7, p. 43, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 42).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires both current `safe(l)` and knowledge of a quorum of prior matching echoes.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ (safe(l) ∧ □[l] ↓ echo(v))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a reporting quorum of matching source-learner votes.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Deliver? [backward]:\n  ∀ m,l,v. deliver(m,l,v) ⇒ □[m] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### Safe — other assumption\n\nSafety is a biconditional: at most one proposal value is known, or every learner has a sequential witness in every relevant quorum intersection.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Safe [other]:\n  ∀ l. safe(l) ⇔ ((∃⩽1 v. ♢[] ↓ propose(v)) ∨ (∀ m. ♢[l,m] seq))\n```\n\n### Echo! — forward rule\n\nThis deliberately incorrect candidate omits the antecedent’s outer ↕. It makes knowledge at a hypothetical or end-of-time world demand an actual local echo, even when the participant has no actionable observation tuple.\n\n```hsm\n# Paper: Remark 6.3.3(3), p. 51. Deliberately incorrect replacement of Figure 8 Echo!.\naxiom Echo! [forward]:\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nIf an actual local tuple records a live participant knowing the required quorum of echoes, that participant must vote at an actual local tuple. The rule does not impose a time order between those two tuples. Its separate ⇕ safe(l) guard requires safety at every actual local tuple; the required vote is for the same value.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Vote! [forward]:\n  ∀ l,v. ⇕ safe(l) ⇒ ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ↕ vote(l,v)\n```\n\n### Deliver! — forward rule\n\nIf an actual local tuple records a live participant knowing the required quorum of votes, that participant must deliver at an actual local tuple. Merely learning of those votes at the end of time does not activate the rule.\n\n```hsm\n# Paper: Figure 8, p. 48; Definition 6.2.2.\naxiom Deliver! [forward]:\n  ∀ m,l,v. ↕ (live ∧ □[m] ↓ vote(l,v)) ⇒ ↕ deliver(m,l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Happy Termination — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 9, p. 48; Theorem 6.2.6, p. 49; Proposition 6.6.3, pp. 54–55.\nproperty Happy Termination [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃=1 w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,l,v))\n```\n\n### Cascade Termination — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant. The source learner must also be safe at every participant at the end of time.\n\n```hsm\n# Paper: Figure 9, p. 48; Theorem 6.2.6, p. 49; Proposition 6.5.5, pp. 53–54.\nproperty Cascade Termination [end]:\n  ∀ a,b,l,v. ((♢[a,b] ⊤) ∧ (□[b] live) ∧ (□[] safe(l))) ⇒ (♢[] ↓ deliver(a,l,v) ⇒ live ⇒\n  ↕ deliver(b,l,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 9, p. 48; Theorem 6.2.6, p. 49; Proposition 6.4.1, p. 52.\nproperty Agreement [end]:\n  ∀ a,b,l,m,v,w. ((♢[a,b] seq)) ⇒ ((♢[] ↓ deliver(a,l,v)) ∧ (♢[] ↓ deliver(b,m,w)) ⇒\n  v=w)\n```\n\n## Paper and interpretation\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nPaper draft: *Heterogeneous trust in reliable broadcast via modal logic and history structures*, Murdoch J. Gabbay and Isaac Sheff, **2026-11-18**. References use the draft's printed page numbers.\n\nPaper basis: **HBBSafe**, Definition 6.2.2, p. 47; Figure 8, p. 48. Correctness: Figure 9, p. 48; Theorem 6.2.6, p. 49. Proofs: Happy Termination: Proposition 6.6.3, pp. 54–55; Cascade Termination: Proposition 6.5.5, pp. 53–54; Agreement: Proposition 6.4.1, p. 52.\n\nPedagogical finite scenario: the protocol rules and full correctness conditionals are unmodified translations of the paper. The participants, history, quorums and positive facts are supplied to test the candidate axiom; this is not a literal history printed in the paper or an unbounded proof.\n\nCode event order: `propose(v)`, `echo(v)`, `vote(l,v)`, and **`deliver(m,l,v)`**: `m` is the reporting learner, `l` the source learner, and `v` the value (Notation 6.2.3 and Remark 6.2.4, p. 47). HBBCorr instead uses the pair `deliver(l,v)`. Learners and values share one domain (Definition 3.1.1, p. 21).\n\n`include ThyLive` keeps Figure 7, p. 43, Definition 5.2.4 dynamic: `LiveAlways`, `LiveSeq`, and both complete Knowledge schemes, over all ground events, with a single learner in each Knowledge□ instance, are checked at all possible worlds (Definition 5.2.1, p. 42). The schemes regenerate when the history changes. [Full source and notation map](../../docs/PAPER_MAP.md); [paper variants and their status](../../docs/PAPER_VARIANTS.md).\n\nReference PDF: `hbb-disc(20261118-194826).pdf`, SHA-256 `08361854a013fa9ec7928221b9f05896386801b8d6247250a524c27d151199a4`.\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"HBBSafe: end-only knowledge does not activate Echo!\",\n  \"participants\": [\n    \"p\",\n    \"q\"\n  ],\n  \"values\": [\n    \"v\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"safe\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"proposal\",\n      \"place\": \"q\",\n      \"event\": {\n        \"symbol\": \"propose\",\n        \"args\": [\n          \"v\"\n        ]\n      },\n      \"past\": []\n    }\n  ],\n  \"quorums\": {\n    \"v\": [\n      [\n        \"p\"\n      ]\n    ]\n  },\n  \"facts\": [\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": \"live\"\n    },\n    {\n      \"place\": \"p\",\n      \"at\": \"*\",\n      \"atom\": {\n        \"symbol\": \"safe\",\n        \"args\": [\n          \"v\"\n        ]\n      }\n    },\n    {\n      \"place\": \"q\",\n      \"at\": \"*\",\n      \"atom\": {\n        \"symbol\": \"safe\",\n        \"args\": [\n          \"v\"\n        ]\n      }\n    }\n  ]\n}\n```\n",
+  "snapshot": {
+    "format": "history-structure-run-snapshot/v1",
+    "engine": {
+      "name": "history-structure-model-checker",
+      "version": "0.7.1",
+      "semantics": "hbb-disc/2026-11-18"
+    },
+    "backend": "builtin-cdcl/tseitin",
+    "sourceSha256": "4d626110b61aba1470f5059bff1ecfff65e79512fe2f8c744fbf698314379a18",
+    "selectedProperties": [
+      "Happy Termination",
+      "Cascade Termination",
+      "Agreement"
+    ],
+    "droppedAxioms": [],
+    "bounds": {
+      "mode": "synthesize",
+      "pinFacts": true,
+      "maxMilliseconds": 60000,
+      "maxCompilationNodes": 500000,
+      "maxDecisions": 100000,
+      "maxAdditionalNodes": 2,
+      "maxModels": 1000,
+      "maxKnowledgeFamilies": 256
+    },
+    "id": "sha256:c1c8af8c1b09426753b91f3b49a42ab4d8769b4fe35dc321841a25bbca1d04c8"
+  },
+  "stats": {
+    "histories": 1,
+    "historiesWithModels": 0,
+    "modelsSatisfyingAssumptions": 0,
+    "synthesisQueries": 1,
+    "elapsedMs": 4
+  }
+}

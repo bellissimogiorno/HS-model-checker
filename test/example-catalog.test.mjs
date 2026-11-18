@@ -8,7 +8,7 @@ test('curated catalog exposes every theory source once in a named group',async()
   const files=(await readdir(new URL('../examples/theories/',import.meta.url))).filter(file=>file.endsWith('.md')).sort();
   assert.deepEqual(EXAMPLES.map(example=>example.file).sort(),files);
   assert.equal(new Set(EXAMPLES.map(example=>example.file)).size,EXAMPLES.length);
-  assert.deepEqual(EXAMPLE_GROUPS,['Getting started','HBB1','HBB2','HBB3','Quorum diagnostics']);
+  assert.deepEqual(EXAMPLE_GROUPS,['Getting started','HBBSafe','HBBSimp','HBBCorr','Quorum diagnostics']);
   for(const example of EXAMPLES) {
     assert.ok(EXAMPLE_GROUPS.includes(example.group),example.file);
     assert.ok(example.label.length>0&&example.label.length<90,example.file);

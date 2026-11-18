@@ -185,26 +185,28 @@ test('triple quorum intersection and hypothetical-event worlds preserve vacuity 
   assert.equal(engine.evaluate(parseFormula('box[] not e'),w),true);
 });
 
-// Import separately from the reference evaluator: these checks target the
-// complete unbounded KnowledgeBox scheme, especially its absent-event class.
+// Figure 7 instantiates one learner at a time. General quorum-list modal
+// semantics remain independent and still include repeated/empty intersections.
 const {knowledgeFamilies,checkTheory}=await import('../src/theories.mjs');
 
-test('ThyLive tests absent events and silent local records in the full KnowledgeBox schema',()=>{
+test('ThyLive permits empty histories even when repeated quorum intersections are empty',()=>{
   const base={format:'history-structure-model/v1',participants:['p','q','r'],values:['a'],signature:{events:['e'],predicates:['live']},nodes:[],quorums:{a:[['p','q'],['p','r'],['q','r']]},facts:[{place:'p',at:'*',atom:'live'}]};
-  const failed=checkTheory(compileModel(base),'ThyLive');
-  assert.equal(failed.holds,false);
-  assert.equal(failed.complete,true);
-  assert.ok(failed.axioms.some(a=>a.scheme==='KnowledgeBox'&&a.holds===false));
-  assert.equal(checkTheory(compileModel({...base,facts:[]}),'ThyLive').holds,true);
-  assert.equal(checkTheory(compileModel({...base,signature:{events:[],predicates:['live']}}),'ThyLive').holds,true);
-  const recorded={...base,nodes:[{id:'silent',place:'p',event:null,past:[]}]};
-  assert.equal(checkTheory(compileModel(recorded),'ThyLive').holds,true);
+  const checked=checkTheory(compileModel(base),'ThyLive');
+  assert.equal(checked.holds,true);
+  assert.equal(checked.complete,true);
+  assert.equal(checked.completeness.events,0);
+  assert.deepEqual(checked.axioms.map(a=>a.name),['LiveAlways','LiveSeq']);
+  const model=compileModel(base),evaluator=new Evaluator(model);
+  assert.equal(evaluator.check(parseFormula('box[a,a,a] false'),{scope:'all'}).holds,true,
+    'The underlying general modality still retains vacuous empty intersections.');
+  const families=knowledgeFamilies(model);
+  assert.equal(families.complete,true);
+  assert.deepEqual(families.families.map(f=>f.learners),[['a']]);
 });
 
-test('saturated quorum families equal complete full-quorum list products on three places',()=>{
+test('general modal quorum families equal complete full-quorum list products on three places',()=>{
   const data={format:'history-structure-model/v1',participants:['p','q','r'],values:['a','b'],signature:{events:[],predicates:[]},nodes:[],quorums:{a:[['p','q'],['p','r'],['q','r']],b:[['p','q'],['q','r']]},facts:[]};
-  const model=compileModel(data),actual=knowledgeFamilies(model,{maxKnowledgeFamilies:1000});
-  assert.equal(actual.complete,true);
+  const model=compileModel(data),evaluator=new Evaluator(model,{maxSteps:10000000,maxMilliseconds:30000});
   const canonical=family=>[...new Set(family)].filter(m=>!family.some(n=>n!==m&&(n&m)===n)).sort((a,b)=>a-b).join(',');
   const full=new Map();
   for(const value of data.values) {
@@ -212,17 +214,14 @@ test('saturated quorum families equal complete full-quorum list products on thre
     for(let mask=1;mask<8;mask++)if(data.quorums[value].some(base=>base.every(p=>mask&(1<<data.participants.indexOf(p)))))quorums.push(mask);
     full.set(value,quorums);
   }
-  const expected=new Set();
-  // Any intersection of subsets of a three-element set can be expressed
-  // using at most three selected subsets from each learner. Repetitions pad
-  // shorter witnesses, so six total positions cover every two-learner state.
-  function lists(product,depth) {
-    expected.add(canonical(product));
+  // Check the actual modal evaluator on every learner list of length <=6,
+  // comparing against upward-closed full quorum families, not minimal bases.
+  function lists(learners,product,depth) {
+    assert.equal(canonical(evaluator.intersectionFamily(learners).map(Number)),canonical(product),learners.join(','));
     if(depth===6)return;
-    for(const value of data.values)lists([...new Set(product.flatMap(a=>full.get(value).map(b=>a&b)))],depth+1);
+    for(const value of data.values)lists([...learners,value],[...new Set(product.flatMap(a=>full.get(value).map(b=>a&b)))],depth+1);
   }
-  lists([7],0);
-  assert.deepEqual(new Set(actual.families.map(f=>canonical(f.masks.map(Number)))),expected);
+  lists([],[7],0);
 });
 
 const {explore}=await import('../src/search.mjs');

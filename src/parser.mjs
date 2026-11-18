@@ -14,9 +14,9 @@ const MAX_DEPTH = 128;
 
 export class FormulaSyntaxError extends SyntaxError {
   constructor(message, source, index = 0) {
-    const before = source.slice(0, index);
-    const line = before.split('\n').length;
-    const column = Array.from(before.slice(before.lastIndexOf('\n') + 1)).length + 1;
+    const lines = source.slice(0, index).split(/\r\n?|\n/);
+    const line = lines.length;
+    const column = Array.from(lines[lines.length - 1]).length + 1;
     super(`${message} (line ${line}, column ${column})`);
     this.name = 'FormulaSyntaxError';
     this.index = index;
@@ -99,6 +99,8 @@ function tokenize(source) {
     }
     if (matched) continue;
     if (ch === '∃') {
+      if (source.startsWith('∃=1', i)) { push('exists1', '∃=1', i); i += 3; continue; }
+      if (source.startsWith('∃⩽1', i) || source.startsWith('∃≤1', i)) { push('exists01', source.slice(i,i+3), i); i += 3; continue; }
       if (source.startsWith('∃⁰¹', i) || source.startsWith('∃₀₁', i)) { push('exists01', source.slice(i,i+3), i); i += 3; continue; }
       if (source.startsWith('∃¹', i) || source.startsWith('∃₁', i)) { push('exists1', source.slice(i,i+2), i); i += 2; continue; }
       if (source.startsWith('∃01', i)) { push('exists01', '∃01', i); i += 3; continue; }

@@ -1,6 +1,6 @@
 # HSM semantic contract
 
-HSM implements the two-valued language of *Heterogeneous trust in reliable broadcast via modal logic and history structures*, Murdoch J. Gabbay and Isaac Sheff, draft **2026-11-07**. The paper's definitions determine the semantics. The 3μQL implementation supplies engineering techniques and interface conventions.
+HSM implements the two-valued language of *Heterogeneous trust in reliable broadcast via modal logic and history structures*, Murdoch J. Gabbay and Isaac Sheff, draft **2026-11-18**. The paper's definitions determine the semantics. The 3μQL implementation supplies engineering techniques and interface conventions.
 
 This is the short checking contract. [SEMANTICS.md](SEMANTICS.md) gives the reduction arguments; [PAPER_MAP.md](PAPER_MAP.md) maps notation, rules and correctness statements to the draft.
 
@@ -18,7 +18,7 @@ An ordinary predicate's truth depends on participant, time and arguments, indepe
 
 ## Truth and operators
 
-Truth values are **false and true**, with only true satisfying an obligation. Implication is material implication. Equality compares values under the current valuation. Bound variables have lexical scope and may shadow outer variables; closed checking queries reject free variables. `∃`, `∃¹` and `∃⁰¹` mean existence, exactly one and at most one satisfying value respectively. Unicode and ASCII spellings parse to the same trees.
+Truth values are **false and true**, with only true satisfying an obligation. Implication is material implication. Equality compares values under the current valuation. Bound variables have lexical scope and may shadow outer variables; closed checking queries reject free variables. `∃`, `∃=1` and `∃⩽1` mean existence, exactly one and at most one satisfying value respectively. The `∃≤1`, `∃¹`, `∃⁰¹`, `exists1` and `exists01` input aliases retain the same cardinality meanings. Unicode and ASCII spellings parse to the same trees.
 
 | Construct | Meaning at `(p,x,T)` |
 | --- | --- |
@@ -37,7 +37,7 @@ The empty learner list has one quorum choice with intersection equal to all part
 
 ## Axiom and property obligations
 
-Every retained theory axiom must hold at **all possible worlds**. `include ThyLive` retains its complete dynamic theory, including both Knowledge schemes; it is not a saved finite instance list.
+Every retained theory axiom must hold at **all possible worlds**. `include ThyLive` retains its complete dynamic theory, including both Knowledge schemes; it is not a saved finite instance list. KnowledgeBox has one learner parameter (Figure 7, p. 43). Each protocol forward rule uses an outer `↕` on its main live-and-knowledge guard, so it requires an actual qualifying local tuple rather than knowledge present only at a hypothetical or end-of-time world.
 
 Theory properties have an explicit `end` or `all` validity scope; the default is `end`. End validity checks every participant at `(p,†,full history)`. All validity checks every possible world. A separate supplied-model query may select one exact world. Rule directions `backward`, `forward` and `other` are descriptive metadata; they do not change axiom validity.
 
@@ -60,7 +60,7 @@ Consistency is established before validity is reported. Selecting no properties 
 | Use this history; find facts | Fixed participants, values, history and quorum bases; search all ordinary predicate interpretations relevant to the obligations. Listed positive facts are pinned by default; unlisted atoms are free. Disabling pins releases those positive constraints. |
 | Search histories and valuations | Extend the declared history within the explicit tuple bound and event palette, and search predicate interpretations on each candidate. Participants, values and quorums stay fixed. |
 
-History search permits at most eight additional and sixteen total canonical tuples. Candidate, compiler, solver, Knowledge-family and time budgets can stop a run before mathematical bounds are exhausted. A generation cap is not exhaustion. A failing prefix is not discarded merely because a forward obligation could be discharged by an extension. Canonicalization preserves named participants, values and base tuple anchors.
+History search permits at most eight additional and sixteen total canonical tuples. Candidate, compiler, solver, Knowledge-learner and time budgets can stop a run before mathematical bounds are exhausted. A generation cap is not exhaustion. A failing prefix is not discarded merely because a forward obligation could be discharged by an extension. Canonicalization preserves named participants, values and base tuple anchors.
 
 `*` fact pins apply at every represented time of each candidate; `end` follows its full history; a base tuple alias retains its past. Search rejects ordinal `@tN` pins because insertion can change their meanings. The full history/value/trust/palette scope is part of the result.
 
@@ -71,11 +71,13 @@ The fixed-frame Boolean encoding uses the following exact reductions:
 - Canonical DAG tuples represent the finite histories above without depending on file order or redundant edges.
 - At each participant/time pair, `†` and occurring matching event labels represent all possible current events. Other labels make every event proposition false and are indistinguishable from `†` in this language.
 - Minimal intersection antichains represent quorum modality truth, retaining learner multiplicities.
-- Finite saturation of those antichains represents every finite learner list in the Knowledge scheme. Occurring events plus an absent-event representative cover its event instances. Failure to complete saturation is incomplete checking.
+- ThyLive uses KnowledgeDia for each occurring ground event and KnowledgeBox for each occurring ground event and each single learner. Absent-event instances are valid because their antecedents are false. No arbitrary-list KnowledgeBox strengthening is added; general learner-list modalities remain available in user formulas.
 
 Each admissible predicate interpretation assigns the encoded ground atoms and therefore induces a Boolean assignment satisfying their semantic equations. Conversely, decoding a satisfying assignment and assigning irrelevant unlisted atoms false gives a complete interpretation on the legal fixed frame. The direct evaluator checks every retained axiom and claimed failure in each decoded witness. [SEMANTICS.md](SEMANTICS.md) explains why the structural reductions preserve these obligations.
 
 The concrete evaluator does not use the SAT compiler's truth calculations. A replay reconstructs the source, selection, frame and interpretation; validates scope and pins; checks all retained axioms; and checks the saved failing world. Saved truth flags are not proof. Source/run fingerprints identify content; they do not authenticate it or establish logical correctness.
+
+The current named-theory semantics profile is `hbb-disc/2026-11-18`. A run or artifact retaining implicit ThyLive must identify that profile. A missing or different profile cannot be accepted as a current implicit-theory replay. The browser can preserve such a project as an unvalidated draft: review its source, choose **Update choices**, then save and run under the current profile. A certificate is inspectable without thereby being verified; produce fresh evidence from a reviewed run when its implicit-theory profile does not match. Fully literal theories use the documented core semantics directly.
 
 A counterexample is checked directly. An UNSAT or exhausted no-counterexample conclusion still depends on the encoding, reductions and solver. This release does not emit independently checkable UNSAT proof certificates. Small exhaustive, oracle and mutation tests provide empirical evidence, not a formal verification of the implementation.
 

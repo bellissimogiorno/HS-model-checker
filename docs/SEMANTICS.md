@@ -1,6 +1,6 @@
 # History Structure Model-checker: independent semantic specification
 
-Source: hbb-disc draft dated 7 November 2026, Sections 2–5; Figures 2–6; additionally Figures 7, 9, 11.
+Source: hbb-disc draft dated 18 November 2026, Sections 2–5; Figures 3–7; additionally protocol Figures 8, 10 and 12.
 
 ## Semantic data
 
@@ -68,28 +68,31 @@ For a fixed learner list, calculate all intersections of minimal base choices, t
 
 Intersect families incrementally, pruning dominated intersections at every step. Cache by evaluated learner list or normalized multiset with multiplicity. If ∅ occurs, the antichain is `{∅}` and the modality truth is immediately determined.
 
-## ThyLive (Figure 6)
+## ThyLive (Figure 7, p. 43)
 
-Verified visually against PDF page 38:
+Definition 5.2.4 gives these all-world axioms, with E ranging over ground events and l ranging over the value/learner domain:
 
-- `LiveAlways: live <-> end live`
-- `LiveSeq: live -> seq`
-- `KnowledgeDia[E]: end dia[] past (live and E) -> live -> sometime dia[] past E`
-- `KnowledgeBox[E,L]: end box[L] past (live and E) -> live -> sometime box[L] past E`
+```text
+LiveAlways:       live <-> end live
+LiveSeq:          live -> seq
+KnowledgeDia[E]:  end (dia[] past (live & E)) -> live -> sometime (dia[] past E)
+KnowledgeBox[E]:  forall l.
+                    end (box[l] past (live & E)) -> live -> sometime (box[l] past E)
+```
 
-`KnowledgeDia` has no learner parameter. `KnowledgeBox` ranges over arbitrary finite learner lists, rather than just lists of length one or two. Both range over all ground events.
+KnowledgeDia has the empty-list global diamond. KnowledgeBox has **one learner**, not an arbitrary learner list. The general formula language still supports empty, repeated and multi-learner lists; they are not additional instances of this axiom scheme.
 
-An exact finite-model implementation of the unbounded list schema can enumerate the finite closure of intersection antichain families. Start with `{Pnt}` (empty list). Repeatedly multiply each reached family by every learner's base family (pairwise set intersections followed by minimal-antichain normalization), adding unseen families until closure. Each reachable family corresponds to some finite list and captures exactly the modality behavior of every list in that equivalence class. Check the schema for every reached family. An explicit state/resource cap is reasonable, but exhaustion must yield **incomplete/unknown**, never a validity claim.
+For a finite history, instantiate both schemes for every distinct occurring ground event, and KnowledgeBox for every learner. If a ground event E never occurs, its event proposition is false at every world. Thus `dia[] past (live & E)` is false. Since every single learner quorum is nonempty, `box[l] past (live & E)` is also false. Every absent-event Knowledge instance therefore has a false antecedent and is valid. This covers absent events without enumerating their possible arguments or adding an absent representative. With an empty event signature, there are no event instances.
 
-For events, testing only actual events is generally insufficient for this schema: if a reachable family contains ∅, `box[L] past(live and E)` is true even when E never occurs. The conclusion then forces live participants to possess some actual local tuple (so that `sometime` can hold). Include one representative absent ground event when the signature has any absent events. All absent events have equivalent behavior for this scheme. If ESym is empty, Event is empty and the schemes have no event instances at all.
+The resource option `maxKnowledgeFamilies` bounds the individual learner families to be checked; it does not select a stronger or weaker mathematical scheme. If a resource limit prevents complete checking, report incomplete rather than validity.
 
-An empty model can satisfy ThyLive, e.g. with no live participants, with an empty event signature, or with no empty intersection families. Do not automatically impose LiveActive: paper Remark 5.2.12 deliberately omits it.
+Empty histories remain allowed. In particular, ThyLive does not automatically require an inactive live participant to acquire a tuple: LiveActive is deliberately omitted (Remark 5.2.12, p. 45). A completed live protocol example can nevertheless need final silent observations to discharge Knowledge obligations for its real events.
 
 ## Protocol-specific distinctions
 
-`safe(l)` in HBB1 and the dotted equality/correlation in HBB3 are ordinary atomic predicates, subject to axioms. Dotted correlation is distinct from built-in value equality. It is local to place and time; symmetry and transitivity do not imply reflexivity. Its past persistence is an axiom, not a semantic definition. `live` likewise is time-invariant because of LiveAlways, not because predicate semantics special-cases it.
+`safe(l)` in HBBSafe and the dotted equality/correlation in HBBCorr are ordinary atomic predicates, subject to axioms. Dotted correlation is distinct from built-in value equality. It is local to place and time; symmetry and transitivity do not imply reflexivity. Its past persistence is an axiom, not a semantic definition. `live` likewise is time-invariant because of LiveAlways, not because predicate semantics special-cases it.
 
-HBB1 Vote! has the `everytime safe(l)` premise. HBB3 Vote! and Vote'! conclude existence of **some** voted value; they do not force the value in the premise. HBB3 Vote'! requires `everytime corr(l,l')`, not just correlation at the current time.
+All protocol forward rules place `sometime` around their main live-and-knowledge guard. This requires an actual local tuple in the complete run where that guard holds. Current-time knowledge at a hypothetical or end-of-time world alone does not activate the rule (Remark 6.3.3(3), p. 51). HBBSafe Vote! also retains its separate `everytime safe(l)` premise. HBBCorr Vote! and Vote'! conclude existence of **some** voted value, rather than forcing the premise's value. HBBCorr Vote'! keeps `everytime corr(l,l')` inside its `sometime` guard; current-time correlation alone is insufficient.
 
 ## High-value regression examples
 
@@ -110,6 +113,4 @@ HBB1 Vote! has the `everytime safe(l)` premise. HBB3 Vote! and Vote'! conclude e
 
 **Minimal quorum bases.** Every quorum in a finite up-closed family contains a minimal base. Replacing each chosen quorum by such a base shrinks its intersection. If all minimal-base intersections meet the body-truth set S, all larger quorum intersections meet S too. Conversely, minimal bases are themselves allowed quorums. Thus diamond is exact on base products. If some larger intersection is contained in S, its contained minimal-base intersection is also contained in S; conversely every base choice is allowed. Thus box is exact too. Given a product family, a strict superset intersection J of some intersection I is redundant for both questions: I meeting S implies J meets S, and J being contained in S implies I is contained in S.
 
-**Unbounded list saturation.** Associate each learner list L with the minimal antichain A(L) of intersections obtainable from independently chosen minimal bases. The empty list has A([])={Pnt}. Appending learner l maps A to the normalized family `{I∩Q : I∈A, Q a base of l}`. Discarded supersets remain redundant under subsequent intersections, since I⊆J implies I∩Q⊆J∩Q. This update therefore gives exactly A(L appended l). Breadth-first closure reaches every finite list by induction on length; every reached state conversely has a witnessing list. There are finitely many antichains of subsets of finite Pnt, so closure terminates in principle. The two quorum modalities depend only on A(L), so checking one representative per reached antichain checks every list instance of KnowledgeBox exactly. This is a finite-model fact, not a fixed small bound on list length. A search stopped by any resource quota has not established saturation.
-
-**Absent events.** If a ground event E does not label any actual tuple, E is false at every world: even a world whose current label is E fails the occurrence condition. The same is true for any other absent ground event F. Structural induction therefore permits replacing E by F in the Knowledge schemes without changing any instance's truth. One absent representative suffices, alongside all occurring events. It cannot always be omitted: a quorum family containing the empty intersection makes the Box antecedent true independently of its event body.
+**Knowledge event coverage.** For an absent ground event E, actual-occurrence checking makes E false at every world, even a hypothetical world labelled E. A local past cannot satisfy `live & E`. The global diamond is therefore false; a one-learner box is false too because every quorum is nonempty. Each absent-event Knowledge implication is valid. Occurring ground events and every learner consequently give the full revised scheme. This argument relies on the single learner in KnowledgeBox. It does not assert that arbitrary multi-learner boxes have nonempty intersections.

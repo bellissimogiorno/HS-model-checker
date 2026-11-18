@@ -14,16 +14,22 @@ import {
   replaceModelBlock,
   selectTheory
 } from './document.mjs';
-import {EXAMPLES, EXAMPLE_GROUPS, exampleOptions} from './example-catalog.mjs';
+import {EXAMPLES, EXAMPLE_GROUPS, DEFAULT_EXAMPLE_OPTIONS, exampleOptions} from './example-catalog.mjs';
 import {highlightSource, renderTheoryMarkdown} from './theory-presentation.mjs';
 import {unicodeFormula, unicodeTheorySource, asciiTheorySource} from './notation.mjs';
 import {sourceOffset} from './source-location.mjs';
 import {artifactFilename} from './filenames.mjs';
+import {SEMANTICS_PROFILE} from './run-identity.mjs';
 const $ = id => document.getElementById(id);
-const DRAFT_KEY = 'history-structure-model-checker/custom-draft/v0.2';
+// Keep new semantic-profile drafts out of the storage slot read by earlier
+// applications, whose draft restorer did not check the project format.
+const DRAFT_KEY = 'history-structure-model-checker/custom-draft/v0.3';
+const LEGACY_DRAFT_KEY = 'history-structure-model-checker/custom-draft/v0.2';
 const state = {
   doc: null,
   sourceCurrent: false,
+  semanticsReview: false,
+  pendingDraftRestore: null,
   modelDirty: false,
   custom: false,
   curatedExample: null,
@@ -54,6 +60,34 @@ const el =(tag, cls = '', text) => {
   if (text !== undefined) n.textContent = String(text);
   return n;
 };
+// About is ordinary readable page content until native dialog support is
+// available. Move the same section into a modal; never copy or rebuild it.
+// This enhancement is independent of experiment state and worker lifetime.
+{
+  const link = $('aboutLink'), dialog = $('aboutDialog'), close = $('closeAbout');
+  if (typeof dialog.showModal === 'function' && typeof dialog.close === 'function') {
+    dialog.append($('aboutDetails'));
+    dialog.hidden = false;
+    close.hidden = false;
+    link.setAttribute('aria-haspopup', 'dialog');
+    link.setAttribute('aria-controls', 'aboutDialog');
+    let openedFromLink = false;
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      if (dialog.open) return;
+      dialog.showModal();
+      openedFromLink = true;
+      close.focus({preventScroll: true});
+    });
+    close.addEventListener('click', () => dialog.close());
+    // Native Escape dismissal emits the same close event as the button.
+    dialog.addEventListener('close', () => {
+      if (!openedFromLink) return;
+      openedFromLink = false;
+      link.focus({preventScroll: true});
+    });
+  }
+}
 // The textarea owns editing, selection, undo, IME and accessibility. The
 // highlighted layer is a noninteractive, identically spaced visual mirror.
 function syncTheoryScroll() {
@@ -168,7 +202,8 @@ function positive(id, {
   zero = false,
   max = Number.MAX_SAFE_INTEGER
 } = {}) {
-  const value = Number($(id).value);
+  const source = $(id).value;
+  const value = source.trim() ? Number(source) : NaN;
   if (!Number.isFinite(value) ||(integer && !Number.isSafeInteger(value)) || value <(zero ? 0: Number.MIN_VALUE) || value > max) throw new Error(($(id).closest('label')?.firstChild?.textContent ?? id).trim() + ' must be ' +(zero ? 'nonnegative': 'positive') +(integer ? ' and integral': '') + '.');
   return value;
 }
@@ -191,14 +226,17 @@ function settings() {
     }): 1000,
     palette: currentMode === 'search' ? parseJSON($('eventPalette').value, 'Event palette'): undefined,
     maxKnowledgeFamilies: positive('knowledgeBudget', {
-      integer: true
+      integer: true,
+      max: 100000000
     }),
     maxCompilationNodes: positive('compilationBudget', {
-      integer: true
+      integer: true,
+      max: 100000000
     }),
     maxDecisions: positive('decisionBudget', {
       integer: true,
-      zero: true
+      zero: true,
+      max: 100000000
     }),
     maxSteps: positive('stepBudget', {
       integer: true
@@ -212,9 +250,22 @@ function project() {
   } catch {
     options = {};
   }
+  if (state.pendingDraftRestore) {
+    const pending = state.pendingDraftRestore, live = options;
+    options = {...pending.options};
+    // Hidden choices belong to the unfinished source, never to the previous
+    // workspace. Keep their names until that source can be parsed again.
+    for (const [key, value] of Object.entries(live)) {
+      if (['selectedProperties', 'droppedAxioms'].includes(key)) continue;
+      if (json(value) !== json(pending.controls[key])) options[key] = value;
+    }
+  }
   return {
-    format: 'history-structure-project/v2',
-    version: '0.6.9',
+    format: 'history-structure-project/v3',
+    version: '0.7.1',
+    // A source awaiting explicit review must remain unprofiled if saved again.
+    // Reopening an autosaved draft must not accidentally bypass that review.
+    semantics: state.semanticsReview ? undefined : SEMANTICS_PROFILE,
     sourceMarkdown: $('theoryEditor').value,
     theoryBasePath: state.theoryBasePath,
     unappliedModelSource: state.modelDirty ? $('modelEditor').value: undefined,
@@ -282,8 +333,8 @@ function setChecked(container, names) {
   const set = new Set(names);
   for (const n of $(container).querySelectorAll('input')) n.checked = set.has(n.value);
 }
-function optionsIntoForm(options = {}) {
-  selectTheory(state.doc, options);
+function optionsIntoForm(options = {}, {sourceReady = true} = {}) {
+  if (sourceReady) selectTheory(state.doc, options);
   if (['search',
   'synthesize',
   'evaluate'].includes(options.mode)) document.querySelector('input[name="mode"][value="' + options.mode + '"]').checked = true;
@@ -300,8 +351,8 @@ function optionsIntoForm(options = {}) {
   id] of Object.entries(mapping)) if (Number.isFinite(options[key])) $(id).value = String(options[key]);
   if (Number.isFinite(options.maxMilliseconds)) $('timeBudget').value = String(options.maxMilliseconds / 1000);
   if (Array.isArray(options.palette)) $('eventPalette').value = json(options.palette);
-  if (Array.isArray(options.selectedProperties)) setChecked('propertyOptions', options.selectedProperties);
-  if (Array.isArray(options.droppedAxioms)) {
+  if (sourceReady && Array.isArray(options.selectedProperties)) setChecked('propertyOptions', options.selectedProperties);
+  if (sourceReady && Array.isArray(options.droppedAxioms)) {
     const omitted = new Set(options.droppedAxioms);
     for (const n of $('axiomOptions').querySelectorAll('input')) n.checked = !omitted.has(n.value);
   }
@@ -353,16 +404,31 @@ function updateChoices( {
   showNotice = true,
   allowModelDraft = false
 } = {}) {
-  if (state.modelDirty && preserve && !allowModelDraft) {
+  const recovery = state.pendingDraftRestore;
+  if (state.modelDirty && preserve && !allowModelDraft && !recovery) {
     notice('Model JSON has unapplied edits. Apply them to the theory or discard the JSON edits before updating choices.', 'warning');
     return false;
   }
   try {
+    const reviewedSemantics = state.semanticsReview;
+    const recoveredOptions = recovery ? project().options : null;
+    const missingSelections = [];
+    const recoveredModelDraft = recovery && state.modelDirty && !allowModelDraft ? $('modelEditor').value : undefined;
     const prior = preserve ? inputs(): {};
     const doc = parseDocument($('theoryEditor').value);
     compileModel(doc.model);
+    if (recovery) {
+      const names = {selectedProperties: new Set(doc.properties.map(row => row.name)), droppedAxioms: new Set([...doc.axioms.map(row => row.name), ...(doc.includeLive ? ['ThyLive'] : [])])};
+      for (const [key, allowed] of Object.entries(names)) {
+        if (!Array.isArray(recoveredOptions[key])) continue;
+        missingSelections.push(...recoveredOptions[key].filter(name => !allowed.has(name)));
+        recoveredOptions[key] = recoveredOptions[key].filter(name => allowed.has(name));
+      }
+      validateImportedSource($('theoryEditor').value, recoveredOptions);
+    }
     state.doc = doc;
     state.sourceCurrent = true;
+    state.semanticsReview = false;
     state.modelDirty = false;
     refreshTheoryEditor();
     renderTheoryReader();
@@ -374,12 +440,22 @@ function updateChoices( {
       (doc.includeLive ? ' + full ThyLive' : '');
     $('modelEditor').value = json(doc.model);
     renderChoices(prior);
+    if (recovery) {
+      optionsIntoForm(recoveredOptions);
+      state.pendingDraftRestore = null;
+      if (recoveredModelDraft !== undefined) {
+        $('modelEditor').value = recoveredModelDraft;
+        state.modelDirty = true;
+      }
+    }
     setOptions($('nodePlace'), doc.model.participants.map(p => [p,
     p]));
     suggestNodeId();
     if (!state.inspectedData) inspectModel(doc.model, 'Supplied model from the theory source at inspection time.');
     syncRunContext();
-    if (showNotice) notice('Theory loaded. Choose claims and retained assumptions.', 'success');
+    if (reviewedSemantics) preserveDraft();
+    if (missingSelections.length) notice('The repaired source no longer declares ' + [...new Set(missingSelections)].join(', ') + '. Those saved selections were removed. Review the current claims and retained assumptions before running.', 'warning');
+    else if (showNotice) notice('Theory loaded. Choose claims and retained assumptions.', 'success');
     return true;
   } catch (error) {
     state.sourceCurrent = false;
@@ -422,7 +498,11 @@ function syncRunContext() {
   $('runOmissions').textContent = omissions.length ? 'Removed for this run: ' + omissions.join(', ') + '.': 'All declared axioms are included.';
   $('runOmissions').classList.toggle('has-omissions', omissions.length > 0);
   $('runButton').textContent =(mode() === 'evaluate' ? 'Evaluate this model': props.length ? 'Find a counterexample': 'Find a model') + ' →';
-  $('searchControls').hidden = mode() !== 'search';
+  const searching = mode() === 'search';
+  $('searchControls').hidden = !searching;
+  // Hidden number inputs still participate in native form validation unless
+  // disabled. An unfinished search bound must not block another run mode.
+  for (const id of ['maxAdditionalNodes', 'maxModels', 'eventPalette']) $(id).disabled = !searching;
   $('synthesisControls').hidden = mode() === 'evaluate';
   $('stopButton').hidden = !busy;
   const navigating = $('exampleContinuation').getAttribute('aria-busy') === 'true';
@@ -449,7 +529,9 @@ function syncExamplePreset() {
   } else if (entry.initialNoModel) {
     text += 'This is a deliberate full-theory control. Its initial fixed history has no model satisfying the assumptions; the properties are therefore Not tested.';
   } else {
-    text += 'The three protocol correctness claims are selected initially. The additional bad-axiom diagnostic is available separately under Properties.';
+    text += defaults.selectedProperties?.includes('Bad end-only Echo!')
+      ? 'The three protocol correctness claims and the Bad end-only Echo! diagnostic are selected initially. A counterexample to that diagnostic explains the incorrect axiom; it is not a failure of a protocol correctness claim.'
+      : 'The three protocol correctness claims are selected initially. The additional bad-axiom diagnostic is available separately under Properties.';
   }
   $('examplePresetText').textContent = text;
   $('presetDefaults').disabled = !!state.job;
@@ -476,7 +558,7 @@ function setOptions(select, choices, preferred) {
   }
   if (choices.some(([value]) => value === preferred)) select.value = preferred;
 }
-function resetExampleResults() {
+function resetExampleResults(title = 'This example has not been run.', description = 'Choose the claims and settings, then run the checker to see results for this example.') {
   state.run = null;
   state.runOptions = null;
   state.runProject = null;
@@ -491,8 +573,7 @@ function resetExampleResults() {
   state.valuationAtoms = null;
   $('staleResults').hidden = true;
   const empty = el('div', 'empty-state');
-  empty.append(el('h3', '', 'This example has not been run.'),
-    el('p', '', 'Choose the claims and settings, then run the checker to see results for this example.'));
+  empty.append(el('h3', '', title), el('p', '', description));
   $('results').replaceChildren(empty);
   $('formulaEditor').value = 'seq';
   $('scopeSelect').value = 'end';
@@ -520,6 +601,7 @@ async function loadExample(file, {expectedRevision = state.revision} = {}) {
     hideExampleContinuation();
     resetExampleResults();
     state.curatedExample = null;
+    state.pendingDraftRestore = null;
     state.custom = false;
     state.theoryBasePath = 'examples/theories/';
     state.example = file;
@@ -566,6 +648,7 @@ function loadSource(source, options = {}, custom = true, modelDraft, basePath = 
   stopJob();
   hideExampleContinuation();
   state.curatedExample = null;
+  state.pendingDraftRestore = null;
   state.revision++;
   state.custom = custom;
   state.theoryBasePath = basePath === 'examples/theories/' ? basePath : '';
@@ -589,6 +672,95 @@ function loadSource(source, options = {}, custom = true, modelDraft, basePath = 
     return true;
   }
   return false;
+}
+function needsSemanticsReview(source, options, semantics) {
+  return selectTheory(parseDocument(source), options).theory.includeLive && semantics !== SEMANTICS_PROFILE;
+}
+function loadSavedProject(data, options = data.options ?? {}) {
+  validateImportedSource(data.sourceMarkdown, options);
+  if (data.unappliedModelSource !== undefined && typeof data.unappliedModelSource !== 'string') throw new Error('Project unappliedModelSource must be editable JSON text.');
+  const needsReview = needsSemanticsReview(data.sourceMarkdown, options, data.semantics);
+  if (!loadSource(data.sourceMarkdown, options, true, data.unappliedModelSource, data.theoryBasePath)) return false;
+  if (needsReview) {
+    resetExampleResults('This saved theory needs review.', 'No result has been restored. Review the source, then choose Update choices to start a new experiment under the 18 November 2026 draft.');
+    state.semanticsReview = true;
+    changed({source: true});
+    $('sourceStatus').textContent = 'Saved ThyLive source · review the current draft before running';
+    $('choicesStatus').textContent = 'ThyLive has changed. Review this saved source, then choose Update choices to use the 18 November 2026 draft.';
+    inspectModel(state.doc.model, 'Imported model; review the saved theory under the 18 November 2026 draft before running.');
+    setTheoryView('edit');
+    notice('This saved source retains ThyLive from a different or unspecified draft. Review it, then choose Update choices to start a new experiment under the 18 November 2026 draft. No previous result has been restored.', 'warning');
+  }
+  return true;
+}
+function validateImportedSource(source, options = {}) {
+  if (typeof source !== 'string') throw new Error('The imported project needs sourceMarkdown text.');
+  validateImportedSettings(options);
+  // Structured imports commit only after their source and settings agree.
+  const doc = parseDocument(source);
+  selectTheory(doc, options);
+  for (const label of options.palette ?? []) {
+    const event = normalizeEvent(label);
+    if (event !== null && (!doc.model.signature.events.includes(event.symbol) || event.args.some(value => !doc.model.values.includes(value)))) throw new Error('Project palette uses an event or value outside the source model signature.');
+  }
+}
+function validateImportedSettings(options = {}) {
+  if (!options || typeof options !== 'object' || Array.isArray(options)) throw new Error('Project options must be an object.');
+  for (const name of ['selectedProperties', 'droppedAxioms']) {
+    if (options[name] !== undefined && (!Array.isArray(options[name]) || options[name].some(value => typeof value !== 'string') || new Set(options[name]).size !== options[name].length)) throw new Error('Project ' + name + ' must be an array of distinct names.');
+  }
+  // Do not silently replace a malformed saved setting with whichever form
+  // value happens to be open. These are the controls this interface can restore;
+  // other metadata is left to the experiment and replay schema validators.
+  if (options.mode !== undefined && !['synthesize', 'search', 'evaluate'].includes(options.mode)) throw new Error('Project mode must be synthesize, search or evaluate.');
+  if (options.pinFacts !== undefined && typeof options.pinFacts !== 'boolean') throw new Error('Project pinFacts must be true or false.');
+  if (options.maxMilliseconds !== undefined && (!Number.isFinite(options.maxMilliseconds) || options.maxMilliseconds <= 0)) throw new Error('Project maxMilliseconds must be a positive finite number.');
+  const limits = {
+    maxAdditionalNodes: [0, 8], maxModels: [1, 100000],
+    maxKnowledgeFamilies: [1, 100000000], maxCompilationNodes: [1, 100000000],
+    maxDecisions: [0, 100000000], maxSteps: [1, Number.MAX_SAFE_INTEGER]
+  };
+  for (const [name, [low, high]] of Object.entries(limits)) {
+    const value = options[name];
+    if (value === undefined) continue;
+    if (name === 'maxModels' && Number.isSafeInteger(value) && value > high && value <= 1000000) throw new Error('This browser interface supports at most 100000 candidate histories. Use the CLI to retain this larger maxModels scope.');
+    if (!Number.isSafeInteger(value) || value < low || value > high) throw new Error('Project ' + name + ' must be an integer between ' + low + ' and ' + high + '.');
+  }
+  if (options.palette !== undefined) {
+    if (!Array.isArray(options.palette) || options.palette.length === 0) throw new Error('Project palette must be a nonempty array of ground events or null (†).');
+    for (const label of options.palette) {
+      normalizeEvent(label);
+    }
+  }
+}
+
+function restoreLocalDraft(data) {
+  const options = data.options ?? {};
+  validateImportedSettings(options);
+  if (data.unappliedModelSource !== undefined && typeof data.unappliedModelSource !== 'string') throw new Error('Project unappliedModelSource must be editable JSON text.');
+  try { parseDocument(data.sourceMarkdown); }
+  catch {
+    // A local autosave is also a recovery file for work that is not yet valid.
+    // Do not replace its settings with the unrelated workspace still on screen.
+    loadSource(data.sourceMarkdown, {}, true, undefined, data.theoryBasePath);
+    state.doc = null;
+    state.semanticsReview = true;
+    $('loadedTheory').textContent = 'Unfinished custom draft';
+    $('signatureSummary').textContent = 'Correct the source before its signature and claims can be loaded.';
+    for (const id of ['propertyOptions', 'axiomOptions']) $(id).replaceChildren();
+    resetExampleResults('This draft has not been checked.', 'Repair the Markdown and choose Update choices. Its saved settings and unapplied model text are retained.');
+    for (const id of ['modelSummary', 'valuationTable', 'dagContainer', 'nodeInspector', 'modelDetails', 'fullModelJson', 'valuationPlace', 'valuationTime', 'worldPlace', 'worldTime']) $(id).replaceChildren();
+    $('inspectorContext').textContent = 'No valid model is loaded from this unfinished draft.';
+    $('modelEditor').value = data.unappliedModelSource ?? '';
+    state.modelDirty = typeof data.unappliedModelSource === 'string';
+    optionsIntoForm({...DEFAULT_EXAMPLE_OPTIONS, palette: [null], ...options}, {sourceReady: false});
+    state.pendingDraftRestore = {options: structuredClone(options), controls: settings()};
+    preserveDraft();
+    setTheoryView('edit');
+    notice('Unfinished custom draft restored. Correct the Markdown, then choose Update choices to restore its saved claims and settings. Unapplied model JSON is retained.', 'warning');
+    return false;
+  }
+  return loadSavedProject(data);
 }
 function beginJob(action, payload, label, onDone) {
   // A newer computation is a newer user action too: a pending preset load
@@ -1483,7 +1655,7 @@ $('saveModel').addEventListener('click',() => {
   try {
     const model = parseJSON($('modelEditor').value, 'Model JSON');
     compileModel(model);
-    download('history-model-v0.6.9.json', model);
+    download('history-model-v0.7.1.json', model);
   } catch (error) {
     notice(error.message, 'error');
   }
@@ -1492,11 +1664,11 @@ $('inspectSourceModel').addEventListener('click',() => {
   if (state.doc) inspectModel(state.doc.model, 'Supplied model from the theory source at inspection time.');
 });
 $('saveInspectedModel').addEventListener('click',() => {
-  if (state.inspectedData) download('history-model-v0.6.9.json', state.inspectedData);
+  if (state.inspectedData) download('history-model-v0.7.1.json', state.inspectedData);
 });
 $('saveDagSvg').addEventListener('click',() => {
   const picture = $('dagContainer').querySelector('svg');
-  if (picture) download('history-dag-v0.6.9.svg', new XMLSerializer().serializeToString(picture), 'image/svg+xml');
+  if (picture) download('history-dag-v0.7.1.svg', new XMLSerializer().serializeToString(picture), 'image/svg+xml');
   else notice('An empty history has no tuple diagram to save.');
 });
 $('inspectTuple').addEventListener('click',() => {
@@ -1555,8 +1727,8 @@ $('checkFormula').addEventListener('click',() => {
     notice(error.message, 'error');
   }
 });
-$('saveTheory').addEventListener('click',() => download('history-theory-v0.6.9.md', $('theoryEditor').value, 'text/markdown'));
-$('saveProject').addEventListener('click',() => download('history-project-v0.6.9.json', project()));
+$('saveTheory').addEventListener('click',() => download('history-theory-v0.7.1.md', $('theoryEditor').value, 'text/markdown'));
+$('saveProject').addEventListener('click',() => download('history-project-v0.7.1.json', project()));
 for (const id of['openFile',
 'loadCustom']) $(id).addEventListener('click',() => $('importFile').click());
 $('editCurrent').addEventListener('click',() => {
@@ -1565,19 +1737,28 @@ $('editCurrent').addEventListener('click',() => {
   $('theoryEditor').focus();
 });
 $('importFile').addEventListener('change', async event => {
-  const file = event.target.files?.[0];
+  const input = event.target, file = input.files?.[0];
   if (!file) return;
+  let token = ++loadSerial, revision = state.revision;
+  const current = () => token === loadSerial && revision === state.revision;
+  let rawMarkdown = false;
   try {
-    if (file.size > 10 * 1024 * 1024) throw new Error('The browser importer accepts files up to 10 MiB. Use the CLI for larger files.');
     const text = await file.text();
-    preserveDraft();
+    // Choosing a file starts a source request just like choosing an example.
+    // A later edit, load, import or check wins even if this read finishes last.
+    if (!current()) return;
     if (/\.json$/i.test(file.name) || text.trim().startsWith('{')) {
       const data = parseJSON(text, 'Imported JSON');
+      if (!data || typeof data !== 'object' || Array.isArray(data)) throw new Error('Imported JSON needs an object with a supported format.');
       if (data.format === 'history-structure-evidence/v1') {
-        state.importedEvidence = data;
         if (typeof data.sourceMarkdown !== 'string') throw new Error('Saved evidence needs its recorded sourceMarkdown.');
         const recordedOptions = {...data.bounds, mode: data.mode ?? data.bounds?.mode ?? 'synthesize', droppedAxioms: data.droppedAxioms ?? [], selectedProperties: data.property ? [data.property.name] : []};
-        if (!loadSource(data.sourceMarkdown, recordedOptions, true)) throw new Error('The saved evidence source could not be loaded. Correct it before replaying.');
+        validateImportedSource(data.sourceMarkdown, recordedOptions);
+        compileModel(data.model);
+        const needsReview = needsSemanticsReview(data.sourceMarkdown, recordedOptions, data.semantics);
+        preserveDraft();
+        if (!loadSavedProject(data, recordedOptions)) throw new Error('The saved evidence source could not be loaded. Correct it before replaying.');
+        state.importedEvidence = data;
         if (data.model) inspectModel(data.model, 'Imported saved evidence (unverified). Replay checks its exact recorded assumptions and property.', {
           formula: data.property?.formula,
           source: data.sourceMarkdown,
@@ -1585,35 +1766,65 @@ $('importFile').addEventListener('change', async event => {
           evidence: data
         });
         const box = el('div', 'scope-box');
-        state.importedEvidenceStatus = el('p', '', 'Loaded saved evidence (unverified). Replay it to verify the recorded claim.');
+        state.importedEvidenceStatus = el('p', '', needsReview
+          ? 'This evidence retains ThyLive from a different or unspecified draft. You can inspect it, but this application cannot replay that implicit theory. Review the source and start a new run under the 18 November 2026 draft.'
+          : 'Loaded saved evidence (unverified). Replay it to verify the recorded claim.');
         box.append(state.importedEvidenceStatus);
         const replay = el('button', 'button secondary', 'Replay imported evidence');
         replay.type = 'button';
-        replay.addEventListener('click',() => replayEvidence(data));
+        replay.disabled = needsReview;
+        replay.addEventListener('click',() => { if (!needsReview) replayEvidence(data); });
         box.append(replay);
         $('results').replaceChildren(box);
         jump('evidence');
-      } else if (data.format === 'history-structure-project/v2') loadSource(data.sourceMarkdown, data.options ?? {}, true, data.unappliedModelSource, data.theoryBasePath);
-      else if (data.format === 'history-structure-model/v1') loadSource(serializeDocument(modelDocument(data)), {}, true);
+      } else if (['history-structure-project/v3', 'history-structure-project/v2'].includes(data.format)) {
+        validateImportedSource(data.sourceMarkdown, data.options ?? {});
+        if (data.unappliedModelSource !== undefined && typeof data.unappliedModelSource !== 'string') throw new Error('Project unappliedModelSource must be editable JSON text.');
+        preserveDraft();
+        loadSavedProject(data);
+      } else if (data.format === 'history-structure-model/v1') {
+        compileModel(data);
+        const source = serializeDocument(modelDocument(data));
+        validateImportedSource(source);
+        preserveDraft();
+        loadSource(source, {}, true);
+      }
       else if (data.format === 'history-structure-project/v1') {
         const model = typeof data.modelSource === 'string' ? parseJSON(data.modelSource, 'Project model source'): data.model;
-        loadSource(serializeDocument(modelDocument(model)), {}, true);
+        compileModel(model);
+        const source = serializeDocument(modelDocument(model));
+        validateImportedSource(source);
+        preserveDraft();
+        loadSource(source, {}, true);
         notice('Imported the previous model format. Its old custom-theory fields were not silently converted.', 'warning');
       } else throw new Error('Unsupported project, evidence or model format.');
-    } else loadSource(text, {}, true);
+    } else {
+      // A raw theory can intentionally be an unfinished draft. Preserve the
+      // prior custom source, then load its text for correction with Run disabled
+      // if validation fails. Structured project/evidence imports are preflighted.
+      rawMarkdown = true;
+      preserveDraft();
+      loadSource(text, {}, true);
+    }
+    // The accepted synchronous load owns these revisions. Only this import
+    // may finish its notice and reset the file input for selecting it again.
+    token = loadSerial;
+    revision = state.revision;
     setTheoryView(state.sourceCurrent ? 'read' : 'edit');
     if (state.sourceCurrent) notice('Loaded ' + file.name + '.', 'success');
+    else if (rawMarkdown) notice('Loaded ' + file.name + ' as an editable draft. Correct the source and choose Update choices before running. ' + $('choicesStatus').textContent, 'warning');
   } catch (error) {
-    notice(error.message, 'error');
+    if (current()) notice(error.message, 'error');
+  } finally {
+    if (current() && input.files?.[0] === file) input.value = '';
   }
-  event.target.value = '';
 });
 $('restoreDraft').addEventListener('click',() => {
   try {
-    const draft = parseJSON(localStorage.getItem(DRAFT_KEY) ?? 'null', 'Saved draft');
+    const draft = parseJSON(localStorage.getItem(DRAFT_KEY) ?? localStorage.getItem(LEGACY_DRAFT_KEY) ?? 'null', 'Saved draft');
     if (!draft || typeof draft.sourceMarkdown !== 'string') throw new Error('No recoverable custom draft is available.');
-    if (loadSource(draft.sourceMarkdown, draft.options ?? {}, true, draft.unappliedModelSource, draft.theoryBasePath)) {
-      notice('Custom draft restored.', 'success');
+    if (restoreLocalDraft(draft)) {
+      if (state.sourceCurrent) notice('Custom draft restored.', 'success');
       jump('choose');
     }
   } catch (error) {
@@ -1625,6 +1836,7 @@ $('forgetDraft').addEventListener('click',() => {
   pendingDraft = null;
   try {
     localStorage.removeItem(DRAFT_KEY);
+    localStorage.removeItem(LEGACY_DRAFT_KEY);
     $('restoreDraft').hidden = true;
     $('storageState').textContent = 'Saved custom draft removed. The open source remains available.';
   } catch {
@@ -1650,7 +1862,7 @@ if (typeof IntersectionObserver === 'function') {
   for (const section of document.querySelectorAll('.workflow-step')) observer.observe(section);
 }
 try {
-  $('restoreDraft').hidden = !localStorage.getItem(DRAFT_KEY);
+  $('restoreDraft').hidden = !(localStorage.getItem(DRAFT_KEY) || localStorage.getItem(LEGACY_DRAFT_KEY));
   $('storageState').textContent = 'Curated examples do not overwrite your custom draft.';
 } catch {
   $('storageState').textContent = 'Browser storage unavailable. Save a project to keep your work.';

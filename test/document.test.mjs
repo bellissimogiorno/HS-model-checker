@@ -29,7 +29,7 @@ test('model validation, closed formula validation and declaration errors identif
   assert.throws(()=>parseDocument(source('property Unbound: chosen(?v)')),/Free variable/);
   assert.throws(()=>parseDocument(source('property Unknown: missing')),/unknown symbol/);
   assert.throws(()=>parseDocument(source('banana Invalid: true')),/Expected include, axiom or property/);
-  assert.throws(()=>parseDocument(source('include ThyHBB2')),/Only include ThyLive/);
+  assert.throws(()=>parseDocument(source('include HBBSimp')),/Only include ThyLive/);
   assert.throws(()=>parseDocument(source('axiom X [future]: true')),/direction/);
   assert.throws(()=>parseDocument(source('property X [world]: true')),/scope/);
 });

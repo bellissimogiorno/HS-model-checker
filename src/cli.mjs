@@ -12,8 +12,9 @@ import { explore } from './search.mjs';
 import {checkCustomTheory} from './custom.mjs';
 import {parseDocument,selectTheory} from './document.mjs';
 import {runExperiment,replayExperiment} from './experiment.mjs';
+import {SEMANTICS_PROFILE} from './run-identity.mjs';
 
-const help = `History Structure Model-checker 0.6.9
+const help = `History Structure Model-checker 0.7.1
 
 Theory-first experiments (Markdown):
   node src/cli.mjs list examples/theories/hbb2.md
@@ -33,17 +34,21 @@ First steps intentionally finds a counterexample: its exit code 1 is expected.
 Explicit supplied-model tools (JSON):
   node src/cli.mjs validate MODEL.json
   node src/cli.mjs check MODEL.json --formula 'end past echo("v")' [--scope end|all|world]
-  node src/cli.mjs theory MODEL.json --theory ThyHBB1 [--families 256]
+  node src/cli.mjs theory MODEL.json --theory HBBSafe [--families 256]
   node src/cli.mjs custom MODEL.json --axioms AXIOMS.json
-  node src/cli.mjs properties MODEL.json --theory ThyHBB1
+  node src/cli.mjs properties MODEL.json --theory HBBSafe
   node src/cli.mjs explore MODEL.json --formula 'seq' --nodes 2 [--theory ThyLive]
                        [--palette PALETTE.json] [--models 1000] [--milliseconds 5000]
                        [--witness WITNESS.json]
 
 World selection: --scope world --place p --time end|empty|NODE_ID --event 'null|{"symbol":"echo","args":["v"]}'
-All commands accept --output RESULT.json. Current v2 projects are accepted by run/list and model commands.
+All commands accept --output RESULT.json. Current v3 projects are accepted by run/list and model commands.
+Source-based v2 projects are also readable, with the same explicit implicit-theory review requirement.
 For project runs, saved options are defaults; explicit flags override only their corresponding options.
 Apply any unfinished model JSON edits in the interface before using that project with the CLI.
+Projects retaining include ThyLive must declare the current draft profile. For an unprofiled
+import, review it in the browser, choose Update choices and save again, or run reviewed Markdown.
+--families caps the number of learner-specific KnowledgeBox instances per event; it does not add learner intersections.
 Theory axioms use all-world validity. Properties default to end-of-time validity.
 If the retained assumptions have no model in the selected scope, properties are not tested.
 Exit: 0 passed/bounded space exhausted or successful replay; 1 failed/counterexample; 2 error/incomplete; 3 no model of assumptions.
@@ -85,18 +90,18 @@ async function emit(result,flags) {
   else if(result.holds===false||result.status==='counterexample')process.exitCode=1;
 }
 function projectDocument(data) {
-  if (typeof data.sourceMarkdown!=='string') throw new Error('A v2 project needs sourceMarkdown text.');
+  if (typeof data.sourceMarkdown!=='string') throw new Error('A source-based project needs sourceMarkdown text.');
   if (Object.hasOwn(data,'unappliedModelSource')) throw new Error('This project has unapplied model JSON edits. Apply the model to the theory in the interface, save the project, then run the CLI.');
   if (data.options!==undefined&&(!data.options||typeof data.options!=='object'||Array.isArray(data.options))) throw new Error('Project options must be an object.');
   const doc=parseDocument(data.sourceMarkdown),options=data.options??{};
   selectTheory(doc,options);
-  return {doc,options};
+  return {doc,options,fromProject:true,projectSemantics:data.semantics};
 }
 async function theoryInput(path) {
   const source=await readFile(path,'utf8');
   if(source.trimStart().startsWith('{')) {
     const data=JSON.parse(source);
-    if(data.format!=='history-structure-project/v2') throw new Error('Theory run/list accepts Markdown or a history-structure-project/v2 JSON file.');
+    if(!['history-structure-project/v3','history-structure-project/v2'].includes(data.format)) throw new Error('Theory run/list accepts Markdown or a source-based history-structure-project/v3 JSON file (v2 imports are also readable).');
     return projectDocument(data);
   }
   return {doc:parseDocument(source),options:{}};
@@ -105,8 +110,8 @@ async function markdownCommand(command,path,flags) {
   if(command==='replay') {
     return replayExperiment(await json(path),{maxMilliseconds:number(flags,'milliseconds',15000),...('steps' in flags?{maxSteps:number(flags,'steps')}:{})});
   }
-  const {doc,options:savedOptions}=await theoryInput(path);
-  if(command==='list')return {name:doc.name,model:{participants:doc.model.participants,values:doc.model.values,nodes:doc.model.nodes?.length??0},axioms:[...(doc.includeLive?[{name:'ThyLive',kind:'dynamic scheme group'}]:[]),...doc.axioms.map(({name,kind,formula,line})=>({name,kind,formula,line}))],properties:doc.properties.map(({name,scope,formula,line})=>({name,scope,formula,line}))};
+  const {doc,options:savedOptions,fromProject=false,projectSemantics}=await theoryInput(path);
+  if(command==='list')return {name:doc.name,...(fromProject?{currentSemantics:SEMANTICS_PROFILE,projectSemantics:projectSemantics??null,requiresSemanticReview:selectTheory(doc,savedOptions).theory.includeLive&&projectSemantics!==SEMANTICS_PROFILE}:{}),model:{participants:doc.model.participants,values:doc.model.values,nodes:doc.model.nodes?.length??0},axioms:[...(doc.includeLive?[{name:'ThyLive',kind:'dynamic scheme group'}]:[]),...doc.axioms.map(({name,kind,formula,line})=>({name,kind,formula,line}))],properties:doc.properties.map(({name,scope,formula,line})=>({name,scope,formula,line}))};
   if(flags.properties&&!['all','none'].includes(flags.properties))throw new Error('--properties must be all or none.');
   if(flags.properties&&flags.property)throw new Error('Choose --properties or repeated --property, not both.');
   if(flags['pin-facts']&&!['true','false'].includes(flags['pin-facts']))throw new Error('--pin-facts must be true or false.');
@@ -121,6 +126,9 @@ async function markdownCommand(command,path,flags) {
   const limits={milliseconds:'maxMilliseconds',nodes:'maxAdditionalNodes',models:'maxModels',decisions:'maxDecisions','compile-nodes':'maxCompilationNodes',families:'maxKnowledgeFamilies',steps:'maxSteps'};
   for (const [flag,key] of Object.entries(limits)) if (flag in flags) options[key]=number(flags,flag);
   if ('palette' in flags) options.palette=await json(flags.palette);
+  if (fromProject && selectTheory(doc,options).theory.includeLive && projectSemantics!==SEMANTICS_PROFILE) {
+    throw new Error(`This project retains include ThyLive but does not declare the current semantics profile ${SEMANTICS_PROFILE}. Review its source in the browser, choose Update choices and save again, or run the reviewed Markdown explicitly. Implicit axioms are not silently reinterpreted.`);
+  }
   const result=await runExperiment(doc,options);
   if(flags.evidence) {
     await mkdir(flags.evidence,{recursive:true});
@@ -129,7 +137,7 @@ async function markdownCommand(command,path,flags) {
     result.savedEvidence=[];
     for(const [i,row]of rows.entries()) {
       const label=row.name.replace(/[^a-zA-Z0-9_-]+/g,'-').replace(/^-|-$/g,'')||'witness';
-      const file=join(flags.evidence,`${String(i+1).padStart(2,'0')}-${label}-v0.6.9.json`);
+      const file=join(flags.evidence,`${String(i+1).padStart(2,'0')}-${label}-v0.7.1.json`);
       await writeFile(file,JSON.stringify(row.evidence,null,2)+'\n');result.savedEvidence.push(file);
     }
   }
@@ -157,7 +165,7 @@ async function main() {
   if (command==='check' && (flags.scope??'end')!=='world' && ['place','time','event'].some(k=>k in flags)) throw new Error('--place, --time and --event require --scope world.');
   if(['list','run','replay'].includes(command)){await emit(await markdownCommand(command,path,flags),flags);return;}
   const loaded = await json(path);
-  const data = loaded.format==='history-structure-project/v2' ? projectDocument(loaded).doc.model : loaded.format==='history-structure-project/v1' ? typeof loaded.modelSource==='string' ? JSON.parse(loaded.modelSource) : loaded.model : loaded;
+  const data = ['history-structure-project/v3','history-structure-project/v2'].includes(loaded.format) ? projectDocument(loaded).doc.model : loaded.format==='history-structure-project/v1' ? typeof loaded.modelSource==='string' ? JSON.parse(loaded.modelSource) : loaded.model : loaded;
   const model = compileModel(data);
   const maxMilliseconds = number(flags,'milliseconds',10000);
   const maxKnowledgeFamilies = number(flags,'families',256);
@@ -178,7 +186,7 @@ async function main() {
     result=checkCustomTheory(model,axioms,{maxMilliseconds,maxKnowledgeFamilies,...stepOptions});
   } else if (command==='properties') {
     if (!flags.theory) throw new Error('--theory is required.');
-    if (!THEORY_NAMES.includes(flags.theory) || flags.theory==='ThyLive') throw new Error('Correctness properties require ThyHBB1, ThyHBB2 or ThyHBB3.');
+    if (!THEORY_NAMES.includes(flags.theory) || flags.theory==='ThyLive') throw new Error('Correctness properties require HBBSafe, HBBSimp or HBBCorr.');
     const rows=correctnessProperties(flags.theory).map(p=>({name:p.name,formula:p.formula,...new Evaluator(model,{maxMilliseconds,...stepOptions}).check(p.ast??parseFormula(p.formula),{scope:'end'})}));
     result={holds:rows.every(r=>r.holds),complete:true,properties:rows,qualification:'These are property checks on this model. Validate the protocol theory separately.'};
   } else if (command==='explore') {

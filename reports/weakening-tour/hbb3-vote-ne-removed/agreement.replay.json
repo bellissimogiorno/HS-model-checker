@@ -30,12 +30,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "holds": true,
         "complete": true,
@@ -49,7 +49,7 @@
           "memoHits": 32,
           "memoEntries": 104,
           "memoEvictions": 0,
-          "elapsedMs": 0.30912700000044424
+          "elapsedMs": 0.1245069999995394
         }
       },
       {
@@ -70,12 +70,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "holds": true,
         "complete": true,
@@ -89,7 +89,7 @@
           "memoHits": 0,
           "memoEntries": 68,
           "memoEvictions": 0,
-          "elapsedMs": 0.09213599999930011
+          "elapsedMs": 0.1642360000005283
         }
       },
       {
@@ -158,12 +158,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeDia",
         "event": {
@@ -184,21 +184,26 @@
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.1815279999991617
+          "elapsedMs": 0.11051099999986036
         }
       },
       {
         "name": "KnowledgeBox:\"propose\"(\"a\"):0",
         "kind": "other",
         "direction": "other",
-        "formula": "(end (box[] past (live & \"propose\"(\"a\")))) -> live -> sometime (box[] past \"propose\"(\"a\"))",
+        "formula": "(end (box[\"a\"] past (live & \"propose\"(\"a\")))) -> live -> sometime (box[\"a\"] past \"propose\"(\"a\"))",
         "ast": {
           "type": "implies",
           "left": {
             "type": "end",
             "body": {
               "type": "box",
-              "learners": [],
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "a"
+                }
+              ],
               "body": {
                 "type": "past",
                 "body": {
@@ -233,7 +238,12 @@
               "type": "sometime",
               "body": {
                 "type": "box",
-                "learners": [],
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "a"
+                  }
+                ],
                 "body": {
                   "type": "past",
                   "body": {
@@ -253,12 +263,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -267,7 +277,9 @@
             "a"
           ]
         },
-        "learners": [],
+        "learners": [
+          "a"
+        ],
         "holds": true,
         "complete": true,
         "scope": "all",
@@ -276,15 +288,123 @@
         "totalRepresentatives": 34,
         "exhaustive": true,
         "stats": {
-          "steps": 149,
+          "steps": 152,
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.12265099999967788
+          "elapsedMs": 0.10246600000027684
         }
       },
       {
         "name": "KnowledgeBox:\"propose\"(\"a\"):1",
+        "kind": "other",
+        "direction": "other",
+        "formula": "(end (box[\"b\"] past (live & \"propose\"(\"a\")))) -> live -> sometime (box[\"b\"] past \"propose\"(\"a\"))",
+        "ast": {
+          "type": "implies",
+          "left": {
+            "type": "end",
+            "body": {
+              "type": "box",
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "b"
+                }
+              ],
+              "body": {
+                "type": "past",
+                "body": {
+                  "type": "and",
+                  "left": {
+                    "type": "atom",
+                    "symbol": "live",
+                    "args": []
+                  },
+                  "right": {
+                    "type": "atom",
+                    "symbol": "propose",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "a"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "right": {
+            "type": "implies",
+            "left": {
+              "type": "atom",
+              "symbol": "live",
+              "args": []
+            },
+            "right": {
+              "type": "sometime",
+              "body": {
+                "type": "box",
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "b"
+                  }
+                ],
+                "body": {
+                  "type": "past",
+                  "body": {
+                    "type": "atom",
+                    "symbol": "propose",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "a"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "source": {
+          "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
+          "definition": "5.2.4",
+          "definitionPage": 43
+        },
+        "scheme": "KnowledgeBox",
+        "event": {
+          "symbol": "propose",
+          "args": [
+            "a"
+          ]
+        },
+        "learners": [
+          "b"
+        ],
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 34,
+        "totalRepresentatives": 34,
+        "exhaustive": true,
+        "stats": {
+          "steps": 152,
+          "memoHits": 34,
+          "memoEntries": 96,
+          "memoEvictions": 0,
+          "elapsedMs": 0.09071299999959592
+        }
+      },
+      {
+        "name": "KnowledgeBox:\"propose\"(\"a\"):2",
         "kind": "other",
         "direction": "other",
         "formula": "(end (box[\"c\"] past (live & \"propose\"(\"a\")))) -> live -> sometime (box[\"c\"] past \"propose\"(\"a\"))",
@@ -359,12 +479,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -388,7 +508,7 @@
           "memoHits": 33,
           "memoEntries": 83,
           "memoEvictions": 0,
-          "elapsedMs": 0.11998700000003737
+          "elapsedMs": 0.07869399999981397
         }
       },
       {
@@ -457,12 +577,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeDia",
         "event": {
@@ -483,21 +603,26 @@
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.1553990000011254
+          "elapsedMs": 0.08864999999968859
         }
       },
       {
         "name": "KnowledgeBox:\"propose\"(\"b\"):0",
         "kind": "other",
         "direction": "other",
-        "formula": "(end (box[] past (live & \"propose\"(\"b\")))) -> live -> sometime (box[] past \"propose\"(\"b\"))",
+        "formula": "(end (box[\"a\"] past (live & \"propose\"(\"b\")))) -> live -> sometime (box[\"a\"] past \"propose\"(\"b\"))",
         "ast": {
           "type": "implies",
           "left": {
             "type": "end",
             "body": {
               "type": "box",
-              "learners": [],
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "a"
+                }
+              ],
               "body": {
                 "type": "past",
                 "body": {
@@ -532,7 +657,12 @@
               "type": "sometime",
               "body": {
                 "type": "box",
-                "learners": [],
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "a"
+                  }
+                ],
                 "body": {
                   "type": "past",
                   "body": {
@@ -552,12 +682,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -566,7 +696,9 @@
             "b"
           ]
         },
-        "learners": [],
+        "learners": [
+          "a"
+        ],
         "holds": true,
         "complete": true,
         "scope": "all",
@@ -575,15 +707,123 @@
         "totalRepresentatives": 34,
         "exhaustive": true,
         "stats": {
-          "steps": 149,
+          "steps": 151,
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.2635890000001382
+          "elapsedMs": 0.09236699999928533
         }
       },
       {
         "name": "KnowledgeBox:\"propose\"(\"b\"):1",
+        "kind": "other",
+        "direction": "other",
+        "formula": "(end (box[\"b\"] past (live & \"propose\"(\"b\")))) -> live -> sometime (box[\"b\"] past \"propose\"(\"b\"))",
+        "ast": {
+          "type": "implies",
+          "left": {
+            "type": "end",
+            "body": {
+              "type": "box",
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "b"
+                }
+              ],
+              "body": {
+                "type": "past",
+                "body": {
+                  "type": "and",
+                  "left": {
+                    "type": "atom",
+                    "symbol": "live",
+                    "args": []
+                  },
+                  "right": {
+                    "type": "atom",
+                    "symbol": "propose",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "b"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "right": {
+            "type": "implies",
+            "left": {
+              "type": "atom",
+              "symbol": "live",
+              "args": []
+            },
+            "right": {
+              "type": "sometime",
+              "body": {
+                "type": "box",
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "b"
+                  }
+                ],
+                "body": {
+                  "type": "past",
+                  "body": {
+                    "type": "atom",
+                    "symbol": "propose",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "b"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "source": {
+          "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
+          "definition": "5.2.4",
+          "definitionPage": 43
+        },
+        "scheme": "KnowledgeBox",
+        "event": {
+          "symbol": "propose",
+          "args": [
+            "b"
+          ]
+        },
+        "learners": [
+          "b"
+        ],
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 34,
+        "totalRepresentatives": 34,
+        "exhaustive": true,
+        "stats": {
+          "steps": 151,
+          "memoHits": 34,
+          "memoEntries": 96,
+          "memoEvictions": 0,
+          "elapsedMs": 0.09085000000050059
+        }
+      },
+      {
+        "name": "KnowledgeBox:\"propose\"(\"b\"):2",
         "kind": "other",
         "direction": "other",
         "formula": "(end (box[\"c\"] past (live & \"propose\"(\"b\")))) -> live -> sometime (box[\"c\"] past \"propose\"(\"b\"))",
@@ -658,12 +898,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -687,7 +927,7 @@
           "memoHits": 33,
           "memoEntries": 83,
           "memoEvictions": 0,
-          "elapsedMs": 0.11536100000012084
+          "elapsedMs": 0.08102000000053522
         }
       },
       {
@@ -756,12 +996,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeDia",
         "event": {
@@ -782,21 +1022,26 @@
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.13349699999889708
+          "elapsedMs": 0.08827100000053179
         }
       },
       {
         "name": "KnowledgeBox:\"echo\"(\"a\"):0",
         "kind": "other",
         "direction": "other",
-        "formula": "(end (box[] past (live & \"echo\"(\"a\")))) -> live -> sometime (box[] past \"echo\"(\"a\"))",
+        "formula": "(end (box[\"a\"] past (live & \"echo\"(\"a\")))) -> live -> sometime (box[\"a\"] past \"echo\"(\"a\"))",
         "ast": {
           "type": "implies",
           "left": {
             "type": "end",
             "body": {
               "type": "box",
-              "learners": [],
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "a"
+                }
+              ],
               "body": {
                 "type": "past",
                 "body": {
@@ -831,7 +1076,12 @@
               "type": "sometime",
               "body": {
                 "type": "box",
-                "learners": [],
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "a"
+                  }
+                ],
                 "body": {
                   "type": "past",
                   "body": {
@@ -851,12 +1101,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -865,7 +1115,9 @@
             "a"
           ]
         },
-        "learners": [],
+        "learners": [
+          "a"
+        ],
         "holds": true,
         "complete": true,
         "scope": "all",
@@ -874,15 +1126,123 @@
         "totalRepresentatives": 34,
         "exhaustive": true,
         "stats": {
-          "steps": 149,
+          "steps": 151,
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.12568500000088534
+          "elapsedMs": 0.13460500000019238
         }
       },
       {
         "name": "KnowledgeBox:\"echo\"(\"a\"):1",
+        "kind": "other",
+        "direction": "other",
+        "formula": "(end (box[\"b\"] past (live & \"echo\"(\"a\")))) -> live -> sometime (box[\"b\"] past \"echo\"(\"a\"))",
+        "ast": {
+          "type": "implies",
+          "left": {
+            "type": "end",
+            "body": {
+              "type": "box",
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "b"
+                }
+              ],
+              "body": {
+                "type": "past",
+                "body": {
+                  "type": "and",
+                  "left": {
+                    "type": "atom",
+                    "symbol": "live",
+                    "args": []
+                  },
+                  "right": {
+                    "type": "atom",
+                    "symbol": "echo",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "a"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "right": {
+            "type": "implies",
+            "left": {
+              "type": "atom",
+              "symbol": "live",
+              "args": []
+            },
+            "right": {
+              "type": "sometime",
+              "body": {
+                "type": "box",
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "b"
+                  }
+                ],
+                "body": {
+                  "type": "past",
+                  "body": {
+                    "type": "atom",
+                    "symbol": "echo",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "a"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "source": {
+          "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
+          "definition": "5.2.4",
+          "definitionPage": 43
+        },
+        "scheme": "KnowledgeBox",
+        "event": {
+          "symbol": "echo",
+          "args": [
+            "a"
+          ]
+        },
+        "learners": [
+          "b"
+        ],
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 34,
+        "totalRepresentatives": 34,
+        "exhaustive": true,
+        "stats": {
+          "steps": 151,
+          "memoHits": 34,
+          "memoEntries": 96,
+          "memoEvictions": 0,
+          "elapsedMs": 0.09520599999996193
+        }
+      },
+      {
+        "name": "KnowledgeBox:\"echo\"(\"a\"):2",
         "kind": "other",
         "direction": "other",
         "formula": "(end (box[\"c\"] past (live & \"echo\"(\"a\")))) -> live -> sometime (box[\"c\"] past \"echo\"(\"a\"))",
@@ -957,12 +1317,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -986,7 +1346,7 @@
           "memoHits": 33,
           "memoEntries": 83,
           "memoEvictions": 0,
-          "elapsedMs": 0.11098300000048766
+          "elapsedMs": 0.07709900000008929
         }
       },
       {
@@ -1055,12 +1415,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeDia",
         "event": {
@@ -1081,21 +1441,26 @@
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.12664800000129617
+          "elapsedMs": 0.09078700000009121
         }
       },
       {
         "name": "KnowledgeBox:\"echo\"(\"b\"):0",
         "kind": "other",
         "direction": "other",
-        "formula": "(end (box[] past (live & \"echo\"(\"b\")))) -> live -> sometime (box[] past \"echo\"(\"b\"))",
+        "formula": "(end (box[\"a\"] past (live & \"echo\"(\"b\")))) -> live -> sometime (box[\"a\"] past \"echo\"(\"b\"))",
         "ast": {
           "type": "implies",
           "left": {
             "type": "end",
             "body": {
               "type": "box",
-              "learners": [],
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "a"
+                }
+              ],
               "body": {
                 "type": "past",
                 "body": {
@@ -1130,7 +1495,12 @@
               "type": "sometime",
               "body": {
                 "type": "box",
-                "learners": [],
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "a"
+                  }
+                ],
                 "body": {
                   "type": "past",
                   "body": {
@@ -1150,12 +1520,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -1164,7 +1534,9 @@
             "b"
           ]
         },
-        "learners": [],
+        "learners": [
+          "a"
+        ],
         "holds": true,
         "complete": true,
         "scope": "all",
@@ -1173,15 +1545,123 @@
         "totalRepresentatives": 34,
         "exhaustive": true,
         "stats": {
-          "steps": 149,
+          "steps": 151,
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.12456400000155554
+          "elapsedMs": 0.09241300000030606
         }
       },
       {
         "name": "KnowledgeBox:\"echo\"(\"b\"):1",
+        "kind": "other",
+        "direction": "other",
+        "formula": "(end (box[\"b\"] past (live & \"echo\"(\"b\")))) -> live -> sometime (box[\"b\"] past \"echo\"(\"b\"))",
+        "ast": {
+          "type": "implies",
+          "left": {
+            "type": "end",
+            "body": {
+              "type": "box",
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "b"
+                }
+              ],
+              "body": {
+                "type": "past",
+                "body": {
+                  "type": "and",
+                  "left": {
+                    "type": "atom",
+                    "symbol": "live",
+                    "args": []
+                  },
+                  "right": {
+                    "type": "atom",
+                    "symbol": "echo",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "b"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "right": {
+            "type": "implies",
+            "left": {
+              "type": "atom",
+              "symbol": "live",
+              "args": []
+            },
+            "right": {
+              "type": "sometime",
+              "body": {
+                "type": "box",
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "b"
+                  }
+                ],
+                "body": {
+                  "type": "past",
+                  "body": {
+                    "type": "atom",
+                    "symbol": "echo",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "b"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "source": {
+          "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
+          "definition": "5.2.4",
+          "definitionPage": 43
+        },
+        "scheme": "KnowledgeBox",
+        "event": {
+          "symbol": "echo",
+          "args": [
+            "b"
+          ]
+        },
+        "learners": [
+          "b"
+        ],
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 34,
+        "totalRepresentatives": 34,
+        "exhaustive": true,
+        "stats": {
+          "steps": 151,
+          "memoHits": 34,
+          "memoEntries": 96,
+          "memoEvictions": 0,
+          "elapsedMs": 0.08917199999996228
+        }
+      },
+      {
+        "name": "KnowledgeBox:\"echo\"(\"b\"):2",
         "kind": "other",
         "direction": "other",
         "formula": "(end (box[\"c\"] past (live & \"echo\"(\"b\")))) -> live -> sometime (box[\"c\"] past \"echo\"(\"b\"))",
@@ -1256,12 +1736,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -1285,7 +1765,7 @@
           "memoHits": 33,
           "memoEntries": 83,
           "memoEvictions": 0,
-          "elapsedMs": 0.1346689999991213
+          "elapsedMs": 0.07846499999959633
         }
       },
       {
@@ -1362,12 +1842,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeDia",
         "event": {
@@ -1389,21 +1869,26 @@
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.12649700000110897
+          "elapsedMs": 0.09081100000003062
         }
       },
       {
         "name": "KnowledgeBox:\"vote\"(\"c\",\"a\"):0",
         "kind": "other",
         "direction": "other",
-        "formula": "(end (box[] past (live & \"vote\"(\"c\",\"a\")))) -> live -> sometime (box[] past \"vote\"(\"c\",\"a\"))",
+        "formula": "(end (box[\"a\"] past (live & \"vote\"(\"c\",\"a\")))) -> live -> sometime (box[\"a\"] past \"vote\"(\"c\",\"a\"))",
         "ast": {
           "type": "implies",
           "left": {
             "type": "end",
             "body": {
               "type": "box",
-              "learners": [],
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "a"
+                }
+              ],
               "body": {
                 "type": "past",
                 "body": {
@@ -1442,7 +1927,12 @@
               "type": "sometime",
               "body": {
                 "type": "box",
-                "learners": [],
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "a"
+                  }
+                ],
                 "body": {
                   "type": "past",
                   "body": {
@@ -1466,12 +1956,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -1481,7 +1971,9 @@
             "a"
           ]
         },
-        "learners": [],
+        "learners": [
+          "a"
+        ],
         "holds": true,
         "complete": true,
         "scope": "all",
@@ -1490,15 +1982,132 @@
         "totalRepresentatives": 34,
         "exhaustive": true,
         "stats": {
-          "steps": 151,
+          "steps": 153,
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.12795899999946414
+          "elapsedMs": 0.09418399999958638
         }
       },
       {
         "name": "KnowledgeBox:\"vote\"(\"c\",\"a\"):1",
+        "kind": "other",
+        "direction": "other",
+        "formula": "(end (box[\"b\"] past (live & \"vote\"(\"c\",\"a\")))) -> live -> sometime (box[\"b\"] past \"vote\"(\"c\",\"a\"))",
+        "ast": {
+          "type": "implies",
+          "left": {
+            "type": "end",
+            "body": {
+              "type": "box",
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "b"
+                }
+              ],
+              "body": {
+                "type": "past",
+                "body": {
+                  "type": "and",
+                  "left": {
+                    "type": "atom",
+                    "symbol": "live",
+                    "args": []
+                  },
+                  "right": {
+                    "type": "atom",
+                    "symbol": "vote",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "c"
+                      },
+                      {
+                        "type": "value",
+                        "value": "a"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "right": {
+            "type": "implies",
+            "left": {
+              "type": "atom",
+              "symbol": "live",
+              "args": []
+            },
+            "right": {
+              "type": "sometime",
+              "body": {
+                "type": "box",
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "b"
+                  }
+                ],
+                "body": {
+                  "type": "past",
+                  "body": {
+                    "type": "atom",
+                    "symbol": "vote",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "c"
+                      },
+                      {
+                        "type": "value",
+                        "value": "a"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "source": {
+          "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
+          "definition": "5.2.4",
+          "definitionPage": 43
+        },
+        "scheme": "KnowledgeBox",
+        "event": {
+          "symbol": "vote",
+          "args": [
+            "c",
+            "a"
+          ]
+        },
+        "learners": [
+          "b"
+        ],
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 34,
+        "totalRepresentatives": 34,
+        "exhaustive": true,
+        "stats": {
+          "steps": 153,
+          "memoHits": 34,
+          "memoEntries": 96,
+          "memoEvictions": 0,
+          "elapsedMs": 0.09134399999948073
+        }
+      },
+      {
+        "name": "KnowledgeBox:\"vote\"(\"c\",\"a\"):2",
         "kind": "other",
         "direction": "other",
         "formula": "(end (box[\"c\"] past (live & \"vote\"(\"c\",\"a\")))) -> live -> sometime (box[\"c\"] past \"vote\"(\"c\",\"a\"))",
@@ -1581,12 +2190,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -1611,7 +2220,7 @@
           "memoHits": 33,
           "memoEntries": 83,
           "memoEvictions": 0,
-          "elapsedMs": 0.10701800000060757
+          "elapsedMs": 0.0790950000000521
         }
       },
       {
@@ -1688,12 +2297,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeDia",
         "event": {
@@ -1715,21 +2324,26 @@
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.3510679999999411
+          "elapsedMs": 0.11682099999961792
         }
       },
       {
         "name": "KnowledgeBox:\"vote\"(\"b\",\"b\"):0",
         "kind": "other",
         "direction": "other",
-        "formula": "(end (box[] past (live & \"vote\"(\"b\",\"b\")))) -> live -> sometime (box[] past \"vote\"(\"b\",\"b\"))",
+        "formula": "(end (box[\"a\"] past (live & \"vote\"(\"b\",\"b\")))) -> live -> sometime (box[\"a\"] past \"vote\"(\"b\",\"b\"))",
         "ast": {
           "type": "implies",
           "left": {
             "type": "end",
             "body": {
               "type": "box",
-              "learners": [],
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "a"
+                }
+              ],
               "body": {
                 "type": "past",
                 "body": {
@@ -1768,7 +2382,12 @@
               "type": "sometime",
               "body": {
                 "type": "box",
-                "learners": [],
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "a"
+                  }
+                ],
                 "body": {
                   "type": "past",
                   "body": {
@@ -1792,12 +2411,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -1807,7 +2426,9 @@
             "b"
           ]
         },
-        "learners": [],
+        "learners": [
+          "a"
+        ],
         "holds": true,
         "complete": true,
         "scope": "all",
@@ -1816,15 +2437,132 @@
         "totalRepresentatives": 34,
         "exhaustive": true,
         "stats": {
-          "steps": 151,
+          "steps": 153,
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.1354300000002695
+          "elapsedMs": 0.09399000000030355
         }
       },
       {
         "name": "KnowledgeBox:\"vote\"(\"b\",\"b\"):1",
+        "kind": "other",
+        "direction": "other",
+        "formula": "(end (box[\"b\"] past (live & \"vote\"(\"b\",\"b\")))) -> live -> sometime (box[\"b\"] past \"vote\"(\"b\",\"b\"))",
+        "ast": {
+          "type": "implies",
+          "left": {
+            "type": "end",
+            "body": {
+              "type": "box",
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "b"
+                }
+              ],
+              "body": {
+                "type": "past",
+                "body": {
+                  "type": "and",
+                  "left": {
+                    "type": "atom",
+                    "symbol": "live",
+                    "args": []
+                  },
+                  "right": {
+                    "type": "atom",
+                    "symbol": "vote",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "b"
+                      },
+                      {
+                        "type": "value",
+                        "value": "b"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "right": {
+            "type": "implies",
+            "left": {
+              "type": "atom",
+              "symbol": "live",
+              "args": []
+            },
+            "right": {
+              "type": "sometime",
+              "body": {
+                "type": "box",
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "b"
+                  }
+                ],
+                "body": {
+                  "type": "past",
+                  "body": {
+                    "type": "atom",
+                    "symbol": "vote",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "b"
+                      },
+                      {
+                        "type": "value",
+                        "value": "b"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "source": {
+          "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
+          "definition": "5.2.4",
+          "definitionPage": 43
+        },
+        "scheme": "KnowledgeBox",
+        "event": {
+          "symbol": "vote",
+          "args": [
+            "b",
+            "b"
+          ]
+        },
+        "learners": [
+          "b"
+        ],
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 34,
+        "totalRepresentatives": 34,
+        "exhaustive": true,
+        "stats": {
+          "steps": 153,
+          "memoHits": 34,
+          "memoEntries": 96,
+          "memoEvictions": 0,
+          "elapsedMs": 0.0920139999998355
+        }
+      },
+      {
+        "name": "KnowledgeBox:\"vote\"(\"b\",\"b\"):2",
         "kind": "other",
         "direction": "other",
         "formula": "(end (box[\"c\"] past (live & \"vote\"(\"b\",\"b\")))) -> live -> sometime (box[\"c\"] past \"vote\"(\"b\",\"b\"))",
@@ -1907,12 +2645,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -1937,7 +2675,7 @@
           "memoHits": 33,
           "memoEntries": 83,
           "memoEvictions": 0,
-          "elapsedMs": 0.15663099999983388
+          "elapsedMs": 0.1593139999995401
         }
       },
       {
@@ -2014,12 +2752,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeDia",
         "event": {
@@ -2041,21 +2779,26 @@
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.14820899999904213
+          "elapsedMs": 0.10455599999932019
         }
       },
       {
         "name": "KnowledgeBox:\"vote\"(\"a\",\"a\"):0",
         "kind": "other",
         "direction": "other",
-        "formula": "(end (box[] past (live & \"vote\"(\"a\",\"a\")))) -> live -> sometime (box[] past \"vote\"(\"a\",\"a\"))",
+        "formula": "(end (box[\"a\"] past (live & \"vote\"(\"a\",\"a\")))) -> live -> sometime (box[\"a\"] past \"vote\"(\"a\",\"a\"))",
         "ast": {
           "type": "implies",
           "left": {
             "type": "end",
             "body": {
               "type": "box",
-              "learners": [],
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "a"
+                }
+              ],
               "body": {
                 "type": "past",
                 "body": {
@@ -2094,7 +2837,12 @@
               "type": "sometime",
               "body": {
                 "type": "box",
-                "learners": [],
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "a"
+                  }
+                ],
                 "body": {
                   "type": "past",
                   "body": {
@@ -2118,12 +2866,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -2133,7 +2881,9 @@
             "a"
           ]
         },
-        "learners": [],
+        "learners": [
+          "a"
+        ],
         "holds": true,
         "complete": true,
         "scope": "all",
@@ -2142,15 +2892,132 @@
         "totalRepresentatives": 34,
         "exhaustive": true,
         "stats": {
-          "steps": 151,
+          "steps": 153,
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.3756339999999909
+          "elapsedMs": 0.09676000000035856
         }
       },
       {
         "name": "KnowledgeBox:\"vote\"(\"a\",\"a\"):1",
+        "kind": "other",
+        "direction": "other",
+        "formula": "(end (box[\"b\"] past (live & \"vote\"(\"a\",\"a\")))) -> live -> sometime (box[\"b\"] past \"vote\"(\"a\",\"a\"))",
+        "ast": {
+          "type": "implies",
+          "left": {
+            "type": "end",
+            "body": {
+              "type": "box",
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "b"
+                }
+              ],
+              "body": {
+                "type": "past",
+                "body": {
+                  "type": "and",
+                  "left": {
+                    "type": "atom",
+                    "symbol": "live",
+                    "args": []
+                  },
+                  "right": {
+                    "type": "atom",
+                    "symbol": "vote",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "a"
+                      },
+                      {
+                        "type": "value",
+                        "value": "a"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "right": {
+            "type": "implies",
+            "left": {
+              "type": "atom",
+              "symbol": "live",
+              "args": []
+            },
+            "right": {
+              "type": "sometime",
+              "body": {
+                "type": "box",
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "b"
+                  }
+                ],
+                "body": {
+                  "type": "past",
+                  "body": {
+                    "type": "atom",
+                    "symbol": "vote",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "a"
+                      },
+                      {
+                        "type": "value",
+                        "value": "a"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "source": {
+          "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
+          "definition": "5.2.4",
+          "definitionPage": 43
+        },
+        "scheme": "KnowledgeBox",
+        "event": {
+          "symbol": "vote",
+          "args": [
+            "a",
+            "a"
+          ]
+        },
+        "learners": [
+          "b"
+        ],
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 34,
+        "totalRepresentatives": 34,
+        "exhaustive": true,
+        "stats": {
+          "steps": 153,
+          "memoHits": 34,
+          "memoEntries": 96,
+          "memoEvictions": 0,
+          "elapsedMs": 0.10010799999963638
+        }
+      },
+      {
+        "name": "KnowledgeBox:\"vote\"(\"a\",\"a\"):2",
         "kind": "other",
         "direction": "other",
         "formula": "(end (box[\"c\"] past (live & \"vote\"(\"a\",\"a\")))) -> live -> sometime (box[\"c\"] past \"vote\"(\"a\",\"a\"))",
@@ -2233,12 +3100,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -2263,7 +3130,7 @@
           "memoHits": 33,
           "memoEntries": 83,
           "memoEvictions": 0,
-          "elapsedMs": 0.26452099999914935
+          "elapsedMs": 0.09047999999984313
         }
       },
       {
@@ -2340,12 +3207,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeDia",
         "event": {
@@ -2367,21 +3234,26 @@
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.4272609999989072
+          "elapsedMs": 0.12749100000019098
         }
       },
       {
         "name": "KnowledgeBox:\"deliver\"(\"a\",\"a\"):0",
         "kind": "other",
         "direction": "other",
-        "formula": "(end (box[] past (live & \"deliver\"(\"a\",\"a\")))) -> live -> sometime (box[] past \"deliver\"(\"a\",\"a\"))",
+        "formula": "(end (box[\"a\"] past (live & \"deliver\"(\"a\",\"a\")))) -> live -> sometime (box[\"a\"] past \"deliver\"(\"a\",\"a\"))",
         "ast": {
           "type": "implies",
           "left": {
             "type": "end",
             "body": {
               "type": "box",
-              "learners": [],
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "a"
+                }
+              ],
               "body": {
                 "type": "past",
                 "body": {
@@ -2420,7 +3292,12 @@
               "type": "sometime",
               "body": {
                 "type": "box",
-                "learners": [],
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "a"
+                  }
+                ],
                 "body": {
                   "type": "past",
                   "body": {
@@ -2444,12 +3321,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -2459,7 +3336,9 @@
             "a"
           ]
         },
-        "learners": [],
+        "learners": [
+          "a"
+        ],
         "holds": true,
         "complete": true,
         "scope": "all",
@@ -2468,15 +3347,132 @@
         "totalRepresentatives": 34,
         "exhaustive": true,
         "stats": {
-          "steps": 151,
+          "steps": 153,
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.1915930000013759
+          "elapsedMs": 0.1908370000001014
         }
       },
       {
         "name": "KnowledgeBox:\"deliver\"(\"a\",\"a\"):1",
+        "kind": "other",
+        "direction": "other",
+        "formula": "(end (box[\"b\"] past (live & \"deliver\"(\"a\",\"a\")))) -> live -> sometime (box[\"b\"] past \"deliver\"(\"a\",\"a\"))",
+        "ast": {
+          "type": "implies",
+          "left": {
+            "type": "end",
+            "body": {
+              "type": "box",
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "b"
+                }
+              ],
+              "body": {
+                "type": "past",
+                "body": {
+                  "type": "and",
+                  "left": {
+                    "type": "atom",
+                    "symbol": "live",
+                    "args": []
+                  },
+                  "right": {
+                    "type": "atom",
+                    "symbol": "deliver",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "a"
+                      },
+                      {
+                        "type": "value",
+                        "value": "a"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "right": {
+            "type": "implies",
+            "left": {
+              "type": "atom",
+              "symbol": "live",
+              "args": []
+            },
+            "right": {
+              "type": "sometime",
+              "body": {
+                "type": "box",
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "b"
+                  }
+                ],
+                "body": {
+                  "type": "past",
+                  "body": {
+                    "type": "atom",
+                    "symbol": "deliver",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "a"
+                      },
+                      {
+                        "type": "value",
+                        "value": "a"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "source": {
+          "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
+          "definition": "5.2.4",
+          "definitionPage": 43
+        },
+        "scheme": "KnowledgeBox",
+        "event": {
+          "symbol": "deliver",
+          "args": [
+            "a",
+            "a"
+          ]
+        },
+        "learners": [
+          "b"
+        ],
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 34,
+        "totalRepresentatives": 34,
+        "exhaustive": true,
+        "stats": {
+          "steps": 153,
+          "memoHits": 34,
+          "memoEntries": 96,
+          "memoEvictions": 0,
+          "elapsedMs": 0.10416999999961263
+        }
+      },
+      {
+        "name": "KnowledgeBox:\"deliver\"(\"a\",\"a\"):2",
         "kind": "other",
         "direction": "other",
         "formula": "(end (box[\"c\"] past (live & \"deliver\"(\"a\",\"a\")))) -> live -> sometime (box[\"c\"] past \"deliver\"(\"a\",\"a\"))",
@@ -2559,12 +3555,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -2589,7 +3585,7 @@
           "memoHits": 33,
           "memoEntries": 83,
           "memoEvictions": 0,
-          "elapsedMs": 0.1295910000008007
+          "elapsedMs": 0.08038499999929627
         }
       },
       {
@@ -2666,12 +3662,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeDia",
         "event": {
@@ -2693,21 +3689,26 @@
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.1418099999991682
+          "elapsedMs": 0.09263499999997293
         }
       },
       {
         "name": "KnowledgeBox:\"deliver\"(\"b\",\"b\"):0",
         "kind": "other",
         "direction": "other",
-        "formula": "(end (box[] past (live & \"deliver\"(\"b\",\"b\")))) -> live -> sometime (box[] past \"deliver\"(\"b\",\"b\"))",
+        "formula": "(end (box[\"a\"] past (live & \"deliver\"(\"b\",\"b\")))) -> live -> sometime (box[\"a\"] past \"deliver\"(\"b\",\"b\"))",
         "ast": {
           "type": "implies",
           "left": {
             "type": "end",
             "body": {
               "type": "box",
-              "learners": [],
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "a"
+                }
+              ],
               "body": {
                 "type": "past",
                 "body": {
@@ -2746,7 +3747,12 @@
               "type": "sometime",
               "body": {
                 "type": "box",
-                "learners": [],
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "a"
+                  }
+                ],
                 "body": {
                   "type": "past",
                   "body": {
@@ -2770,12 +3776,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -2785,7 +3791,9 @@
             "b"
           ]
         },
-        "learners": [],
+        "learners": [
+          "a"
+        ],
         "holds": true,
         "complete": true,
         "scope": "all",
@@ -2794,15 +3802,132 @@
         "totalRepresentatives": 34,
         "exhaustive": true,
         "stats": {
-          "steps": 151,
+          "steps": 153,
           "memoHits": 34,
           "memoEntries": 96,
           "memoEvictions": 0,
-          "elapsedMs": 0.14950099999987287
+          "elapsedMs": 0.09218700000019453
         }
       },
       {
         "name": "KnowledgeBox:\"deliver\"(\"b\",\"b\"):1",
+        "kind": "other",
+        "direction": "other",
+        "formula": "(end (box[\"b\"] past (live & \"deliver\"(\"b\",\"b\")))) -> live -> sometime (box[\"b\"] past \"deliver\"(\"b\",\"b\"))",
+        "ast": {
+          "type": "implies",
+          "left": {
+            "type": "end",
+            "body": {
+              "type": "box",
+              "learners": [
+                {
+                  "type": "value",
+                  "value": "b"
+                }
+              ],
+              "body": {
+                "type": "past",
+                "body": {
+                  "type": "and",
+                  "left": {
+                    "type": "atom",
+                    "symbol": "live",
+                    "args": []
+                  },
+                  "right": {
+                    "type": "atom",
+                    "symbol": "deliver",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "b"
+                      },
+                      {
+                        "type": "value",
+                        "value": "b"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "right": {
+            "type": "implies",
+            "left": {
+              "type": "atom",
+              "symbol": "live",
+              "args": []
+            },
+            "right": {
+              "type": "sometime",
+              "body": {
+                "type": "box",
+                "learners": [
+                  {
+                    "type": "value",
+                    "value": "b"
+                  }
+                ],
+                "body": {
+                  "type": "past",
+                  "body": {
+                    "type": "atom",
+                    "symbol": "deliver",
+                    "args": [
+                      {
+                        "type": "value",
+                        "value": "b"
+                      },
+                      {
+                        "type": "value",
+                        "value": "b"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "source": {
+          "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
+          "definition": "5.2.4",
+          "definitionPage": 43
+        },
+        "scheme": "KnowledgeBox",
+        "event": {
+          "symbol": "deliver",
+          "args": [
+            "b",
+            "b"
+          ]
+        },
+        "learners": [
+          "b"
+        ],
+        "holds": true,
+        "complete": true,
+        "scope": "all",
+        "failures": [],
+        "checked": 34,
+        "totalRepresentatives": 34,
+        "exhaustive": true,
+        "stats": {
+          "steps": 153,
+          "memoHits": 34,
+          "memoEntries": 96,
+          "memoEvictions": 0,
+          "elapsedMs": 0.09256599999935133
+        }
+      },
+      {
+        "name": "KnowledgeBox:\"deliver\"(\"b\",\"b\"):2",
         "kind": "other",
         "direction": "other",
         "formula": "(end (box[\"c\"] past (live & \"deliver\"(\"b\",\"b\")))) -> live -> sometime (box[\"c\"] past \"deliver\"(\"b\",\"b\"))",
@@ -2885,12 +4010,12 @@
         },
         "source": {
           "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
+          "draft": "2026-11-18",
+          "page": 43,
+          "figure": 7,
+          "figurePage": 43,
           "definition": "5.2.4",
-          "definitionPage": 38
+          "definitionPage": 43
         },
         "scheme": "KnowledgeBox",
         "event": {
@@ -2915,270 +4040,7 @@
           "memoHits": 33,
           "memoEntries": 83,
           "memoEvictions": 0,
-          "elapsedMs": 0.29117000000042026
-        }
-      },
-      {
-        "name": "KnowledgeDia:\"propose\"()",
-        "kind": "other",
-        "direction": "other",
-        "formula": "(end (dia[] past (live & \"propose\"()))) -> live -> sometime (dia[] past \"propose\"())",
-        "ast": {
-          "type": "implies",
-          "left": {
-            "type": "end",
-            "body": {
-              "type": "dia",
-              "learners": [],
-              "body": {
-                "type": "past",
-                "body": {
-                  "type": "and",
-                  "left": {
-                    "type": "atom",
-                    "symbol": "live",
-                    "args": []
-                  },
-                  "right": {
-                    "type": "atom",
-                    "symbol": "propose",
-                    "args": []
-                  }
-                }
-              }
-            }
-          },
-          "right": {
-            "type": "implies",
-            "left": {
-              "type": "atom",
-              "symbol": "live",
-              "args": []
-            },
-            "right": {
-              "type": "sometime",
-              "body": {
-                "type": "dia",
-                "learners": [],
-                "body": {
-                  "type": "past",
-                  "body": {
-                    "type": "atom",
-                    "symbol": "propose",
-                    "args": []
-                  }
-                }
-              }
-            }
-          }
-        },
-        "source": {
-          "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
-          "definition": "5.2.4",
-          "definitionPage": 38
-        },
-        "scheme": "KnowledgeDia",
-        "event": {
-          "symbol": "propose",
-          "args": []
-        },
-        "holds": true,
-        "complete": true,
-        "scope": "all",
-        "failures": [],
-        "checked": 34,
-        "totalRepresentatives": 34,
-        "exhaustive": true,
-        "stats": {
-          "steps": 147,
-          "memoHits": 34,
-          "memoEntries": 96,
-          "memoEvictions": 0,
-          "elapsedMs": 0.1779129999995348
-        }
-      },
-      {
-        "name": "KnowledgeBox:\"propose\"():0",
-        "kind": "other",
-        "direction": "other",
-        "formula": "(end (box[] past (live & \"propose\"()))) -> live -> sometime (box[] past \"propose\"())",
-        "ast": {
-          "type": "implies",
-          "left": {
-            "type": "end",
-            "body": {
-              "type": "box",
-              "learners": [],
-              "body": {
-                "type": "past",
-                "body": {
-                  "type": "and",
-                  "left": {
-                    "type": "atom",
-                    "symbol": "live",
-                    "args": []
-                  },
-                  "right": {
-                    "type": "atom",
-                    "symbol": "propose",
-                    "args": []
-                  }
-                }
-              }
-            }
-          },
-          "right": {
-            "type": "implies",
-            "left": {
-              "type": "atom",
-              "symbol": "live",
-              "args": []
-            },
-            "right": {
-              "type": "sometime",
-              "body": {
-                "type": "box",
-                "learners": [],
-                "body": {
-                  "type": "past",
-                  "body": {
-                    "type": "atom",
-                    "symbol": "propose",
-                    "args": []
-                  }
-                }
-              }
-            }
-          }
-        },
-        "source": {
-          "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
-          "definition": "5.2.4",
-          "definitionPage": 38
-        },
-        "scheme": "KnowledgeBox",
-        "event": {
-          "symbol": "propose",
-          "args": []
-        },
-        "learners": [],
-        "holds": true,
-        "complete": true,
-        "scope": "all",
-        "failures": [],
-        "checked": 34,
-        "totalRepresentatives": 34,
-        "exhaustive": true,
-        "stats": {
-          "steps": 147,
-          "memoHits": 34,
-          "memoEntries": 96,
-          "memoEvictions": 0,
-          "elapsedMs": 0.1472169999997277
-        }
-      },
-      {
-        "name": "KnowledgeBox:\"propose\"():1",
-        "kind": "other",
-        "direction": "other",
-        "formula": "(end (box[\"c\"] past (live & \"propose\"()))) -> live -> sometime (box[\"c\"] past \"propose\"())",
-        "ast": {
-          "type": "implies",
-          "left": {
-            "type": "end",
-            "body": {
-              "type": "box",
-              "learners": [
-                {
-                  "type": "value",
-                  "value": "c"
-                }
-              ],
-              "body": {
-                "type": "past",
-                "body": {
-                  "type": "and",
-                  "left": {
-                    "type": "atom",
-                    "symbol": "live",
-                    "args": []
-                  },
-                  "right": {
-                    "type": "atom",
-                    "symbol": "propose",
-                    "args": []
-                  }
-                }
-              }
-            }
-          },
-          "right": {
-            "type": "implies",
-            "left": {
-              "type": "atom",
-              "symbol": "live",
-              "args": []
-            },
-            "right": {
-              "type": "sometime",
-              "body": {
-                "type": "box",
-                "learners": [
-                  {
-                    "type": "value",
-                    "value": "c"
-                  }
-                ],
-                "body": {
-                  "type": "past",
-                  "body": {
-                    "type": "atom",
-                    "symbol": "propose",
-                    "args": []
-                  }
-                }
-              }
-            }
-          }
-        },
-        "source": {
-          "title": "Heterogeneous trust in reliable broadcast via modal logic and history structures",
-          "draft": "2026-11-07",
-          "page": 38,
-          "figure": 6,
-          "figurePage": 38,
-          "definition": "5.2.4",
-          "definitionPage": 38
-        },
-        "scheme": "KnowledgeBox",
-        "event": {
-          "symbol": "propose",
-          "args": []
-        },
-        "learners": [
-          "c"
-        ],
-        "holds": true,
-        "complete": true,
-        "scope": "all",
-        "failures": [],
-        "checked": 34,
-        "totalRepresentatives": 34,
-        "exhaustive": true,
-        "stats": {
-          "steps": 133,
-          "memoHits": 33,
-          "memoEntries": 83,
-          "memoEvictions": 0,
-          "elapsedMs": 0.5143000000007305
+          "elapsedMs": 0.08019100000001345
         }
       },
       {
@@ -3205,7 +4067,7 @@
           "memoHits": 0,
           "memoEntries": 68,
           "memoEvictions": 0,
-          "elapsedMs": 1.5115219999988767
+          "elapsedMs": 0.06935299999986455
         }
       },
       {
@@ -3258,7 +4120,7 @@
           "memoHits": 2,
           "memoEntries": 247,
           "memoEvictions": 0,
-          "elapsedMs": 0.7521809999998368
+          "elapsedMs": 0.31343199999992066
         }
       },
       {
@@ -3369,7 +4231,7 @@
           "memoHits": 14,
           "memoEntries": 825,
           "memoEvictions": 0,
-          "elapsedMs": 2.9871409999996104
+          "elapsedMs": 1.1536459999997533
         }
       },
       {
@@ -3439,7 +4301,7 @@
           "memoHits": 0,
           "memoEntries": 771,
           "memoEvictions": 0,
-          "elapsedMs": 4.01132300000063
+          "elapsedMs": 1.2282390000000305
         }
       },
       {
@@ -3506,7 +4368,7 @@
           "memoHits": 0,
           "memoEntries": 772,
           "memoEvictions": 0,
-          "elapsedMs": 2.149584999999206
+          "elapsedMs": 1.0057779999997365
         }
       },
       {
@@ -3557,7 +4419,7 @@
           "memoHits": 805,
           "memoEntries": 1745,
           "memoEvictions": 0,
-          "elapsedMs": 8.03812100000141
+          "elapsedMs": 4.4412780000002385
         }
       },
       {
@@ -3617,7 +4479,7 @@
           "memoHits": 224,
           "memoEntries": 1072,
           "memoEvictions": 0,
-          "elapsedMs": 4.614424000001236
+          "elapsedMs": 2.3004930000006425
         }
       },
       {
@@ -3678,7 +4540,7 @@
           "memoHits": 321,
           "memoEntries": 1027,
           "memoEvictions": 0,
-          "elapsedMs": 2.065120000001116
+          "elapsedMs": 2.053783999999723
         }
       },
       {
@@ -3736,7 +4598,7 @@
           "memoHits": 0,
           "memoEntries": 954,
           "memoEvictions": 0,
-          "elapsedMs": 1.568796999999904
+          "elapsedMs": 1.4401600000001054
         }
       },
       {
@@ -3815,39 +4677,42 @@
           "memoHits": 0,
           "memoEntries": 4052,
           "memoEvictions": 0,
-          "elapsedMs": 13.203097999999954
+          "elapsedMs": 7.237932000000001
         }
       },
       {
         "name": "Echo!",
         "kind": "forward",
-        "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
+        "formula": "\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
         "ast": {
           "type": "forall",
           "variable": "v",
           "body": {
             "type": "implies",
             "left": {
-              "type": "and",
-              "left": {
-                "type": "atom",
-                "symbol": "live",
-                "args": []
-              },
-              "right": {
-                "type": "dia",
-                "learners": [],
-                "body": {
-                  "type": "past",
+              "type": "sometime",
+              "body": {
+                "type": "and",
+                "left": {
+                  "type": "atom",
+                  "symbol": "live",
+                  "args": []
+                },
+                "right": {
+                  "type": "dia",
+                  "learners": [],
                   "body": {
-                    "type": "atom",
-                    "symbol": "propose",
-                    "args": [
-                      {
-                        "type": "var",
-                        "name": "v"
-                      }
-                    ]
+                    "type": "past",
+                    "body": {
+                      "type": "atom",
+                      "symbol": "propose",
+                      "args": [
+                        {
+                          "type": "var",
+                          "name": "v"
+                        }
+                      ]
+                    }
                   }
                 }
               }
@@ -3879,17 +4744,17 @@
         "totalRepresentatives": 34,
         "exhaustive": true,
         "stats": {
-          "steps": 352,
-          "memoHits": 0,
-          "memoEntries": 340,
+          "steps": 899,
+          "memoHits": 576,
+          "memoEntries": 310,
           "memoEvictions": 0,
-          "elapsedMs": 1.7643609999995533
+          "elapsedMs": 0.7801169999993363
         }
       },
       {
         "name": "Vote!",
         "kind": "forward",
-        "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)",
+        "formula": "\n  ∀ l,v. ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)",
         "ast": {
           "type": "forall",
           "variable": "l",
@@ -3899,31 +4764,34 @@
             "body": {
               "type": "implies",
               "left": {
-                "type": "and",
-                "left": {
-                  "type": "atom",
-                  "symbol": "live",
-                  "args": []
-                },
-                "right": {
-                  "type": "box",
-                  "learners": [
-                    {
-                      "type": "var",
-                      "name": "l"
-                    }
-                  ],
-                  "body": {
-                    "type": "past",
+                "type": "sometime",
+                "body": {
+                  "type": "and",
+                  "left": {
+                    "type": "atom",
+                    "symbol": "live",
+                    "args": []
+                  },
+                  "right": {
+                    "type": "box",
+                    "learners": [
+                      {
+                        "type": "var",
+                        "name": "l"
+                      }
+                    ],
                     "body": {
-                      "type": "atom",
-                      "symbol": "echo",
-                      "args": [
-                        {
-                          "type": "var",
-                          "name": "v"
-                        }
-                      ]
+                      "type": "past",
+                      "body": {
+                        "type": "atom",
+                        "symbol": "echo",
+                        "args": [
+                          {
+                            "type": "var",
+                            "name": "v"
+                          }
+                        ]
+                      }
                     }
                   }
                 }
@@ -3960,17 +4828,17 @@
         "totalRepresentatives": 34,
         "exhaustive": true,
         "stats": {
-          "steps": 1069,
-          "memoHits": 0,
-          "memoEntries": 1054,
+          "steps": 2708,
+          "memoHits": 1728,
+          "memoEntries": 964,
           "memoEvictions": 0,
-          "elapsedMs": 4.513165000000299
+          "elapsedMs": 3.544836999999461
         }
       },
       {
         "name": "Vote'!",
         "kind": "forward",
-        "formula": "\n  ∀ l,m,v. (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)",
+        "formula": "\n  ∀ l,m,v. ↕ (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)",
         "ast": {
           "type": "forall",
           "variable": "l",
@@ -3983,50 +4851,53 @@
               "body": {
                 "type": "implies",
                 "left": {
-                  "type": "and",
-                  "left": {
+                  "type": "sometime",
+                  "body": {
                     "type": "and",
                     "left": {
-                      "type": "atom",
-                      "symbol": "live",
-                      "args": []
+                      "type": "and",
+                      "left": {
+                        "type": "atom",
+                        "symbol": "live",
+                        "args": []
+                      },
+                      "right": {
+                        "type": "everytime",
+                        "body": {
+                          "type": "atom",
+                          "symbol": "corr",
+                          "args": [
+                            {
+                              "type": "var",
+                              "name": "l"
+                            },
+                            {
+                              "type": "var",
+                              "name": "m"
+                            }
+                          ]
+                        }
+                      }
                     },
                     "right": {
-                      "type": "everytime",
+                      "type": "dia",
+                      "learners": [],
                       "body": {
-                        "type": "atom",
-                        "symbol": "corr",
-                        "args": [
-                          {
-                            "type": "var",
-                            "name": "l"
-                          },
-                          {
-                            "type": "var",
-                            "name": "m"
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  "right": {
-                    "type": "dia",
-                    "learners": [],
-                    "body": {
-                      "type": "past",
-                      "body": {
-                        "type": "atom",
-                        "symbol": "vote",
-                        "args": [
-                          {
-                            "type": "var",
-                            "name": "m"
-                          },
-                          {
-                            "type": "var",
-                            "name": "v"
-                          }
-                        ]
+                        "type": "past",
+                        "body": {
+                          "type": "atom",
+                          "symbol": "vote",
+                          "args": [
+                            {
+                              "type": "var",
+                              "name": "m"
+                            },
+                            {
+                              "type": "var",
+                              "name": "v"
+                            }
+                          ]
+                        }
                       }
                     }
                   }
@@ -4064,17 +4935,17 @@
         "totalRepresentatives": 34,
         "exhaustive": true,
         "stats": {
-          "steps": 4135,
-          "memoHits": 0,
-          "memoEntries": 4114,
+          "steps": 8456,
+          "memoHits": 5184,
+          "memoEntries": 3250,
           "memoEvictions": 0,
-          "elapsedMs": 23.354488000000856
+          "elapsedMs": 13.714046000000053
         }
       },
       {
         "name": "Deliver!",
         "kind": "forward",
-        "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)",
+        "formula": "\n  ∀ l,v. ↕ (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)",
         "ast": {
           "type": "forall",
           "variable": "l",
@@ -4084,35 +4955,38 @@
             "body": {
               "type": "implies",
               "left": {
-                "type": "and",
-                "left": {
-                  "type": "atom",
-                  "symbol": "live",
-                  "args": []
-                },
-                "right": {
-                  "type": "box",
-                  "learners": [
-                    {
-                      "type": "var",
-                      "name": "l"
-                    }
-                  ],
-                  "body": {
-                    "type": "past",
+                "type": "sometime",
+                "body": {
+                  "type": "and",
+                  "left": {
+                    "type": "atom",
+                    "symbol": "live",
+                    "args": []
+                  },
+                  "right": {
+                    "type": "box",
+                    "learners": [
+                      {
+                        "type": "var",
+                        "name": "l"
+                      }
+                    ],
                     "body": {
-                      "type": "atom",
-                      "symbol": "vote",
-                      "args": [
-                        {
-                          "type": "var",
-                          "name": "l"
-                        },
-                        {
-                          "type": "var",
-                          "name": "v"
-                        }
-                      ]
+                      "type": "past",
+                      "body": {
+                        "type": "atom",
+                        "symbol": "vote",
+                        "args": [
+                          {
+                            "type": "var",
+                            "name": "l"
+                          },
+                          {
+                            "type": "var",
+                            "name": "v"
+                          }
+                        ]
+                      }
                     }
                   }
                 }
@@ -4145,23 +5019,23 @@
         "totalRepresentatives": 34,
         "exhaustive": true,
         "stats": {
-          "steps": 1069,
-          "memoHits": 0,
-          "memoEntries": 1054,
+          "steps": 2708,
+          "memoHits": 1728,
+          "memoEntries": 964,
           "memoEvictions": 0,
-          "elapsedMs": 3.9768239999993966
+          "elapsedMs": 3.59126600000036
         }
       }
     ],
     "counts": {
-      "total": 46,
-      "passed": 46,
+      "total": 52,
+      "passed": 52,
       "failed": 0,
       "inconclusive": 0
     },
     "stats": {
-      "steps": 25807,
-      "elapsedMs": 83
+      "steps": 34915,
+      "elapsedMs": 47
     }
   },
   "property": {
@@ -4199,10 +5073,10 @@
       "memoHits": 0,
       "memoEntries": 310,
       "memoEvictions": 0,
-      "elapsedMs": 0.975760999999693
+      "elapsedMs": 0.7296589999996286
     }
   },
   "stats": {
-    "elapsedMs": 141
+    "elapsedMs": 56
   }
 }

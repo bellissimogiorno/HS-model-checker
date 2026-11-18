@@ -1,5 +1,19 @@
 #!/usr/bin/env python3
-"""Serve this package on localhost without third-party dependencies."""
+"""Serve this installation locally so browser modules and workers can load.
+
+From the application directory:
+
+    python3 serve.py --open
+    python3 serve.py --port 0
+    python3 serve.py --port 8800 --open
+
+The command prints its local URL and keeps the terminal occupied while serving;
+this is normal. Open that URL in a browser if --open did not launch one. Port 0
+chooses a free port; the usual default is 8765. Stop the server with Ctrl+C.
+Only this computer can connect (127.0.0.1). No package installation, build, Git
+operation or publication occurs. Opening index.html as a file does not load
+module workers. The served source is this script's directory, regardless of cwd.
+"""
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -7,7 +21,7 @@ import argparse
 import webbrowser
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--port', type=int, default=8765)
     parser.add_argument('--open', action='store_true', help='Open the checker in the default browser')
     args = parser.parse_args()

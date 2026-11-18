@@ -1,6 +1,7 @@
 {
   "format": "history-structure-run/v1",
-  "version": "0.6.9",
+  "version": "0.7.1",
+  "semantics": "hbb-disc/2026-11-18",
   "name": "Sequential intersection is not the definition of correlation",
   "mode": "synthesize",
   "status": "holds",
@@ -103,7 +104,7 @@
               "memoHits": 6,
               "memoEntries": 30,
               "memoEvictions": 0,
-              "elapsedMs": 0.07809500000075786
+              "elapsedMs": 0.049537999999301974
             }
           },
           {
@@ -122,102 +123,7 @@
               "memoHits": 0,
               "memoEntries": 18,
               "memoEvictions": 0,
-              "elapsedMs": 0.025257999997847946
-            }
-          },
-          {
-            "name": "KnowledgeDia:\"propose\"()",
-            "kind": "other",
-            "formula": "(end (dia[] past (live & \"propose\"()))) -> live -> sometime (dia[] past \"propose\"())",
-            "holds": true,
-            "complete": true,
-            "scope": "all",
-            "failures": [],
-            "checked": 9,
-            "totalRepresentatives": 9,
-            "exhaustive": true,
-            "stats": {
-              "steps": 64,
-              "memoHits": 12,
-              "memoEntries": 30,
-              "memoEvictions": 0,
-              "elapsedMs": 0.05890700000236393
-            }
-          },
-          {
-            "name": "KnowledgeBox:\"propose\"():0",
-            "kind": "other",
-            "formula": "(end (box[] past (live & \"propose\"()))) -> live -> sometime (box[] past \"propose\"())",
-            "holds": true,
-            "complete": true,
-            "scope": "all",
-            "failures": [],
-            "checked": 9,
-            "totalRepresentatives": 9,
-            "exhaustive": true,
-            "stats": {
-              "steps": 64,
-              "memoHits": 12,
-              "memoEntries": 30,
-              "memoEvictions": 0,
-              "elapsedMs": 0.04901199999949313
-            }
-          },
-          {
-            "name": "KnowledgeBox:\"propose\"():1",
-            "kind": "other",
-            "formula": "(end (box[\"L\"] past (live & \"propose\"()))) -> live -> sometime (box[\"L\"] past \"propose\"())",
-            "holds": true,
-            "complete": true,
-            "scope": "all",
-            "failures": [],
-            "checked": 9,
-            "totalRepresentatives": 9,
-            "exhaustive": true,
-            "stats": {
-              "steps": 61,
-              "memoHits": 10,
-              "memoEntries": 29,
-              "memoEvictions": 0,
-              "elapsedMs": 0.09806500000195228
-            }
-          },
-          {
-            "name": "KnowledgeBox:\"propose\"():2",
-            "kind": "other",
-            "formula": "(end (box[\"N\"] past (live & \"propose\"()))) -> live -> sometime (box[\"N\"] past \"propose\"())",
-            "holds": true,
-            "complete": true,
-            "scope": "all",
-            "failures": [],
-            "checked": 9,
-            "totalRepresentatives": 9,
-            "exhaustive": true,
-            "stats": {
-              "steps": 59,
-              "memoHits": 10,
-              "memoEntries": 27,
-              "memoEvictions": 0,
-              "elapsedMs": 0.07873599999948055
-            }
-          },
-          {
-            "name": "KnowledgeBox:\"propose\"():3",
-            "kind": "other",
-            "formula": "(end (box[\"L\",\"N\"] past (live & \"propose\"()))) -> live -> sometime (box[\"L\",\"N\"] past \"propose\"())",
-            "holds": true,
-            "complete": true,
-            "scope": "all",
-            "failures": [],
-            "checked": 9,
-            "totalRepresentatives": 9,
-            "exhaustive": true,
-            "stats": {
-              "steps": 56,
-              "memoHits": 8,
-              "memoEntries": 26,
-              "memoEvictions": 0,
-              "elapsedMs": 0.045276999997440726
+              "elapsedMs": 0.01780299999882118
             }
           },
           {
@@ -236,7 +142,7 @@
               "memoHits": 0,
               "memoEntries": 18,
               "memoEvictions": 0,
-              "elapsedMs": 0.02446599999893806
+              "elapsedMs": 0.01594900000054622
             }
           },
           {
@@ -255,7 +161,7 @@
               "memoHits": 0,
               "memoEntries": 63,
               "memoEvictions": 0,
-              "elapsedMs": 0.085996999998315
+              "elapsedMs": 0.06074599999919883
             }
           },
           {
@@ -274,7 +180,7 @@
               "memoHits": 0,
               "memoEntries": 198,
               "memoEvictions": 0,
-              "elapsedMs": 0.3945429999985208
+              "elapsedMs": 0.2269830000004731
             }
           },
           {
@@ -293,7 +199,7 @@
               "memoHits": 0,
               "memoEntries": 198,
               "memoEvictions": 0,
-              "elapsedMs": 0.36548899999979767
+              "elapsedMs": 0.22821900000053574
             }
           },
           {
@@ -312,7 +218,7 @@
               "memoHits": 0,
               "memoEntries": 198,
               "memoEvictions": 0,
-              "elapsedMs": 0.5864160000019183
+              "elapsedMs": 0.2602690000003349
             }
           },
           {
@@ -331,7 +237,7 @@
               "memoHits": 0,
               "memoEntries": 1818,
               "memoEvictions": 0,
-              "elapsedMs": 4.8509049999993294
+              "elapsedMs": 2.852005000000645
             }
           },
           {
@@ -350,7 +256,7 @@
               "memoHits": 258,
               "memoEntries": 489,
               "memoEvictions": 0,
-              "elapsedMs": 2.1656980000007025
+              "elapsedMs": 1.1607309999999416
             }
           },
           {
@@ -369,7 +275,7 @@
               "memoHits": 0,
               "memoEntries": 198,
               "memoEvictions": 0,
-              "elapsedMs": 0.34920599999895785
+              "elapsedMs": 0.22681400000146823
             }
           },
           {
@@ -388,7 +294,7 @@
               "memoHits": 0,
               "memoEntries": 198,
               "memoEvictions": 0,
-              "elapsedMs": 0.34143399999811663
+              "elapsedMs": 0.21777099999962957
             }
           },
           {
@@ -407,7 +313,7 @@
               "memoHits": 0,
               "memoEntries": 198,
               "memoEvictions": 0,
-              "elapsedMs": 0.6014180000020133
+              "elapsedMs": 0.21950699999979406
             }
           },
           {
@@ -426,13 +332,13 @@
               "memoHits": 0,
               "memoEntries": 603,
               "memoEvictions": 0,
-              "elapsedMs": 1.4337869999981194
+              "elapsedMs": 0.8676099999993312
             }
           },
           {
             "name": "Echo!",
             "kind": "forward",
-            "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
+            "formula": "\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
             "holds": true,
             "complete": true,
             "scope": "all",
@@ -441,17 +347,17 @@
             "totalRepresentatives": 9,
             "exhaustive": true,
             "stats": {
-              "steps": 102,
-              "memoHits": 0,
-              "memoEntries": 90,
+              "steps": 112,
+              "memoHits": 18,
+              "memoEntries": 81,
               "memoEvictions": 0,
-              "elapsedMs": 0.1564409999991767
+              "elapsedMs": 0.09533600000031583
             }
           },
           {
             "name": "Vote!",
             "kind": "forward",
-            "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)",
+            "formula": "\n  ∀ l,v. ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)",
             "holds": true,
             "complete": true,
             "scope": "all",
@@ -460,17 +366,17 @@
             "totalRepresentatives": 9,
             "exhaustive": true,
             "stats": {
-              "steps": 294,
-              "memoHits": 0,
-              "memoEntries": 279,
+              "steps": 322,
+              "memoHits": 54,
+              "memoEntries": 252,
               "memoEvictions": 0,
-              "elapsedMs": 0.5955799999974261
+              "elapsedMs": 0.35829499999999825
             }
           },
           {
             "name": "Vote'!",
             "kind": "forward",
-            "formula": "\n  ∀ l,m,v. (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)",
+            "formula": "\n  ∀ l,m,v. ↕ (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)",
             "holds": true,
             "complete": true,
             "scope": "all",
@@ -479,17 +385,17 @@
             "totalRepresentatives": 9,
             "exhaustive": true,
             "stats": {
-              "steps": 1110,
-              "memoHits": 0,
-              "memoEntries": 1089,
+              "steps": 1030,
+              "memoHits": 162,
+              "memoEntries": 846,
               "memoEvictions": 0,
-              "elapsedMs": 2.8369090000014694
+              "elapsedMs": 1.1538330000003043
             }
           },
           {
             "name": "Deliver!",
             "kind": "forward",
-            "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)",
+            "formula": "\n  ∀ l,v. ↕ (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)",
             "holds": true,
             "complete": true,
             "scope": "all",
@@ -498,17 +404,17 @@
             "totalRepresentatives": 9,
             "exhaustive": true,
             "stats": {
-              "steps": 294,
-              "memoHits": 0,
-              "memoEntries": 279,
+              "steps": 322,
+              "memoHits": 54,
+              "memoEntries": 252,
               "memoEvictions": 0,
-              "elapsedMs": 0.6278380000003381
+              "elapsedMs": 0.30234199999904376
             }
           }
         ],
         "counts": {
-          "total": 22,
-          "passed": 22,
+          "total": 17,
+          "passed": 17,
           "failed": 0,
           "inconclusive": 0
         }
@@ -516,6 +422,7 @@
       "result": null,
       "experiment": {
         "format": "history-structure-synthesis/v1",
+        "semantics": "hbb-disc/2026-11-18",
         "theory": {
           "includeLive": true,
           "axioms": [
@@ -577,22 +484,22 @@
             {
               "name": "Echo!",
               "kind": "forward",
-              "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+              "formula": "\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
             },
             {
               "name": "Vote!",
               "kind": "forward",
-              "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)"
+              "formula": "\n  ∀ l,v. ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)"
             },
             {
               "name": "Vote'!",
               "kind": "forward",
-              "formula": "\n  ∀ l,m,v. (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)"
+              "formula": "\n  ∀ l,m,v. ↕ (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)"
             },
             {
               "name": "Deliver!",
               "kind": "forward",
-              "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)"
+              "formula": "\n  ∀ l,v. ↕ (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)"
             }
           ]
         },
@@ -600,7 +507,7 @@
         "scope": "end",
         "pinFacts": true,
         "limits": {
-          "maxMilliseconds": 59988,
+          "maxMilliseconds": 59997,
           "maxCompilationNodes": 500000,
           "maxKnowledgeFamilies": 256,
           "maxDecisions": 100000,
@@ -680,21 +587,22 @@
       "verified": true
     },
     "stats": {
-      "compilationNodes": 30047,
+      "compilationNodes": 27116,
       "predicateVariables": 90,
-      "variables": 823,
-      "clauses": 2210,
-      "decisions": 38,
-      "consistencyDecisions": 38,
+      "variables": 796,
+      "clauses": 2129,
+      "decisions": 35,
+      "consistencyDecisions": 35,
       "targetDecisions": 0,
-      "elapsedMilliseconds": 93
+      "elapsedMilliseconds": 54
     },
     "coverage": "All predicate interpretations on the supplied fixed finite history, participant/value domains and quorum semifilters; supplied positive facts are pinned when pinFacts is enabled.",
     "evidence": {
       "format": "history-structure-evidence/v1",
-      "version": "0.6.9",
+      "version": "0.7.1",
+      "semantics": "hbb-disc/2026-11-18",
       "name": "Sequential intersection is not the definition of correlation",
-      "sourceMarkdown": "# Sequential intersection is not the definition of correlation\n\nThis is a **full-theory semantic diagnostic**, not a weakening counterexample. Learners L, M, N have single quorums {p,a}, {p,a,b}, {p,b}. Every triple intersection contains p, so 3twined holds. The two incomparable silent p-tuples make p nonsequential at the end; a and b remain sequential. Thus `♢[L,M] seq` and `♢[M,N] seq` hold, but `♢[L,N] seq` does not. That pairwise sequential-intersection relation is not transitive.\n\nEmpty correlation is nevertheless a valid partial equivalence relation and satisfies every actual HBB3 rule, including CorrSeq and CorrPast.\n\nAll three correctness conditionals hold with absent scenarios. The extra diagnostic property `Incorrect correlation equivalence` is false. Remarks 8.1.1(2), pp. 54–55, and 8.6.4, p. 61, explain why the stronger biconditional is not an admissible definition: preserving a partial equivalence relation can require dropping a pair even while that pair retains sequential quorum intersections.\n\nThe added `NoLive` scenario rule fixes `live` false. Consequently the forward rules and both Knowledge schemes remain present and hold; these examples exercise safety, not progress. This is an explicit model scenario, not a proposed replacement for a paper axiom.\n\nRead the rules below, choose **Continue to claims**, review the selected properties and assumptions, then continue to the run settings and run the check. Use **Edit Markdown** to change a rule; Unicode and ASCII spellings have identical semantics. The supplied history JSON is at the end.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 6, p. 38, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 37).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### NoLive — other assumption\n\nThis scenario assumption makes every participant non-live at every possible world. It isolates the safety question from liveness obligations.\n\n```hsm\n# Scenario: added for this experiment; not a paper axiom or correctness claim.\naxiom NoLive [other]:\n  ¬ live\n```\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires either quorum echoes of that value, or knowledge of a matching vote for a currently correlated learner.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ ((□[l] ↓ echo(v)) ∨ (∃ m. (corr(m,l) ∧ ♢[] ↓ vote(m,v))))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a quorum of matching votes for the same learner.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom Deliver? [backward]:\n  ∀ l,v. deliver(l,v) ⇒ □[l] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### VoteNE — other assumption\n\nAn actual local vote and an earlier local vote for correlated learners must carry the same value.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom VoteNE [other]:\n  ∀ l,m,v,w. vote(l,v) ⇒ ↓ vote(m,w) ⇒ corr(l,m) ⇒ v=w\n```\n\n### 3twined — other assumption\n\nEvery triple of independently chosen learner quorums must have a common participant. Repeated learner names still make independent quorum choices.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom 3twined [other]:\n  ∀ l,m,n. ♢[l,m,n] ⊤\n```\n\n### CorrSeq — other assumption\n\nFor every choice of one quorum from each correlated learner, their intersection must contain a sequential participant.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom CorrSeq [other]:\n  ∀ l,m. corr(l,m) ⇒ ♢[l,m] seq\n```\n\n### CorrPast — other assumption\n\nCorrelation persists to every actual earlier local tuple. Its temporal operator ranges over recorded local tuples, rather than every hypothetical world.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom CorrPast [other]:\n  ∀ l,m. corr(l,m) ⇒ ⇓ corr(l,m)\n```\n\n### CorrSymm — other assumption\n\nCorrelation is symmetric. Reflexivity is not an additional assumption.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom CorrSymm [other]:\n  ∀ l,m. corr(l,m) ⇒ corr(m,l)\n```\n\n### CorrTran — other assumption\n\nCorrelation is transitive.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom CorrTran [other]:\n  ∀ l,m,n. corr(l,m) ⇒ corr(m,n) ⇒ corr(l,n)\n```\n\n### Echo! — forward rule\n\nA live participant that knows a proposal must echo some value somewhere in its actual local run. The value is existentially chosen.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom Echo! [forward]:\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nA live participant with quorum echoes must vote for some value for that learner somewhere in its actual local run. The chosen value remains existential.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom Vote! [forward]:\n  ∀ l,v. (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)\n```\n\n### Vote'! — forward rule\n\nWith correlation at every actual local tuple and knowledge of a correlated learner’s vote, a live participant must vote for some value for the target learner somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom Vote'! [forward]:\n  ∀ l,m,v. (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)\n```\n\n### Deliver! — forward rule\n\nA live participant with quorum votes must deliver that learner and value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom Deliver! [forward]:\n  ∀ l,v. (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Liveness 1 — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 12, p. 56; Theorem 8.2.3, p. 57; Proposition 8.5.1, pp. 59–60.\nproperty Liveness 1 [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,v))\n```\n\n### Liveness 2 — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant.\n\n```hsm\n# Paper: Figure 12, p. 56; Theorem 8.2.3, p. 57; Proposition 8.4.5, p. 59.\nproperty Liveness 2 [end]:\n  ∀ l,m,v. ((□[] corr(l,m)) ∧ (□[m] live)) ⇒ (♢[] ↓ deliver(l,v) ⇒ live ⇒ ↕\n  deliver(m,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 12, p. 56; Theorem 8.2.3, p. 57; Proposition 8.3.1, p. 57.\nproperty Agreement [end]:\n  ∀ l,m,v,w. ((□[] corr(l,m))) ⇒ ((♢[] ↓ deliver(l,v)) ∧ (♢[] ↓ deliver(m,w)) ⇒ v=w)\n```\n\n### Incorrect correlation equivalence — diagnostic probe\n\nThis diagnostic tests the explicitly incorrect equivalence from Remark 8.6.4, p. 61. Its failure is separate from the three protocol correctness claims.\n\n```hsm\n# Scenario: added for this experiment; not a paper axiom or correctness claim. Remark 8.6.4, p. 61.\nproperty Incorrect correlation equivalence [all]:\n  ∀ l,m. corr(l,m) ⇔ ♢[l,m] seq\n```\n\n## Paper and interpretation\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nSource: Murdoch J. Gabbay and Isaac Sheff, *Heterogeneous trust in reliable broadcast via modal logic and history structures*, draft 7 November 2026 (`2026-11-07`; the supplied `hbb-disc` draft).\n\nThe protocol rules are Figure 11, p. 56, Definition 8.2.1, p. 55. The three conditional claims are Figure 12, p. 56, Theorem 8.2.3, p. 57: Agreement is proved in Proposition 8.3.1, p. 57; Liveness 2 in Proposition 8.4.5, p. 59; Liveness 1 in Proposition 8.5.1, pp. 59–60. The executable names `CorrSeq`, `CorrPast`, `CorrSymm`, and `CorrTran` denote the paper’s dotted-equality rules (≐seq), (≐⇓), (≐symm), and (≐tran). Here `vote(l,v)` and `deliver(l,v)` have two arguments: learner first, broadcast value second.\n\nThis document is a pedagogical scenario/experiment, not a literal paper theory listing. Choose **Use this history; find facts** to search predicate interpretations on the declared DAG, with the supplied positive facts pinned. The matrix applies exactly the omission or replacement described above; every other protocol axiom and the complete dynamic `ThyLive` include remain selected. A no-model result concerns this exact history and is not a proof of a correctness theorem. Every false conditional is checked with its full premise and trigger true at the recorded failure binding. A true claim with an absent scenario is vacuous here. See the [paper map](../../docs/PAPER_MAP.md) and [paper variants](../../docs/PAPER_VARIANTS.md) for the complete source correspondence. HBB1 and HBB2 use three-argument deliveries, whereas this HBB3 example uses `deliver(l,v)`.\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"Sequential pair intersections do not form a PER\",\n  \"participants\": [\n    \"p\",\n    \"a\",\n    \"b\"\n  ],\n  \"values\": [\n    \"L\",\n    \"M\",\n    \"N\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"corr\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"a0\",\n      \"place\": \"a\",\n      \"event\": null,\n      \"past\": []\n    },\n    {\n      \"id\": \"p0\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": []\n    },\n    {\n      \"id\": \"p1\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": [\n        \"a0\"\n      ]\n    }\n  ],\n  \"quorums\": {\n    \"L\": [\n      [\n        \"p\",\n        \"a\"\n      ]\n    ],\n    \"M\": [\n      [\n        \"p\",\n        \"a\",\n        \"b\"\n      ]\n    ],\n    \"N\": [\n      [\n        \"p\",\n        \"b\"\n      ]\n    ]\n  },\n  \"facts\": []\n}\n```\n",
+      "sourceMarkdown": "# Sequential intersection is not the definition of correlation\n\nThis is a **full-theory semantic diagnostic**, not a weakening counterexample. Learners L, M, N have single quorums {p,a}, {p,a,b}, {p,b}. Every triple intersection contains p, so 3twined holds. The two incomparable silent p-tuples make p nonsequential at the end; a and b remain sequential. Thus `♢[L,M] seq` and `♢[M,N] seq` hold, but `♢[L,N] seq` does not. That pairwise sequential-intersection relation is not transitive.\n\nEmpty correlation is nevertheless a valid partial equivalence relation and satisfies every actual HBBCorr rule, including CorrSeq and CorrPast.\n\nAll three correctness conditionals hold with absent scenarios. The extra diagnostic property `Incorrect correlation equivalence` is false. Remarks 8.1.1(2), pp. 54–55, and 8.6.4, p. 61, explain why the stronger biconditional is not an admissible definition: preserving a partial equivalence relation can require dropping a pair even while that pair retains sequential quorum intersections.\n\nThe added `NoLive` scenario rule fixes `live` false. Consequently the forward rules and both Knowledge schemes remain present and hold; these examples exercise safety, not progress. This is an explicit model scenario, not a proposed replacement for a paper axiom.\n\nRead the rules below, choose **Continue to claims**, review the selected properties and assumptions, then continue to the run settings and run the check. Use **Edit Markdown** to change a rule; Unicode and ASCII spellings have identical semantics. The supplied history JSON is at the end.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 7, p. 43, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 42).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### NoLive — other assumption\n\nThis scenario assumption makes every participant non-live at every possible world. It isolates the safety question from liveness obligations.\n\n```hsm\n# Scenario: added for this experiment; not a paper axiom or correctness claim.\naxiom NoLive [other]:\n  ¬ live\n```\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires either quorum echoes of that value, or knowledge of a matching vote for a currently correlated learner.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ ((□[l] ↓ echo(v)) ∨ (∃ m. (corr(m,l) ∧ ♢[] ↓ vote(m,v))))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a quorum of matching votes for the same learner.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom Deliver? [backward]:\n  ∀ l,v. deliver(l,v) ⇒ □[l] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### VoteNE — other assumption\n\nAn actual local vote and an earlier local vote for correlated learners must carry the same value.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom VoteNE [other]:\n  ∀ l,m,v,w. vote(l,v) ⇒ ↓ vote(m,w) ⇒ corr(l,m) ⇒ v=w\n```\n\n### 3twined — other assumption\n\nEvery triple of independently chosen learner quorums must have a common participant. Repeated learner names still make independent quorum choices.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom 3twined [other]:\n  ∀ l,m,n. ♢[l,m,n] ⊤\n```\n\n### CorrSeq — other assumption\n\nFor every choice of one quorum from each correlated learner, their intersection must contain a sequential participant.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom CorrSeq [other]:\n  ∀ l,m. corr(l,m) ⇒ ♢[l,m] seq\n```\n\n### CorrPast — other assumption\n\nCorrelation persists to every actual earlier local tuple. Its temporal operator ranges over recorded local tuples, rather than every hypothetical world.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom CorrPast [other]:\n  ∀ l,m. corr(l,m) ⇒ ⇓ corr(l,m)\n```\n\n### CorrSymm — other assumption\n\nCorrelation is symmetric. Reflexivity is not an additional assumption.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom CorrSymm [other]:\n  ∀ l,m. corr(l,m) ⇒ corr(m,l)\n```\n\n### CorrTran — other assumption\n\nCorrelation is transitive.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom CorrTran [other]:\n  ∀ l,m,n. corr(l,m) ⇒ corr(m,n) ⇒ corr(l,n)\n```\n\n### Echo! — forward rule\n\nIf an actual local tuple records a live participant knowing a proposal, that participant must echo some value at an actual local tuple. The value is existentially chosen; end-of-time knowledge alone does not activate the rule.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom Echo! [forward]:\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nIf an actual local tuple records a live participant knowing the required quorum of echoes, that participant must vote at an actual local tuple. The rule does not impose a time order between those two tuples. The vote value remains existentially chosen.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom Vote! [forward]:\n  ∀ l,v. ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)\n```\n\n### Vote'! — forward rule\n\nIf an actual local tuple records a live participant knowing a correlated source vote, and correlation holds at every actual local tuple, that participant must vote for some value at an actual local tuple. The existential value choice is retained.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom Vote'! [forward]:\n  ∀ l,m,v. ↕ (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)\n```\n\n### Deliver! — forward rule\n\nIf an actual local tuple records a live participant knowing the required quorum of votes, that participant must deliver at an actual local tuple. Merely learning of those votes at the end of time does not activate the rule.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom Deliver! [forward]:\n  ∀ l,v. ↕ (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Happy Termination — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 13, p. 63; Theorem 8.2.3, p. 64; Proposition 8.5.1, p. 66.\nproperty Happy Termination [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃=1 w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,v))\n```\n\n### Cascade Termination — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant.\n\n```hsm\n# Paper: Figure 13, p. 63; Theorem 8.2.3, p. 64; Proposition 8.4.5, pp. 65–66.\nproperty Cascade Termination [end]:\n  ∀ l,m,v. ((□[] corr(l,m)) ∧ (□[m] live)) ⇒ (♢[] ↓ deliver(l,v) ⇒ live ⇒ ↕\n  deliver(m,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 13, p. 63; Theorem 8.2.3, p. 64; Proposition 8.3.1, p. 64.\nproperty Agreement [end]:\n  ∀ l,m,v,w. ((□[] corr(l,m))) ⇒ ((♢[] ↓ deliver(l,v)) ∧ (♢[] ↓ deliver(m,w)) ⇒ v=w)\n```\n\n### Incorrect correlation equivalence — diagnostic probe\n\nThis diagnostic tests the explicitly incorrect equivalence from Remark 8.6.4, p. 68. Its failure is separate from the three protocol correctness claims.\n\n```hsm\n# Scenario: added for this experiment; not a paper axiom or correctness claim. Remark 8.6.4, p. 68.\nproperty Incorrect correlation equivalence [all]:\n  ∀ l,m. corr(l,m) ⇔ ♢[l,m] seq\n```\n\n## Paper and interpretation\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nSource: Murdoch J. Gabbay and Isaac Sheff, *Heterogeneous trust in reliable broadcast via modal logic and history structures*, draft 18 November 2026 (`2026-11-18`; the supplied `hbb-disc` draft).\n\nThe protocol rules are Figure 12, p. 63, Definition 8.2.1, p. 62. The three conditional claims are Figure 13, p. 63, Theorem 8.2.3, p. 64: Agreement is proved in Proposition 8.3.1, p. 64; Cascade Termination in Proposition 8.4.5, pp. 65–66; Happy Termination in Proposition 8.5.1, p. 66. The executable names `CorrSeq`, `CorrPast`, `CorrSymm`, and `CorrTran` denote the paper’s dotted-equality rules (≐seq), (≐⇓), (≐symm), and (≐tran). Here `vote(l,v)` and `deliver(l,v)` have two arguments: learner first, broadcast value second.\n\nThis document is a pedagogical scenario/experiment, not a literal paper theory listing. Choose **Use this history; find facts** to search predicate interpretations on the declared DAG, with the supplied positive facts pinned. The matrix applies exactly the omission or replacement described above; every other protocol axiom and the complete dynamic `ThyLive` include remain selected. A no-model result concerns this exact history and is not a proof of a correctness theorem. Every false conditional is checked with its full premise and trigger true at the recorded failure binding. A true claim with an absent scenario is vacuous here. See the [paper map](../../docs/PAPER_MAP.md) and [paper variants](../../docs/PAPER_VARIANTS.md) for the complete source correspondence. HBBSafe and HBBSimp use three-argument deliveries, whereas this HBBCorr example uses `deliver(l,v)`.\n\nReference PDF: `hbb-disc(20261118-194826).pdf`, SHA-256 `08361854a013fa9ec7928221b9f05896386801b8d6247250a524c27d151199a4`.\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"Sequential pair intersections do not form a PER\",\n  \"participants\": [\n    \"p\",\n    \"a\",\n    \"b\"\n  ],\n  \"values\": [\n    \"L\",\n    \"M\",\n    \"N\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"corr\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"a0\",\n      \"place\": \"a\",\n      \"event\": null,\n      \"past\": []\n    },\n    {\n      \"id\": \"p0\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": []\n    },\n    {\n      \"id\": \"p1\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": [\n        \"a0\"\n      ]\n    }\n  ],\n  \"quorums\": {\n    \"L\": [\n      [\n        \"p\",\n        \"a\"\n      ]\n    ],\n    \"M\": [\n      [\n        \"p\",\n        \"a\",\n        \"b\"\n      ]\n    ],\n    \"N\": [\n      [\n        \"p\",\n        \"b\"\n      ]\n    ]\n  },\n  \"facts\": []\n}\n```\n",
       "model": {
         "format": "history-structure-model/v1",
         "name": "Sequential pair intersections do not form a PER",
@@ -826,22 +734,22 @@
           {
             "name": "Echo!",
             "kind": "forward",
-            "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+            "formula": "\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
           },
           {
             "name": "Vote!",
             "kind": "forward",
-            "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)"
+            "formula": "\n  ∀ l,v. ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)"
           },
           {
             "name": "Vote'!",
             "kind": "forward",
-            "formula": "\n  ∀ l,m,v. (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)"
+            "formula": "\n  ∀ l,m,v. ↕ (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)"
           },
           {
             "name": "Deliver!",
             "kind": "forward",
-            "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)"
+            "formula": "\n  ∀ l,v. ↕ (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)"
           }
         ]
       },
@@ -881,14 +789,14 @@
         "format": "history-structure-run-snapshot/v1",
         "engine": {
           "name": "history-structure-model-checker",
-          "version": "0.6.9",
-          "semantics": "hbb-disc/2026-11-07"
+          "version": "0.7.1",
+          "semantics": "hbb-disc/2026-11-18"
         },
         "backend": "builtin-cdcl/tseitin",
-        "sourceSha256": "cb89747afa554d6ed052cb4beba2204882383ce883f9db9e66113b9e4b25dfe3",
+        "sourceSha256": "749ecac55168a349083d3f7cd548d1cbb25eb1045e763b5aed52a54fdbdc77f9",
         "selectedProperties": [
-          "Liveness 1",
-          "Liveness 2",
+          "Happy Termination",
+          "Cascade Termination",
           "Agreement"
         ],
         "droppedAxioms": [],
@@ -902,45 +810,45 @@
           "maxModels": 1000,
           "maxKnowledgeFamilies": 256
         },
-        "id": "sha256:a4a4972d0aaaf2a477163cbd98ad4310c0d3f3d92cd4f17a35df831ca9e7ef62"
+        "id": "sha256:1ef0ac625f62596491705ede88d543f741ef8348f02447b10ac7760ad5561ba3"
       },
       "expected": "model"
     }
   },
   "properties": [
     {
-      "name": "Liveness 1",
-      "formula": "\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,v))",
+      "name": "Happy Termination",
+      "formula": "\n  ∀ l,v. ((□[l] live) ∧ (∃=1 w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,v))",
       "scope": "end",
       "status": "holds",
       "unknownHistories": 0,
       "stats": {
-        "compilationNodes": 31971,
+        "compilationNodes": 29040,
         "predicateVariables": 90,
-        "variables": 826,
-        "clauses": 2220,
-        "decisions": 38,
-        "consistencyDecisions": 38,
+        "variables": 799,
+        "clauses": 2139,
+        "decisions": 35,
+        "consistencyDecisions": 35,
         "targetDecisions": 0,
-        "elapsedMilliseconds": 104
+        "elapsedMilliseconds": 48
       },
       "reason": "No counterexample exists within the explicit history, value, trust and palette bounds."
     },
     {
-      "name": "Liveness 2",
+      "name": "Cascade Termination",
       "formula": "\n  ∀ l,m,v. ((□[] corr(l,m)) ∧ (□[m] live)) ⇒ (♢[] ↓ deliver(l,v) ⇒ live ⇒ ↕\n  deliver(m,v))",
       "scope": "end",
       "status": "holds",
       "unknownHistories": 0,
       "stats": {
-        "compilationNodes": 32877,
+        "compilationNodes": 29946,
         "predicateVariables": 90,
-        "variables": 853,
-        "clauses": 2301,
-        "decisions": 38,
-        "consistencyDecisions": 38,
+        "variables": 826,
+        "clauses": 2220,
+        "decisions": 35,
+        "consistencyDecisions": 35,
         "targetDecisions": 0,
-        "elapsedMilliseconds": 100
+        "elapsedMilliseconds": 55
       },
       "reason": "No counterexample exists within the explicit history, value, trust and palette bounds."
     },
@@ -951,14 +859,14 @@
       "status": "holds",
       "unknownHistories": 0,
       "stats": {
-        "compilationNodes": 38331,
+        "compilationNodes": 35400,
         "predicateVariables": 90,
-        "variables": 841,
-        "clauses": 2265,
-        "decisions": 38,
-        "consistencyDecisions": 38,
+        "variables": 814,
+        "clauses": 2184,
+        "decisions": 35,
+        "consistencyDecisions": 35,
         "targetDecisions": 0,
-        "elapsedMilliseconds": 118
+        "elapsedMilliseconds": 78
       },
       "reason": "No counterexample exists within the explicit history, value, trust and palette bounds."
     }
@@ -1055,7 +963,7 @@
             "memoHits": 6,
             "memoEntries": 30,
             "memoEvictions": 0,
-            "elapsedMs": 0.07809500000075786
+            "elapsedMs": 0.049537999999301974
           }
         },
         {
@@ -1074,102 +982,7 @@
             "memoHits": 0,
             "memoEntries": 18,
             "memoEvictions": 0,
-            "elapsedMs": 0.025257999997847946
-          }
-        },
-        {
-          "name": "KnowledgeDia:\"propose\"()",
-          "kind": "other",
-          "formula": "(end (dia[] past (live & \"propose\"()))) -> live -> sometime (dia[] past \"propose\"())",
-          "holds": true,
-          "complete": true,
-          "scope": "all",
-          "failures": [],
-          "checked": 9,
-          "totalRepresentatives": 9,
-          "exhaustive": true,
-          "stats": {
-            "steps": 64,
-            "memoHits": 12,
-            "memoEntries": 30,
-            "memoEvictions": 0,
-            "elapsedMs": 0.05890700000236393
-          }
-        },
-        {
-          "name": "KnowledgeBox:\"propose\"():0",
-          "kind": "other",
-          "formula": "(end (box[] past (live & \"propose\"()))) -> live -> sometime (box[] past \"propose\"())",
-          "holds": true,
-          "complete": true,
-          "scope": "all",
-          "failures": [],
-          "checked": 9,
-          "totalRepresentatives": 9,
-          "exhaustive": true,
-          "stats": {
-            "steps": 64,
-            "memoHits": 12,
-            "memoEntries": 30,
-            "memoEvictions": 0,
-            "elapsedMs": 0.04901199999949313
-          }
-        },
-        {
-          "name": "KnowledgeBox:\"propose\"():1",
-          "kind": "other",
-          "formula": "(end (box[\"L\"] past (live & \"propose\"()))) -> live -> sometime (box[\"L\"] past \"propose\"())",
-          "holds": true,
-          "complete": true,
-          "scope": "all",
-          "failures": [],
-          "checked": 9,
-          "totalRepresentatives": 9,
-          "exhaustive": true,
-          "stats": {
-            "steps": 61,
-            "memoHits": 10,
-            "memoEntries": 29,
-            "memoEvictions": 0,
-            "elapsedMs": 0.09806500000195228
-          }
-        },
-        {
-          "name": "KnowledgeBox:\"propose\"():2",
-          "kind": "other",
-          "formula": "(end (box[\"N\"] past (live & \"propose\"()))) -> live -> sometime (box[\"N\"] past \"propose\"())",
-          "holds": true,
-          "complete": true,
-          "scope": "all",
-          "failures": [],
-          "checked": 9,
-          "totalRepresentatives": 9,
-          "exhaustive": true,
-          "stats": {
-            "steps": 59,
-            "memoHits": 10,
-            "memoEntries": 27,
-            "memoEvictions": 0,
-            "elapsedMs": 0.07873599999948055
-          }
-        },
-        {
-          "name": "KnowledgeBox:\"propose\"():3",
-          "kind": "other",
-          "formula": "(end (box[\"L\",\"N\"] past (live & \"propose\"()))) -> live -> sometime (box[\"L\",\"N\"] past \"propose\"())",
-          "holds": true,
-          "complete": true,
-          "scope": "all",
-          "failures": [],
-          "checked": 9,
-          "totalRepresentatives": 9,
-          "exhaustive": true,
-          "stats": {
-            "steps": 56,
-            "memoHits": 8,
-            "memoEntries": 26,
-            "memoEvictions": 0,
-            "elapsedMs": 0.045276999997440726
+            "elapsedMs": 0.01780299999882118
           }
         },
         {
@@ -1188,7 +1001,7 @@
             "memoHits": 0,
             "memoEntries": 18,
             "memoEvictions": 0,
-            "elapsedMs": 0.02446599999893806
+            "elapsedMs": 0.01594900000054622
           }
         },
         {
@@ -1207,7 +1020,7 @@
             "memoHits": 0,
             "memoEntries": 63,
             "memoEvictions": 0,
-            "elapsedMs": 0.085996999998315
+            "elapsedMs": 0.06074599999919883
           }
         },
         {
@@ -1226,7 +1039,7 @@
             "memoHits": 0,
             "memoEntries": 198,
             "memoEvictions": 0,
-            "elapsedMs": 0.3945429999985208
+            "elapsedMs": 0.2269830000004731
           }
         },
         {
@@ -1245,7 +1058,7 @@
             "memoHits": 0,
             "memoEntries": 198,
             "memoEvictions": 0,
-            "elapsedMs": 0.36548899999979767
+            "elapsedMs": 0.22821900000053574
           }
         },
         {
@@ -1264,7 +1077,7 @@
             "memoHits": 0,
             "memoEntries": 198,
             "memoEvictions": 0,
-            "elapsedMs": 0.5864160000019183
+            "elapsedMs": 0.2602690000003349
           }
         },
         {
@@ -1283,7 +1096,7 @@
             "memoHits": 0,
             "memoEntries": 1818,
             "memoEvictions": 0,
-            "elapsedMs": 4.8509049999993294
+            "elapsedMs": 2.852005000000645
           }
         },
         {
@@ -1302,7 +1115,7 @@
             "memoHits": 258,
             "memoEntries": 489,
             "memoEvictions": 0,
-            "elapsedMs": 2.1656980000007025
+            "elapsedMs": 1.1607309999999416
           }
         },
         {
@@ -1321,7 +1134,7 @@
             "memoHits": 0,
             "memoEntries": 198,
             "memoEvictions": 0,
-            "elapsedMs": 0.34920599999895785
+            "elapsedMs": 0.22681400000146823
           }
         },
         {
@@ -1340,7 +1153,7 @@
             "memoHits": 0,
             "memoEntries": 198,
             "memoEvictions": 0,
-            "elapsedMs": 0.34143399999811663
+            "elapsedMs": 0.21777099999962957
           }
         },
         {
@@ -1359,7 +1172,7 @@
             "memoHits": 0,
             "memoEntries": 198,
             "memoEvictions": 0,
-            "elapsedMs": 0.6014180000020133
+            "elapsedMs": 0.21950699999979406
           }
         },
         {
@@ -1378,13 +1191,13 @@
             "memoHits": 0,
             "memoEntries": 603,
             "memoEvictions": 0,
-            "elapsedMs": 1.4337869999981194
+            "elapsedMs": 0.8676099999993312
           }
         },
         {
           "name": "Echo!",
           "kind": "forward",
-          "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
+          "formula": "\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)",
           "holds": true,
           "complete": true,
           "scope": "all",
@@ -1393,17 +1206,17 @@
           "totalRepresentatives": 9,
           "exhaustive": true,
           "stats": {
-            "steps": 102,
-            "memoHits": 0,
-            "memoEntries": 90,
+            "steps": 112,
+            "memoHits": 18,
+            "memoEntries": 81,
             "memoEvictions": 0,
-            "elapsedMs": 0.1564409999991767
+            "elapsedMs": 0.09533600000031583
           }
         },
         {
           "name": "Vote!",
           "kind": "forward",
-          "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)",
+          "formula": "\n  ∀ l,v. ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)",
           "holds": true,
           "complete": true,
           "scope": "all",
@@ -1412,17 +1225,17 @@
           "totalRepresentatives": 9,
           "exhaustive": true,
           "stats": {
-            "steps": 294,
-            "memoHits": 0,
-            "memoEntries": 279,
+            "steps": 322,
+            "memoHits": 54,
+            "memoEntries": 252,
             "memoEvictions": 0,
-            "elapsedMs": 0.5955799999974261
+            "elapsedMs": 0.35829499999999825
           }
         },
         {
           "name": "Vote'!",
           "kind": "forward",
-          "formula": "\n  ∀ l,m,v. (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)",
+          "formula": "\n  ∀ l,m,v. ↕ (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)",
           "holds": true,
           "complete": true,
           "scope": "all",
@@ -1431,17 +1244,17 @@
           "totalRepresentatives": 9,
           "exhaustive": true,
           "stats": {
-            "steps": 1110,
-            "memoHits": 0,
-            "memoEntries": 1089,
+            "steps": 1030,
+            "memoHits": 162,
+            "memoEntries": 846,
             "memoEvictions": 0,
-            "elapsedMs": 2.8369090000014694
+            "elapsedMs": 1.1538330000003043
           }
         },
         {
           "name": "Deliver!",
           "kind": "forward",
-          "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)",
+          "formula": "\n  ∀ l,v. ↕ (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)",
           "holds": true,
           "complete": true,
           "scope": "all",
@@ -1450,17 +1263,17 @@
           "totalRepresentatives": 9,
           "exhaustive": true,
           "stats": {
-            "steps": 294,
-            "memoHits": 0,
-            "memoEntries": 279,
+            "steps": 322,
+            "memoHits": 54,
+            "memoEntries": 252,
             "memoEvictions": 0,
-            "elapsedMs": 0.6278380000003381
+            "elapsedMs": 0.30234199999904376
           }
         }
       ],
       "counts": {
-        "total": 22,
-        "passed": 22,
+        "total": 17,
+        "passed": 17,
         "failed": 0,
         "inconclusive": 0
       }
@@ -1468,6 +1281,7 @@
     "result": null,
     "experiment": {
       "format": "history-structure-synthesis/v1",
+      "semantics": "hbb-disc/2026-11-18",
       "theory": {
         "includeLive": true,
         "axioms": [
@@ -1529,22 +1343,22 @@
           {
             "name": "Echo!",
             "kind": "forward",
-            "formula": "\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
+            "formula": "\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)"
           },
           {
             "name": "Vote!",
             "kind": "forward",
-            "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)"
+            "formula": "\n  ∀ l,v. ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)"
           },
           {
             "name": "Vote'!",
             "kind": "forward",
-            "formula": "\n  ∀ l,m,v. (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)"
+            "formula": "\n  ∀ l,m,v. ↕ (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)"
           },
           {
             "name": "Deliver!",
             "kind": "forward",
-            "formula": "\n  ∀ l,v. (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)"
+            "formula": "\n  ∀ l,v. ↕ (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)"
           }
         ]
       },
@@ -1552,7 +1366,7 @@
       "scope": "end",
       "pinFacts": true,
       "limits": {
-        "maxMilliseconds": 59988,
+        "maxMilliseconds": 59997,
         "maxCompilationNodes": 500000,
         "maxKnowledgeFamilies": 256,
         "maxDecisions": 100000,
@@ -1651,8 +1465,8 @@
   ],
   "droppedAxioms": [],
   "selectedProperties": [
-    "Liveness 1",
-    "Liveness 2",
+    "Happy Termination",
+    "Cascade Termination",
     "Agreement"
   ],
   "bounds": {
@@ -1665,19 +1479,19 @@
     "maxModels": 1000,
     "maxKnowledgeFamilies": 256
   },
-  "sourceMarkdown": "# Sequential intersection is not the definition of correlation\n\nThis is a **full-theory semantic diagnostic**, not a weakening counterexample. Learners L, M, N have single quorums {p,a}, {p,a,b}, {p,b}. Every triple intersection contains p, so 3twined holds. The two incomparable silent p-tuples make p nonsequential at the end; a and b remain sequential. Thus `♢[L,M] seq` and `♢[M,N] seq` hold, but `♢[L,N] seq` does not. That pairwise sequential-intersection relation is not transitive.\n\nEmpty correlation is nevertheless a valid partial equivalence relation and satisfies every actual HBB3 rule, including CorrSeq and CorrPast.\n\nAll three correctness conditionals hold with absent scenarios. The extra diagnostic property `Incorrect correlation equivalence` is false. Remarks 8.1.1(2), pp. 54–55, and 8.6.4, p. 61, explain why the stronger biconditional is not an admissible definition: preserving a partial equivalence relation can require dropping a pair even while that pair retains sequential quorum intersections.\n\nThe added `NoLive` scenario rule fixes `live` false. Consequently the forward rules and both Knowledge schemes remain present and hold; these examples exercise safety, not progress. This is an explicit model scenario, not a proposed replacement for a paper axiom.\n\nRead the rules below, choose **Continue to claims**, review the selected properties and assumptions, then continue to the run settings and run the check. Use **Edit Markdown** to change a rule; Unicode and ASCII spellings have identical semantics. The supplied history JSON is at the end.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 6, p. 38, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 37).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### NoLive — other assumption\n\nThis scenario assumption makes every participant non-live at every possible world. It isolates the safety question from liveness obligations.\n\n```hsm\n# Scenario: added for this experiment; not a paper axiom or correctness claim.\naxiom NoLive [other]:\n  ¬ live\n```\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires either quorum echoes of that value, or knowledge of a matching vote for a currently correlated learner.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ ((□[l] ↓ echo(v)) ∨ (∃ m. (corr(m,l) ∧ ♢[] ↓ vote(m,v))))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a quorum of matching votes for the same learner.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom Deliver? [backward]:\n  ∀ l,v. deliver(l,v) ⇒ □[l] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### VoteNE — other assumption\n\nAn actual local vote and an earlier local vote for correlated learners must carry the same value.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom VoteNE [other]:\n  ∀ l,m,v,w. vote(l,v) ⇒ ↓ vote(m,w) ⇒ corr(l,m) ⇒ v=w\n```\n\n### 3twined — other assumption\n\nEvery triple of independently chosen learner quorums must have a common participant. Repeated learner names still make independent quorum choices.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom 3twined [other]:\n  ∀ l,m,n. ♢[l,m,n] ⊤\n```\n\n### CorrSeq — other assumption\n\nFor every choice of one quorum from each correlated learner, their intersection must contain a sequential participant.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom CorrSeq [other]:\n  ∀ l,m. corr(l,m) ⇒ ♢[l,m] seq\n```\n\n### CorrPast — other assumption\n\nCorrelation persists to every actual earlier local tuple. Its temporal operator ranges over recorded local tuples, rather than every hypothetical world.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom CorrPast [other]:\n  ∀ l,m. corr(l,m) ⇒ ⇓ corr(l,m)\n```\n\n### CorrSymm — other assumption\n\nCorrelation is symmetric. Reflexivity is not an additional assumption.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom CorrSymm [other]:\n  ∀ l,m. corr(l,m) ⇒ corr(m,l)\n```\n\n### CorrTran — other assumption\n\nCorrelation is transitive.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom CorrTran [other]:\n  ∀ l,m,n. corr(l,m) ⇒ corr(m,n) ⇒ corr(l,n)\n```\n\n### Echo! — forward rule\n\nA live participant that knows a proposal must echo some value somewhere in its actual local run. The value is existentially chosen.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom Echo! [forward]:\n  ∀ v. (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nA live participant with quorum echoes must vote for some value for that learner somewhere in its actual local run. The chosen value remains existential.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom Vote! [forward]:\n  ∀ l,v. (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)\n```\n\n### Vote'! — forward rule\n\nWith correlation at every actual local tuple and knowledge of a correlated learner’s vote, a live participant must vote for some value for the target learner somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom Vote'! [forward]:\n  ∀ l,m,v. (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)\n```\n\n### Deliver! — forward rule\n\nA live participant with quorum votes must deliver that learner and value somewhere in its actual local run.\n\n```hsm\n# Paper: Figure 11, p. 56; Definition 8.2.1, p. 55.\naxiom Deliver! [forward]:\n  ∀ l,v. (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Liveness 1 — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 12, p. 56; Theorem 8.2.3, p. 57; Proposition 8.5.1, pp. 59–60.\nproperty Liveness 1 [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃¹ w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,v))\n```\n\n### Liveness 2 — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant.\n\n```hsm\n# Paper: Figure 12, p. 56; Theorem 8.2.3, p. 57; Proposition 8.4.5, p. 59.\nproperty Liveness 2 [end]:\n  ∀ l,m,v. ((□[] corr(l,m)) ∧ (□[m] live)) ⇒ (♢[] ↓ deliver(l,v) ⇒ live ⇒ ↕\n  deliver(m,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 12, p. 56; Theorem 8.2.3, p. 57; Proposition 8.3.1, p. 57.\nproperty Agreement [end]:\n  ∀ l,m,v,w. ((□[] corr(l,m))) ⇒ ((♢[] ↓ deliver(l,v)) ∧ (♢[] ↓ deliver(m,w)) ⇒ v=w)\n```\n\n### Incorrect correlation equivalence — diagnostic probe\n\nThis diagnostic tests the explicitly incorrect equivalence from Remark 8.6.4, p. 61. Its failure is separate from the three protocol correctness claims.\n\n```hsm\n# Scenario: added for this experiment; not a paper axiom or correctness claim. Remark 8.6.4, p. 61.\nproperty Incorrect correlation equivalence [all]:\n  ∀ l,m. corr(l,m) ⇔ ♢[l,m] seq\n```\n\n## Paper and interpretation\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nSource: Murdoch J. Gabbay and Isaac Sheff, *Heterogeneous trust in reliable broadcast via modal logic and history structures*, draft 7 November 2026 (`2026-11-07`; the supplied `hbb-disc` draft).\n\nThe protocol rules are Figure 11, p. 56, Definition 8.2.1, p. 55. The three conditional claims are Figure 12, p. 56, Theorem 8.2.3, p. 57: Agreement is proved in Proposition 8.3.1, p. 57; Liveness 2 in Proposition 8.4.5, p. 59; Liveness 1 in Proposition 8.5.1, pp. 59–60. The executable names `CorrSeq`, `CorrPast`, `CorrSymm`, and `CorrTran` denote the paper’s dotted-equality rules (≐seq), (≐⇓), (≐symm), and (≐tran). Here `vote(l,v)` and `deliver(l,v)` have two arguments: learner first, broadcast value second.\n\nThis document is a pedagogical scenario/experiment, not a literal paper theory listing. Choose **Use this history; find facts** to search predicate interpretations on the declared DAG, with the supplied positive facts pinned. The matrix applies exactly the omission or replacement described above; every other protocol axiom and the complete dynamic `ThyLive` include remain selected. A no-model result concerns this exact history and is not a proof of a correctness theorem. Every false conditional is checked with its full premise and trigger true at the recorded failure binding. A true claim with an absent scenario is vacuous here. See the [paper map](../../docs/PAPER_MAP.md) and [paper variants](../../docs/PAPER_VARIANTS.md) for the complete source correspondence. HBB1 and HBB2 use three-argument deliveries, whereas this HBB3 example uses `deliver(l,v)`.\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"Sequential pair intersections do not form a PER\",\n  \"participants\": [\n    \"p\",\n    \"a\",\n    \"b\"\n  ],\n  \"values\": [\n    \"L\",\n    \"M\",\n    \"N\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"corr\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"a0\",\n      \"place\": \"a\",\n      \"event\": null,\n      \"past\": []\n    },\n    {\n      \"id\": \"p0\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": []\n    },\n    {\n      \"id\": \"p1\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": [\n        \"a0\"\n      ]\n    }\n  ],\n  \"quorums\": {\n    \"L\": [\n      [\n        \"p\",\n        \"a\"\n      ]\n    ],\n    \"M\": [\n      [\n        \"p\",\n        \"a\",\n        \"b\"\n      ]\n    ],\n    \"N\": [\n      [\n        \"p\",\n        \"b\"\n      ]\n    ]\n  },\n  \"facts\": []\n}\n```\n",
+  "sourceMarkdown": "# Sequential intersection is not the definition of correlation\n\nThis is a **full-theory semantic diagnostic**, not a weakening counterexample. Learners L, M, N have single quorums {p,a}, {p,a,b}, {p,b}. Every triple intersection contains p, so 3twined holds. The two incomparable silent p-tuples make p nonsequential at the end; a and b remain sequential. Thus `♢[L,M] seq` and `♢[M,N] seq` hold, but `♢[L,N] seq` does not. That pairwise sequential-intersection relation is not transitive.\n\nEmpty correlation is nevertheless a valid partial equivalence relation and satisfies every actual HBBCorr rule, including CorrSeq and CorrPast.\n\nAll three correctness conditionals hold with absent scenarios. The extra diagnostic property `Incorrect correlation equivalence` is false. Remarks 8.1.1(2), pp. 54–55, and 8.6.4, p. 61, explain why the stronger biconditional is not an admissible definition: preserving a partial equivalence relation can require dropping a pair even while that pair retains sequential quorum intersections.\n\nThe added `NoLive` scenario rule fixes `live` false. Consequently the forward rules and both Knowledge schemes remain present and hold; these examples exercise safety, not progress. This is an explicit model scenario, not a proposed replacement for a paper axiom.\n\nRead the rules below, choose **Continue to claims**, review the selected properties and assumptions, then continue to the run settings and run the check. Use **Edit Markdown** to change a rule; Unicode and ASCII spellings have identical semantics. The supplied history JSON is at the end.\n\n## Shared liveness assumptions\n\nThe complete dynamic `ThyLive` theory includes `LiveAlways`, `LiveSeq`, and both Knowledge schemes. The schemes are generated for the current history; every included assumption is checked at all possible worlds.\n\n```hsm\n# Paper: Figure 7, p. 43, Definition 5.2.4; full dynamic LiveAlways, LiveSeq and both Knowledge schemes, checked at all possible worlds (Definition 5.2.1, p. 42).\ninclude ThyLive\n```\n\n## Assumptions and protocol rules\n\n### NoLive — other assumption\n\nThis scenario assumption makes every participant non-live at every possible world. It isolates the safety question from liveness obligations.\n\n```hsm\n# Scenario: added for this experiment; not a paper axiom or correctness claim.\naxiom NoLive [other]:\n  ¬ live\n```\n\n### Echo? — backward rule\n\nAn echo must be justified by knowledge of a proposal of that value.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom Echo? [backward]:\n  ∀ v. echo(v) ⇒ ♢[] ↓ propose(v)\n```\n\n### Vote? — backward rule\n\nA vote requires either quorum echoes of that value, or knowledge of a matching vote for a currently correlated learner.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom Vote? [backward]:\n  ∀ l,v. vote(l,v) ⇒ ((□[l] ↓ echo(v)) ∨ (∃ m. (corr(m,l) ∧ ♢[] ↓ vote(m,v))))\n```\n\n### Deliver? — backward rule\n\nDelivery requires knowledge of a quorum of matching votes for the same learner.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom Deliver? [backward]:\n  ∀ l,v. deliver(l,v) ⇒ □[l] ↓ vote(l,v)\n```\n\n### EchoNE — other assumption\n\nA participant cannot echo a value different from one at an earlier actual local echo. Incomparable forks are not ordered by this rule.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom EchoNE [other]:\n  ∀ v,w. echo(v) ⇒ ↓ echo(w) ⇒ v=w\n```\n\n### VoteNE — other assumption\n\nAn actual local vote and an earlier local vote for correlated learners must carry the same value.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom VoteNE [other]:\n  ∀ l,m,v,w. vote(l,v) ⇒ ↓ vote(m,w) ⇒ corr(l,m) ⇒ v=w\n```\n\n### 3twined — other assumption\n\nEvery triple of independently chosen learner quorums must have a common participant. Repeated learner names still make independent quorum choices.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom 3twined [other]:\n  ∀ l,m,n. ♢[l,m,n] ⊤\n```\n\n### CorrSeq — other assumption\n\nFor every choice of one quorum from each correlated learner, their intersection must contain a sequential participant.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom CorrSeq [other]:\n  ∀ l,m. corr(l,m) ⇒ ♢[l,m] seq\n```\n\n### CorrPast — other assumption\n\nCorrelation persists to every actual earlier local tuple. Its temporal operator ranges over recorded local tuples, rather than every hypothetical world.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom CorrPast [other]:\n  ∀ l,m. corr(l,m) ⇒ ⇓ corr(l,m)\n```\n\n### CorrSymm — other assumption\n\nCorrelation is symmetric. Reflexivity is not an additional assumption.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom CorrSymm [other]:\n  ∀ l,m. corr(l,m) ⇒ corr(m,l)\n```\n\n### CorrTran — other assumption\n\nCorrelation is transitive.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom CorrTran [other]:\n  ∀ l,m,n. corr(l,m) ⇒ corr(m,n) ⇒ corr(l,n)\n```\n\n### Echo! — forward rule\n\nIf an actual local tuple records a live participant knowing a proposal, that participant must echo some value at an actual local tuple. The value is existentially chosen; end-of-time knowledge alone does not activate the rule.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom Echo! [forward]:\n  ∀ v. ↕ (live ∧ ♢[] ↓ propose(v)) ⇒ ∃ w. ↕ echo(w)\n```\n\n### Vote! — forward rule\n\nIf an actual local tuple records a live participant knowing the required quorum of echoes, that participant must vote at an actual local tuple. The rule does not impose a time order between those two tuples. The vote value remains existentially chosen.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom Vote! [forward]:\n  ∀ l,v. ↕ (live ∧ □[l] ↓ echo(v)) ⇒ ∃ w. ↕ vote(l,w)\n```\n\n### Vote'! — forward rule\n\nIf an actual local tuple records a live participant knowing a correlated source vote, and correlation holds at every actual local tuple, that participant must vote for some value at an actual local tuple. The existential value choice is retained.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom Vote'! [forward]:\n  ∀ l,m,v. ↕ (live ∧ ⇕ corr(l,m) ∧ ♢[] ↓ vote(m,v)) ⇒ ∃ w. ↕ vote(l,w)\n```\n\n### Deliver! — forward rule\n\nIf an actual local tuple records a live participant knowing the required quorum of votes, that participant must deliver at an actual local tuple. Merely learning of those votes at the end of time does not activate the rule.\n\n```hsm\n# Paper: Figure 12, p. 63; Definition 8.2.1, p. 62.\naxiom Deliver! [forward]:\n  ∀ l,v. ↕ (live ∧ □[l] ↓ vote(l,v)) ⇒ ↕ deliver(l,v)\n```\n\n## Properties to check\n\nEach correctness claim keeps its complete conditional premises. If its premises and trigger never occur together, the claim can hold vacuously. The experiment report records whether that full scenario occurs.\n\n### Happy Termination — correctness claim\n\nUnder the displayed live-quorum and unique-proposal premises, the proposal-knowledge trigger requires delivery at each live participant. All premises and triggers are part of the checked formula.\n\n```hsm\n# Paper: Figure 13, p. 63; Theorem 8.2.3, p. 64; Proposition 8.5.1, p. 66.\nproperty Happy Termination [end]:\n  ∀ l,v. ((□[l] live) ∧ (∃=1 w. ♢[] ↓ propose(w))) ⇒ (♢[] ↓ (live ∧ ♢[] ↓ propose(v)) ⇒\n  live ⇒ ↕ deliver(l,v))\n```\n\n### Cascade Termination — correctness claim\n\nUnder the displayed trust and liveness premises, known delivery for the source learner requires delivery for the target learner at each live participant.\n\n```hsm\n# Paper: Figure 13, p. 63; Theorem 8.2.3, p. 64; Proposition 8.4.5, pp. 65–66.\nproperty Cascade Termination [end]:\n  ∀ l,m,v. ((□[] corr(l,m)) ∧ (□[m] live)) ⇒ (♢[] ↓ deliver(l,v) ⇒ live ⇒ ↕\n  deliver(m,v))\n```\n\n### Agreement — correctness claim\n\nUnder the displayed trust premise, the two known deliveries must have the same broadcast value.\n\n```hsm\n# Paper: Figure 13, p. 63; Theorem 8.2.3, p. 64; Proposition 8.3.1, p. 64.\nproperty Agreement [end]:\n  ∀ l,m,v,w. ((□[] corr(l,m))) ⇒ ((♢[] ↓ deliver(l,v)) ∧ (♢[] ↓ deliver(m,w)) ⇒ v=w)\n```\n\n### Incorrect correlation equivalence — diagnostic probe\n\nThis diagnostic tests the explicitly incorrect equivalence from Remark 8.6.4, p. 68. Its failure is separate from the three protocol correctness claims.\n\n```hsm\n# Scenario: added for this experiment; not a paper axiom or correctness claim. Remark 8.6.4, p. 68.\nproperty Incorrect correlation equivalence [all]:\n  ∀ l,m. corr(l,m) ⇔ ♢[l,m] seq\n```\n\n## Paper and interpretation\n\nImplementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.\n\nSource: Murdoch J. Gabbay and Isaac Sheff, *Heterogeneous trust in reliable broadcast via modal logic and history structures*, draft 18 November 2026 (`2026-11-18`; the supplied `hbb-disc` draft).\n\nThe protocol rules are Figure 12, p. 63, Definition 8.2.1, p. 62. The three conditional claims are Figure 13, p. 63, Theorem 8.2.3, p. 64: Agreement is proved in Proposition 8.3.1, p. 64; Cascade Termination in Proposition 8.4.5, pp. 65–66; Happy Termination in Proposition 8.5.1, p. 66. The executable names `CorrSeq`, `CorrPast`, `CorrSymm`, and `CorrTran` denote the paper’s dotted-equality rules (≐seq), (≐⇓), (≐symm), and (≐tran). Here `vote(l,v)` and `deliver(l,v)` have two arguments: learner first, broadcast value second.\n\nThis document is a pedagogical scenario/experiment, not a literal paper theory listing. Choose **Use this history; find facts** to search predicate interpretations on the declared DAG, with the supplied positive facts pinned. The matrix applies exactly the omission or replacement described above; every other protocol axiom and the complete dynamic `ThyLive` include remain selected. A no-model result concerns this exact history and is not a proof of a correctness theorem. Every false conditional is checked with its full premise and trigger true at the recorded failure binding. A true claim with an absent scenario is vacuous here. See the [paper map](../../docs/PAPER_MAP.md) and [paper variants](../../docs/PAPER_VARIANTS.md) for the complete source correspondence. HBBSafe and HBBSimp use three-argument deliveries, whereas this HBBCorr example uses `deliver(l,v)`.\n\nReference PDF: `hbb-disc(20261118-194826).pdf`, SHA-256 `08361854a013fa9ec7928221b9f05896386801b8d6247250a524c27d151199a4`.\n\n## Supplied history\n\nThe JSON below fixes participants, values, quorum bases and the DAG. Synthesis searches predicate interpretations on this declared history; history search is a separate bounded mode.\n\n```hsm-model\n{\n  \"format\": \"history-structure-model/v1\",\n  \"name\": \"Sequential pair intersections do not form a PER\",\n  \"participants\": [\n    \"p\",\n    \"a\",\n    \"b\"\n  ],\n  \"values\": [\n    \"L\",\n    \"M\",\n    \"N\"\n  ],\n  \"signature\": {\n    \"events\": [\n      \"propose\",\n      \"echo\",\n      \"vote\",\n      \"deliver\"\n    ],\n    \"predicates\": [\n      \"live\",\n      \"corr\"\n    ]\n  },\n  \"nodes\": [\n    {\n      \"id\": \"a0\",\n      \"place\": \"a\",\n      \"event\": null,\n      \"past\": []\n    },\n    {\n      \"id\": \"p0\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": []\n    },\n    {\n      \"id\": \"p1\",\n      \"place\": \"p\",\n      \"event\": null,\n      \"past\": [\n        \"a0\"\n      ]\n    }\n  ],\n  \"quorums\": {\n    \"L\": [\n      [\n        \"p\",\n        \"a\"\n      ]\n    ],\n    \"M\": [\n      [\n        \"p\",\n        \"a\",\n        \"b\"\n      ]\n    ],\n    \"N\": [\n      [\n        \"p\",\n        \"b\"\n      ]\n    ]\n  },\n  \"facts\": []\n}\n```\n",
   "snapshot": {
     "format": "history-structure-run-snapshot/v1",
     "engine": {
       "name": "history-structure-model-checker",
-      "version": "0.6.9",
-      "semantics": "hbb-disc/2026-11-07"
+      "version": "0.7.1",
+      "semantics": "hbb-disc/2026-11-18"
     },
     "backend": "builtin-cdcl/tseitin",
-    "sourceSha256": "cb89747afa554d6ed052cb4beba2204882383ce883f9db9e66113b9e4b25dfe3",
+    "sourceSha256": "749ecac55168a349083d3f7cd548d1cbb25eb1045e763b5aed52a54fdbdc77f9",
     "selectedProperties": [
-      "Liveness 1",
-      "Liveness 2",
+      "Happy Termination",
+      "Cascade Termination",
       "Agreement"
     ],
     "droppedAxioms": [],
@@ -1691,13 +1505,13 @@
       "maxModels": 1000,
       "maxKnowledgeFamilies": 256
     },
-    "id": "sha256:a4a4972d0aaaf2a477163cbd98ad4310c0d3f3d92cd4f17a35df831ca9e7ef62"
+    "id": "sha256:1ef0ac625f62596491705ede88d543f741ef8348f02447b10ac7760ad5561ba3"
   },
   "stats": {
     "histories": 1,
     "historiesWithModels": 1,
     "modelsSatisfyingAssumptions": 1,
     "synthesisQueries": 4,
-    "elapsedMs": 430
+    "elapsedMs": 241
   }
 }

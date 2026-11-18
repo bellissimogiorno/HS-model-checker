@@ -13,7 +13,7 @@ import {runExperiment,replayExperiment} from '../src/experiment.mjs';
 
 const ROOT=dirname(dirname(fileURLToPath(import.meta.url)));
 const matrix=JSON.parse(await readFile(join(ROOT,'examples/hbb3-cases.json'),'utf8'));
-const canonical=correctnessProperties('ThyHBB3');
+const canonical=correctnessProperties('HBBCorr');
 const read=async file=>parseDocument(await readFile(join(ROOT,'examples/theories',file),'utf8'));
 const options={mode:'synthesize',pinFacts:true,maxMilliseconds:60000,maxCompilationNodes:1000000};
 
@@ -36,20 +36,20 @@ function checkFalseConditional(model,property,failure) {
   assert.equal(ev.evaluate(body.left,world,binding),true);
   assert.equal(ev.evaluate(body.right.left,world,binding),true);
   assert.equal(ev.evaluate(body.right.right,world,binding),false);
-  if(property.name.startsWith('Liveness'))assert.equal(ev.evaluate(parseFormula('live'),world),true);
+  if(['Happy Termination','Cascade Termination'].includes(property.name))assert.equal(ev.evaluate(parseFormula('live'),world),true);
 }
 
-test('HBB3 examples preserve every literal rule and all three full canonical claims',async()=>{
-  assert.equal(matrix.theory,'ThyHBB3');
+test('HBBCorr examples preserve every literal rule and all three full canonical claims',async()=>{
+  assert.equal(matrix.theory,'HBBCorr');
   assert.deepEqual(matrix.properties,canonical.map(p=>p.name));
   assert.equal(matrix.cases.length,14);
   for(const spec of matrix.cases) {
-    assert.equal(spec.theory,'ThyHBB3');
+    assert.equal(spec.theory,'HBBCorr');
     const doc=await read(spec.file),model=compileModel(doc.model);
     assert.equal(doc.includeLive,true);
     assert.equal(spec.droppedAxioms.includes('ThyLive'),false);
     assert.deepEqual(doc.properties.slice(0,3).map(({name,ast,scope})=>({name,ast,scope})),canonical.map(({name,ast,scope})=>({name,ast,scope})));
-    const built=buildTheory(model,'ThyHBB3').axioms.filter(a=>!a.scheme&&!['LiveAlways','LiveSeq'].includes(a.name));
+    const built=buildTheory(model,'HBBCorr').axioms.filter(a=>!a.scheme&&!['LiveAlways','LiveSeq'].includes(a.name));
     const incorrect=spec.file==='hbb3-corr-definition-wrong.md';
     for(const expected of built) {
       const actual=doc.axioms.find(a=>a.name===expected.name);
@@ -64,7 +64,7 @@ test('HBB3 examples preserve every literal rule and all three full canonical cla
   }
 });
 
-test('every HBB3 matrix result completes across all pinned-fact interpretations and independently replays',async()=>{
+test('every HBBCorr matrix result completes across all pinned-fact interpretations and independently replays',async()=>{
   for(const spec of matrix.cases) {
     const doc=await read(spec.file);
     const run=await runExperiment(doc,{...options,droppedAxioms:spec.droppedAxioms,selectedProperties:matrix.properties});

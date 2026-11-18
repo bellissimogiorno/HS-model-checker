@@ -24,7 +24,7 @@ test('run identity binds the full source, exact selections, backend and operatio
   assert.equal(original.snapshot.id,same.snapshot.id);
   assert.equal(original.sourceMarkdown,source);
   assert.equal(original.snapshot.sourceSha256,sha256(source));
-  assert.equal(original.snapshot.engine.version,'0.6.9');
+  assert.equal(original.snapshot.engine.version,'0.7.1');
   assert.equal(original.snapshot.backend,'builtin-cdcl/tseitin');
   assert(Object.isFrozen(original.snapshot));
   for(const [text,options]of[

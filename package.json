@@ -1,9 +1,9 @@
 {
   "name": "history-structure-model-checker",
-  "version": "0.6.9",
+  "version": "0.7.1",
   "private": true,
   "type": "module",
-  "description": "Finite history structure model checking for hbb-disc (2026-11-07)",
+  "description": "Finite history structure model checking for hbb-disc (2026-11-18)",
   "engines": {
     "node": ">=20"
   },

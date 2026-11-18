@@ -15,7 +15,7 @@ import {createEvidence,replayExperiment,runExperiment} from '../src/experiment.m
 
 const root=new URL('../',import.meta.url);
 const readJSON=async path=>JSON.parse(await readFile(new URL(path,root),'utf8'));
-const canonicalNames=new Set(['Liveness 1','Liveness 2','Agreement']);
+const canonicalNames=new Set(['Happy Termination','Cascade Termination','Agreement']);
 
 function source(model,declarations) {
   return '# Axiom-removal oracle\n\n```hsm-model\n'+JSON.stringify(model,null,2)+'\n```\n\n```hsm\n'+declarations+'\n```\n';
@@ -75,7 +75,7 @@ test('every bundled canonical HBB countermodel survives an additional axiom remo
       suites.add(row.suite);checked++;
     }
   }
-  assert.deepEqual([...suites].sort(),['hbb1','hbb2','hbb3']);
+  assert.deepEqual([...suites].sort(),['HBBCorr','HBBSafe','HBBSimp']);
   assert.equal(checked,20,'All shipped canonical correctness countermodels are exercised.');
   assert.equal(additionalLiveRemovals,3,'The complete dynamic assumption group is also removable in each protocol.');
 });

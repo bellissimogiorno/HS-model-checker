@@ -1,10 +1,12 @@
 # History Structure Model-checker
 
-**HSmc** · **[Open the model-checker](https://bellissimogiorno.github.io/HS-model-checker/)** · **[Read the executable theories](https://bellissimogiorno.github.io/HS-model-checker/theories.html)**
+**Use the model-checker immediately in your browser, with no installation: [Open HSmc](https://bellissimogiorno.github.io/HS-model-checker/).**
 
-Explore broadcast protocols over finite history structures. Read a theory, choose its assumptions and claims, run a check, then inspect a model or counterexample. The checker runs in your browser and includes 29 curated examples for HBB1, HBB2, HBB3 and quorum diagnostics.
+You can also [read the executable theories](https://bellissimogiorno.github.io/HS-model-checker/theories.html).
 
-This package was vibe-coded following prompts by Murdoch J. Gabbay. It is a proof-of-concept based on joint work with Isaac Sheff: *Heterogeneous trust in reliable broadcast via modal logic and history structures*, by Murdoch J. Gabbay and Isaac Sheff (draft, 2026-11-07). The package version is stated in [VERSION](VERSION).
+Explore broadcast protocols over finite history structures. Read a theory, choose its assumptions and claims, run a check, then inspect a model or counterexample. The checker runs in your browser and includes 31 curated examples for HBBSafe, HBBSimp, HBBCorr and quorum diagnostics.
+
+This package was vibe-coded following prompts by Murdoch J. Gabbay. It is a proof-of-concept based on joint work with Isaac Sheff: *Heterogeneous trust in reliable broadcast via modal logic and history structures*, by Murdoch J. Gabbay and Isaac Sheff (draft, 2026-11-18). The checker’s top-right **About** link gives authorship and paper information. The package version is stated in [VERSION](VERSION).
 
 ## Try an example
 
@@ -12,11 +14,11 @@ Open the checker and start with **First steps**. Follow **Theory → Claims → 
 
 Use **Return to previous example** and **Continue to next example** before or after a run. Previous is disabled on First steps; the last example offers a restart. These navigation controls return to and focus the chooser. Loading an example restores its defaults, opens reading view and clears the preceding results and inspected witness. Run it to obtain a fresh result, and save reports or replayable evidence before leaving if you want to keep an outcome.
 
-Each theory combines explanation, paper references, editable Unicode formulas and a finite history DAG. ASCII spellings are also accepted. Axiom-removal examples start with the named axiom omitted; **Keep all axioms** selects the comparison, and **Use example defaults** restores the omission. Select the configuration, then run.
+The protocol theories are **HBBSafe**, **HBBSimp** and **HBBCorr**, with **Happy Termination**, **Cascade Termination** and **Agreement** as their correctness claims. Each theory combines explanation, paper references, editable Unicode formulas and a finite history DAG. ASCII spellings are also accepted. Axiom-removal examples start with the named axiom omitted; **Keep all axioms** selects the comparison, and **Use example defaults** restores the omission. Select the configuration, then run.
 
 A counterexample includes a concrete model and replayable evidence. **Holds within the selected scope** means that the completed finite search found no counterexample in its stated scope. **No model** means that no interpretation satisfies the retained assumptions in that scope; its properties are **Not tested**. Finite checking does not prove unbounded protocol correctness.
 
-Read the [semantic contract](docs/SEMANTIC_CONTRACT.md), [paper map](docs/PAPER_MAP.md), [theory syntax](docs/THEORY_FORMAT.md), [model format](docs/MODEL_FORMAT.md), and [axiom experiments](docs/WEAKENING.md). The [HBB1](docs/HBB1_EXAMPLES.md) and [HBB3](docs/HBB3_EXAMPLES.md) guides explain their controlled weakenings and incorrect-axiom diagnostics.
+Read the [semantic contract](docs/SEMANTIC_CONTRACT.md), [paper map](docs/PAPER_MAP.md), [theory syntax](docs/THEORY_FORMAT.md), [model format](docs/MODEL_FORMAT.md), and [axiom experiments](docs/WEAKENING.md). The [HBBSafe](docs/HBB1_EXAMPLES.md) and [HBBCorr](docs/HBB3_EXAMPLES.md) guides explain their controlled weakenings and incorrect-axiom diagnostics.
 
 ## Run a local copy
 

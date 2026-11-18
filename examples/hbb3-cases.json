@@ -1,16 +1,16 @@
 {
   "format": "history-structure-weakening-cases/v1",
-  "theory": "ThyHBB3",
+  "theory": "HBBCorr",
   "properties": [
-    "Liveness 1",
-    "Liveness 2",
+    "Happy Termination",
+    "Cascade Termination",
     "Agreement"
   ],
   "cases": [
     {
       "id": "hbb3-complete-baseline",
-      "label": "HBB3 completed full theory",
-      "theory": "ThyHBB3",
+      "label": "HBBCorr completed full theory",
+      "theory": "HBBCorr",
       "file": "hbb3.md",
       "droppedAxioms": [],
       "expectedStatus": "holds",
@@ -27,15 +27,15 @@
       "expectedOriginalFailures": [],
       "category": "control",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
       "id": "hbb3-corr-seq-removed",
       "label": "Remove CorrSeq: correlated fork",
-      "theory": "ThyHBB3",
+      "theory": "HBBCorr",
       "file": "hbb3-corr-seq.md",
       "droppedAxioms": [
         "CorrSeq"
@@ -56,15 +56,15 @@
       ],
       "category": "weakening",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
       "id": "hbb3-corr-past-removed",
       "label": "Remove CorrPast: correlation arrives late",
-      "theory": "ThyHBB3",
+      "theory": "HBBCorr",
       "file": "hbb3-corr-past.md",
       "droppedAxioms": [
         "CorrPast"
@@ -85,15 +85,15 @@
       ],
       "category": "weakening",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
       "id": "hbb3-vote-ne-removed",
       "label": "Remove VoteNE: sequential conflicting votes",
-      "theory": "ThyHBB3",
+      "theory": "HBBCorr",
       "file": "hbb3-vote-ne.md",
       "droppedAxioms": [
         "VoteNE"
@@ -114,15 +114,15 @@
       ],
       "category": "weakening",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
       "id": "hbb3-three-twined-removed",
       "label": "Remove 3twined: pairwise overlap only",
-      "theory": "ThyHBB3",
+      "theory": "HBBCorr",
       "file": "hbb3-three-twined.md",
       "droppedAxioms": [
         "3twined"
@@ -144,16 +144,16 @@
       ],
       "category": "weakening",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38",
-        "Remark 8.6.2, pp. 60-61; Lemma 8.4.3, p. 58"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43",
+        "Remark 8.6.2, p. 67; Lemma 8.4.3, p. 58"
       ]
     },
     {
       "id": "hbb3-echo-progress-full",
-      "label": "HBB3 missing echo, full theory",
-      "theory": "ThyHBB3",
+      "label": "HBBCorr missing echo, full theory",
+      "theory": "HBBCorr",
       "file": "hbb3-echo-progress.md",
       "droppedAxioms": [],
       "expectedStatus": "no-model",
@@ -167,15 +167,15 @@
       ],
       "category": "control",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
       "id": "hbb3-echo-progress-removed",
-      "label": "Remove HBB3 Echo!",
-      "theory": "ThyHBB3",
+      "label": "Remove HBBCorr Echo!",
+      "theory": "HBBCorr",
       "file": "hbb3-echo-progress.md",
       "droppedAxioms": [
         "Echo!"
@@ -196,15 +196,15 @@
       ],
       "category": "weakening",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
       "id": "hbb3-vote-progress-full",
-      "label": "HBB3 missing vote, full theory",
-      "theory": "ThyHBB3",
+      "label": "HBBCorr missing vote, full theory",
+      "theory": "HBBCorr",
       "file": "hbb3-vote-progress.md",
       "droppedAxioms": [],
       "expectedStatus": "no-model",
@@ -218,15 +218,15 @@
       ],
       "category": "control",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
       "id": "hbb3-vote-progress-removed",
-      "label": "Remove HBB3 Vote!",
-      "theory": "ThyHBB3",
+      "label": "Remove HBBCorr Vote!",
+      "theory": "HBBCorr",
       "file": "hbb3-vote-progress.md",
       "droppedAxioms": [
         "Vote!"
@@ -247,15 +247,15 @@
       ],
       "category": "weakening",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
       "id": "hbb3-deliver-progress-full",
-      "label": "HBB3 missing delivery, full theory",
-      "theory": "ThyHBB3",
+      "label": "HBBCorr missing delivery, full theory",
+      "theory": "HBBCorr",
       "file": "hbb3-deliver-progress.md",
       "droppedAxioms": [],
       "expectedStatus": "no-model",
@@ -269,15 +269,15 @@
       ],
       "category": "control",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
       "id": "hbb3-deliver-progress-removed",
-      "label": "Remove HBB3 Deliver!",
-      "theory": "ThyHBB3",
+      "label": "Remove HBBCorr Deliver!",
+      "theory": "HBBCorr",
       "file": "hbb3-deliver-progress.md",
       "droppedAxioms": [
         "Deliver!"
@@ -298,15 +298,15 @@
       ],
       "category": "weakening",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43"
       ]
     },
     {
       "id": "hbb3-vote-prime-progress-removed",
       "label": "Remove Vote'!: correlated target stalls",
-      "theory": "ThyHBB3",
+      "theory": "HBBCorr",
       "file": "hbb3-vote-prime-progress.md",
       "droppedAxioms": [
         "Vote'!"
@@ -327,16 +327,16 @@
       ],
       "category": "weakening",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38",
-        "Remark 8.2.2(4) and footnote 54, p. 57"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43",
+        "Remark 8.2.2(4) and footnote 64, p. 62"
       ]
     },
     {
       "id": "hbb3-corr-definition-valid",
       "label": "Correct correlation allows this history",
-      "theory": "ThyHBB3",
+      "theory": "HBBCorr",
       "file": "hbb3-corr-definition.md",
       "droppedAxioms": [],
       "expectedStatus": "holds",
@@ -359,16 +359,16 @@
       ],
       "category": "paper-diagnostic",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38",
-        "Remark 8.6.4, p. 61; Remark 8.1.1(2), pp. 54-55"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43",
+        "Remark 8.6.4, p. 68; Remark 8.1.1(2), pp. 60–61"
       ]
     },
     {
       "id": "hbb3-corr-definition-wrong",
       "label": "Incorrect correlation equivalence rejects it",
-      "theory": "ThyHBB3",
+      "theory": "HBBCorr",
       "file": "hbb3-corr-definition-wrong.md",
       "droppedAxioms": [],
       "expectedStatus": "no-model",
@@ -382,10 +382,10 @@
       ],
       "category": "paper-incorrect",
       "paperReferences": [
-        "Definition 8.2.1, p. 55; Figure 11, p. 56",
-        "Theorem 8.2.3, p. 57; Figure 12, p. 56",
-        "Definition 5.2.4 and Figure 6, p. 38",
-        "Remark 8.6.4, p. 61; Remark 8.1.1(2), pp. 54-55"
+        "Definition 8.2.1, p. 62; Figure 12, p. 63",
+        "Theorem 8.2.3, p. 64; Figure 13, p. 63",
+        "Definition 5.2.4 and Figure 7, p. 43",
+        "Remark 8.6.4, p. 68; Remark 8.1.1(2), pp. 60–61"
       ]
     }
   ]

@@ -24,12 +24,12 @@ class PagesArtifactTests(unittest.TestCase):
         self.contents = {'index.html': '<link href="src/style.css"><script type="module" src="src/app.mjs"></script>',
                          'theories.html': '<a href="index.html">Checker</a>', 'src/app.mjs': 'export const ready=true;',
                          'src/worker.mjs': 'postMessage("ready");', 'src/style.css': 'body {color:navy}',
-                         'assets/font.woff': 'font', 'docs/guide.md': 'Guide', 'VERSION': '0.6.9\n'}
+                         'assets/font.woff': 'font', 'docs/guide.md': 'Guide', 'VERSION': '0.7.1\n'}
         for name, content in self.contents.items():
             path = self.root / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content)
-        (self.root / 'PUBLIC_RELEASE.json').write_text(json.dumps({'format': 'hsm-public-release/v1', 'profile': 'public', 'version': '0.6.9'}))
+        (self.root / 'PUBLIC_RELEASE.json').write_text(json.dumps({'format': 'hsm-public-release/v1', 'profile': 'public', 'version': '0.7.1'}))
         (self.root / '.env').write_text('TOKEN=private')
         self.names = sorted([*self.contents, '.env', 'tools/push_github.py'])
         self.save_list()

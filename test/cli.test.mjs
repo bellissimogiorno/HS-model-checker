@@ -148,6 +148,9 @@ test('CLI reserves exit 2 for unknown options, missing operands, invalid budgets
 test('CLI returns exit 2 when Knowledge coverage is incomplete and no axiom has failed', async () => {
   const model = empty();
   model.participants = ['p','q'];
+  model.values = ['a','b'];
+  model.quorums = {a:[['p']],b:[['q']]};
+  model.nodes = [{id:'e',place:'p',event:'E',past:[]}];
   const path = await fixture(model);
   const child = run('theory', path, '--theory', 'ThyLive', '--families', '1');
   assert.equal(child.code, 2);
@@ -159,6 +162,8 @@ test('CLI returns exit 2 when Knowledge coverage is incomplete and no axiom has 
 test('CLI returns exit 1 for a conclusive axiom failure even when other Knowledge instances are unclassified', async () => {
   const model = empty();
   model.participants = ['p','q'];
+  model.values = ['a','b'];
+  model.quorums = {a:[['p']],b:[['q']]};
   model.nodes = [{id:'e',place:'p',event:'E',past:[]},{id:'silent',place:'p',event:null,past:[]}];
   model.facts = [{place:'p',at:'*',atom:'live'}];
   const path = await fixture(model);

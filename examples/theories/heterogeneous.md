@@ -15,7 +15,7 @@ These claims test the declared finite scenario. Their validity scope is shown on
 Every two independently chosen red quorums must intersect.
 
 ```hsm
-# Scenario: added for this experiment; not a paper axiom or correctness claim. Definition 3.3.2, pp. 19-20.
+# Scenario: added for this experiment; not a paper axiom or correctness claim. Definition 3.3.2, pp. 23–24.
 property Red self-intersection [end]:
   ♢["red","red"] ⊤
 ```
@@ -25,7 +25,7 @@ property Red self-intersection [end]:
 Every two independently chosen blue quorums must intersect.
 
 ```hsm
-# Scenario: added for this experiment; not a paper axiom or correctness claim. Definition 3.3.2, pp. 19-20.
+# Scenario: added for this experiment; not a paper axiom or correctness claim. Definition 3.3.2, pp. 23–24.
 property Blue self-intersection [end]:
   ♢["blue","blue"] ⊤
 ```
@@ -35,7 +35,7 @@ property Blue self-intersection [end]:
 Every red quorum and blue quorum must intersect. Separate validity of the two learner trust systems does not imply this claim.
 
 ```hsm
-# Scenario: added for this experiment; not a paper axiom or correctness claim. Lemma 4.1.1(2), pp. 32-33.
+# Scenario: added for this experiment; not a paper axiom or correctness claim. Lemma 4.1.1(2), pp. 37–38.
 property Cross-learner intersection [end]:
   ♢["red","blue"] ⊤
 ```
@@ -44,13 +44,15 @@ property Cross-learner intersection [end]:
 
 Implementation authorship: this executable theory was AI-generated following prompts by Murdoch J. Gabbay. Automated validation is described in the package; no independent expert audit of this translation is claimed. Source-paper authorship is listed separately.
 
-Paper draft: *Heterogeneous trust in reliable broadcast via modal logic and history structures*, Murdoch J. Gabbay and Isaac Sheff, **2026-11-07**. References use the draft's printed page numbers.
+Paper draft: *Heterogeneous trust in reliable broadcast via modal logic and history structures*, Murdoch J. Gabbay and Isaac Sheff, **2026-11-18**. References use the draft's printed page numbers.
 
-Sections 2-4 supply the semantics: history structures (Definition 2.3.5, p. 11), the shared learner/value domain (Definition 3.1.1, p. 17), individually pairwise-intersecting semifilters (Definition 3.3.2, pp. 19-20), learner interpretations (Definition 3.3.3(4), p. 20), and cross-learner intersections (Lemma 4.1.1 and Notation 4.1.2, pp. 32-33).
+Sections 2-4 supply the semantics: history structures (Definition 2.3.5, p. 15), the shared learner/value domain (Definition 3.1.1, p. 21), individually pairwise-intersecting semifilters (Definition 3.3.2, pp. 23–24), learner interpretations (Definition 3.3.3(4), p. 24), and cross-learner intersections (Lemma 4.1.1 and Notation 4.1.2, pp. 37–38).
 
 Pedagogical heterogeneous-trust diagnostic, not a literal paper theory: the named properties test this supplied trust structure. No protocol axioms are omitted or modified, and no HBB correctness theorem is asserted. A learner's own semifilter validity does not impose intersections with another learner's quorums.
 
 [Full paper source and ASCII notation map](../../docs/PAPER_MAP.md).
+
+Reference PDF: `hbb-disc(20261118-194826).pdf`, SHA-256 `08361854a013fa9ec7928221b9f05896386801b8d6247250a524c27d151199a4`.
 
 ## Supplied history
 

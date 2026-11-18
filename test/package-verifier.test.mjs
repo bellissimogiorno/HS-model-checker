@@ -44,8 +44,8 @@ test('package verification works against a fresh independent directory and repor
     assert.equal(result.error,undefined);
     assert.equal(result.status,0,result.stderr);
     const report = JSON.parse(result.stdout);
-    assert.equal(report.status,'passed');assert.equal(report.version,'0.6.9');
-    assert.equal(report.theories,29);assert.equal(report.offlineReader.theories,29);
+    assert.equal(report.status,'passed');assert.equal(report.version,'0.7.1');
+    assert.equal(report.theories,31);assert.equal(report.offlineReader.theories,31);
     assert.equal(report.offlineReader.status,'current');assert.equal(report.semanticFingerprints,'verified');
     assert.equal(report.manifest.status,'not present');assert.equal(report.evidence.status,'not requested');
     assert(report.moduleSyntaxChecks>20);assert(report.htmlIds>100);assert(report.markdownLinks>30);
@@ -107,7 +107,7 @@ test('saved evidence verification replays a current source and rejects a stale s
     const evidence=createEvidence(doc,{mode:'evaluate',maxMilliseconds:60000,selectedProperties:[],droppedAxioms:[]},{witness:{model:doc.model}});
     const directory=join(root,'reports/weakening-tour/verifier-case');await mkdir(directory,{recursive:true});
     const evidencePath=join(directory,'model.evidence.json');await writeFile(evidencePath,JSON.stringify(evidence));
-    const report={format:'history-structure-weakening-tour/v2',version:'0.6.9',status:'passed',cases:[{id:'verifier-case',complete:true,file:'examples/theories/hbb1.md',savedEvidence:['verifier-case/model.evidence.json']}],evidenceCount:1,verifiedEvidenceCount:1};
+    const report={format:'history-structure-weakening-tour/v2',version:'0.7.1',status:'passed',cases:[{id:'verifier-case',complete:true,file:'examples/theories/hbb1.md',savedEvidence:['verifier-case/model.evidence.json']}],evidenceCount:1,verifiedEvidenceCount:1};
     await writeFile(join(root,'reports/weakening-tour/report.json'),JSON.stringify(report));
     let result=run(root,'--replay');assert.equal(result.status,0,result.stderr);
     assert.deepEqual(JSON.parse(result.stdout).evidence,{status:'verified',verified:1,cases:1});

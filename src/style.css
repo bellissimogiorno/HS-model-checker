@@ -53,13 +53,21 @@ select { padding-right: 30px; }
 .skip-link { position: fixed; top: -90px; left: 16px; z-index: 100; padding: 12px 20px; background: white; }
 .skip-link:focus { top: 12px; }
 .site-header, main, footer { width: min(1080px, calc(100% - 80px)); margin-inline: auto; }
-.site-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 90px; border-bottom: 1px solid var(--line); }
-.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-size: var(--text-lead); font-weight: 700; white-space: nowrap; }
+.site-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; min-height: 90px; padding-block: 16px; border-bottom: 1px solid var(--line); }
+.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-size: var(--text-lead); font-weight: 700; min-width: 0; max-width: 100%; }
 .brand strong { font-weight: 400; }
 .brand-mark { display: grid; place-items: center; flex: none; width: 4.5rem; height: 2.625rem; border-radius: .5625rem; background: var(--blue); color: white; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 1.05rem; font-weight: 700; line-height: 1; letter-spacing: 0; }
-.site-header nav { display: flex; align-items: center; gap: 26px; font-size: var(--text-small); }
+.site-header nav { display: flex; flex-wrap: wrap; justify-content: flex-end; margin-left: auto; align-items: center; gap: 10px 22px; font-size: var(--text-small); }
 .site-header nav a { text-decoration: none; color: var(--muted); }
 .site-header nav a:hover { color: var(--blue); text-decoration: underline; }
+.about-section { margin: 32px 0 32px 4rem; padding-top: 26px; border-top: 1px solid var(--line); scroll-margin-top: 100px; }
+.about-heading { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px 24px; margin-bottom: 18px; }
+.about-heading h2 { margin: 8px 0; }
+.about-section p { overflow-wrap: anywhere; }
+.about-section p:last-child { margin-bottom: 0; }
+.about-dialog { width: min(42rem, calc(100% - 32px)); max-height: 85vh; max-height: 85dvh; padding: 28px; margin: auto; overflow: auto; overscroll-behavior: contain; color: var(--ink); background: var(--paper); border: 1px solid var(--input-line); border-radius: 12px; }
+.about-dialog::backdrop { background: #19243580; }
+.about-dialog .about-section { margin: 0; padding: 0; border: 0; }
 .version { color: var(--muted); font-size: var(--text-small); }
 .version:empty { display: none; }
 .intro { padding: 52px 0 32px 64px; }
@@ -335,7 +343,7 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding: 24px
   .workflow-nav { padding-left: 0; gap: 6px; }
   .workflow-step { padding-left: 2.625rem; }
   .section-heading { gap: 16px; }
-  .help-section, .custom-experiment { margin-left: 42px; }
+  .help-section, .custom-experiment, .about-section { margin-left: 42px; }
   .limits-layout { gap: 18px; }
   .bounds-grid { gap: 10px; }
   .mode-picker > label { padding: 14px; }
@@ -382,6 +390,8 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding: 24px
   .table-scroll { max-height: 360px; }
   .download-actions { gap: 2px 16px; }
   .custom-experiment { margin-left: 2rem; scroll-margin-top: 104px; }
+  .about-section { margin-left: 2rem; }
+  .about-dialog { padding: 20px; }
   .help-section { margin: 20px 0 26px 2rem; scroll-margin-top: 104px; }
   .help-grid { grid-template-columns: 1fr; gap: 4px; }
   .activity-bar { left: 12px; right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); transform: none; width: auto; max-width: none; gap: 10px; padding: 10px 12px; }
@@ -400,7 +410,7 @@ footer { display: flex; justify-content: space-between; gap: 20px; padding: 24px
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 @media print {
-  .site-header nav, .intro, .workflow-nav, .example-panel, .theory-panel, .controls-panel, .custom-experiment, .help-section, footer, .activity-bar, .download-actions, .next-example { display: none !important; }
+  .about-section, .about-dialog, .site-header nav, .intro, .workflow-nav, .example-panel, .theory-panel, .controls-panel, .custom-experiment, .help-section, footer, .activity-bar, .download-actions, .next-example { display: none !important; }
   main { width: 100%; }
   .workflow-step { border: 0; padding: 0 0 0 2rem; }
   .table-scroll { max-height: none; overflow: visible; }
